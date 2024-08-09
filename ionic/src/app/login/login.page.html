@@ -6,8 +6,8 @@
       </div>
       <h4>Iniciar Sesión</h4>
       <form [formGroup]="form" (ngSubmit)="submitForm()">
-        <ion-input class="inicio" type="number" formControlName="dni" label="DNI" label-placement="floating"  placeholder="Por favor, introduce un DNI"></ion-input>
-        <ion-input class="inicio" formControlName="password" type="password" label="Contraseña" label-placement="floating" placeholder="Por favor, introduce una contraseña">
+        <ion-input class="inicio" type="number" formControlName="dni" label="DNI" label-placement="floating" fill="outline" placeholder="Por favor, introduce un DNI"></ion-input>
+        <ion-input class="inicio" formControlName="password" type="password" label="Contraseña" label-placement="floating" fill="outline" placeholder="Por favor, introduce una contraseña">
           <ion-input-password-toggle *ngIf="form.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
         </ion-input>
         <div class="forgot-container">
