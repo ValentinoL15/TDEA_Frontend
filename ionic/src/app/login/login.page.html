@@ -1,0 +1,98 @@
+  <ion-content [fullscreen]="true" class="fondo">
+    <div class="container">
+      <div class="border">
+      <div class="img-container">
+        <img src="../../assets/icon/logo.png" alt="" class="tdea">
+      </div>
+      <h4>Iniciar Sesión</h4>
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <ion-input class="inicio" formControlName="email" label="Correo" label-placement="floating" fill="outline" placeholder="Por favor, introduce un email"></ion-input>
+        <ion-input class="inicio" formControlName="password" type="password" label="Contraseña" label-placement="floating" fill="outline" placeholder="Por favor, introduce una contraseña">
+          <ion-input-password-toggle *ngIf="form.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
+        </ion-input>
+        <div class="forgot-container">
+          <p id="forgot-alert" slot="end">¿Olvidaste tu contraseña?</p>
+        </div>
+        <ion-button class="sesion" type="submit" [disabled]="form.invalid" expand="block" style="width: 100%;"><span style="font-weight: bold;">Iniciar sesión</span></ion-button>
+      </form>
+      <div class="registrar-container">
+        <h6>¿No tienes una cuenta?</h6>
+        <p id="open-modal" expand="block">Registrate!</p>
+      </div>
+    </div>
+    </div>
+
+    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+      <ion-header>
+        <ion-toolbar class="toolbar">
+          <h4>Registro</h4>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+
+      <form style="width: 100%;" [formGroup]="register" class="formulario">
+        <ion-item class="item">
+          <ion-input formControlName="name" label="Nombre" labelPlacement="floating" placeholder="Nombre"></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-input formControlName="dni" label="DNI" labelPlacement="floating" placeholder="DNI"></ion-input>
+        </ion-item>
+
+        <ion-list class="item">
+          <ion-item>
+            <ion-select label="Género" placeholder="Género" labelPlacement="floating" formControlName="gender">
+              <ion-select-option value="masculino">Masculino</ion-select-option>
+              <ion-select-option value="femenino">Femenino</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <ion-item class="item">
+        <ion-label>Nacimiento</ion-label>
+          <ion-input type="date" class="date-input" formControlName="nacimiento"></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-input formControlName="email" label="Email" labelPlacement="floating" placeholder="Example123@hotmail.com"></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-input type="password" fill="outline" formControlName="password" label="Password" labelPlacement="floating" placeholder="Password"></ion-input>
+          <ion-input-password-toggle *ngIf="register.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-input type="password" fill="outline" formControlName="confirmPassword" label="Confirm Password" labelPlacement="floating" placeholder="Confirm Password"></ion-input>
+          <ion-input-password-toggle *ngIf="register.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-input formControlName="phone" label="Teléfono" labelPlacement="floating" placeholder="Teléfono"></ion-input>
+        </ion-item>
+
+        <div class="register">
+          <ion-button (click)="registerFormSubmit()">
+            <span style="font-weight: bold;">Registrarse</span>
+          </ion-button>
+          <ion-button color="danger" (click)="cancel()">
+            <span style="font-weight: bold;">Cancelar</span>
+          </ion-button>
+        </div>
+      
+      </form>
+    </ion-content>
+    </ng-template>
+    </ion-modal>
+
+    
+<ion-alert
+  trigger="present-alert"
+  header="A Short Title Is Best"
+  [buttons]="alertButtons"
+  [inputs]="alertInputs"
+></ion-alert>
+  
+  </ion-content>
+
