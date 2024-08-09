@@ -17,7 +17,21 @@ export class LoginPage implements OnInit {
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   name: string = "";
 
-  public alertButtons = [];
+  public alertButtons = [
+    {
+      text: 'Enviar correo de recuperación',
+      role: 'ok',
+      handler: (data: any) => {
+        console.log('Modal alert ok clicked with input data: ', data);
+      }
+    },
+    {
+      text: 'Cancelar',
+      role: 'cancel',
+      cssClass: 'boton-cancelar',
+    },
+  ];
+
   public alertInputs = [
     {
       placeholder: 'example@example.com',
@@ -31,7 +45,7 @@ export class LoginPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private registerForm : FormBuilder, private notifyService: NotifyService, private router: Router) {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      dni: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
       password: ['', [Validators.required]],
     });
 
@@ -56,7 +70,6 @@ export class LoginPage implements OnInit {
       }, 1000); // Tiempo de espera simulado de 1 segundo
     });
   };
-
 
   ngOnInit() {
   }
