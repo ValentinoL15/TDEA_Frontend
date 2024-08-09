@@ -1,0 +1,23 @@
+ion-content.fondo {
+    --background: url('../../assets/icon/loginimg.png') 0 0/100% 100% no-repeat;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: end;
+    justify-content: end;
+}
+
+.boton {
+    margin: 0 15px 15px 0
+}
+
+ion-loading.custom-loading {
+    --background: #e3edff;
+    --spinner-color: #1c6dff;
+  
+    color: #1c6dff;
+  }
+

@@ -2,8 +2,10 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup , FormBuilder , Validators, AsyncValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Login } from '../interfaces/Login';
+import { Sesion } from '../interfaces/Sesion';
 import { NotifyService } from '../services/notify.service';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +29,7 @@ export class LoginPage implements OnInit {
   form: FormGroup;
   register: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private registerForm : FormBuilder, private notifyService: NotifyService) {
+  constructor(private formBuilder: FormBuilder, private registerForm : FormBuilder, private notifyService: NotifyService, private router: Router) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -60,7 +62,11 @@ export class LoginPage implements OnInit {
   }
 
   submitForm() {
-
+    const form: Sesion = {
+      email: this.form.value.email,
+      password: this.form.value.password
+    } 
+    this.router.navigate(['/user/home'])
   }
 
   cancel(){
