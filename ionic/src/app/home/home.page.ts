@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +10,18 @@ import { LoadingController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
-  constructor(private loadingCtrl: LoadingController, private router:Router) { }
+  constructor(private loadingCtrl: LoadingController, private router:Router, private sharedService: SharedService) { }
+
+  isTeam: boolean = false;
+  newTeam: any[] = [];
 
   ngOnInit() {
+    this.sharedService.isTeam$.subscribe((value) => {
+      this.isTeam = value;
+    });
+    this.sharedService.newTeam$.subscribe((team) => {
+      this.newTeam = team;
+    });
   }
 
   async showLoading() {
@@ -27,7 +37,11 @@ export class HomePage implements OnInit {
     this.loadingCtrl.getTop()
     this.router.navigate(['/create-team']);
   }
-
+  
+  cancel(){
+    const modal = document.querySelector('ion-modal');
+    modal?.dismiss(null, 'cancel');
+  }
 
 
 }

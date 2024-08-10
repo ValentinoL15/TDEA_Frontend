@@ -1,10 +1,57 @@
 <ion-content [fullscreen]="true" class="fondo">
+
+  <ion-list [inset]="true" id="open-modal">
+    <ion-item id="email-alert" detail="true">
+      <ion-label>
+        <h3>VER MI EQUIPO</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
   <div class="container">
     <div class="boton">
-      <ion-button (click)="ir()">
+      <ion-button (click)="ir()" *ngIf="!isTeam">
         CREAR EQUIPO
       </ion-button>
     </div>
   </div>
-  
+
+  <ion-modal trigger="open-modal">
+    <ng-template>
+      <ion-header [translucent]="true">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Salir</ion-button>
+          </ion-buttons>
+
+          <ion-title>Mi Equipo</ion-title>
+
+          <ion-buttons slot="end">
+            <ion-button (click)="cancel()">Editar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      
+        <div class="modal-content">
+          
+            <div *ngFor="let item of newTeam; let i = index" id="email-alert" detail="true" class="item">
+              <ion-item id="email-alert" detail="true">
+                <ion-label class="ion-text-wrap">
+                  {{ item }}
+                </ion-label>
+              </ion-item>
+            </div>
+            <ion-item id="email-alert" detail="true">
+              <ion-label>
+                creador
+              </ion-label>
+            </ion-item>
+          
+        </div>
+      
+      
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

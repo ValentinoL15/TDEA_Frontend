@@ -7,24 +7,21 @@
         <div class="title">
           <h4>Crear Equipo</h4>
         </div>
-        
         <ion-buttons slot="end">
-          <ion-button style="font-weight: bold;">Confirmar</ion-button>
+          <ion-button (click)="saveForm()" style="font-weight: bold;">Confirmar</ion-button>
         </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
   <div class="container">
     <form>
-        <ion-input class="item" type="text" label="Equipo" label-placement="floating" placeholder="Nombre del equipo"></ion-input>
-        <ion-input class="item" type="text" label="Instagram" label-placement="floating" placeholder="Cuenta"></ion-input>
-        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="floating" placeholder="Ingresar texto"></ion-textarea>
+        <ion-input class="item" type="text" label="Equipo" label-placement="floating" placeholder="Nombre del equipo" name="equipo" [(ngModel)]="equipoNombre"></ion-input>
+        <ion-input class="item" type="text" label="Instagram" label-placement="floating" placeholder="Cuenta" name="instagram" [(ngModel)]="instagramCuenta"></ion-input>
+        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="floating" placeholder="Ingresar texto" name="descripcion" [(ngModel)]="descripcionTexto"></ion-textarea>
         <div class="foto">
           <label>Foto</label>
         </div>
-        <ion-input type="file"></ion-input>
-      
-      
+        <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
     </form>
   </div>
 
