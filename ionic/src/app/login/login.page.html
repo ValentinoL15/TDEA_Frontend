@@ -33,11 +33,15 @@
 
       <form style="width: 100%;" [formGroup]="register" class="formulario">
         <ion-item class="item">
-          <ion-input formControlName="name" label="Nombre" labelPlacement="floating" placeholder="Nombre"></ion-input>
+          <ion-input formControlName="firstName" label="Nombre" labelPlacement="floating" placeholder="Nombre"></ion-input>
         </ion-item>
 
         <ion-item class="item">
-          <ion-input formControlName="dni" label="DNI" labelPlacement="floating" placeholder="DNI"></ion-input>
+          <ion-input formControlName="lastName" label="Apellido" labelPlacement="floating" placeholder="Apellido"></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-input formControlName="docNumber" label="DNI" labelPlacement="floating" placeholder="DNI"></ion-input>
         </ion-item>
 
         <ion-list class="item">
@@ -50,8 +54,12 @@
         </ion-list>
 
         <ion-item class="item">
+            <ion-input type="number" label="Telefono" labelPlacement="floating" formControlName="phone"></ion-input>
+          </ion-item>
+
+        <ion-item class="item">
         <ion-label>Nacimiento</ion-label>
-          <ion-input type="date" class="date-input" formControlName="nacimiento"></ion-input>
+          <ion-input type="date" class="date-input" formControlName="birthday"></ion-input>
         </ion-item>
 
         <ion-item class="item">
@@ -66,10 +74,6 @@
         <ion-item class="item">
           <ion-input type="password" fill="outline" formControlName="confirmPassword" label="Confirm Password" labelPlacement="floating" placeholder="Confirm Password"></ion-input>
           <ion-input-password-toggle *ngIf="register.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
-        </ion-item>
-
-        <ion-item class="item">
-          <ion-input formControlName="phone" label="Teléfono" labelPlacement="floating" placeholder="Teléfono"></ion-input>
         </ion-item>
 
         <div class="register">

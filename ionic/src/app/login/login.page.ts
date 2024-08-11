@@ -7,7 +7,7 @@ import { NotifyService } from '../services/notify.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -52,13 +52,14 @@ export class LoginPage implements OnInit {
     });
 
     this.register = this.registerForm.group({
-      dni: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      docNumber: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
       gender:['', [Validators.required]],
       email: ['', [Validators.required], [this.validateEmailAsync] ],
       password: ['', [Validators.required]],
       confirmPassword: ['', Validators.required],
-      nacimiento: ['', Validators.required],
+      birthday: ['', Validators.required],
       phone: ['', Validators.required]
     })
   }
@@ -78,20 +79,21 @@ export class LoginPage implements OnInit {
 
   submitForm() {
     const form: Sesion = {
-      email: this.form.value.email,
+      docNumber: this.form.value.dni,
       password: this.form.value.password
     } 
-    this.router.navigate(['/user/home']);
-    /*this.auth.login(form).subscribe({
+
+    this.auth.login(form).subscribe({
       next: (res : any) => {
         localStorage.setItem("st_1892@121", res.token)
         this.router.navigate(['/user/home']);
         this.notifyService.success(res.message);
+        console.log(res.token)
       },
       error: err => {
-        this.notifyService.error(err.error.message);
+        this.notifyService.error(err.error)
       }
-    })*/
+    })
     
   }
 
@@ -107,28 +109,30 @@ export class LoginPage implements OnInit {
     }
     if(this.register.valid){
       const form: Login = {
-        dni: this.register.value.dni,
-        name: this.register.value.name,
+        firstName: this.register.value.firstName,
+        lastName: this.register.value.lastName,
+        docNumber: this.register.value.docNumber,
         gender: this.register.value.gender,
+        phone: this.register.value.phone,
+        birthday: this.register.value.birthday,
         email: this.register.value.email,
         password: this.register.value.password,
-        nacimiento: this.register.value.nacimiento,
-        phone: this.register.value.phone
       }
-      console.log(form);
+      
+      this.auth.register(form).subscribe({
+        next: (res : any) => {
+          this.notifyService.success(res.message);
+          const modal = document.querySelector('ion-modal');
+          modal?.dismiss(this.name, 'confirm');
+          this.router.navigate(['/confirm-code/' + res.id])
+        },
+        error: err => {
+          console.log(err)
+        }
+      })
     }
 
-    this.auth.register(this.form).subscribe({
-      next: (res : any) => {
-        this.notifyService.success(res.message);
-        const modal = document.querySelector('ion-modal');
-        modal?.dismiss(this.name, 'confirm');
-        this.router.navigate(['/confirm-code/' + res.id])
-      },
-      error: err => {
-        this.notifyService.error(err.error.message);
-      }
-    })
+  
     }
 
     onWillDismiss(event: Event) {

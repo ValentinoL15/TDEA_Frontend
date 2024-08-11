@@ -64,7 +64,7 @@ export class ConfirmCodePage implements OnInit {
     this.authService.verifyAccountCode(this.parametroLargo, result).subscribe({
       next: (res: any) => {
         this.notifyfService.success(res.message);
-        this.router.navigate(['/iniciar']);
+        this.router.navigate(['/login']);
       },
       error: (err: any) => {
         this.notifyfService.error(err.error.message);

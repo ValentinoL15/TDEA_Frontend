@@ -23,4 +23,5 @@ export class AuthService {
   verifyAccountCode(id: string | null, code: number): Observable<any[]> {
     return this.http.post<any[]>(this.API_URL + '/verify-account-code/' + id , { code });
   }
+
 }

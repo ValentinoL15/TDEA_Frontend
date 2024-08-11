@@ -1,0 +1,98 @@
+main {
+    height: 91.6vh;
+    position: relative;
+    overflow: hidden;
+}
+  
+.container {
+    position: relative;
+    z-index: 2;
+}
+  
+header {
+    padding: 31px 7%;
+}
+  
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+  
+.codeCard {
+    width: 350px;
+    height: auto;
+    border-radius: 10px;
+    background-color: rgba(17, 17, 17, 0.9);
+    padding: 30px;
+}
+  
+.codeCard .titulo h1 {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 500;
+}
+  
+.codeCard .titulo h4, .codeCard form h4 {
+    color: #9A9A9A;
+    margin-top: 10px;
+    font-weight: 400;
+}
+  
+  .codeCard form h4 span {
+    color: #00E2F2;
+}
+  
+  .codeCard form {
+    margin-top: 30px;
+}
+  
+.inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.inputCode {
+    width: 65px;
+    height: 65px;
+    border-radius: 8px;
+    padding: 1px;
+    border: 1px solid #323030;
+    color: white;
+    font-size: 24px;
+    background-color: transparent;
+    text-align: center;
+    outline: none;
+}
+  
+.buttons {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.buttons button {
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #323030;
+    padding: 14px 24px;
+    background-color: transparent;
+    width: 47%;
+    cursor: pointer;
+}
+  
+.buttons input {
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    padding: 14px 24px;
+    background-color: #4d8dff;
+    width: 47%;
+    cursor: pointer;
+}
+  

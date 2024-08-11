@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'confirm-code',
+    path: 'confirm-code/:id',
     loadChildren: () => import('./confirm-code/confirm-code.module').then( m => m.ConfirmCodePageModule)
   },
 ];

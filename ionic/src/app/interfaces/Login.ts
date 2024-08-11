@@ -1,9 +1,10 @@
 export interface Login {
-    name: String;
-    dni: Number;
+    firstName: String;
+    lastName: String,
+    docNumber: Number;
     gender: String;
-    nacimiento: Date;
+    phone: Number;
+    birthday: Date;
     email: String;
     password: String;
-    phone: Number
 }

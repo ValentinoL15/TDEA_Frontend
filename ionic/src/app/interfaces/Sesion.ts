@@ -1,4 +1,4 @@
 export interface Sesion {
-    email: String;
+    docNumber: String;
     password: String;
 }
