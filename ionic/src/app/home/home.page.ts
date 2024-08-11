@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { SharedService } from '../services/shared.service';
+import { IonModal } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-home',
@@ -10,10 +12,20 @@ import { SharedService } from '../services/shared.service';
 })
 export class HomePage implements OnInit {
 
-  constructor(private loadingCtrl: LoadingController, private router:Router, private sharedService: SharedService) { }
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  constructor( private router:Router, private sharedService: SharedService) { }
+  @ViewChild(IonModal) modal!: IonModal ;
+
 
   isTeam: boolean = false;
   newTeam: any[] = [];
+
+  
 
   ngOnInit() {
     this.sharedService.isTeam$.subscribe((value) => {
@@ -24,24 +36,13 @@ export class HomePage implements OnInit {
     });
   }
 
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Dismissing after 3 seconds...',
-      duration: 3000,
-    });
-
-    loading.present();
-  }
-
-  ir(){
-    this.loadingCtrl.getTop()
+  ir() {
     this.router.navigate(['/create-team']);
   }
-  
-  cancel(){
-    const modal = document.querySelector('ion-modal');
-    modal?.dismiss(null, 'cancel');
-  }
 
+  editar() {
+    this.modal.dismiss(null, 'cancel');
+  }
+  
 
 }

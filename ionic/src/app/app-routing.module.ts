@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  }
+  },
+  {
+    path: 'confirm-code',
+    loadChildren: () => import('./confirm-code/confirm-code.module').then( m => m.ConfirmCodePageModule)
+  },
 ];
 @NgModule({
   imports: [

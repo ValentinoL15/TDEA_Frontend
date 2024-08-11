@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true" class="fondo">
 
-  <ion-list [inset]="true" id="open-modal">
+  <ion-list [inset]="true" (click)="setOpen(true)">
     <ion-item id="email-alert" detail="true">
       <ion-label>
         <h3>VER MI EQUIPO</h3>
@@ -17,25 +17,25 @@
     </div>
   </div>
 
-  <ion-modal trigger="open-modal">
+  <ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header [translucent]="true">
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Salir</ion-button>
+            <ion-button (click)="setOpen(false)">Salir</ion-button>
           </ion-buttons>
 
           <ion-title>Mi Equipo</ion-title>
 
           <ion-buttons slot="end">
-            <ion-button (click)="cancel()">Editar</ion-button>
+            <ion-button (click)="editar()">Editar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       
+      <ion-content class="ion-padding">
         <div class="modal-content">
-          
-            <div *ngFor="let item of newTeam; let i = index" id="email-alert" detail="true" class="item">
+            <div *ngFor="let item of newTeam" id="email-alert" detail="true" class="item">
               <ion-item id="email-alert" detail="true">
                 <ion-label class="ion-text-wrap">
                   {{ item }}
@@ -47,10 +47,8 @@
                 creador
               </ion-label>
             </ion-item>
-          
         </div>
-      
-      
+      </ion-content>
     </ng-template>
   </ion-modal>
 
