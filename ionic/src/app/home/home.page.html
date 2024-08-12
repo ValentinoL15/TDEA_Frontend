@@ -25,7 +25,7 @@
             <ion-button (click)="setOpen(false)">Salir</ion-button>
           </ion-buttons>
 
-          <ion-title>Mi Equipo</ion-title>
+          <h4>Mi Equipo</h4>
 
           <ion-buttons slot="end">
             <ion-button (click)="editar()">Editar</ion-button>
@@ -47,6 +47,11 @@
                 creador
               </ion-label>
             </ion-item>
+            <div class="button">
+              <ion-button color="danger" expand="block" *ngIf="isTeam" (click)="deleteTeam()">
+                Eliminar Equipo
+              </ion-button>
+            </div>
         </div>
       </ion-content>
     </ng-template>
