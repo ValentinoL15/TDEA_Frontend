@@ -1,0 +1,52 @@
+ion-content.fondo {
+    --background: url('../../assets/icon/loginimg.png') 0 0/100% 100% no-repeat;
+}
+
+.container {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    height: 90%;
+}
+
+.boton {
+    margin: 0 15px 15px 0
+}
+
+.button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contain-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    height: 100%; /* Asegura que el div ocupe toda la altura disponible */
+    padding: 16px; /* Ajusta el padding según sea necesario */
+    width: 100%;
+  }
+  
+  .item {
+    width: 100%;
+  }
+  
+  ion-header {
+    text-align: center; /* Opcional: centra el texto del header */
+  }
+

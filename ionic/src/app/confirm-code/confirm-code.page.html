@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <main>
+    <div class="container">
+      <header>
+        <img src="../../../assets/img/logo.svg" alt="">
+      </header>
+      <section>
+        <div class="codeCard">
+          <div class="titulo">
+            <h1>Verificación</h1>
+            <h4>Por favor, inserta el código que te enviamos a tu correo</h4>
+          </div>
+          <form (ngSubmit)="submitCode()">
+            <div class="inputs">
+              <input
+                *ngFor="let i of [0, 1, 2, 3]; let index = index"
+                type="text"
+                class="inputCode"
+                (input)="onInputChange($event,index)"
+                (keydown)="onKeyDown($event, index)"
+                [maxLength]="1"
+              />
+            </div>
+            <div class="buttons">
+              <button routerLink="/login">Cancelar</button>
+              <input type="submit" value="Verificar">
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>  
+</ion-content>
