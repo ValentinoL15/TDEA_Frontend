@@ -23,6 +23,14 @@ const routes: Routes = [
   },  {
     path: 'create-category',
     loadChildren: () => import('./create-category/create-category.module').then( m => m.CreateCategoryPageModule)
+  },
+  {
+    path: 'create-format',
+    loadChildren: () => import('./create-format/create-format.module').then( m => m.CreateFormatPageModule)
+  },
+  {
+    path: 'format',
+    loadChildren: () => import('./format/format.module').then( m => m.FormatPageModule)
   }
 
 

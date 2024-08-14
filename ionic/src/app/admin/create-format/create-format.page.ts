@@ -1,33 +1,34 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { Category } from 'src/app/interfaces/Category';
+import { Format } from 'src/app/interfaces/Format';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
-  selector: 'app-create-category',
-  templateUrl: './create-category.page.html',
-  styleUrls: ['./create-category.page.scss'],
+  selector: 'app-create-format',
+  templateUrl: './create-format.page.html',
+  styleUrls: ['./create-format.page.scss'],
 })
-export class CreateCategoryPage implements OnInit {
-  isModalOpen = false;
+export class CreateFormatPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
-  form:FormGroup
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
-  categorias: Category[] = [];
+  form:FormGroup
 
-  constructor(private router: Router , private formBuilder: FormBuilder, private tournamentServ : TournamentService, private notifyService: NotifyService) { 
+  formatos: Format[] = []
+
+  constructor(private formBuilder: FormBuilder, private tournamentServ: TournamentService, private notifyService: NotifyService, private router : Router) {
     this.form = this.formBuilder.group({
-      categoryName: ['', Validators.required],
-      ageLimiter: ['', Validators.required]
+      formatName: ['', [Validators.required, Validators.minLength(3)]],
+      minPlayers: ['', Validators.required],
+      maxPlayers: ['', Validators.required]
     })
   }
 
   ngOnInit() {
-    this.getCategoryes();
+    this.getFormats()
   }
 
   cancel() {
@@ -38,19 +39,16 @@ export class CreateCategoryPage implements OnInit {
     this.router.navigate(['/admin/admin-home'])
   }
 
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
-  }
-
-  createCategory(){
-    const form: Category = {
-      categoryName : this.form.value.categoryName,
-      ageLimiter : this.form.value.ageLimiter
+  createFormat(){
+    const form : Format = {
+      formatName: this.form.value.formatName,
+      minPlayers: this.form.value.minPlayers,
+      maxPlayers: this.form.value.maxPlayers
     }
-    this.tournamentServ.createCategory(form).subscribe({
+    this.tournamentServ.createFormat(form).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.categorias.push(res.category)
+        this.formatos.push(res.format)
         this.cancel()
       },
       error: (err) => {
@@ -60,10 +58,10 @@ export class CreateCategoryPage implements OnInit {
     })
   }
 
-  getCategoryes(){
-    this.tournamentServ.getCategories().subscribe({
+  getFormats(){
+    this.tournamentServ.getFormats().subscribe({
       next: (res : any) => {
-        this.categorias = res.categories || [];
+        this.formatos = res.formats || [];
       },
       error: (err) => {
         console.log(err);
@@ -71,7 +69,9 @@ export class CreateCategoryPage implements OnInit {
     })
   }
 
-
+  goFormat(id:any){
+    this.router.navigate([`/format/${id}`])
+  }
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
@@ -79,5 +79,4 @@ export class CreateCategoryPage implements OnInit {
       this.message = `Hello, ${ev.detail.data}!`;
     }
   }
-
 }

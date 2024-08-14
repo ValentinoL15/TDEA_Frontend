@@ -17,3 +17,9 @@ ion-content.ion-padding{
     color: black;
     font-weight: bold;
 }
+
+.danger {
+    --background: rgb(237, 54, 47);
+    border-radius: 10px;
+    border: none
+}
