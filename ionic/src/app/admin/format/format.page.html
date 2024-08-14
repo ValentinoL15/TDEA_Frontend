@@ -29,9 +29,9 @@
   </div>
 </ion-content>
 
-<ion-modal [isOpen]="isModalOpen" keyboardClose="false">
+<ion-modal [isOpen]="isModalOpen" [canDismiss]="true">
   <ng-template>
-    <ion-header collapse="fade">
+    <ion-header >
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-button (click)="setOpen(false)">Cancel</ion-button>
