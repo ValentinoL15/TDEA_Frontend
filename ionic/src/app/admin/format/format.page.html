@@ -29,14 +29,14 @@
   </div>
 </ion-content>
 
-<ion-modal [isOpen]="isModalOpen">
+<ion-modal [isOpen]="isModalOpen" [canDismiss]="true">
   <ng-template>
-    <ion-header collapse="fade">
+    <ion-header >
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-button (click)="setOpen(false)">Cancel</ion-button>
         </ion-buttons>
-        <ion-title>Welcome</ion-title>
+        <ion-title>Welcomes</ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="updateFormat(format._id, miForm)" [strong]="true">Confirm</ion-button>
         </ion-buttons>
