@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button style="font-weight: bold;" href="/admin/admin-home">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Categorias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="endButton">
+    <ion-button id="open-modal">Crear Categoria</ion-button>
+  </div>
+
+    <table class="table table-dark table-striped">
+      <ng-container>
+        <thead>
+          <tr>
+            
+                <th scope="col">Categoria</th>
+                <th scope="col">Edad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let catego of categorias">
+            
+            <td>{{catego.categoryName}}</td>
+            <td>{{catego.ageLimiter}}</td>
+          </tr>
+        </tbody>
+      </ng-container>
+    </table>
+  
+
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Welcome</ion-title>
+          <ion-buttons slot="end">
+            <ion-button [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="form" (ngSubmit)="createCategory()">
+          <ion-item class="input-class">
+            <ion-input
+              label="Nombre Categoria"
+              labelPlacement="stacked"
+              type="text"
+              placeholder="Category Name"
+              formControlName="categoryName"
+            ></ion-input>
+          </ion-item>
+  
+          <ion-item class="input-class">
+            <ion-input
+              label="Limite de Edad"
+              labelPlacement="stacked"
+              type="number"
+              placeholder="Edad"
+              formControlName="ageLimiter"
+            ></ion-input>
+          </ion-item>
+          <button>Add</button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
