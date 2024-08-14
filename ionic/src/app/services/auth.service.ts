@@ -12,8 +12,8 @@ export class AuthService {
   private tokenKey = 'st_1892@121';
   private jwtHelper = new JwtHelperService();
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http: HttpClient) { }
 
