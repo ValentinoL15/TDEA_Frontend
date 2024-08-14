@@ -1,0 +1,25 @@
+ion-content.ion-padding{
+    --background: url('../../../assets/icon/admin.png') 0 0/100% 100% no-repeat;
+}
+
+.separator {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.button {
+    --background: rgba(128, 128, 128, 0.6);
+    border-radius: 10px;
+    border: none
+}
+
+.creator {
+    color: black;
+    font-weight: bold;
+}
+
+.danger {
+    --background: rgb(237, 54, 47);
+    border-radius: 10px;
+    border: none
+}

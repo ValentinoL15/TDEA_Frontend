@@ -1,0 +1,31 @@
+ion-content.ion-padding{
+    --background: url('../../../assets/icon/admin.png') 0 0/100% 100% no-repeat;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .endButton {
+    text-align: center;
+    width: 100%;
+  }
+
+
+ion-button {
+    width: 100%; /* El botón ocupa todo el ancho disponible */
+    border-radius: 0; /* Opcional: elimina los bordes redondeados para que el botón cubra todo el ancho */
+  }
+
+.item {
+    margin: 15px;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}

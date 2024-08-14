@@ -85,10 +85,16 @@ export class LoginPage implements OnInit {
 
     this.auth.login(form).subscribe({
       next: (res : any) => {
-        localStorage.setItem("st_1892@121", res.token)
-        this.router.navigate(['/user/home']);
-        this.notifyService.success(res.message);
-        console.log(res.token)
+        localStorage.setItem("st_1892@121", res.token);
+        const role = this.auth.getUserRole();
+        console.log(role?.rol)
+        if(role?.rol === "USER"){
+          this.router.navigate(['/user/home']);
+          this.notifyService.success(res.message);
+        } else{
+          this.router.navigate(['/admin/admin-home']); // Redirige a la página de usuario
+          this.notifyService.success(res.message);
+        }
       },
       error: err => {
         this.notifyService.error(err.error)
