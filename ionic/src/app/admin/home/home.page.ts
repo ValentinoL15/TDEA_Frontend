@@ -21,6 +21,13 @@ goCategories(){
   this.router.navigate(['/create-category'])
 }
 
+goDivisions(){
+  this.router.navigate(['/create-division'])
+}
+
+goSeasons(){
+  this.router.navigate(['/create-season'])
+}
 cerrarSesion(){
   localStorage.removeItem('token');
   this.router.navigate(['/login']);

@@ -1,0 +1,16 @@
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 93%;
+    margin-top: 20px;
+  }
+
+  select {
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+ }
+
+ select:focus{ outline: none;}

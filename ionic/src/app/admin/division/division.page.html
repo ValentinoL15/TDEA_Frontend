@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Categoria</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setOpen(true)">Editar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <div class="contain">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        <h3 style="margin-top: 7px;">Division</h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span style="font-weight: bold;">Order:</span> {{division.order}} </li>
+      </ul>
+    </div>
+    <div class="endButton">
+      <ion-button color="danger" (click)="deleteDivision(division._id)" [strong]="true">Eliminar Division</ion-button>
+    </div>
+    
+  </div>
+</ion-content>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header >
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="setOpen(false)">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>Welcomes</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="updateDivision(division._id, miForm)" [strong]="true">Confirm</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content >
+      <form #miForm>
+        <ion-list [inset]="true">
+          <ion-item>
+            <ion-input type="number" label="Order" [value]="division.order" name="order"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+

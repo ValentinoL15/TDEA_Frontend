@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../interfaces/Category';
 import { Format } from '../interfaces/Format';
+import { Division } from '../interfaces/Division';
+import { Season } from '../interfaces/Season';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +58,49 @@ export class TournamentService {
 
   deleteFormat(id:any){
     return this.http.delete(`${this.API_URL}/eliminar-formato/${id}`)
+  }
+
+/*********************************************DIVISIONES***********************************************/ 
+
+  createDivision(form : any){
+    return this.http.post(`${this.API_URL}/agregar-division`, form)
+  }
+
+  getDivisions(){
+    return this.http.get(`${this.API_URL}/obtener-divisiones`)
+  }
+
+  getDivision(id:any){
+    return this.http.get(`${this.API_URL}/obtener-division/${id}`)
+  }
+
+  editDivision(id:any, form : any){
+    return this.http.put(`${this.API_URL}/editar-division/${id}`, form)
+  }
+
+  deleteDivision(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-division/${id}`)
+  }
+
+/*******************************************TEMPORADAS****************************************************/
+
+  createSeason(form:Season){
+    return this.http.post(`${this.API_URL}/agregar-season`, form)
+  }
+
+  getSeasons(){
+    return this.http.get(`${this.API_URL}/obtener-seasons`)
+  }
+
+  getSeason(id:any){
+    return this.http.get(`${this.API_URL}/obtener-season/${id}`)
+  }
+
+  editSeason(id:any, form:any){
+    return this.http.put(`${this.API_URL}/editar-season/${id}`, form)
+  }
+
+  deleteSeason(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-season/${id}`)
   }
 }

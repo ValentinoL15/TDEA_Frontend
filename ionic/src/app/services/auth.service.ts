@@ -53,4 +53,14 @@ export class AuthService {
     return this.http.post<any[]>(this.API_URL + '/verify-account-code/' + id , { code });
   }
 
+  /****************************************USER*************************************/ 
+
+  getUser(){
+    return this.http.get(`${this.API_URL}/obtener-usuario`)
+  }
+
+  editPhone(tel:any){
+    return this.http.patch(`${this.API_URL}/editar-telefono`, {tel})
+  }
+
 }

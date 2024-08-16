@@ -12,10 +12,10 @@
     <div class="form">
       <ion-list [inset]="true">
         <ion-item>
-          <ion-input label="Nombre" readonly="true"></ion-input>
+          <ion-input label="Nombre" readonly="true" [value]="usuario.firstName"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input label="DNI" readonly="true"></ion-input>
+          <ion-input label="DNI" readonly="true" [value]="usuario.docNumber"></ion-input>
         </ion-item>
       </ion-list>
 
@@ -23,7 +23,7 @@
         <ion-item id="email-alert" detail="true">
           <ion-label>
             <h3>Email</h3>
-            <p>Email</p>
+            <p> {{usuario.email}} </p>
           </ion-label>
         </ion-item>
 
@@ -34,10 +34,17 @@
           </ion-label>
         </ion-item>
 
-        <ion-item id="email-alert" detail="true">
+        <ion-item id="phone-alert" detail="true">
           <ion-label>
             <h3>Telefono</h3>
-            <p>+542355896598</p>
+            <p>{{usuario.phone}}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item id="email-alert" detail="true">
+          <ion-label>
+            <h3>Nacimiento</h3>
+            <p>{{usuario.birthday | date:'yyyy-MM-dd'}}</p>
           </ion-label>
         </ion-item>
 
@@ -58,5 +65,28 @@
         </ion-item>    
       </ion-list>
     </div>
+
+    <!-- ALERTAS -->
+
+  <ion-alert
+  trigger="phone-alert"
+  header="Por favor, insertá tu teléfono"
+  [buttons]="alertButtons"
+  [inputs]="alertInputs"
+></ion-alert>
+
+<ion-alert
+  trigger="password-alert"
+  header="Por favor, insertá tu nueva contraseña"
+  [buttons]="alertButtonsPassword"
+  [inputs]="alertInputsPassword"
+></ion-alert>
+
+<ion-alert
+  trigger="email-alert"
+  header="Por favor, insertá un nuevo correo"
+  [buttons]="alertButtonsEmail"
+  [inputs]="alertInputsEmail"
+></ion-alert>
 
 </ion-content>

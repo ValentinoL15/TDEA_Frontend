@@ -14,10 +14,10 @@
   </ion-header>
 
   <div class="container">
-    <form>
-        <ion-input class="item" type="text" label="Equipo" label-placement="floating" placeholder="Nombre del equipo" name="equipo" [(ngModel)]="equipoNombre"></ion-input>
-        <ion-input class="item" type="text" label="Instagram" label-placement="floating" placeholder="Cuenta" name="instagram" [(ngModel)]="instagramCuenta"></ion-input>
-        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="floating" placeholder="Ingresar texto" name="descripcion" [(ngModel)]="descripcionTexto"></ion-textarea>
+    <form [formGroup]="form">
+        <ion-input class="item" type="text" label="Equipo" label-placement="floating" placeholder="Nombre del equipo" name="equipo" ></ion-input>
+        <ion-input class="item" type="text" label="Instagram" label-placement="floating" placeholder="Cuenta" name="instagram" ></ion-input>
+        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="floating" placeholder="Ingresar texto" name="descripcion" ></ion-textarea>
         <div class="foto">
           <label>Foto</label>
         </div>
