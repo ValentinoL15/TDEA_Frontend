@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let catego of categorias">
+          <tr *ngFor="let catego of categorias" (click)="goCategory(catego._id)">
             <td>{{catego.categoryName}}</td>
             <td>{{catego.ageLimiter}}</td>
           </tr>

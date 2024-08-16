@@ -20,7 +20,8 @@ const routes: Routes = [
   {
     path: 'admin-home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },  {
+  },
+  {
     path: 'create-category',
     loadChildren: () => import('./create-category/create-category.module').then( m => m.CreateCategoryPageModule)
   },
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'format',
     loadChildren: () => import('./format/format.module').then( m => m.FormatPageModule)
+  },
+  {
+    path: 'category/:id',
+    loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
   }
 
 

@@ -25,6 +25,7 @@ export class CreateCategoryPage implements OnInit {
       ageLimiter: ['', Validators.required]
     })
   }
+  
 
   ngOnInit() {
     this.getCategoryes();
@@ -40,6 +41,10 @@ export class CreateCategoryPage implements OnInit {
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+  }
+
+  goCategory(id:any){
+    this.router.navigate([`/category/${id}`])
   }
 
   createCategory(){
@@ -63,7 +68,7 @@ export class CreateCategoryPage implements OnInit {
   getCategoryes(){
     this.tournamentServ.getCategories().subscribe({
       next: (res : any) => {
-        this.categorias = res.categories || [];
+        this.categorias = res.categories
       },
       error: (err) => {
         console.log(err);

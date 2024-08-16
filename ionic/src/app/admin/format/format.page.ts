@@ -80,7 +80,7 @@ export class FormatPage implements OnInit {
     this.tournamentServ.deleteFormat(id).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message);
-        this.router.navigate(['/admin/admin-home'])
+        window.location.href = '/create-format'
       },
       error: (err) => {
         this.notifyService.error(err.error.message)

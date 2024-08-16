@@ -40,6 +40,10 @@ const routes: Routes = [
     path: 'format/:id',
     loadChildren: () => import('./admin/format/format.module').then( m => m.FormatPageModule)
   },
+  {
+    path: 'category/:id',
+    loadChildren: () => import('./admin/category/category.module').then( m => m.CategoryPageModule)
+  },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
     path: 'create-team',

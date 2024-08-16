@@ -8,8 +8,8 @@ import { Format } from '../interfaces/Format';
 })
 export class TournamentService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http : HttpClient) { }
 
@@ -25,6 +25,15 @@ export class TournamentService {
 
   getCategories(){
     return this.http.get(`${this.API_URL}/obtener-categorias`)
+  }
+
+  editCateogry(id:any, form : Category){
+    return this.http.put(`${this.API_URL}/editar-categoria/${id}`, form)
+  }
+
+  deleteCategory(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-categoria/${id}`)
+    
   }
 
   /*************************************FORMATOS***********************************************/
