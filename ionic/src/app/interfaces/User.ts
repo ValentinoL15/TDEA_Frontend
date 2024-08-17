@@ -4,7 +4,7 @@ export interface User {
     docNumber: number,
     gender: string,
     phone:number,
-    birthday: Date,
+    birthday?: Date,
     profileImg?: string,
     instagram?: string,
     notes?: string,

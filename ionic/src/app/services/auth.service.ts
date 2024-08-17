@@ -59,8 +59,12 @@ export class AuthService {
     return this.http.get(`${this.API_URL}/obtener-usuario`)
   }
 
-  editPhone(tel:any){
-    return this.http.patch(`${this.API_URL}/editar-telefono`, {tel})
+  changePhone(phone: string): Observable<any[]> {
+    return this.http.patch<any[]>(this.API_URL + '/editar-telefono', { phone });
+  }
+
+  changeBirthday(birthday:Date): Observable<any[]>{
+    return this.http.patch<any[]>(this.API_URL + '/editar-nacimiento', birthday)
   }
 
 }

@@ -76,6 +76,20 @@ export class ProfilePage implements OnInit {
       cssClass: 'boton-cancelar',
     },
   ];
+  public alertButtonsBirthday = [
+    {
+      text: 'Guardar',
+      role: 'ok',
+      handler: (data: any) => {
+        this.editBirthday(data.birthday)
+      }
+    },
+    {
+      text: 'Cancelar',
+      role: 'cancel',
+      cssClass: 'boton-cancelar',
+    },
+  ];
 
   //INPUTS
   public alertInputs = [
@@ -99,13 +113,21 @@ export class ProfilePage implements OnInit {
       type: 'email'
     },
   ];
+  public alertBirthday = [
+    { 
+      placeholder: 'Fecha de cumpleaños',
+      name: 'birthday',
+      type: 'date',
+    }
+    
+  ]
 
   
 
   constructor(private router : Router, private authService: AuthService, private route: ActivatedRoute, private alertController: AlertController) { }
 
   ngOnInit() {
-    console.log(this.obtenerUser())
+    this.obtenerUser()
   }
 
   async presentAlert(header: string, message: string) {
@@ -135,8 +157,9 @@ export class ProfilePage implements OnInit {
   }
 
   editPhone(phone : any){
-    this.authService.editPhone(phone).subscribe({
+    this.authService.changePhone(phone).subscribe({
       next: (res: any) => {
+        this.usuario.phone = phone;
         this.presentAlert('Solicitud de cambio', res.message)
       },
       error: (err: any) => {
@@ -145,5 +168,20 @@ export class ProfilePage implements OnInit {
       }
     })
   }
+
+  editBirthday(nacimiento: any) {
+    const parsedDate = new Date(nacimiento).toISOString().split('T')[0];
+    this.authService.changeBirthday({ birthday: parsedDate } as any).subscribe({
+      next: (res: any) => {
+        this.usuario.birthday = nacimiento;
+        this.presentAlert('Solicitud de cambio', res.message);
+      },
+      error: (err: any) => {
+        this.presentAlert('Fallo al editar nacimiento', err.error.message);
+      }
+    });
+  }
+
+  
 
 }

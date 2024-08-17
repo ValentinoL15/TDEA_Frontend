@@ -41,7 +41,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-item id="email-alert" detail="true">
+        <ion-item id="fecha-alert" detail="true">
           <ion-label>
             <h3>Nacimiento</h3>
             <p>{{usuario.birthday | date:'yyyy-MM-dd'}}</p>
@@ -87,6 +87,13 @@
   header="Por favor, insertá un nuevo correo"
   [buttons]="alertButtonsEmail"
   [inputs]="alertInputsEmail"
+></ion-alert>
+
+<ion-alert
+  trigger="fecha-alert"
+  header="Por favor, insertá una nueva fecha"
+  [buttons]="alertButtonsBirthday"
+  [inputs]="alertBirthday"
 ></ion-alert>
 
 </ion-content>
