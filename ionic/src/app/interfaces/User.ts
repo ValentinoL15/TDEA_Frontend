@@ -5,6 +5,7 @@ export interface User {
     gender: string,
     phone:number,
     birthday?: Date,
+    birthdayFormatted?: string;
     profileImg?: string,
     instagram?: string,
     notes?: string,

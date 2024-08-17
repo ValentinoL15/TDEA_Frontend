@@ -169,11 +169,18 @@ export class ProfilePage implements OnInit {
     })
   }
 
-  editBirthday(nacimiento: any) {
-    const parsedDate = new Date(nacimiento).toISOString().split('T')[0];
-    this.authService.changeBirthday({ birthday: parsedDate } as any).subscribe({
+  editBirthday(nacimiento: string) {
+    // Crear un objeto Date a partir de la cadena de la fecha
+    let fecha = new Date(nacimiento);
+    
+    // Ajustar la fecha para corregir el desfase de la zona horaria
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    
+    // Usar la fecha ajustada para enviar al backend
+    this.authService.changeBirthday({ birthday: fecha.toISOString() } as any).subscribe({
       next: (res: any) => {
-        this.usuario.birthday = nacimiento;
+        // Almacena la fecha ajustada como un objeto Date
+        this.usuario.birthday = fecha;
         this.presentAlert('Solicitud de cambio', res.message);
       },
       error: (err: any) => {
