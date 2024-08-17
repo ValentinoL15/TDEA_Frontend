@@ -20,7 +20,8 @@ const routes: Routes = [
   {
     path: 'admin-home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },  {
+  },
+  {
     path: 'create-category',
     loadChildren: () => import('./create-category/create-category.module').then( m => m.CreateCategoryPageModule)
   },
@@ -31,7 +32,35 @@ const routes: Routes = [
   {
     path: 'format',
     loadChildren: () => import('./format/format.module').then( m => m.FormatPageModule)
+  },
+  {
+    path: 'category/:id',
+    loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
+  },  {
+    path: 'create-tournament',
+    loadChildren: () => import('./create-tournament/create-tournament.module').then( m => m.CreateTournamentPageModule)
+  },
+  {
+    path: 'tournaments',
+    loadChildren: () => import('./tournaments/tournaments.module').then( m => m.TournamentsPageModule)
+  },
+  {
+    path: 'create-division',
+    loadChildren: () => import('./create-division/create-division.module').then( m => m.CreateDivisionPageModule)
+  },
+  {
+    path: 'division',
+    loadChildren: () => import('./division/division.module').then( m => m.DivisionPageModule)
+  },
+  {
+    path: 'create-season',
+    loadChildren: () => import('./create-season/create-season.module').then( m => m.CreateSeasonPageModule)
+  },
+  {
+    path: 'season',
+    loadChildren: () => import('./season/season.module').then( m => m.SeasonPageModule)
   }
+
 
 
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CreateTournamentPage } from './admin/create-tournament/create-tournament.page';
 
 const routes: Routes = [
   {
@@ -37,8 +38,36 @@ const routes: Routes = [
     loadChildren: () => import('./admin/create-format/create-format.module').then( m => m.CreateFormatPageModule)
   },
   {
+    path: 'create-division',
+    loadChildren: () => import('./admin/create-division/create-division.module').then( m => m.CreateDivisionPageModule)
+  },
+  {
     path: 'format/:id',
     loadChildren: () => import('./admin/format/format.module').then( m => m.FormatPageModule)
+  },
+  {
+    path: 'category/:id',
+    loadChildren: () => import('./admin/category/category.module').then( m => m.CategoryPageModule)
+  },
+  {
+    path: 'division/:id',
+    loadChildren: () => import('./admin/division/division.module').then( m => m.DivisionPageModule)
+  },
+  {
+    path: 'create-tournament',
+    loadChildren: () => import('./admin/create-tournament/create-tournament.module').then( m =>CreateTournamentPage)
+  },
+  {
+    path: 'tournaments/:id',
+    loadChildren: () => import('./admin/tournaments/tournaments.module').then( m => m.TournamentsPageModule)
+  },
+  {
+    path: 'create-season',
+    loadChildren: () => import('./admin/create-season/create-season.module').then( m => m.CreateSeasonPageModule)
+  },
+  {
+    path: 'season/:id',
+    loadChildren: () => import('./admin/season/season.module').then( m => m.SeasonPageModule)
   },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {

@@ -28,12 +28,7 @@ export class HomePage implements OnInit {
   
 
   ngOnInit() {
-    this.sharedService.isTeam$.subscribe((value) => {
-      this.isTeam = value;
-    });
-    this.sharedService.newTeam$.subscribe((team) => {
-      this.newTeam = team;
-    });
+  
   }
 
   ir() {

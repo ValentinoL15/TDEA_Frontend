@@ -1,0 +1,96 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button style="font-weight: bold;" (click)="volver()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Divisiones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <div class="container-fluid">
+    <table class="table table-dark table-striped">
+      <ng-container>
+        <thead>
+          <tr>
+                <th style="font-weight: bold;" scope="col">Temporada</th>
+                <th style="font-weight: bold;" scope="col">Oficial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let season of seasons" (click)="goSeason(season._id)">
+            <td>{{season.seasonName}}</td>
+            <td *ngIf="season.isSeasonOfficial === true">Si</td>
+            <td *ngIf="season.isSeasonOfficial === false">No</td>
+          </tr>
+        </tbody>
+      </ng-container>
+    </table>
+    <div class="endButton">
+      <ion-button id="open-modales" style="font-weight: bold;" expand="block">Crear Temporada</ion-button>
+    </div>
+  </div>
+
+
+<ion-modal trigger="open-modales" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>Welcome</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="createSeason()" [strong]="true">Confirm</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <form [formGroup]="form">
+
+        <ion-item class="input-class">
+          <ion-input
+            label="Temporada"
+            labelPlacement="stacked"
+            type="text"
+            placeholder="Nombre de Temporada"
+            formControlName="seasonName"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="input-class">
+          <label style="margin-right: 25px;">Categoria</label>
+          <select formControlName="category">
+            <option value="" disabled selected>Seleccionar categoria</option>
+            <option *ngFor="let category of categories" [value]="category._id">{{ category.categoryName }} </option>
+          </select>
+        </ion-item>
+
+        <ion-item class="input-class">
+          <label style="margin-right: 25px;">Oficial</label>
+          <select formControlName="isSeasonOfficial">
+            <option value="" disabled selected>¿Es oficial?</option>
+            <option value="true">Si</option>
+            <option value="false">No</option>
+          </select>
+        </ion-item>
+
+        <ion-item class="input-class">
+          <label style="margin-right: 25px;">Actividad</label>
+          <select formControlName="isSeasonActive">
+            <option value="" disabled selected>¿Está activa?</option>
+            <option value="true">Si</option>
+            <option value="false">No</option>
+          </select>
+        </ion-item>
+
+        <ion-item class="input-class">
+          <ion-textarea label="Notas" placeholder="Notas" formControlName="seasonNotes"></ion-textarea>
+        </ion-item>
+
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+</ion-content>
+

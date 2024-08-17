@@ -53,4 +53,18 @@ export class AuthService {
     return this.http.post<any[]>(this.API_URL + '/verify-account-code/' + id , { code });
   }
 
+  /****************************************USER*************************************/ 
+
+  getUser(){
+    return this.http.get(`${this.API_URL}/obtener-usuario`)
+  }
+
+  changePhone(phone: string): Observable<any[]> {
+    return this.http.patch<any[]>(this.API_URL + '/editar-telefono', { phone });
+  }
+
+  changeBirthday(birthday:Date): Observable<any[]>{
+    return this.http.patch<any[]>(this.API_URL + '/editar-nacimiento', birthday)
+  }
+
 }

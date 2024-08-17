@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let catego of categorias">
+          <tr *ngFor="let catego of categorias" (click)="goCategory(catego._id)">
             <td>{{catego.categoryName}}</td>
             <td>{{catego.ageLimiter}}</td>
           </tr>
@@ -27,11 +27,11 @@
     </table>
   </div>
   <div class="endButton">
-    <ion-button id="open-modal">Crear Categoria</ion-button>
+    <ion-button id="open-modale">Crear Categoria</ion-button>
   </div>
   
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+  <ion-modal trigger="open-modale" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
         <ion-toolbar>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../services/shared.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-create-team',
@@ -9,15 +10,14 @@ import { SharedService } from '../services/shared.service';
 })
 export class CreateTeamPage implements OnInit {
 
-  equipoNombre: string = "";
-  instagramCuenta: string = "";
-  descripcionTexto: string = "";
   selectedFile: File | null = null;
+  form: FormGroup
 
-  isTeam: boolean = false;
-
-  newTeam: any[] = [];
-  constructor(private router: Router, private sharedService: SharedService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder) { 
+    this.form = this.formBuilder.group({
+      
+    })
+  }
 
   ngOnInit() {
   }
@@ -27,15 +27,7 @@ export class CreateTeamPage implements OnInit {
   }
 
   saveForm(){
-    this.newTeam.push(this.equipoNombre)
-    this.newTeam.push(this.instagramCuenta)
-    this.newTeam.push(this.descripcionTexto)
-    this.newTeam.push(this.selectedFile)
-    this.sharedService.setNewTeam(this.newTeam);  // Compartir el array newTeam
     
-    this.isTeam = true;
-    this.sharedService.setIsTeam(this.isTeam);
-    this.router.navigate(['/user/home']);
   }
 
   onFileSelected(event: any) {

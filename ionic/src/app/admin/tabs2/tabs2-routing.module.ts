@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'admin-home',
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
+      {
+        path: 'create-tournament',
+        loadChildren: () => import('../create-tournament/create-tournament.module').then(m => m.CreateTournamentPageModule)
+      }
     ]
   },
   {

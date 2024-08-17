@@ -28,7 +28,8 @@ export class CreateFormatPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getFormats()
+    this.getFormats();
+
   }
 
   cancel() {

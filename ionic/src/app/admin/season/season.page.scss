@@ -1,0 +1,32 @@
+.contain {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+.card-header {
+    background-color: rgba(31, 33, 32, 0.7);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.list-group-item{
+    background-color: rgba(31, 33, 32, 0.4);
+}
+
+.endButton {
+    text-align: center;
+    width: 100%;
+  }
+
+  ion-modal {
+    transform: scale(0.9);
+  }
