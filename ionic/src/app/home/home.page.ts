@@ -21,32 +21,16 @@ export class HomePage implements OnInit {
   constructor( private router:Router, private sharedService: SharedService) { }
   @ViewChild(IonModal) modal!: IonModal ;
 
-  
-  isTeam: boolean = false;
-  newTeam: any[] = [];
-
-  
-
   ngOnInit() {
   
   }
 
   ir() {
     this.router.navigate(['/create-team']);
-    this.sharedService.setIsTeam(this.isTeam = true)
+    
   }
 
-  editar() {
-    this.modal.dismiss(null, 'cancel');
-  }
 
-  deleteTeam(){
-    const confirmed = confirm('¿Estás seguro de que deseas borrar el equipo?');
-    if (confirmed) {
-      this.sharedService.setNewTeam([]);
-      this.sharedService.setIsTeam(false);
-    }
-  }
   
 
 }

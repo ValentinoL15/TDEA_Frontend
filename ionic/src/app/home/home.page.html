@@ -28,27 +28,20 @@
           <h4>Mi Equipo</h4>
 
           <ion-buttons slot="end">
-            <ion-button (click)="editar()">Editar</ion-button>
+            <ion-button>Editar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       
       <ion-content class="ion-padding">
         <div class="modal-content">
-            <div *ngFor="let item of newTeam" id="email-alert" detail="true" class="item">
-              <ion-item id="email-alert" detail="true">
-                <ion-label class="ion-text-wrap">
-                  {{ item }}
-                </ion-label>
-              </ion-item>
-            </div>
             <ion-item id="email-alert" detail="true">
               <ion-label>
                 creador
               </ion-label>
             </ion-item>
             <div class="button">
-              <ion-button color="danger" expand="block" *ngIf="isTeam" (click)="deleteTeam()">
+              <ion-button color="danger" expand="block">
                 Eliminar Equipo
               </ion-button>
             </div>
