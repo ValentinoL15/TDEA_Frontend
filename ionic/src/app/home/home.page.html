@@ -1,9 +1,9 @@
 <ion-content [fullscreen]="true" class="fondo">
 
-  <ion-list [inset]="true" (click)="setOpen(true)">
-    <ion-item id="email-alert" detail="true">
-      <ion-label>
-        <h3>VER MI EQUIPO</h3>
+  <ion-list [inset]="true" *ngFor="let equipo of equipos">
+    <ion-item detail="true">
+      <ion-label (click)="goTeam(equipo._id)">
+        <h3>{{equipo.teamName}}</h3>
       </ion-label>
     </ion-item>
   </ion-list>
