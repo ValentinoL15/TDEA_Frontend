@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { SharedService } from '../services/shared.service';
 import { IonModal } from '@ionic/angular';
+import { UserService } from '../services/user.service';
+import { Team } from '../interfaces/Team';
 
 
 @Component({
@@ -12,41 +14,43 @@ import { IonModal } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
+  id:any
+  equipos: Team[] = []
+
+
   isModalOpen = false;
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 
-  constructor( private router:Router, private sharedService: SharedService) { }
+  constructor( private router:Router, private userService : UserService, private route: ActivatedRoute) { }
   @ViewChild(IonModal) modal!: IonModal ;
 
-  
-  isTeam: boolean = false;
-  newTeam: any[] = [];
-
-  
-
   ngOnInit() {
-  
+    this.getTeams()
+  }
+
+  goTeam(id:any){
+    this.router.navigate([`/team/${id}`])
+  }
+
+  getTeams(){
+    this.userService.getTeams().subscribe({
+      next: (res : any) => {
+        this.equipos = res.teams
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
   ir() {
     this.router.navigate(['/create-team']);
-    this.sharedService.setIsTeam(this.isTeam = true)
   }
 
-  editar() {
-    this.modal.dismiss(null, 'cancel');
-  }
 
-  deleteTeam(){
-    const confirmed = confirm('¿Estás seguro de que deseas borrar el equipo?');
-    if (confirmed) {
-      this.sharedService.setNewTeam([]);
-      this.sharedService.setIsTeam(false);
-    }
-  }
   
 
 }

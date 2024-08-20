@@ -8,16 +8,24 @@
           <h5>Crear Equipo</h5>
         </div>
         <ion-buttons slot="end">
-          <ion-button (click)="saveForm()" style="font-weight: bold;">Confirmar</ion-button>
+          <ion-button (click)="createTeam()" style="font-weight: bold;">Confirmar</ion-button>
         </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
   <div class="container">
     <form [formGroup]="form">
-        <ion-input class="item" type="text" label="Equipo" label-placement="floating" placeholder="Nombre del equipo" name="equipo" ></ion-input>
-        <ion-input class="item" type="text" label="Instagram" label-placement="floating" placeholder="Cuenta" name="instagram" ></ion-input>
-        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="floating" placeholder="Describe a tu equipo. (Equipo de trabajo,colegio,etc...)" name="descripcion" ></ion-textarea>
+        <ion-input class="item" type="text" label="Equipo" label-placement="floating" placeholder="Nombre del equipo" formControlName="teamName" ></ion-input>
+        <ion-input class="item" type="text" label="Instagram" label-placement="floating" placeholder="Usuario123" formControlName="socialMedia" ></ion-input>
+        <div class="select">
+          <label>Esta activo?</label>
+          <select formControlName="isTeamListActive" >
+            <option value="" selected disabled>Selecciona una opción</option>
+            <option value="true">Si</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="floating" placeholder="Describe a tu equipo. (Equipo de trabajo,colegio,etc...)" formControlName="teamNotes" ></ion-textarea>
         <div class="foto">
           <label>Foto de Escudo</label>
         </div>

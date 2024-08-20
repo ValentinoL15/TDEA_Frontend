@@ -81,6 +81,18 @@ const routes: Routes = [
   {
     path: 'confirm-code/:id',
     loadChildren: () => import('./confirm-code/confirm-code.module').then( m => m.ConfirmCodePageModule)
+  },
+  {
+    path: 'team/:id',
+    loadChildren: () => import('./teams/teams.module').then( m => m.TeamsPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
+  },
+  {
+    path: 'create-list/:id',
+    loadChildren: () => import('./create-list/create-list.module').then( m => m.CreateListPageModule)
   }
 ];
 @NgModule({

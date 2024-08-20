@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>teams</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>Editar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <div class="contenedor">
+  <ion-list [inset]="true">
+
+    <ion-item>
+      <ion-input readonly="true" label="Equipo" label-placement="fixed" placeholder="Nombre de equipo" [value]="equipo.teamName"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-input readonly="true" label="Instagram" label-placement="fixed" placeholder="Instagram" [value]="equipo.socialMedia"></ion-input>
+    </ion-item>
+    
+    <ion-item class="item">
+      <ion-input readonly="true" label="Activo" label-placement="fixed" [value]="equipo.isTeamListActive ? 'Sí' : 'No'"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea readonly="true" label="Descripcion" label-placement="fixed" [value]="equipo.teamNotes"></ion-textarea>
+    </ion-item>
+
+    <ion-item button (click)="goLists(equipo._id)">
+      <ion-label>Mis Listas</ion-label>
+    </ion-item>
+  </ion-list>
+  </div>
+  
+</ion-content>

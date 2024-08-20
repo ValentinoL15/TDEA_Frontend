@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Lista</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+<div *ngIf="lists" >
+  <ion-list [inset]="true" *ngFor="let item of lists">
+    <ion-item>
+      <ion-input label="Lista" readonly="true" [value]="item.nameList"></ion-input>
+    </ion-item>
+    </ion-list>
+</div>
+
+  <ion-button expand="block" (click)="setOpen(true)">
+    Crear Lista Jugadores
+  </ion-button>
+  
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Crear Lista</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="createList()" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="form">
+          <ion-item>
+            <ion-input label="Nombre de la lista" label-placement="floating" formControlName="nameList"></ion-input>
+          </ion-item>
+        <ion-item>
+          <ion-input label="Remera Titular" label-placement="floating" formControlName="shirtColor"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Remera Suplente" label-placement="floating" formControlName="alternativeShirtColor"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-select label="Division" placeholder="Elige una opción" formControlName="division">
+            <ion-select-option value="true">Si</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-select label="Activo" placeholder="Elige una opción" formControlName="isTeamListActive">
+            <ion-select-option value="true">Si</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Status" label-placement="floating" placeholder="Enter text" formControlName="teamListStatus"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-textarea label="Notas" label-placement="floating" placeholder="Alguna descripción" formControlName="teamListNotes"></ion-textarea>
+        </ion-item>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
