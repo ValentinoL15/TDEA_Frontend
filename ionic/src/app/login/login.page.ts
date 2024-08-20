@@ -109,11 +109,9 @@ export class LoginPage implements OnInit {
   }
 
   registerFormSubmit(){
-    if(this.register.get('password')?.value !== this.register.get('confirmPassword')?.value) {
-      alert("las contraseñas no cinciden")
-      return
-    }
+  
     if(this.register.valid){
+      console.log(this.register.value); // Agregar esto para verificar los datos
       const form: Login = {
         firstName: this.register.value.firstName,
         lastName: this.register.value.lastName,
