@@ -62,7 +62,9 @@ export class ListPage implements OnInit {
     // Aquí puedes realizar acciones adicionales si es necesario
   }
 
-
+  goPlayers(id:any){
+    this.router.navigate([`/players/${id}`])
+  }
 
   cancel() {
     this.modal.dismiss(null, 'cancel');

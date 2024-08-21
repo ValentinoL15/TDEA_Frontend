@@ -27,7 +27,7 @@
     <ion-item>
       <ion-input readonly="true" label="Division Perteneciente" [value]="list.division.order"></ion-input>
     </ion-item>
-    <ion-item button>
+    <ion-item button (click)="goPlayers(list._id)">
       <ion-input readonly="true" label="Jugadores"></ion-input>
     </ion-item>
     <ion-item >
