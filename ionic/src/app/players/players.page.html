@@ -20,19 +20,19 @@
   </ion-list>
 
   <div class="container-button">
-    <div class="button">
-      <ion-button shape="round" id="open-modal">
+    <div class="button" >
+      <ion-button shape="round" (click)="setOpen(true)">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </div>
   </div>
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+  <ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancel</ion-button>
+            <ion-button (click)="setOpen(false)">Cancel</ion-button>
           </ion-buttons>
           <ion-title>Crear jugador</ion-title>
           <ion-buttons slot="end">
