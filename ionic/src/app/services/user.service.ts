@@ -32,8 +32,12 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-listas/${id}`)
   }
 
-  getList(){
-    return this.http.get(`${this.API_URL}/obtener-lista`)
+  getList(id:any){
+    return this.http.get(`${this.API_URL}/obtener-lista/${id}`)
+  }
+
+  editList(id: any, form : any){
+    return this.http.put(`${this.API_URL}/editar-lista/${id}`, form)
   }
 
 

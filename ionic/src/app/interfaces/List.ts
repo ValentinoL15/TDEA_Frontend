@@ -1,6 +1,13 @@
 export interface List {
     _id?: any,
-    creatorUser?: String,
+    ownerUser?: {
+        _id?: string,
+        firstName?: string,
+        lastName?: string
+    },
+    ownerTeam?: {
+        _id?: any,
+    },
     shirtColor: String,
     alternativeShirtColor: String,
     belongToTournament?: any,
@@ -8,7 +15,10 @@ export interface List {
     teamListNotes: String,
     isTeamListActive: Boolean,
     teamListStatus: String
-    division: String,
+    division: { 
+        _id?: string,
+        order:0
+    },
     nameList: string
 
 }

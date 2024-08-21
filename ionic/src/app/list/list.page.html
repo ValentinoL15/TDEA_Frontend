@@ -1,13 +1,105 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>list</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver(list.ownerTeam?._id)">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Lista</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="open-modal">Editar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">list</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" color="light" class="ion-padding">
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-input readonly="true" label="Creador de Equipo" [value]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input readonly="true" label="Remera Titular" [value]="list.shirtColor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input readonly="true" label="Remera Suplente" [value]="list.alternativeShirtColor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input readonly="true" label="Torneo" [value]="list.belongToTournament"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input readonly="true" label="Division Perteneciente" [value]="list.division.order"></ion-input>
+    </ion-item>
+    <ion-item button>
+      <ion-input readonly="true" label="Jugadores"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-input readonly="true" label="Activo" [value]="list.isTeamListActive ? 'Si' : 'No'"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-input readonly="true" label="Status" [value]="list.teamListStatus"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-textarea readonly="true" label="Comments" labelPlacement="floating" rows="5" [value]="list.teamListNotes"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Lista</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm(list._id, miForm)">Confirm</ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding" color="light" [fullscreen]="true">
+        <form #miForm>
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-input type="text" label="Remera Titular" label-placement="stacked" placeholder="Remera Titular" name="shirtColor" [value]="list.shirtColor"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-input type="text" label="Remera Suplente" label-placement="stacked" placeholder="Remera Suplente" name="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-select [value]="divisionId" type="number" label="Division" placeholder="{{list.division.order}}" name="division">
+                <ion-select-option select [value]="list.division._id">{{list.division.order}}</ion-select-option>
+                <ion-select-option *ngFor="let division of divisiones | filter: list.division.order" [value]="division._id">{{division.order}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+  
+            <ion-item>
+              <ion-select label="Activo" name="isTeamListActive" [placeholder]="list.isTeamListActive ? 'Si' : 'No'">
+                <ion-select-option value="false">No</ion-select-option>
+                <ion-select-option value="true">Si</ion-select-option>
+              </ion-select>
+            </ion-item>
+  
+            <ion-item>
+              <ion-input type="text" label="Status" label-placement="stacked" placeholder="Status" [value]="list.teamListStatus" name="teamListStatus"></ion-input>
+            </ion-item>
+          </ion-list>
+  
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-textarea type="text" label="Comments" labelPlacement="floating" rows="5" [value]="list.teamListNotes" name="teamListNotes"></ion-textarea>
+            </ion-item>
+          </ion-list>
+        </form>
+
+      </ion-content>
+      
+    </ng-template>
+  </ion-modal>
 </ion-content>
+
+
+
