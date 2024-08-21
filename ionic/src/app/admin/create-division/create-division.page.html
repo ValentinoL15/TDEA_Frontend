@@ -24,17 +24,17 @@
       </ng-container>
     </table>
     <div class="endButton">
-      <ion-button id="open-modal" style="font-weight: bold;" expand="block">Crear Division</ion-button>
+      <ion-button (click)="setOpen(true)" style="font-weight: bold;" expand="block">Crear Division</ion-button>
     </div>
   </div>
   
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+  <ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancel</ion-button>
+            <ion-button (click)="setOpen(false)">Cancel</ion-button>
           </ion-buttons>
           <ion-title>Crear Division</ion-title>
           <ion-buttons slot="end">

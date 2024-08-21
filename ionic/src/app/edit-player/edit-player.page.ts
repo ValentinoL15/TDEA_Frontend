@@ -21,6 +21,8 @@ player: Player = {
   age: 0,
   ownerList: ""
 }
+players: Player[] = []
+
 
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService) { }
 
@@ -46,6 +48,18 @@ player: Player = {
     })
   }
 
+  getPlayers(id:any){
+    this.userService.getPlayers(id).subscribe({
+      next: (res: any) => {
+        this.players = res.listOfPlayers;
+        console.log(this.players)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
   editPlayer(id:any, form:any){
     const formulario = {
       firstName: form.firstName.value,
@@ -53,8 +67,8 @@ player: Player = {
     }
     this.userService.editPlayer(id,formulario).subscribe({
       next: (res: any) => {
-        this.notifyService.success(res.message)
         window.location.href = `/players/${this.player.ownerList}`
+        this.notifyService.success(res.message)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -64,6 +78,18 @@ player: Player = {
 
   editEdad(){
     this.notifyService.error('No es posible cambiar la edad')
+  }
+
+  eliminarJugador(id:any){
+    this.userService.deletPlayer(id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message)
+        window.location.href = `/players/${this.player.ownerList}`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
   }
 
 }

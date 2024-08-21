@@ -28,8 +28,10 @@ export class CreateDivisionPage implements OnInit {
     this.getDivisions()
   }
 
-  cancel() {
-    this.modal.dismiss(null, 'cancel');
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
   }
 
   volver(){
@@ -60,7 +62,7 @@ export class CreateDivisionPage implements OnInit {
         this.divisiones.push(res.newDivision)
         this.notifyServ.success(res.message)
         this.form.reset()
-        this.cancel()
+        this.setOpen(false)
       },
       error: (err: any) => {
         this.notifyServ.error(err.error.message)
@@ -68,10 +70,5 @@ export class CreateDivisionPage implements OnInit {
     })
   }
 
-  onWillDismiss(event: Event) {
-    const ev = event as CustomEvent<OverlayEventDetail<string>>;
-    if (ev.detail.role === 'confirm') {
-      this.message = `Hello, ${ev.detail.data}!`;
-    }
-  }
+
 }

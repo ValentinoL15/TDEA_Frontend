@@ -47,7 +47,9 @@ export class CreateTeamPage implements OnInit {
     this.userService.createTeam(formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        window.location.href = '/user/home'
+        setTimeout(() => {
+          window.location.href = '/user/home'
+        }, 500)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
