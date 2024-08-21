@@ -23,6 +23,15 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-equipo/${id}`)
   }
 
+  editTeam(id:any , form:any){
+    return this.http.put(`${this.API_URL}/editar-equipo/${id}`, form)
+  }
+
+  eliminarTeam(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-equipo/${id}`)
+  }
+
+  /*************************************************LISTA***************************************************/ 
 
   createList(id:any, form: any){
     return this.http.post(`${this.API_URL}/crear-lista/${id}`, form)
@@ -38,6 +47,10 @@ export class UserService {
 
   editList(id: any, form : any){
     return this.http.put(`${this.API_URL}/editar-lista/${id}`, form)
+  }
+
+  eliminarLista(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-lista/${id}`)
   }
 
   /************************************************PLAYERS**************************************************/ 
@@ -56,6 +69,10 @@ export class UserService {
 
   editPlayer(id:any, form:any){
     return this.http.put(`${this.API_URL}/editar-jugador/${id}`, form)
+  }
+
+  deletPlayer(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-jugador/${id}`)
   }
 
 }

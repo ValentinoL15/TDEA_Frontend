@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Lista</ion-title>
     <ion-buttons slot="end">
-      <ion-button id="open-modal">Editar</ion-button>
+      <ion-button (click)="setOpen(true)">Editar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -44,12 +44,12 @@
     </ion-item>
   </ion-list>
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+  <ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancel</ion-button>
+            <ion-button (click)="setOpen(false)">Cancel</ion-button>
           </ion-buttons>
           <ion-title>Lista</ion-title>
             <ion-buttons slot="end">
@@ -58,7 +58,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-content class="ion-padding" color="light" [fullscreen]="true">
+      <ion-content color="light" [fullscreen]="true">
         <form #miForm>
           <ion-list [inset]="true">
             <ion-item>
@@ -95,11 +95,24 @@
           </ion-list>
         </form>
 
+        <div class="container">
+          <ion-button expand="block" color="danger" id="present-alert" (click)="deleteList(list._id)">
+            Eliminar Lista
+          </ion-button>
+        </div>
+      
       </ion-content>
       
     </ng-template>
   </ion-modal>
 </ion-content>
+
+<ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
 
 
 

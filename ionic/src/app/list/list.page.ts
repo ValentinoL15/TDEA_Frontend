@@ -10,6 +10,8 @@ import { Division } from '../interfaces/Division';
 import { FilterPipe } from '../filter.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Team } from '../interfaces/Team';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -21,7 +23,34 @@ import { CommonModule } from '@angular/common';
 
 export class ListPage implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService) { }
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+
+  setResult(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService, private alertController: AlertController) { }
   @ViewChild(IonModal) modal!: IonModal;
   id:any
   divisiones: Division[] = []
@@ -47,6 +76,14 @@ export class ListPage implements OnInit {
   selectedDivision: number = this.list.division.order;
   idOwnerTeam:any
   divisionId:any
+  team: Team = {
+    _id: "",
+    teamName: "",
+    teamNotes: "",
+    isTeamListActive: false,
+    socialMedia: "",
+  }
+
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   ngOnInit() {
@@ -64,10 +101,6 @@ export class ListPage implements OnInit {
 
   goPlayers(id:any){
     this.router.navigate([`/players/${id}`])
-  }
-
-  cancel() {
-    this.modal.dismiss(null, 'cancel');
   }
 
   getDivisions(){
@@ -94,7 +127,8 @@ export class ListPage implements OnInit {
     this.userService.editList(id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        window.location.href = `/create-list/${this.list.ownerTeam?._id}`
+        this.getLista(this.id)
+        this.setOpen(false)
       },
       error: (err) => {
         console.log(err.error.message);
@@ -122,7 +156,40 @@ export class ListPage implements OnInit {
     })
   }
 
-
+  async deleteList(id: any) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que quieres borrar esta lista?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // El usuario ha cancelado, no hacer nada
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            // El usuario ha confirmado, proceder con la eliminación
+            this.userService.eliminarLista(id).subscribe({
+              next: (res: any) => {
+                this.notifyService.success(res.message);
+                setTimeout(() => {
+                  window.location.href = `/create-list/${this.list.ownerTeam?._id}`;
+                }, 500); 
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message);
+              }
+            });
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {

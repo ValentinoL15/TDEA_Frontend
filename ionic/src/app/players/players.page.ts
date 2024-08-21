@@ -101,6 +101,7 @@ export class PlayersPage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.obtenerJugadores(id)
+        this.form.reset()
         this.setOpen(false)
       },
       error: (err: any) => {

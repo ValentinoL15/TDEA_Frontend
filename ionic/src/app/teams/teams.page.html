@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>teams</ion-title>
     <ion-buttons slot="end">
-      <ion-button>Editar</ion-button>
+      <ion-button (click)="setOpen(true)">Editar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -35,5 +35,64 @@
     </ion-item>
   </ion-list>
   </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="editTeam(equipo._id, miForm)">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form #miForm>
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-input label="Equipo" label-placement="fixed" [value]="equipo.teamName" name="teamName"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input label="Instagram" label-placement="fixed" [value]="equipo.socialMedia" name="socialMedia"></ion-input>
+            </ion-item>
+
+            <ion-item>
+            <label >Activo</label>
+            <ion-select class="select" [value]="equipo.isTeamListActive ? 'Si' : 'No'" [placeholder]="equipo.isTeamListActive ? 'Si' : 'No'" name="isTeamListActive">
+              <ion-select-option value="true">Si</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+            </ion-item>
+
+          </ion-list>
+
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-textarea type="text" label="Comments" labelPlacement="floating" rows="5" [value]="equipo.teamNotes" name="teamNotes"></ion-textarea>
+            </ion-item>
+          </ion-list>
+          
+          <div class="container"> 
+              <ion-button expand="block" color="danger" id="present-alert" (click)="deleteTeam(equipo._id)" style="font-weight: bold;">
+                Eliminar Equipo
+              </ion-button>
+          </div>
+        </form>
+        
+      </ion-content>
+    </ng-template>
+  </ion-modal>
   
 </ion-content>
+
+<ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+
