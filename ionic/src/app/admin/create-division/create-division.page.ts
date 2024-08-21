@@ -59,6 +59,7 @@ export class CreateDivisionPage implements OnInit {
       next: (res : any) => {
         this.divisiones.push(res.newDivision)
         this.notifyServ.success(res.message)
+        this.form.reset()
         this.cancel()
       },
       error: (err: any) => {

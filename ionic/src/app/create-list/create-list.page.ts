@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotifyService } from '../services/notify.service';
 import { List } from '../interfaces/List';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TournamentService } from '../services/tournament.service';
+import { Division } from '../interfaces/Division';
 
 
 
@@ -22,12 +24,15 @@ export class CreateListPage implements OnInit {
     teamListNotes: "",
     isTeamListActive: false,
     teamListStatus: "",
-    division: "",
+    division: {
+      order: 0
+    },
     nameList: ""
   }
   form: FormGroup
+  divisiones: Division[] = []
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder) { 
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
     this.form = this.formBuilder.group({
       nameList: ['', Validators.required],
       shirtColor: ['', Validators.required],
@@ -54,12 +59,27 @@ export class CreateListPage implements OnInit {
       this.id = params['id']
     })
     this.getLists(this.id)
+    this.getDivisions()
   }
-
+  
+  goList(id:any){
+    this.router.navigate([`/list/${id}`])
+  }
   getLists(id:any){
     this.userService.getLists(id).subscribe({
       next: (res : any) => {
         this.lists = res.lista
+      },
+      error: (err) => {
+        console.log(err.error.message);
+      }
+    })
+  }
+
+  getDivisions(){
+    this.tournamentServ.getDivisions().subscribe({
+      next: (res : any) => {
+        this.divisiones = res.divisions
       },
       error: (err) => {
         console.log(err.error.message);

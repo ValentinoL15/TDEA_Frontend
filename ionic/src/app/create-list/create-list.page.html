@@ -9,9 +9,9 @@
 
 <ion-content [fullscreen]="true" color="light">
 <div *ngIf="lists" >
-  <ion-list [inset]="true" *ngFor="let item of lists">
+  <ion-list [inset]="true" *ngFor="let list of lists">
     <ion-item>
-      <ion-input label="Lista" readonly="true" [value]="item.nameList"></ion-input>
+      <ion-input label="Lista" readonly="true" [value]="list.nameList" (click)="goList(list._id)"></ion-input>
     </ion-item>
     </ion-list>
 </div>
@@ -47,8 +47,7 @@
         </ion-item>
         <ion-item>
           <ion-select label="Division" placeholder="Elige una opción" formControlName="division">
-            <ion-select-option value="true">Si</ion-select-option>
-            <ion-select-option value="false">No</ion-select-option>
+            <ion-select-option *ngFor="let division of divisiones" [value]="division._id">{{division.order}}</ion-select-option>
           </ion-select>
         </ion-item>
 

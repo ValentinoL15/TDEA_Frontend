@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { TokenInterceptor } from './token.interceptor';
+import { FilterPipe } from './filter.pipe';
 
 
 
