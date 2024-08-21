@@ -93,6 +93,14 @@ const routes: Routes = [
   {
     path: 'create-list/:id',
     loadChildren: () => import('./create-list/create-list.module').then( m => m.CreateListPageModule)
+  },
+  {
+    path: 'players/:id',
+    loadChildren: () => import('./players/players.module').then( m => m.PlayersPageModule)
+  },
+  {
+    path: 'edit-player/:id',
+    loadChildren: () => import('./edit-player/edit-player.module').then( m => m.EditPlayerPageModule)
   }
 ];
 @NgModule({

@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver(list._id)">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Jugadores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light" class="ion-padding">
+
+  <ion-list [inset]="true" *ngFor="let player of players">
+    <ion-item>
+      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Edad" [value]="player.age"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div class="container-button">
+    <div class="button">
+      <ion-button shape="round" id="open-modal">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Crear jugador</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="crearJugador(list._id,form)">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <form [formGroup]="form">
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-input label="Nombre" labelPlacement="stacked" type="text" placeholder="Ingrese un nombre" formControlName="firstName"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input label="Apellido" labelPlacement="stacked" type="text" placeholder="Ingrese un apellido" formControlName="lastName"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input label="Edad" labelPlacement="stacked" type="number" placeholder="Ingrese una edad" formControlName="age"></ion-input>
+            </ion-item>
+          </ion-list>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

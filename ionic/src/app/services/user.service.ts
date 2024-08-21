@@ -40,6 +40,22 @@ export class UserService {
     return this.http.put(`${this.API_URL}/editar-lista/${id}`, form)
   }
 
+  /************************************************PLAYERS**************************************************/ 
 
+  crearJugador(id:any, form:any){
+    return this.http.post(`${this.API_URL}/crear-jugador/${id}`, form)
+  }
+
+  getPlayers(id:any){
+    return this.http.get(`${this.API_URL}/obtener-jugadores/${id}`)
+  }
+
+  getPlayer(id:any){
+    return this.http.get(`${this.API_URL}/obtener-jugador/${id}`)
+  }
+
+  editPlayer(id:any, form:any){
+    return this.http.put(`${this.API_URL}/editar-jugador/${id}`, form)
+  }
 
 }

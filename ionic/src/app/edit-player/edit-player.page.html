@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goList(player.ownerList)">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Editar Jugador</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="editPlayer(player._id, miForm)" >Confirmar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+    <form #miForm>
+      <ion-item>
+        <ion-item>
+          <ion-input name="firstName" label="Nombre" [value]="player.firstName"></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <ion-input name="lastName" label="Apellido" [value]="player.lastName"></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item (click)="editEdad()">
+        <ion-item>
+          <ion-input readonly="true" label="Edad" [value]="player.age"></ion-input>
+        </ion-item>
+      </ion-item>
+    </form>
+
+  </ion-list>
+
+
+</ion-content>
