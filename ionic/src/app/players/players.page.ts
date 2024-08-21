@@ -55,6 +55,12 @@ export class PlayersPage implements OnInit {
     })
   }
 
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -64,9 +70,7 @@ export class PlayersPage implements OnInit {
     this.obtenerJugadores(this.id)
   }
 
-  cancel() {
-    this.modal.dismiss(null, 'cancel');
-  }
+ 
 
   volver(id:any){
     this.router.navigate([`/list/${id}`])
@@ -97,7 +101,7 @@ export class PlayersPage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.obtenerJugadores(id)
-        this.modal.dismiss('confirm');
+        this.setOpen(false)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
