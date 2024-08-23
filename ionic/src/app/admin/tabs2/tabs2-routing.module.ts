@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { Tabs2Page } from './tabs2.page';
+import { HomeTournamentPage } from '../home-tournament/home-tournament.page';
 
 const routes: Routes = [
   {
@@ -18,8 +19,8 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'create-tournament',
-        loadChildren: () => import('../create-tournament/create-tournament.module').then(m => m.CreateTournamentPageModule)
+        path: 'home-tournament',
+        loadChildren: () => import('../home-tournament/home-tournament.module').then( m => m.HomeTournamentPageModule)
       }
     ]
   },

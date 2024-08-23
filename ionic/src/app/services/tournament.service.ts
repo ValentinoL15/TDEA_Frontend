@@ -10,8 +10,8 @@ import { Season } from '../interfaces/Season';
 })
 export class TournamentService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http : HttpClient) { }
 
@@ -102,5 +102,71 @@ export class TournamentService {
 
   deleteSeason(id:any){
     return this.http.delete(`${this.API_URL}/eliminar-season/${id}`)
+  }
+
+  /*******************************************TOURNAMENTS***************************************************/ 
+
+  createTournament(form:any){
+    return this.http.post(`${this.API_URL}/crear-torneo`, form)
+  }
+
+  getTournament(id:any){
+    return this.http.get(`${this.API_URL}/obtener-torneo/${id}`)
+  }
+
+  getTournaments(){
+    return this.http.get(`${this.API_URL}/obtener-torneos`)
+  }
+
+  editTournaments(id:any, form:any){
+    return this.http.put(`${this.API_URL}/editar-torneo/${id}`, form)
+  }
+
+  deleteTournaments(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-torneo/${id}`)
+  }
+
+  /****************************************************DAYS*****************************************************/ 
+
+  createDay(id:any, form:any){
+    return this.http.post(`${this.API_URL}/agregar-dia/${id}`, form)
+  }
+
+  getDay(id:any){ 
+    return this.http.get(`${this.API_URL}/obtener-dia/${id}`)
+  }
+
+  getDays(id:any){
+    return this.http.get(`${this.API_URL}/obtener-dias/${id}`)
+  }
+
+  editDays(id:any, form:any){
+    return this.http.put(`${this.API_URL}/editar-dia/${id}`, form)
+  }
+
+  deleteDay(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-dia/${id}`)
+  }
+
+  /*******************************************************HORARIOS*************************************************/
+
+  createSchedule(id:any, form:any){
+    return this.http.post(`${this.API_URL}/crear-horario/${id}`, form)
+  }
+
+  getSchedule(id:any){
+    return this.http.get(`${this.API_URL}/obtener-horario/${id}`)
+  }
+
+  getSchedules(id:any){
+    return this.http.get(`${this.API_URL}/obtener-horarios/${id}`)
+  }
+
+  editSchedules(id:any, form:any){
+    return this.http.put(`${this.API_URL}/editar-horario/${id}`, form)
+  }
+
+  deleteSchedule(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-horario/${id}`)
   }
 }

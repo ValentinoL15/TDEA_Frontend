@@ -19,6 +19,7 @@ export class FormatPage implements OnInit {
     minPlayers: 0,
     maxPlayers: 0,
   };
+  
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   constructor(private route: ActivatedRoute, private tournamentServ: TournamentService, private router: Router, private notifyService: NotifyService) { 
   }
@@ -44,6 +45,8 @@ export class FormatPage implements OnInit {
     this.router.navigate(['/create-format'])
   }
 
+
+
   getFormato(id:any){
     this.tournamentServ.getFormat(id).subscribe({
       next: (res : any) => {
@@ -68,7 +71,10 @@ export class FormatPage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message);
         this.getFormato(this.id)
-        this.setOpen(false)
+        setTimeout(() => {
+          window.location.href = `/create-format`
+        }, 500)
+        
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
