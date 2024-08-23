@@ -50,17 +50,6 @@ form {
     width: 80%;
 }
 
-.border {
-    width: 80%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: rgba(12, 236, 143, 0.1); /* Fondo blanco con 80% opacidad */
-    overflow: auto;
-}
-
 .registrar-container {
     display: flex;
     gap: 5px;
