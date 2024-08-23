@@ -12,7 +12,7 @@
 
 <ion-content [fullscreen]="true" color="light">
 
-  <div >
+  
     <ion-list [inset]="true">
 
       <ion-item>
@@ -47,8 +47,8 @@
         <ion-input readonly="true" label="Estadios Disponibles" [value]="tournament.activeStadiums"></ion-input>
       </ion-item>
 
-      <ion-item detail="true">
-        <ion-input readonly="true" label="Horarios y Dias" [value]="tournament.daysTournament"></ion-input>
+      <ion-item detail="true" (click)="goDay()">
+        <ion-input readonly="true" label="Horarios y Dias"></ion-input>
       </ion-item>
       
 
@@ -56,10 +56,16 @@
 
     <ion-list [inset]="true">
       <ion-item>
-        <ion-textarea label="Notas" labelPlacement="floating" rows="5" [value]="tournament.tournamentNotes"></ion-textarea>
+        <ion-textarea readonly="true" label="Notas" labelPlacement="floating" rows="5" [value]="tournament.tournamentNotes"></ion-textarea>
       </ion-item>
     </ion-list>
-  </div>
+
+    <div class="container">
+      <ion-button expand="block" color="danger" [strong]="true" (click)="deleteTorneo(tournament._id)">
+        Eliminar Torneo
+      </ion-button>
+    </div>
+  
 
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
@@ -125,3 +131,11 @@
     </ng-template>
   </ion-modal> 
 </ion-content>
+
+<ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+
