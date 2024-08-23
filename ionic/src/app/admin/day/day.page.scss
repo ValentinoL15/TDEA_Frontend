@@ -20,3 +20,16 @@
     text-align: center;
     
 }
+
+ion-item {
+    --inner-padding-start: 0; /* Remover padding inicial */
+  }
+  
+  ion-label {
+    flex: 0 0 100px; /* Ajusta la anchura del label */
+    text-align: left; /* Asegura que el label esté alineado a la izquierda */
+  }
+  
+  ion-input {
+    text-align: right; /* Asegura que el input esté alineado a la derecha */
+  }
