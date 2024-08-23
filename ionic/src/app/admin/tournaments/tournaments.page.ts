@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Category } from 'src/app/interfaces/Category';
 import { Format } from 'src/app/interfaces/Format';
 import { Tournament } from 'src/app/interfaces/Tournament';
@@ -34,7 +35,28 @@ export class TournamentsPage implements OnInit {
     isTournamentMasculine: false,
     isTournamentActive: false
   }
-  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute) { }
+
+  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController) { }
+
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+  setResult(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -53,6 +75,10 @@ export class TournamentsPage implements OnInit {
 
   volver(){
     this.router.navigate(['/admin/home-tournament'])
+  }
+
+  goDay(){
+    this.router.navigate([`/create-day/${this.id}`])
   }
 
   getCategories(){
@@ -117,6 +143,41 @@ export class TournamentsPage implements OnInit {
       }
     })
     
+  }
+
+  async deleteTorneo(id: any) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que quieres borrar este Torneo?. Se borrarán todos sus datos',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // El usuario ha cancelado, no hacer nada
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            // El usuario ha confirmado, proceder con la eliminación
+            this.tournamentServ.deleteTournament(id).subscribe({
+              next: (res: any) => {
+                this.notifyService.success(res.message);
+                setTimeout(() => {
+                  window.location.href = `/admin/admin-home`;
+                }, 500); 
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message);
+              }
+            });
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
   }
 
 

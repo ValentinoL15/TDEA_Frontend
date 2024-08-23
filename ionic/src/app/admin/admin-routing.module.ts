@@ -60,7 +60,16 @@ const routes: Routes = [
   {
     path: 'home-tournament',
     loadChildren: () => import('./home-tournament/home-tournament.module').then( m => m.HomeTournamentPageModule)
+  },
+  {
+    path: 'create-day/:id',
+    loadChildren: () => import('./create-day/create-day.module').then( m => m.CreateDayPageModule)
+  },
+  {
+    path: 'day/:id',
+    loadChildren: () => import('./day/day.module').then( m => m.DayPageModule)
   }
+
 
 
 

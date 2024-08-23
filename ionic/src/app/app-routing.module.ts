@@ -70,6 +70,14 @@ const routes: Routes = [
     path: 'season/:id',
     loadChildren: () => import('./admin/season/season.module').then( m => m.SeasonPageModule)
   },
+  {
+    path: 'create-day/:id',
+    loadChildren: () => import('./admin/create-day/create-day.module').then( m => m.CreateDayPageModule)
+  },
+  {
+    path: 'day/:id',
+    loadChildren: () => import('./admin/day/day.module').then( m => m.DayPageModule)
+  },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
     path: 'create-team',
