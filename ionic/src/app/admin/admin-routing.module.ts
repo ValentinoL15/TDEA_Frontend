@@ -36,12 +36,9 @@ const routes: Routes = [
   {
     path: 'category/:id',
     loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
-  },  {
-    path: 'create-tournament',
-    loadChildren: () => import('./create-tournament/create-tournament.module').then( m => m.CreateTournamentPageModule)
   },
   {
-    path: 'tournaments',
+    path: 'tournaments/:id',
     loadChildren: () => import('./tournaments/tournaments.module').then( m => m.TournamentsPageModule)
   },
   {
@@ -59,6 +56,10 @@ const routes: Routes = [
   {
     path: 'season',
     loadChildren: () => import('./season/season.module').then( m => m.SeasonPageModule)
+  },
+  {
+    path: 'home-tournament',
+    loadChildren: () => import('./home-tournament/home-tournament.module').then( m => m.HomeTournamentPageModule)
   }
 
 

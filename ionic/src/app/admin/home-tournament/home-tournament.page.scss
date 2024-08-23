@@ -1,5 +1,13 @@
-ion-input{
-    text-align: right;
+.item {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.dateTime{
+    width: 100%;
+    float: right;
+    margin-left: 60px;
 }
 
 .date-item {
