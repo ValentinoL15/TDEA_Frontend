@@ -17,8 +17,7 @@ export class DayPage implements OnInit {
   dia: Day = {
     day: "",
     horarios: {
-      hour: 0,
-      minute: 0
+      times: []
     }
   }
   horarios: Schedule[] = []
@@ -76,11 +75,7 @@ export class DayPage implements OnInit {
   getHorarios() {
     this.tournamentServ.getSchedules(this.id).subscribe({
       next: (res: any) => {
-        // Formatea los minutos con dos dígitos
-        this.horarios = res.horarios.map((horario: any) => ({
-          hour: horario.hour,
-          minute: horario.minute.toString().padStart(2, '0')  // Asegura dos dígitos para minutos
-        }));
+        this.horarios = res.horarios
       },
       error: (err) => {
         this.notifyService.error(err.error.message);
@@ -89,13 +84,8 @@ export class DayPage implements OnInit {
   }
 
   crearHorario(form:any){
-    if (!this.isFormValid(form)) {
-      this.notifyService.error('Debe ingresar dos dígitos para la hora y los minutos.');
-      return;
-    }
     const formulario = {
-      hour: form.hour.value,
-      minute: form.minute.value
+    times: form.times.value
     }
     this.tournamentServ.createSchedule(this.id,formulario).subscribe({
       next: (res : any) => {
