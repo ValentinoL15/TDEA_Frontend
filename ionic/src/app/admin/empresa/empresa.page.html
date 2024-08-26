@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Empresas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+
+<ion-list [inset]="true" *ngFor="let empresa of empresas">
+  <ion-item button (click)="goEmpresa(empresa._id)">
+    <ion-label>{{empresa.razonSocial}}</ion-label>
+  </ion-item>
+</ion-list>
+
+<div class="container">
+  <ion-button expand="block" (click)="setOpen(true)">Crear Empresa</ion-button>
+</div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+          <ion-title>Crear</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="crearTorneo()">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="form">
+        <ion-list [inset]="true">
+          <ion-item>
+            <ion-input label="Dueño" formControlName="dueno"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Razon social" formControlName="razonSocial"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="CUIT" formControlName="cuit"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Condicion Tributaria" formControlName="condicionTributaria"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Tipo de Factura" formControlName="tipoFactura"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Domicilio" formControlName="adress"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Email" formControlName="mail"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Telefono" formControlName="phone"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+      </ion-content>
+      
+    </ng-template>
+  </ion-modal>
+</ion-content>

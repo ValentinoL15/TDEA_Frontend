@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DayPageRoutingModule } from './day-routing.module';
+import { StadiumPageRoutingModule } from './stadium-routing.module';
 
-import { DayPage } from './day.page';
+import { StadiumPage } from './stadium.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DayPageRoutingModule,
-    ReactiveFormsModule
+    StadiumPageRoutingModule,
+    FormsModule
   ],
-  declarations: [DayPage]
+  declarations: [StadiumPage]
 })
-export class DayPageModule {}
+export class StadiumPageModule {}

@@ -63,20 +63,40 @@ const routes: Routes = [
     loadChildren: () => import('./admin/tournaments/tournaments.module').then( m => m.TournamentsPageModule)
   },
   {
-    path: 'create-season',
-    loadChildren: () => import('./admin/create-season/create-season.module').then( m => m.CreateSeasonPageModule)
-  },
-  {
-    path: 'season/:id',
-    loadChildren: () => import('./admin/season/season.module').then( m => m.SeasonPageModule)
-  },
-  {
     path: 'create-day/:id',
     loadChildren: () => import('./admin/create-day/create-day.module').then( m => m.CreateDayPageModule)
   },
   {
     path: 'day/:id',
     loadChildren: () => import('./admin/day/day.module').then( m => m.DayPageModule)
+  },
+  {
+    path: 'empresa',
+    loadChildren: () => import('./admin/empresa/empresa.module').then(m => m.EmpresaPageModule)
+  },
+  {
+    path: 'edit-empresa/:id',
+    loadChildren: () => import('./admin/edit-empresa/edit-empresa.module').then( m => m.EditEmpresaPageModule)
+  },
+  {
+    path: 'create-sede/:id',
+    loadChildren: () => import('./admin/create-sede/create-sede.module').then( m => m.CreateSedePageModule)
+  },
+  {
+    path: 'sede/:id',
+    loadChildren: () => import('./admin/sede/sede.module').then( m => m.SedePageModule)
+  },
+  {
+    path: 'create-stadium/:id',
+    loadChildren: () => import('./admin/create-stadium/create-stadium.module').then( m => m.CreateStadiumPageModule)
+  },
+  {
+    path: 'stadium/:id',
+    loadChildren: () => import('./admin/stadium/stadium.module').then( m => m.StadiumPageModule)
+  },
+  {
+    path: 'stadiums-disponibles/:id',
+    loadChildren: () => import('./admin/stadiums-disponibles/stadiums-disponibles.module').then( m => m.StadiumsDisponiblesPageModule)
   },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {

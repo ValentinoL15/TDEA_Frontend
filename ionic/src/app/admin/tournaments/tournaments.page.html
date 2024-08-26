@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button (click)="volver()">Cancel</ion-button>
     </ion-buttons>
-    <ion-title>Torneos</ion-title>
+    <ion-title>Torneo</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="setOpen(true)">Editar</ion-button>
     </ion-buttons>
@@ -43,12 +43,12 @@
         <ion-input readonly="true" label="Equipos Suscriptos" [value]="tournament.teamSubscribed"></ion-input>
       </ion-item>
 
-      <ion-item detail="true">
-        <ion-input readonly="true" label="Estadios Disponibles" [value]="tournament.activeStadiums"></ion-input>
+      <ion-item detail="true" (click)="goStadiums()">
+        <ion-input readonly="true" label="Estadios Disponibles"></ion-input>
       </ion-item>
 
       <ion-item detail="true" (click)="goDay()">
-        <ion-input readonly="true" label="Horarios y Dias"></ion-input>
+        <ion-input readonly="true" label="Horarios"></ion-input>
       </ion-item>
       
 

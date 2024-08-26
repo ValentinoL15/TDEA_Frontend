@@ -81,6 +81,10 @@ export class TournamentsPage implements OnInit {
     this.router.navigate([`/create-day/${this.id}`])
   }
 
+  goStadiums(){
+    this.router.navigate([`/stadiums-disponibles/${this.id}`])
+  }
+
   getCategories(){
     this.tournamentServ.getCategories().subscribe({
       next: (res : any) => {

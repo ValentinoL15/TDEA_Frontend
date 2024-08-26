@@ -1,0 +1,11 @@
+.label-left {
+    margin-right: auto;
+    padding-left: 10px; /* Ajusta el espaciado a tu gusto */
+    font-weight: bold; /* Opcional: para resaltar el label */
+  }
+  
+  .value-right {
+    text-align: right;
+    padding-right: 10px; /* Ajusta el espaciado a tu gusto */
+    color: var(--ion-color-dark); /* Opcional: para cambiar el color del texto */
+  }

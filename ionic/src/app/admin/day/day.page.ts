@@ -5,6 +5,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { Schedule } from 'src/app/interfaces/Schedule';
 import { AlertController } from '@ionic/angular';
+import { Stadium } from 'src/app/interfaces/Stadium';
 
 @Component({
   selector: 'app-day',
@@ -17,11 +18,25 @@ export class DayPage implements OnInit {
   dia: Day = {
     day: "",
     horarios: {
-      hour: 0,
-      minute: 0
+      times: []
     }
   }
   horarios: Schedule[] = []
+  times: string[] = [];  // Array para almacenar los horarios seleccionados
+  newTime: string = '';  // Variable para almacenar el horario nuevo
+  stadiums: Stadium[] = []
+
+
+  addTime() {
+    if (this.newTime) {
+      this.times.push(this.newTime);  // Agrega el nuevo horario al array
+      this.newTime = '';  // Resetea el campo para nuevos ingresos
+    }
+  }
+
+  removeTime(index: number) {
+    this.times.splice(index, 1);  // Elimina el horario seleccionado
+  }
   public alertButtons = [
     {
       text: 'Cancel',
@@ -50,6 +65,7 @@ export class DayPage implements OnInit {
     })
     this.getDay(this.id)
     this.getHorarios()
+    this.getEstadios()
   }
 
   isModalOpen = false;
@@ -76,11 +92,7 @@ export class DayPage implements OnInit {
   getHorarios() {
     this.tournamentServ.getSchedules(this.id).subscribe({
       next: (res: any) => {
-        // Formatea los minutos con dos dígitos
-        this.horarios = res.horarios.map((horario: any) => ({
-          hour: horario.hour,
-          minute: horario.minute.toString().padStart(2, '0')  // Asegura dos dígitos para minutos
-        }));
+        this.horarios = res.horarios
       },
       error: (err) => {
         this.notifyService.error(err.error.message);
@@ -88,14 +100,22 @@ export class DayPage implements OnInit {
     });
   }
 
+  getEstadios(){
+    this.tournamentServ.getEstadios().subscribe({
+      next: (res: any) => {
+        this.stadiums = res.stadiums
+        console.log(this.stadiums)
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
   crearHorario(form:any){
-    if (!this.isFormValid(form)) {
-      this.notifyService.error('Debe ingresar dos dígitos para la hora y los minutos.');
-      return;
-    }
     const formulario = {
-      hour: form.hour.value,
-      minute: form.minute.value
+    times: form.times.value,
+    stadium: form.stadium.value
     }
     this.tournamentServ.createSchedule(this.id,formulario).subscribe({
       next: (res : any) => {

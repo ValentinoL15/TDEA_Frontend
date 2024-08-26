@@ -82,29 +82,76 @@ export class TournamentService {
     return this.http.delete(`${this.API_URL}/eliminar-division/${id}`)
   }
 
-/*******************************************TEMPORADAS****************************************************/
+/*******************************************EMPRESAS****************************************************/
 
-  createSeason(form:Season){
-    return this.http.post(`${this.API_URL}/agregar-season`, form)
-  }
+createEmpresa(form : any){
+  return this.http.post(`${this.API_URL}/crear-empresa`, form)
+}
 
-  getSeasons(){
-    return this.http.get(`${this.API_URL}/obtener-seasons`)
-  }
+getEmpresa(id:any){
+  return this.http.get(`${this.API_URL}/obtener-empresa/${id}`)
+}
 
-  getSeason(id:any){
-    return this.http.get(`${this.API_URL}/obtener-season/${id}`)
-  }
+getEmpresas(){
+  return this.http.get(`${this.API_URL}/obtener-empresas`)
+}
 
-  editSeason(id:any, form:any){
-    return this.http.put(`${this.API_URL}/editar-season/${id}`, form)
-  }
+editEmpresa(id:any, form:any){
+  return this.http.put(`${this.API_URL}/editar-empresa/${id}`, form)
+}
 
-  deleteSeason(id:any){
-    return this.http.delete(`${this.API_URL}/eliminar-season/${id}`)
-  }
+deleteEmpresa(id:any){
+  return this.http.delete(`${this.API_URL}/eliminar-empresa/${id}`)
+}
 
-  /*******************************************TOURNAMENTS***************************************************/ 
+/***********************************************SEDES*******************************************************/ 
+
+createSede(id : any,form : any){
+  return this.http.post(`${this.API_URL}/crear-sede/${id}`, form)
+}
+
+getSede(id : any){
+  return this.http.get(`${this.API_URL}/obtener-sede/${id}`)
+}
+
+getSedes(id : any){
+  return this.http.get(`${this.API_URL}/obtener-sedes/${id}`)
+}
+
+editSede(id : any, form : any){
+  return this.http.put(`${this.API_URL}/editar-sede/${id}`, form)
+}
+
+deleteSede(id : any){
+  return this.http.delete(`${this.API_URL}/eliminar-sede/${id}`)
+}
+
+/***********************************************STADIUMS****************************************************/ 
+createStadium(id : any, form : any){
+  return this.http.post(`${this.API_URL}/crear-estadio/${id}`, form)
+}
+
+getStadium(id : any){
+  return this.http.get(`${this.API_URL}/obtener-estadio/${id}`)
+}
+
+getStadiums(id : any){
+  return this.http.get(`${this.API_URL}/obtener-estadios/${id}`)
+}
+
+getEstadios(){
+  return this.http.get(`${this.API_URL}/obtener-estadios`);
+}
+
+editStadium(id : any, form : any){
+  return this.http.put(`${this.API_URL}/editar-estadio/${id}`, form)
+}
+
+deleteStadium(id : any){
+  return this.http.delete(`${this.API_URL}/eliminar-estadio/${id}`)
+}
+
+/*******************************************TOURNAMENTS***************************************************/ 
 
   createTournament(form:any){
     return this.http.post(`${this.API_URL}/crear-torneo`, form)

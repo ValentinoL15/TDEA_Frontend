@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DayPageRoutingModule } from './day-routing.module';
+import { CreateSedePageRoutingModule } from './create-sede-routing.module';
 
-import { DayPage } from './day.page';
+import { CreateSedePage } from './create-sede.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DayPageRoutingModule,
+    CreateSedePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [DayPage]
+  declarations: [CreateSedePage]
 })
-export class DayPageModule {}
+export class CreateSedePageModule {}
