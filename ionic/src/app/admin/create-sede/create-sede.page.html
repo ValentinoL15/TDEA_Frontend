@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Sedes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+
+  <div class="sede" *ngIf="sedes.length === 0">
+    <h3>No existen Sedes asociadas</h3>
+  </div>
+
+  <ion-list [inset]="true" *ngFor="let sede of sedes">
+    <ion-item (click)="goSede(sede._id)">
+      <ion-label>{{sede.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div class="container">
+    <ion-button expand="block" (click)="setOpen(true)">Crear Sede</ion-button>
+  </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Volver</ion-button>
+          </ion-buttons>
+          <ion-title>Crear</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="crearSede()">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+
+          <div class="contenedor">
+            <h1>{{empresa.razonSocial}}</h1>
+          </div>
+      
+        <ion-list [inset]="true">
+          <form [formGroup]="form">
+          <ion-item>
+            <ion-input label-placement="floating" label="Nombre" placeholder="Nombre" formControlName="name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Alias" label-placement="floating" placeholder="alias" formControlName="alias"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Status" label-placement="floating" placeholder="status" formControlName="status"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Telefono" label-placement="floating" placeholder="Telefono" formControlName="phone"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Celular" label-placement="floating" placeholder="Celular" formControlName="celular"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Domicilio" label-placement="floating" formControlName="adress" placeholder="Domicilio"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Barrio" label-placement="floating" placeholder="Barrio" formControlName="barrio"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" formControlName="socialRed"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Dias de atencion" name="type" class="select" multiple="true" formControlName="daysAttention">
+              <ion-select-option value="Lunes">Lunes</ion-select-option>
+              <ion-select-option value="Martes">Martes</ion-select-option>
+              <ion-select-option value="Miercoles">Miercoles</ion-select-option>
+              <ion-select-option value="Jueves">Jueves</ion-select-option>
+              <ion-select-option value="Viernes">Viernes</ion-select-option>
+              <ion-select-option value="Sabado">Sabado</ion-select-option>
+              <ion-select-option value="Domingo">Domingo</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <label>Imagen</label>
+            <input type="file" label="Imagen" (change)="onFileSelected($event)">
+          </ion-item>
+          <ion-item>
+            <ion-input label="Encargado" label-placement="floating" placeholder="Encargado" formControlName="encargado"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Dueño" label-placement="floating" placeholder="Dueño" formControlName="dueno"></ion-input>
+          </ion-item>
+        </form>
+        </ion-list>
+      </ion-content>
+      
+    </ng-template>
+  </ion-modal>
+</ion-content>

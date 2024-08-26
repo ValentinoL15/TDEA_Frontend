@@ -5,6 +5,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { Schedule } from 'src/app/interfaces/Schedule';
 import { AlertController } from '@ionic/angular';
+import { Stadium } from 'src/app/interfaces/Stadium';
 
 @Component({
   selector: 'app-day',
@@ -21,6 +22,21 @@ export class DayPage implements OnInit {
     }
   }
   horarios: Schedule[] = []
+  times: string[] = [];  // Array para almacenar los horarios seleccionados
+  newTime: string = '';  // Variable para almacenar el horario nuevo
+  stadiums: Stadium[] = []
+
+
+  addTime() {
+    if (this.newTime) {
+      this.times.push(this.newTime);  // Agrega el nuevo horario al array
+      this.newTime = '';  // Resetea el campo para nuevos ingresos
+    }
+  }
+
+  removeTime(index: number) {
+    this.times.splice(index, 1);  // Elimina el horario seleccionado
+  }
   public alertButtons = [
     {
       text: 'Cancel',
@@ -49,6 +65,7 @@ export class DayPage implements OnInit {
     })
     this.getDay(this.id)
     this.getHorarios()
+    this.getEstadios()
   }
 
   isModalOpen = false;
@@ -83,9 +100,22 @@ export class DayPage implements OnInit {
     });
   }
 
+  getEstadios(){
+    this.tournamentServ.getEstadios().subscribe({
+      next: (res: any) => {
+        this.stadiums = res.stadiums
+        console.log(this.stadiums)
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
   crearHorario(form:any){
     const formulario = {
-    times: form.times.value
+    times: form.times.value,
+    stadium: form.stadium.value
     }
     this.tournamentServ.createSchedule(this.id,formulario).subscribe({
       next: (res : any) => {

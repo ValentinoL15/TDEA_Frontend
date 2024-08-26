@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Sede</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setOpen(true)">Editar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-label class="label-left">Nombre</ion-label>
+      <ion-input placeholder="Nombre" [value]="sede.name" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Alias</ion-label>
+      <ion-input [value]="sede.alias" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Status</ion-label>
+      <ion-input [value]="sede.status" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Telefono</ion-label>
+      <ion-input [value]="sede.phone" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Celular</ion-label>
+      <ion-input [value]="sede.celular" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Domicilio</ion-label>
+      <ion-input [value]="sede.adress" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Barrio</ion-label>
+      <ion-input [value]="sede.barrio" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Instagram</ion-label>
+      <ion-input [value]="sede.socialRed" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Dias de atención</ion-label>
+      <ion-input [value]="sede.daysAttention" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Encargado</ion-label>
+      <ion-input [value]="sede.encargado" readonly class="value-right"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-left">Dueño</ion-label>
+      <ion-input [value]="sede.dueno" readonly class="value-right"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="true">
+    <ion-item button (click)="goStadium()">
+      Estadio
+    </ion-item>
+  </ion-list>
+
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+          </ion-buttons>
+          <ion-title style="text-align: center;">Crear</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="editSede(miForm)">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+
+          <div class="contenedor">
+            <h1>{{sede.name}}</h1>
+          </div>
+      
+        <ion-list [inset]="true">
+          <form #miForm>
+          <ion-item>
+            <ion-input label-placement="floating" label="Nombre" placeholder="Nombre" name="name" [value]="sede.name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Alias" label-placement="floating" placeholder="alias" name="alias" [value]="sede.alias"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Status" label-placement="floating" placeholder="status" name="status" [value]="sede.status"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Telefono" label-placement="floating" placeholder="Telefono" name="phone" [value]="sede.phone"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Celular" label-placement="floating" placeholder="Celular" name="celular" [value]="sede.celular"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Domicilio" label-placement="floating" name="adress" placeholder="Domicilio" [value]="sede.adress"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Barrio" label-placement="floating" placeholder="Barrio" name="barrio" [value]="sede.barrio"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" name="socialRed" [value]="sede.socialRed"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Dias de At" label-placement="floating" placeholder="Dias de atencion" name="daysAttention" [value]="sede.daysAttention"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Encargado" label-placement="floating" placeholder="Encargado" name="encargado" [value]="sede.encargado"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Dueño" label-placement="floating" placeholder="Dueño" name="dueno" [value]="sede.dueno"></ion-input>
+          </ion-item>
+        </form>
+        </ion-list>
+      </ion-content>
+      
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

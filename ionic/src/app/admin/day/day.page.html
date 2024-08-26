@@ -56,14 +56,26 @@
         <form #miForm>
         <ion-list [inset]="true">
           <ion-item>
+            <ion-select label="Estadios disponibles"  name="stadium" >
+              <ion-select-option *ngFor="let stadium of stadiums" [value]="stadium._id">{{stadium.code}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
             <ion-label>Hora</ion-label>
             <input
             type="time"
             id="timeInput"
             name="times"
-            ngModel
+            [(ngModel)]="newTime"
             required
           />
+          <ion-button (click)="addTime()">Agregar</ion-button> <!-- Botón para agregar horario -->
+          </ion-item>
+        </ion-list>
+        <ion-list [inset]="true">
+          <ion-item *ngFor="let time of times; let i = index">
+            {{ time }}
+            <ion-button fill="clear" color="danger" (click)="removeTime(i)">Eliminar</ion-button>
           </ion-item>
         </ion-list>
       </form>

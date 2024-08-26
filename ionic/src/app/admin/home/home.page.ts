@@ -25,9 +25,10 @@ goDivisions(){
   this.router.navigate(['/create-division'])
 }
 
-goSeasons(){
-  this.router.navigate(['/create-season'])
+goStadiums(){
+  this.router.navigate(['/empresa'])
 }
+
 cerrarSesion(){
   localStorage.removeItem('token');
   this.router.navigate(['/login']);

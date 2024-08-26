@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeasonPageRoutingModule } from './season-routing.module';
+import { CreateStadiumPageRoutingModule } from './create-stadium-routing.module';
 
-import { SeasonPage } from './season.page';
+import { CreateStadiumPage } from './create-stadium.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeasonPageRoutingModule,
+    CreateStadiumPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [SeasonPage]
+  declarations: [CreateStadiumPage]
 })
-export class SeasonPageModule {}
+export class CreateStadiumPageModule {}
