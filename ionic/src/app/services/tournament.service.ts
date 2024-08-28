@@ -216,4 +216,8 @@ deleteStadium(id : any){
   deleteSchedule(id:any){
     return this.http.delete(`${this.API_URL}/eliminar-horario/${id}`)
   }
+
+  deleteHour(id : any, form : any){
+    return this.http.put(`${this.API_URL}/eliminar-hora/${id}`, form)
+  }
 }

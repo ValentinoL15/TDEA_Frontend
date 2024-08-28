@@ -95,8 +95,8 @@ const routes: Routes = [
     loadChildren: () => import('./admin/stadium/stadium.module').then( m => m.StadiumPageModule)
   },
   {
-    path: 'stadiums-disponibles/:id',
-    loadChildren: () => import('./admin/stadiums-disponibles/stadiums-disponibles.module').then( m => m.StadiumsDisponiblesPageModule)
+    path: 'edit-horarios/:id',
+    loadChildren: () => import('./admin/edit-horarios/edit-horarios.module').then( m => m.EditHorariosPageModule)
   },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
@@ -130,6 +130,14 @@ const routes: Routes = [
   {
     path: 'edit-player/:id',
     loadChildren: () => import('./edit-player/edit-player.module').then( m => m.EditPlayerPageModule)
+  },
+  {
+    path: 'torneos/:id',
+    loadChildren: () => import('./tournaments/tournaments.module').then( m => m.TournamentsPageModule)
+  },
+  {
+    path: 'inscripcion',
+    loadChildren: () => import('./inscripcion/inscripcion.module').then( m => m.InscripcionPageModule)
   }
 ];
 @NgModule({

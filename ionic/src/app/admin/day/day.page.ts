@@ -31,6 +31,7 @@ export class DayPage implements OnInit {
     if (this.newTime) {
       this.times.push(this.newTime);  // Agrega el nuevo horario al array
       this.newTime = '';  // Resetea el campo para nuevos ingresos
+      console.log(this.times)
     }
   }
 
@@ -66,6 +67,10 @@ export class DayPage implements OnInit {
     this.getDay(this.id)
     this.getHorarios()
     this.getEstadios()
+  }
+
+  goSchedule(id : any){
+    this.router.navigate([`edit-horarios/${id}`])
   }
 
   isModalOpen = false;
@@ -114,9 +119,10 @@ export class DayPage implements OnInit {
 
   crearHorario(form:any){
     const formulario = {
-    times: form.times.value,
+    times: this.times,
     stadium: form.stadium.value
     }
+    console.log(formulario)
     this.tournamentServ.createSchedule(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
@@ -140,7 +146,7 @@ export class DayPage implements OnInit {
   async deleteDay(id: any) {
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
-      message: '¿Estás seguro de que quieres borrar este dia con sus horarios?',
+      message: '¿Estás seguro de que quieres borrar este dia con sus horarios y estadios asociados?',
       buttons: [
         {
           text: 'Cancelar',

@@ -18,6 +18,15 @@
       <ion-item>
         <ion-input readonly="true" label="Nombre" [value]="tournament.nameFantasy"></ion-input>
       </ion-item>
+
+      <ion-item>
+        <ion-input readonly="true" label="Año" [value]="currentYear"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input readonly="true" label="Edad" [value]="tournament.rangeAgeSince + ' - ' + tournament.rangeAgeUntil"></ion-input>
+      </ion-item>
+
       
       <ion-item>
         <ion-input readonly="true" label="Categoria" [value]="tournament.category.categoryName"></ion-input>
@@ -41,10 +50,6 @@
 
       <ion-item detail="true">
         <ion-input readonly="true" label="Equipos Suscriptos" [value]="tournament.teamSubscribed"></ion-input>
-      </ion-item>
-
-      <ion-item detail="true" (click)="goStadiums()">
-        <ion-input readonly="true" label="Estadios Disponibles"></ion-input>
       </ion-item>
 
       <ion-item detail="true" (click)="goDay()">

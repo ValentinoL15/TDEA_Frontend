@@ -99,6 +99,10 @@ export class ListPage implements OnInit {
     // Aquí puedes realizar acciones adicionales si es necesario
   }
 
+  goTournaments(){
+    this.router.navigate([`/torneos/${this.id}`])
+  }
+
   goPlayers(id:any){
     this.router.navigate([`/players/${id}`])
   }

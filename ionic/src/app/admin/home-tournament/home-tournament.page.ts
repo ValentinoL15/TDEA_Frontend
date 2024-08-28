@@ -22,6 +22,10 @@ export class HomeTournamentPage implements OnInit {
   tournament: Tournament = {
     _id: "",
     nameFantasy: "",
+    ano: new Date().getFullYear(),
+    type: "",
+    rangeAgeSince: 0,
+    rangeAgeUntil: 0,
     category: {
       _id: "",
       categoryName : "",
@@ -38,9 +42,15 @@ export class HomeTournamentPage implements OnInit {
     isTournamentMasculine: false,
     isTournamentActive: false
   }
+
+  currentYear = new Date().getFullYear();
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       nameFantasy: ['', Validators.required],
+      ano: [this.currentYear],
+      type: ['', Validators.required],
+      rangeAgeSince: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
+      rangeAgeUntil: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
       category: ['', Validators.required],
       format: ['', Validators.required],
       isTournamentActive: ['', Validators.required],
@@ -85,8 +95,15 @@ getFormats(){
 }
 
 createTournament(){
-  const form : Tournament = {
+  if(this.form.get('rangeAgeUntil')?.value < this.form.get('rangeAgeSince')?.value){
+    return this.notifyService.error('EL rango de edad debe ser válido')
+  }
+  const formulario : Tournament = {
     nameFantasy: this.form.value.nameFantasy,
+    ano: this.form.value.ano,
+    type: this.form.value.type,
+    rangeAgeSince: this.form.value.rangeAgeSince,
+    rangeAgeUntil: this.form.value.rangeAgeUntil,
     category: this.form.value.category,
     format: this.form.value.format,
     isTournamentActive: this.form.value.isTournamentActive,
@@ -94,7 +111,7 @@ createTournament(){
     tournamentDate: this.form.value.tournamentDate,
     tournamentNotes: this.form.value.tournamentNotes
   }
-  this.tournamentServ.createTournament(form).subscribe({
+  this.tournamentServ.createTournament(formulario).subscribe({
     next: (res : any) => {
       this.notifyService.success(res.message)
       this.getTournaments()
@@ -120,6 +137,13 @@ getTournaments(){
 
 goTournament(id:any){
   this.router.navigate([`/tournaments/${id}`])
+}
+
+limitLength(event: any) {
+  const input = event.target;
+  if (input.value.length > 4) {
+    input.value = input.value.slice(0, 4);
+  }
 }
 
 }

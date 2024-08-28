@@ -12,11 +12,18 @@
     <h1>No hay dias registrados en el Torneo</h1>
   </div>
 
-  <ion-list [inset]="true" *ngFor="let dia of dias">
-  <ion-item detail="true" >
-    <ion-input readonly="true" [value]="dia.day" (click)="goDay(dia._id)"></ion-input>
-  </ion-item>
-  </ion-list>
+  <div *ngIf="dias.length !== 0">
+    <div class="contenedora">
+      <h3>Dias del Torneo</h3>
+    </div>
+    
+    <ion-list [inset]="true" *ngFor="let dia of dias">
+      <ion-item detail="true" >
+        <ion-input readonly="true" [value]="dia.day" (click)="goDay(dia._id)"></ion-input>
+      </ion-item>
+      </ion-list>
+  
+  </div>
 
   <div class="container-button">
     <div class="button" >
@@ -25,6 +32,8 @@
       </ion-button>
     </div>
   </div>
+
+
 
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
