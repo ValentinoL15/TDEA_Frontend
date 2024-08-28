@@ -86,9 +86,10 @@ const routes: Routes = [
     loadChildren: () => import('./stadium/stadium.module').then( m => m.StadiumPageModule)
   },
   {
-    path: 'stadiums-disponibles/:id',
-    loadChildren: () => import('./stadiums-disponibles/stadiums-disponibles.module').then( m => m.StadiumsDisponiblesPageModule)
+    path: 'edit-horarios/:id',
+    loadChildren: () => import('./edit-horarios/edit-horarios.module').then( m => m.EditHorariosPageModule)
   }
+
 
 
 

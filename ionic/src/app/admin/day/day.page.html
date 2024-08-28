@@ -14,11 +14,11 @@
   </div>
 
   <div *ngFor="let horario of horarios">
-    <ion-list [inset]="true" *ngFor="let time of horario.times"> 
-      <ion-item>
+    <ion-list [inset]="true"> 
+      <ion-item (click)="goSchedule(horario._id)">
         <ion-icon aria-hidden="true" name="time-outline" slot="start"></ion-icon>
-        <ion-label>Horario</ion-label>
-        <ion-input readonly="true" [value]="time"/>
+        <ion-label>{{horario.stadium?.code}}</ion-label>
+        <ion-input readonly="true" />
       </ion-item>
     </ion-list>
   </div>
@@ -65,7 +65,7 @@
             <input
             type="time"
             id="timeInput"
-            name="times"
+            name="newTime"
             [(ngModel)]="newTime"
             required
           />

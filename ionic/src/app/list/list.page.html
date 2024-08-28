@@ -22,9 +22,6 @@
       <ion-input readonly="true" label="Remera Suplente" [value]="list.alternativeShirtColor"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input readonly="true" label="Torneo" [value]="list.belongToTournament"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-input readonly="true" label="Division Perteneciente" [value]="list.division.order"></ion-input>
     </ion-item>
     <ion-item button (click)="goPlayers(list._id)">
@@ -42,6 +39,12 @@
     <ion-item>
       <ion-textarea readonly="true" label="Comments" labelPlacement="floating" rows="5" [value]="list.teamListNotes"></ion-textarea>
     </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="true">
+  <ion-item button>
+    <ion-input readonly="true" label="Ingresar a Torneo" (click)="goTournaments()"></ion-input>
+  </ion-item>
   </ion-list>
 
   <ion-modal [isOpen]="isModalOpen">

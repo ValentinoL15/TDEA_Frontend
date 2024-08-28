@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Torneos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list *ngFor="let torneo of torneos" [inset]="true">
+    <ion-item>
+      <ion-label>{{torneo.nameFantasy}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

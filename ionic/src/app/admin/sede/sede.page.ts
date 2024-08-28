@@ -29,6 +29,10 @@ export class SedePage implements OnInit {
   selectedFile: File | null = null;
 
   constructor(private route: ActivatedRoute, private tournamentServ: TournamentService, private notifyServ: NotifyService, private router: Router) { }
+  
+  dias = {
+    daysAttention: ['Lunes', 'Miercoles', 'Viernes'] // Inicializar con días seleccionados
+  };
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -93,6 +97,7 @@ export class SedePage implements OnInit {
       }
     })
   }
+
 
 
 }

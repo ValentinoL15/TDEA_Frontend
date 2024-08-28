@@ -36,7 +36,28 @@
     <form [formGroup]="form">
       <ion-list [inset]="true">
         <ion-item>
-          <ion-input label="Torneo" placeholder="Nombre del Torneo" formControlName="nameFantasy"></ion-input>
+          <ion-label class="label-left">Torneo</ion-label>
+          <ion-input placeholder="Nombre del Torneo" formControlName="nameFantasy" class="value-right"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="label-left">Año</ion-label>
+          <ion-input type="text" [value]="currentYear" formControlName="ano" readonly class="value-right"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-select label="Formato" placeholder="Tipo de Torneo" formControlName="type">
+            <ion-select-option value="Pretemporada">Pretemporada</ion-select-option>
+            <ion-select-option value="Amistoso">Amistoso</ion-select-option>
+            <ion-select-option value="Apertura">Apertura</ion-select-option>
+            <ion-select-option value="Clausura">Clausura</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label class="label-left">Desde</ion-label>
+          <ion-input placeholder="1990" formControlName="rangeAgeSince" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="label-left">Hasta</ion-label>
+          <ion-input placeholder="1999" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
         </ion-item>
         <ion-item>
           <ion-select label="Cateogria" placeholder="Categoria" formControlName="category">

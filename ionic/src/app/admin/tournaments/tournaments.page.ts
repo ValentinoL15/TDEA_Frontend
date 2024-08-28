@@ -19,6 +19,10 @@ export class TournamentsPage implements OnInit {
   formats: Format[] = []
   tournament: Tournament = {
     nameFantasy: "",
+    ano: new Date().getFullYear(),
+    type: "",
+    rangeAgeSince: 0,
+    rangeAgeUntil: 0,
     category: {
       _id: "",
       categoryName : "",
@@ -35,6 +39,7 @@ export class TournamentsPage implements OnInit {
     isTournamentMasculine: false,
     isTournamentActive: false
   }
+  currentYear = new Date().getFullYear();
 
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController) { }
 
