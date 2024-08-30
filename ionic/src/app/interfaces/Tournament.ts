@@ -1,5 +1,7 @@
 import { Category } from "./Category";
+import { Day } from "./Day";
 import { Format } from "./Format";
+import { Stadium } from "./Stadium";
 
 export interface Tournament {
     _id?: any,
@@ -12,7 +14,29 @@ export interface Tournament {
     format: Format,
     teamSubscribed?: Array<any>,
     activeStadiums?: Array<any>,
-    daysTournament?: Array<any>,
+    daysTournament?: Array <{
+    _id?:string,
+    creator?: String,
+    belongTournament?: String,
+    day: String,
+    sede:Array <{
+        _id?: string,
+        creator?: String,
+        belongDay?: String,
+        stadium?: {
+            _id?: string,
+            belongToSede?: string,
+            code: string,
+            type: number,
+            length: number,
+            width: number,
+            roof: string,
+            grass: string,
+            punctuaction: number,
+        },
+        times: Array<number>
+    }>
+    }>,
     tournamentDate: Date,
     tournamentNotes: String,
     isTournamentMasculine: Boolean,

@@ -19,6 +19,7 @@ player: Player = {
   firstName: "",
   lastName: "",
   age: 0,
+  nacimiento: 0,
   ownerList: ""
 }
 players: Player[] = []
@@ -78,6 +79,11 @@ players: Player[] = []
 
   editEdad(){
     this.notifyService.error('No es posible cambiar la edad')
+  }
+
+  adjustDate(date: Date): Date {
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    return date;
   }
 
   eliminarJugador(id:any){

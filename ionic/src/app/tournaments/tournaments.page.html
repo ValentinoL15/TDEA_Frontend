@@ -1,16 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="volver()">Cancel</ion-button>
+      <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
     <ion-title>Torneos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <ion-list *ngFor="let torneo of torneos" [inset]="true">
-    <ion-item>
-      <ion-label>{{torneo.nameFantasy}}</ion-label>
-    </ion-item>
-  </ion-list>
+
+  <ion-card *ngFor="let torneo of torneos">
+    <ion-card-header>
+      <ion-card-title>{{torneo.nameFantasy}}</ion-card-title>
+      <ion-card-subtitle>Torneo</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{torneo.tournamentNotes}}
+    </ion-card-content>
+  
+    <div class="contenedor-button">
+      <ion-button fill="clear" (click)="goTournament(torneo._id)">Ingresar</ion-button>
+    </div>
+    
+    
+  </ion-card>
+
 </ion-content>

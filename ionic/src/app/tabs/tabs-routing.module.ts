@@ -20,6 +20,10 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
+      {
+        path: 'torneos',
+        loadChildren: () => import('../tournaments/tournaments.module').then( m => m.TournamentsPageModule)
+      }
     ]
   },
   {

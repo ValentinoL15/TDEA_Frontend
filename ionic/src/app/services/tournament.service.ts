@@ -10,8 +10,8 @@ import { Season } from '../interfaces/Season';
 })
 export class TournamentService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http : HttpClient) { }
 
@@ -165,7 +165,7 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-torneos`)
   }
 
-  editTournaments(id:any, form:any){
+  editTournament(id:any, form:any){
     return this.http.put(`${this.API_URL}/editar-torneo/${id}`, form)
   }
 
