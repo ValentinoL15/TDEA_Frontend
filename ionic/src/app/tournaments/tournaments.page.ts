@@ -14,58 +14,24 @@ import { Tournament } from '../interfaces/Tournament';
 })
 export class TournamentsPage implements OnInit {
 
-constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService, private alertController: AlertController) { }
+constructor(private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService, private alertController: AlertController) { }
 
 id:any
 torneos: Tournament[] = []
-list: List = {
-  _id: "",
-  ownerUser: {
-      _id: "",
-      firstName: "",
-      lastName: ""
-  },
-  ownerTeam: {
-      _id: "",
-  },
-  shirtColor: "",
-  alternativeShirtColor: "",
-  belongToTournament: "",
-  players: [],
-  teamListNotes: "",
-  isTeamListActive: false,
-  teamListStatus: "",
-  division: { 
-      _id: "",
-      order:0
-  },
-  nameList: ""
-}
+
 
 ngOnInit() {
-  this.route.params.subscribe(params => {
-    this.id = params['id']
-  })
-  this.getList(this.id)
   this.getTournaments()
 }
 
-
-
 volver(){
-  this.router.navigate([`/list/${this.id}`])
+  this.router.navigate([`/user/home`])
 }
 
-getList(id:any){
-  this.userService.getList(id).subscribe({
-    next: (res : any) => {
-      this.list = res.list
-    },
-    error: (err: any) => {
-      this.notifyService.error(err.error.message)
-    }
-  })
+goTournament(id : any){
+  this.router.navigate([`/tournament/${id}`])
 }
+
 
 getTournaments(){
   this.tournamentServ.getTournaments().subscribe({
@@ -77,7 +43,5 @@ getTournaments(){
     }
   })
 }
-
-
 
 }

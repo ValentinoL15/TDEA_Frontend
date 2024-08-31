@@ -8,7 +8,7 @@ export interface Day {
     horarios: {
         _id?: string,
         creator?: String,
-        belongDay?: Day,
+        belongDay?: String,
         stadium?: {
             _id?: string,
             belongToSede?: string,

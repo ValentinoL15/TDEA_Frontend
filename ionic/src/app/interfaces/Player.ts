@@ -3,5 +3,6 @@ export interface Player {
     firstName: String,
     lastName: String,
     age: Number,
+    nacimiento: Number,
     ownerList?: String
 }

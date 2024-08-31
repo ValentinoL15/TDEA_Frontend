@@ -132,12 +132,16 @@ const routes: Routes = [
     loadChildren: () => import('./edit-player/edit-player.module').then( m => m.EditPlayerPageModule)
   },
   {
-    path: 'torneos/:id',
+    path: 'torneos',
     loadChildren: () => import('./tournaments/tournaments.module').then( m => m.TournamentsPageModule)
   },
   {
     path: 'inscripcion',
     loadChildren: () => import('./inscripcion/inscripcion.module').then( m => m.InscripcionPageModule)
+  },
+  {
+    path: 'tournament/:id',
+    loadChildren: () => import('./tournament/tournament.module').then( m => m.TournamentPageModule)
   }
 ];
 @NgModule({

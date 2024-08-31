@@ -42,7 +42,8 @@ export class PlayersPage implements OnInit {
     _id: "",
     firstName: "",
     lastName: "",
-    age: 0
+    age: 0,
+    nacimiento: 0
   }
   players: Player[] = []
 
@@ -51,7 +52,8 @@ export class PlayersPage implements OnInit {
     this.form = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required]],
-      age: ['', Validators.required]
+      age: ['', Validators.required],
+      nacimiento: ['', Validators.required],
     })
   }
 
@@ -70,7 +72,6 @@ export class PlayersPage implements OnInit {
     this.obtenerJugadores(this.id)
   }
 
- 
 
   volver(id:any){
     this.router.navigate([`/list/${id}`])
@@ -84,18 +85,21 @@ export class PlayersPage implements OnInit {
     this.userService.getPlayers(id).subscribe({
       next: (res : any) => {
         this.players = res.listOfPlayers
-      },
+        },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
-      }
-    })
-  }
+        }
+      })
+        }
+      
+  
 
   crearJugador(id:any, form: any){
     const formulario = {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
-      age: this.form.value.age
+      age: this.form.value.age,
+      nacimiento: this.form.value.nacimiento
     };
     this.userService.crearJugador(id, formulario).subscribe({
       next: (res : any) => {
@@ -122,8 +126,9 @@ export class PlayersPage implements OnInit {
     })
   }
 
-  editarPlayer(){
-
+  adjustDate(date: Date): Date {
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    return date;
   }
 
   onWillDismiss(event: Event) {

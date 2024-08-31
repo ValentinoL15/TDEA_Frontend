@@ -92,6 +92,14 @@
           <ion-item>
             <ion-input label="Nombre" name="nameFantasy" [value]="tournament.nameFantasy"></ion-input>
           </ion-item>
+
+          <ion-item>
+            <ion-input label="Desde" name="rangeAgeSince" [value]="tournament.rangeAgeSince"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Hasta" name="rangeAgeUntil" [value]="tournament.rangeAgeUntil"></ion-input>
+          </ion-item>
           
           <ion-item>
             <ion-select label="Categoria" placeholder="Categoria" name="category" [value]="tournament.category._id" [placeholder]="tournament.category.categoryName">

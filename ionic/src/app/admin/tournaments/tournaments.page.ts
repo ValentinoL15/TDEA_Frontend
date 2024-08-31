@@ -134,6 +134,8 @@ export class TournamentsPage implements OnInit {
   editTournament(id:any, form:any){
     const formulario = {
       nameFantasy: form.nameFantasy.value,
+      rangeAgeSince: form.rangeAgeSince.value,
+      rangeAgeUntil: form.rangeAgeUntil.value,
       tournamentDate: form.tournamentDate.value,
       category: form.category.value,
       format: form.format.value,
@@ -141,11 +143,11 @@ export class TournamentsPage implements OnInit {
       isTournamentActive: form.isTournamentActive.value,
       tournamentNotes: form.tournamentNotes.value
     };
-    this.tournamentServ.editTournaments(id, formulario).subscribe({
+    this.tournamentServ.editTournament(id, formulario).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message)
         this.getTournament(id)
-        this.setOpen(false)
+        window.location.href = `/tournaments/${this.id}`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -174,7 +176,7 @@ export class TournamentsPage implements OnInit {
               next: (res: any) => {
                 this.notifyService.success(res.message);
                 setTimeout(() => {
-                  window.location.href = `/admin/admin-home`;
+                  window.location.href = `/admin/home-tournament`;
                 }, 500); 
               },
               error: (err: any) => {

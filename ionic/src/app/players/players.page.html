@@ -15,12 +15,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Edad" [value]="player.age"></ion-input>
+      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Edad" [value]="player.age "></ion-input>
     </ion-item>
   </ion-list>
 
   <div class="container-button">
-    <div class="button" >
+    <div class="button">
       <ion-button shape="round" (click)="setOpen(true)">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
@@ -53,6 +53,10 @@
 
             <ion-item>
               <ion-input label="Edad" labelPlacement="stacked" type="number" placeholder="Ingrese una edad" formControlName="age"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input label="Año de Nacimiento" labelPlacement="stacked" type="number" placeholder="Ej: 1999" formControlName="nacimiento"></ion-input>
             </ion-item>
           </ion-list>
         </form>

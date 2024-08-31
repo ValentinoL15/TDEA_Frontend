@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>tournament</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{tournament.nameFantasy}}</ion-card-title>
+      <ion-card-subtitle>{{tournament.type}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <div class="comienzo">
+        <ion-icon name="time-outline" class="time"></ion-icon>
+        <h2> Fecha de comienzo: {{tournament.tournamentDate | date:'yyyy-MM-dd'}}</h2>
+      </div>
+
+      <div class="sections"> 
+        <h2 style="text-decoration: underline;">Formato</h2>
+          <p>- Tipo: {{tournament.format.formatName}}</p>
+          <p>- Mínimo de Jugadores: {{tournament.format.minPlayers}}</p>
+          <p>- Máximo de Jugadores: {{tournament.format.maxPlayers}}</p>
+      </div>
+
+      <div class="sections">
+        <h2 style="text-decoration: underline;">Rango de edad</h2>
+          <p>Categoria: {{tournament.rangeAgeSince}} - {{tournament.rangeAgeUntil}}</p>
+      </div>
+
+      <div class="sections">
+        <h2 style="text-decoration: underline;">Division</h2>
+        <p>Division: {{tournament.category.categoryName}}</p>
+        <p>Edad máxima: {{tournament.category.ageLimiter}}</p>
+      </div>
+
+      <div class="sections">
+        <h2>Dias y horarios</h2>
+        <div *ngFor="let item of tournament.daysTournament">
+          <p style="text-decoration: underline;">Dia: {{item.day}}</p>
+          <p *ngFor="let sede of item.sede">Horarios: {{sede.times}} , Estadio: {{sede.stadium?.code}}</p>
+        </div>
+        
+      </div>
+      
+    </ion-card-content>
+
+    <div class="contenedor-button">
+      <ion-button fill="outline" color="success">Inscribirse</ion-button>
+    </div>
+
+
+  </ion-card>
+</ion-content>
