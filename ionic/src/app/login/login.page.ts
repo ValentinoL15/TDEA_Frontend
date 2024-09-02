@@ -47,12 +47,12 @@ export class LoginPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private registerForm : FormBuilder, private notifyService: NotifyService, private router: Router, private auth : AuthService) {
     this.form = this.formBuilder.group({
-      dni: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      dni: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
 
     this.register = this.registerForm.group({
-      docNumber: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      docNumber: ['', [Validators.required]],
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       gender:['', [Validators.required]],
@@ -97,7 +97,7 @@ export class LoginPage implements OnInit {
         }
       },
       error: err => {
-        this.notifyService.error(err.error)
+        this.notifyService.error(err.error.message)
       }
     })
     
@@ -131,7 +131,7 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/confirm-code/' + res.id])
         },
         error: err => {
-          console.log(err)
+          this.notifyService.error(err.error.message)
         }
       })
     }
