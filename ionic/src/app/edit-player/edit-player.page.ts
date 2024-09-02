@@ -82,6 +82,10 @@ players: Player[] = []
     this.notifyService.error('No es posible cambiar la fecha de Nacimiento')
   }
 
+  editDni(){
+    this.notifyService.error('No es posible cambiar el DNI')
+  }
+
   adjustDate(date: Date): Date {
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
     return date;

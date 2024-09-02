@@ -22,10 +22,11 @@ export class HomeTournamentPage implements OnInit {
   tournament: Tournament = {
     _id: "",
     nameFantasy: "",
-    ano: new Date().getFullYear(),
+    ano: 0,
     type: "",
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
+    ageDescripcion: "",
     category: {
       _id: "",
       categoryName : "",
@@ -40,14 +41,17 @@ export class HomeTournamentPage implements OnInit {
     tournamentDate: new Date(),
     tournamentNotes: "",
     isTournamentMasculine: false,
-    isTournamentActive: false
+    isTournamentActive: false,
+    tarifaInscripcion: 0,
+    tarifaPartido: 0
   }
+  ano:any
 
   currentYear = new Date().getFullYear();
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       nameFantasy: ['', Validators.required],
-      ano: [this.currentYear],
+      ano: ['', Validators.required],
       type: ['', Validators.required],
       rangeAgeSince: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
       rangeAgeUntil: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
@@ -56,7 +60,10 @@ export class HomeTournamentPage implements OnInit {
       isTournamentActive: ['', Validators.required],
       isTournamentMasculine: ['', Validators.required],
       tournamentDate: ['', Validators.required],
-      tournamentNotes: ['', Validators.required]
+      tournamentNotes: ['', Validators.required],
+      ageDescripcion: ['', Validators.required],
+      tarifaInscripcion: ['', Validators.required],
+      tarifaPartido: ['', Validators.required]
     })
   }
 
@@ -109,7 +116,10 @@ createTournament(){
     isTournamentActive: this.form.value.isTournamentActive,
     isTournamentMasculine: this.form.value.isTournamentMasculine,
     tournamentDate: this.form.value.tournamentDate,
-    tournamentNotes: this.form.value.tournamentNotes
+    tournamentNotes: this.form.value.tournamentNotes,
+    ageDescripcion: this.form.value.ageDescripcion,
+    tarifaInscripcion: this.form.value.tarifaInscripcion,
+    tarifaPartido: this.form.value.tarifaPartido
   }
   this.tournamentServ.createTournament(formulario).subscribe({
     next: (res : any) => {
