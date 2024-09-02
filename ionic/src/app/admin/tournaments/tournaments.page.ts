@@ -19,10 +19,11 @@ export class TournamentsPage implements OnInit {
   formats: Format[] = []
   tournament: Tournament = {
     nameFantasy: "",
-    ano: new Date().getFullYear(),
+    ano: 0,
     type: "",
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
+    ageDescripcion: "",
     category: {
       _id: "",
       categoryName : "",
@@ -37,7 +38,9 @@ export class TournamentsPage implements OnInit {
     tournamentDate: new Date(),
     tournamentNotes: "",
     isTournamentMasculine: false,
-    isTournamentActive: false
+    isTournamentActive: false,
+    tarifaInscripcion: 0,
+    tarifaPartido: 0,
   }
   currentYear = new Date().getFullYear();
 
@@ -133,16 +136,22 @@ export class TournamentsPage implements OnInit {
 
   editTournament(id:any, form:any){
     const formulario = {
-      nameFantasy: form.nameFantasy.value,
+      nameFantasy: form.nameFantasy.value, //
       rangeAgeSince: form.rangeAgeSince.value,
       rangeAgeUntil: form.rangeAgeUntil.value,
       tournamentDate: form.tournamentDate.value,
+      type: form.type.value,
+      ano:form.ano.value,
       category: form.category.value,
       format: form.format.value,
       isTournamentMasculine: form.isTournamentMasculine.value,
       isTournamentActive: form.isTournamentActive.value,
-      tournamentNotes: form.tournamentNotes.value
+      tournamentNotes: form.tournamentNotes.value,
+      ageDescripcion: form.ageDescripcion.value,
+      tarifaInscripcion: form.tarifaInscripcion.value,
+      tarifaPartido: form.tarifaPartido.value
     };
+    console.log(formulario)
     this.tournamentServ.editTournament(id, formulario).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message)

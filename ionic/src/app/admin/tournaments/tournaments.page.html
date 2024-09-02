@@ -16,20 +16,19 @@
     <ion-list [inset]="true">
 
       <ion-item>
+        <ion-input readonly="true" label="¿Está activo?" [value]="tournament.isTournamentActive ? 'Activo' : 'No Activo'"></ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-input readonly="true" label="Nombre" [value]="tournament.nameFantasy"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input readonly="true" label="Año" [value]="currentYear"></ion-input>
+        <ion-input readonly="true" label="Año" [value]="tournament.ano"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input readonly="true" label="Edad" [value]="tournament.rangeAgeSince + ' - ' + tournament.rangeAgeUntil"></ion-input>
-      </ion-item>
-
-      
-      <ion-item>
-        <ion-input readonly="true" label="Categoria" [value]="tournament.category.categoryName"></ion-input>
+        <ion-input readonly="true" label="Campeonato" [value]="tournament.type"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -37,15 +36,27 @@
       </ion-item>
 
       <ion-item>
-        <ion-input readonly="true" label="Fecha Inicio" [value]="tournament.tournamentDate | date:'yyyy-MM-dd'"></ion-input>
+        <ion-input readonly="true" label="Categoria" [value]="tournament.category.categoryName"></ion-input>
       </ion-item>
-      
+
+      <ion-item>
+        <ion-input readonly="true" label="Edad" [value]="tournament.rangeAgeSince + ' - ' + tournament.rangeAgeUntil"></ion-input>
+      </ion-item>
+
       <ion-item>
         <ion-input readonly="true" label="Sexo" [value]="tournament.isTournamentMasculine ? 'Masculino' : 'Femenino'"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input readonly="true" label="¿Está activo?" [value]="tournament.isTournamentActive ? 'Activo' : 'No Activo'"></ion-input>
+        <ion-input readonly="true" label="Fecha Inicio" [value]="tournament.tournamentDate | date:'yyyy-MM-dd'"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input readonly="true" label="Valor de Inscripción" [value]="tournament.tarifaInscripcion"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input readonly="true" label="Valor X Partido" [value]="tournament.tarifaPartido"></ion-input>
       </ion-item>
 
       <ion-item detail="true">
@@ -90,7 +101,41 @@
         <ion-list [inset]="true">
 
           <ion-item>
+            <ion-select label="Actividad" [value]="tournament.isTournamentActive" [placeholder]="tournament.isTournamentActive ? 'Activo' : 'No Activo'" name="isTournamentActive">
+              <ion-select-option value="true">Activo</ion-select-option>
+              <ion-select-option value="false">No Activo</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
             <ion-input label="Nombre" name="nameFantasy" [value]="tournament.nameFantasy"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Año" name="ano" [value]="tournament.ano"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-select label="Campeonato" [value]="tournament.type" name="type">
+              <ion-select-option value="Pretemporada">Pretemporada</ion-select-option>
+              <ion-select-option value="Amistoso">Amistoso</ion-select-option>
+              <ion-select-option value="Apertura">Apertura</ion-select-option>
+              <ion-select-option value="Clausura">Clausura</ion-select-option>
+            </ion-select>
+          </ion-item> 
+
+          <ion-item>
+            <ion-select label="Formato" placeholder="Formato" name="format" [value]="tournament.format._id" [placeholder]="tournament.format.formatName">
+              <ion-select-option *ngFor="let format of formats" [value]="format._id">{{format.formatName}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-select label="Edad" name="ageDescripcion" [value]="tournament.ageDescripcion">
+              <ion-select-option value="Sub18">Sub 18</ion-select-option>
+              <ion-select-option value="+18">+18</ion-select-option>
+              <ion-select-option value="+30">+30</ion-select-option>
+            </ion-select>
           </ion-item>
 
           <ion-item>
@@ -100,6 +145,13 @@
           <ion-item>
             <ion-input label="Hasta" name="rangeAgeUntil" [value]="tournament.rangeAgeUntil"></ion-input>
           </ion-item>
+
+          <ion-item>
+            <ion-select label="Sexo" name="isTournamentMasculine" [value]="tournament.isTournamentMasculine" [placeholder]="tournament.isTournamentMasculine ? 'Masculino' : 'Femenino'">
+              <ion-select-option value="true">Masculino</ion-select-option>
+              <ion-select-option value="false">Femenino</ion-select-option>
+            </ion-select>
+          </ion-item>
           
           <ion-item>
             <ion-select label="Categoria" placeholder="Categoria" name="category" [value]="tournament.category._id" [placeholder]="tournament.category.categoryName">
@@ -108,28 +160,17 @@
           </ion-item>
     
           <ion-item>
-            <ion-select label="Formato" placeholder="Formato" name="format" [value]="tournament.format._id" [placeholder]="tournament.format.formatName">
-              <ion-select-option *ngFor="let format of formats" [value]="format._id">{{format.formatName}}</ion-select-option>
-            </ion-select>
-          </ion-item>
-    
-          <ion-item>
             <label class="date-label">Comienzo Torneo</label>
             <input type="date" label="Fecha Inicio" name="tournamentDate" [value]="tournament.tournamentDate | date:'yyyy-MM-dd'" />
           </ion-item>
-          
+
           <ion-item>
-            <ion-select label="Sexo" name="isTournamentMasculine" [value]="tournament.isTournamentMasculine" [placeholder]="tournament.isTournamentMasculine ? 'Masculino' : 'Femenino'">
-              <ion-select-option value="true">Masculino</ion-select-option>
-              <ion-select-option value="false">Femenino</ion-select-option>
-            </ion-select>
+            <ion-input placeholder="$" label="Valor de Inscripción" name="tarifaInscripcion" [value]="tournament.tarifaInscripcion"></ion-input>
           </ion-item>
     
+
           <ion-item>
-            <ion-select label="Actividad" [value]="tournament.isTournamentActive" [placeholder]="tournament.isTournamentActive ? 'Activo' : 'No Activo'" name="isTournamentActive">
-              <ion-select-option value="true">Activo</ion-select-option>
-              <ion-select-option value="false">No Activo</ion-select-option>
-            </ion-select>
+            <ion-input placeholder="$" label="Valor X Partido" name="tarifaPartido" [value]="tournament.tarifaPartido"></ion-input>
           </ion-item>
 
         </ion-list>

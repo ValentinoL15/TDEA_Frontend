@@ -36,32 +36,25 @@
     <form [formGroup]="form">
       <ion-list [inset]="true">
         <ion-item>
-          <ion-label class="label-left">Torneo</ion-label>
+          <ion-select label="Actividad" placeholder="¿Está activo?" formControlName="isTournamentActive">
+            <ion-select-option value="true">Activo</ion-select-option>
+            <ion-select-option value="false">No Activo</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Torneo</ion-label>
           <ion-input placeholder="Nombre del Torneo" formControlName="nameFantasy" class="value-right"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label class="label-left">Año</ion-label>
-          <ion-input type="text" [value]="currentYear" formControlName="ano" readonly class="value-right"></ion-input>
+          <ion-label>Año</ion-label>
+          <ion-input type="number" placeholder="Agregar año" formControlName="ano" class="value-right"/>
         </ion-item>
         <ion-item>
-          <ion-select label="Formato" placeholder="Tipo de Torneo" formControlName="type">
+          <ion-select label="Campeonato" placeholder="Tipo de Torneo" formControlName="type">
             <ion-select-option value="Pretemporada">Pretemporada</ion-select-option>
             <ion-select-option value="Amistoso">Amistoso</ion-select-option>
             <ion-select-option value="Apertura">Apertura</ion-select-option>
             <ion-select-option value="Clausura">Clausura</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label class="label-left">Desde</ion-label>
-          <ion-input placeholder="Ej: 1990" formControlName="rangeAgeSince" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label class="label-left">Hasta</ion-label>
-          <ion-input placeholder="Ej: 1999" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Cateogria" placeholder="Categoria" formControlName="category">
-            <ion-select-option *ngFor="let category of categories" [value]="category._id">{{category.categoryName}}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
@@ -70,9 +63,18 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-select label="Actividad" placeholder="¿Está activo?" formControlName="isTournamentActive">
-            <ion-select-option value="true">Activo</ion-select-option>
-            <ion-select-option value="false">No Activo</ion-select-option>
+          <ion-label>Desde</ion-label>
+          <ion-input placeholder="Ej: 1990" formControlName="rangeAgeSince" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hasta</ion-label>
+          <ion-input placeholder="Ej: 1999" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-select label="Edad" placeholder="Edad" formControlName="ageDescripcion">
+            <ion-select-option value="Sub18">Sub 18</ion-select-option>
+            <ion-select-option value="+18">+18</ion-select-option>
+            <ion-select-option value="+30">+30</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
@@ -81,11 +83,21 @@
             <ion-select-option value="false">Femenino</ion-select-option>
           </ion-select>
         </ion-item>
+        <ion-item>
+          <ion-select label="Categoria" placeholder="Categoria" formControlName="category">
+            <ion-select-option *ngFor="let category of categories" [value]="category._id">{{category.categoryName}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating" formControlName="tarifaInscripcion"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" label="Valor X Partido" labelPlacement="floating" placeholder="$" formControlName="tarifaPartido"></ion-input>
+        </ion-item>
         <ion-item lines="none" class="date-item"> 
         <label class="date-label">Comienzo Torneo</label>
           <input type="date" formControlName="tournamentDate" class="date-input" />
         </ion-item>
-      
       </ion-list>
 
       <ion-list [inset]="true">
@@ -100,19 +112,11 @@
   <ion-modal [keepContentsMounted]="true">
     <ng-template>
       <ion-datetime
-        id="datetime"
-        presentation="date"
-        value="2023-11-02"
-        [formatOptions]="{
-          date: {
-            weekday: 'short',
-            month: 'long',
-            day: '2-digit',
-          }
-        }"
-      ></ion-datetime>
+      id="datetime"
+      presentation="year" 
+      max="2030"
+    ></ion-datetime>
     </ng-template>
   </ion-modal>
-
   
 </ion-content>

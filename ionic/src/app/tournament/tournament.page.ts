@@ -17,10 +17,11 @@ export class TournamentPage implements OnInit {
 
   tournament: Tournament = {
     nameFantasy: "",
-    ano: new Date().getFullYear(),
+    ano: 0,
     type: "",
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
+    ageDescripcion: "",
     category: {
       _id: "",
       categoryName : "",
@@ -36,6 +37,8 @@ export class TournamentPage implements OnInit {
     tournamentNotes: "",
     isTournamentMasculine: false,
     isTournamentActive: false,
+    tarifaInscripcion: 0,
+    tarifaPartido: 0,
     daysTournament: [{
       _id:"",
     creator: "",

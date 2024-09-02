@@ -14,6 +14,7 @@ export interface Tournament {
     format: Format,
     teamSubscribed?: Array<any>,
     activeStadiums?: Array<any>,
+    ageDescripcion: string,
     daysTournament?: Array <{
     _id?:string,
     creator?: String,
@@ -40,5 +41,7 @@ export interface Tournament {
     tournamentDate: Date,
     tournamentNotes: String,
     isTournamentMasculine: Boolean,
-    isTournamentActive: Boolean
+    isTournamentActive: Boolean,
+    tarifaInscripcion: number,
+    tarifaPartido: number
 }
