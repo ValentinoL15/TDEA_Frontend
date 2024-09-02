@@ -15,11 +15,11 @@
     </ion-item>
     </ion-list>
 </div>
-
-  <ion-button expand="block" (click)="setOpen(true)">
-    Crear Lista Jugadores
-  </ion-button>
-  
+  <div class="container">
+    <ion-button style="font-weight: bold;" expand="block" (click)="setOpen(true)">
+      Crear Lista de Buena Fe
+    </ion-button>
+  </div>
 
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
@@ -37,20 +37,14 @@
       <ion-content class="ion-padding">
         <form [formGroup]="form">
           <ion-item>
-            <ion-input label="Nombre de la lista" label-placement="floating" formControlName="nameList"></ion-input>
+            <ion-input label="Nombre de la lista" label-placement="floating" placeholder="Nombre de Lista" formControlName="nameList"></ion-input>
           </ion-item>
         <ion-item>
-          <ion-input label="Remera Titular" label-placement="floating" formControlName="shirtColor"></ion-input>
+          <ion-input label="Remera Titular" label-placement="floating" placeholder="Remera Titular" formControlName="shirtColor"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input label="Remera Suplente" label-placement="floating" formControlName="alternativeShirtColor"></ion-input>
+          <ion-input label="Remera Suplente" label-placement="floating" placeholder="Remera Suplente" formControlName="alternativeShirtColor"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-select label="Division" placeholder="Elige una opción" formControlName="division">
-            <ion-select-option *ngFor="let division of divisiones" [value]="division._id">{{division.order}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-
         <ion-item>
           <ion-select label="Activo" placeholder="Elige una opción" formControlName="isTeamListActive">
             <ion-select-option value="true">Si</ion-select-option>
@@ -58,10 +52,10 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-input label="Status" label-placement="floating" placeholder="Enter text" formControlName="teamListStatus"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-textarea label="Notas" label-placement="floating" placeholder="Alguna descripción" formControlName="teamListNotes"></ion-textarea>
+          <div class="foto">
+            <label>Foto del Equipo</label>
+          </div>
+          <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
         </ion-item>
         </form>
       </ion-content>

@@ -18,8 +18,9 @@ player: Player = {
   _id: "",
   firstName: "",
   lastName: "",
-  age: 0,
-  nacimiento: 0,
+  dni:0,
+  shirtNumber: 0,
+  nacimiento: "yyyy-mm-dd",
   ownerList: ""
 }
 players: Player[] = []
@@ -78,7 +79,7 @@ players: Player[] = []
   }
 
   editEdad(){
-    this.notifyService.error('No es posible cambiar la edad')
+    this.notifyService.error('No es posible cambiar la fecha de Nacimiento')
   }
 
   adjustDate(date: Date): Date {

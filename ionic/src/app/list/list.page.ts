@@ -63,17 +63,10 @@ export class ListPage implements OnInit {
     },
     shirtColor: "",
     alternativeShirtColor: "",
-    teamListNotes: "",
     isTeamListActive: false,
-    teamListStatus: "",
-    division: {
-      _id:"",
-      order: 0
-    },
     nameList: "",
   }
   name:string = ""
-  selectedDivision: number = this.list.division.order;
   idOwnerTeam:any
   divisionId:any
   team: Team = {
@@ -94,14 +87,6 @@ export class ListPage implements OnInit {
     this.getDivisions()
   }
 
-  onDivisionChange(event: any) {
-    this.selectedDivision = event.detail.value;
-    // Aquí puedes realizar acciones adicionales si es necesario
-  }
-
-  goTournaments(){
-    this.router.navigate([`/torneos/${this.id}`])
-  }
 
   goPlayers(id:any){
     this.router.navigate([`/players/${id}`])
@@ -122,10 +107,7 @@ export class ListPage implements OnInit {
     const formulario = {
       shirtColor: form.shirtColor.value,
       alternativeShirtColor: form.alternativeShirtColor.value,
-      teamListNotes: form.teamListNotes.value,
       isTeamListActive: form.isTeamListActive.value === 'true',
-      teamListStatus: form.teamListStatus.value,
-      division: form.division.value
     }
     console.log(formulario)
     this.userService.editList(id,formulario).subscribe({
@@ -151,7 +133,6 @@ export class ListPage implements OnInit {
         this.list = res.list;
         this.name = `${this.list.ownerUser?.firstName} ${this.list.ownerUser?.lastName}`;
         this.idOwnerTeam = `${this.list.ownerTeam?._id}`
-        this.divisionId = `${this.list.division._id}`;
         console.log(this.divisionId)
       },
       error: (err: any) => {

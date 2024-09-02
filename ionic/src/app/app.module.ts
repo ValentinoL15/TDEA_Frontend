@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +10,11 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { TokenInterceptor } from './token.interceptor';
 import { FilterPipe } from './filter.pipe';
+import { SpinnerComponent } from './spinner/spinner.component';
+import localeEsAr from '@angular/common/locales/es-AR';
+
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEsAr, 'es-Ar')
 
 
 
@@ -17,9 +22,9 @@ import { FilterPipe } from './filter.pipe';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SpinnerComponent],
   imports: [BrowserModule , IonicModule.forRoot(), AppRoutingModule, HttpClientModule, BrowserAnimationsModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy , } , 
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy } , 
     { 
       provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy 
@@ -28,6 +33,10 @@ import { FilterPipe } from './filter.pipe';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'es-Ar'
     }
   ],
   bootstrap: [AppComponent],

@@ -21,26 +21,19 @@ export class CreateListPage implements OnInit {
   list: List = {
     shirtColor: "",
     alternativeShirtColor: "",
-    teamListNotes: "",
     isTeamListActive: false,
-    teamListStatus: "",
-    division: {
-      order: 0
-    },
     nameList: ""
   }
   form: FormGroup
   divisiones: Division[] = []
+  selectedFile: File | null = null;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
     this.form = this.formBuilder.group({
       nameList: ['', Validators.required],
       shirtColor: ['', Validators.required],
       alternativeShirtColor: ['', Validators.required],
-      teamListNotes: ['', Validators.required],
       isTeamListActive: ['', Validators.required],
-      teamListStatus: ['', Validators.required],
-      division: ['', Validators.required]
     })
   }
 
@@ -92,11 +85,9 @@ export class CreateListPage implements OnInit {
       nameList: this.form.value.nameList,
       shirtColor: this.form.value.shirtColor,
       alternativeShirtColor: this.form.value.alternativeShirtColor,
-      teamListNotes: this.form.value.teamListNotes,
-      isTeamListActive: this.form.value.isTeamListActive,
-      teamListStatus: this.form.value.teamListStatus,
-      division: this.form.value.division
+      isTeamListActive: this.form.value.isTeamListActive === false,
     };
+    console.log(formulario)
     this.userService.createList(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
@@ -106,6 +97,12 @@ export class CreateListPage implements OnInit {
         this.notifyService.error(err.error.message)
       }
     })
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+    console.log('Archivo seleccionado:', file);
   }
 
 

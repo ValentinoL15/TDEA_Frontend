@@ -15,8 +15,17 @@
     </ion-item>
 
     <ion-item>
-      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Edad" [value]="player.age "></ion-input>
+      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input (click)="goPlayer(player._id)" readonly="true" label="DNI" [value]="player.dni"></ion-input>
+    </ion-item>
+
   </ion-list>
 
   <div class="container-button">
@@ -52,11 +61,22 @@
             </ion-item>
 
             <ion-item>
-              <ion-input label="Edad" labelPlacement="stacked" type="number" placeholder="Ingrese una edad" formControlName="age"></ion-input>
+              <ion-input label="Fecha de Nacimiento" labelPlacement="stacked" type="date" placeholder="Ingrese una edad" formControlName="nacimiento"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="Año de Nacimiento" labelPlacement="stacked" type="number" placeholder="Ej: 1999" formControlName="nacimiento"></ion-input>
+              <ion-input label="DNI" labelPlacement="stacked" type="number" placeholder="Ingrese DNI" formControlName="dni"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input label="Número de camiseta" labelPlacement="stacked" type="number" placeholder="Ej: 7" formControlName="shirtNumber"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <div class="foto">
+                <label>Foto del Jugador</label>
+              </div>
+              <ion-input style="padding: 10px 0;" type="file" (change)="onFileSelected($event)"></ion-input>
             </ion-item>
           </ion-list>
         </form>

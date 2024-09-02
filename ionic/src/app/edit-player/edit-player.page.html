@@ -27,7 +27,19 @@
 
       <ion-item (click)="editEdad()">
         <ion-item>
-          <ion-input readonly="true" label="Edad" [value]="player.age"></ion-input>
+          <ion-input readonly="true" label="Fecha de Nacimiento" [value]="player.nacimiento"></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <ion-input readonly="true" name="dni" label="DNI" [value]="player.dni"></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <ion-input name="shirtNumber" label="Camiseta N°" [value]="player.shirtNumber"></ion-input>
         </ion-item>
       </ion-item>
     </form>

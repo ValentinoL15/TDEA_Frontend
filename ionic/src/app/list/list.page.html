@@ -21,32 +21,14 @@
     <ion-item>
       <ion-input readonly="true" label="Remera Suplente" [value]="list.alternativeShirtColor"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Division Perteneciente" [value]="list.division.order"></ion-input>
-    </ion-item>
     <ion-item button (click)="goPlayers(list._id)">
       <ion-input readonly="true" label="Jugadores"></ion-input>
     </ion-item>
     <ion-item >
       <ion-input readonly="true" label="Activo" [value]="list.isTeamListActive ? 'Si' : 'No'"></ion-input>
     </ion-item>
-    <ion-item >
-      <ion-input readonly="true" label="Status" [value]="list.teamListStatus"></ion-input>
-    </ion-item>
   </ion-list>
-
-  <ion-list [inset]="true">
-    <ion-item>
-      <ion-textarea readonly="true" label="Comments" labelPlacement="floating" rows="5" [value]="list.teamListNotes"></ion-textarea>
-    </ion-item>
-  </ion-list>
-
-  <ion-list [inset]="true">
-  <ion-item button>
-    <ion-input readonly="true" label="Ingresar a Torneo" (click)="goTournaments()"></ion-input>
-  </ion-item>
-  </ion-list>
-
+  
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
@@ -71,13 +53,6 @@
             <ion-item>
               <ion-input type="text" label="Remera Suplente" label-placement="stacked" placeholder="Remera Suplente" name="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
             </ion-item>
-
-            <ion-item>
-              <ion-select [value]="divisionId" type="number" label="Division" placeholder="{{list.division.order}}" name="division">
-                <ion-select-option select [value]="list.division._id">{{list.division.order}}</ion-select-option>
-                <ion-select-option *ngFor="let division of divisiones | filter: list.division.order" [value]="division._id">{{division.order}}</ion-select-option>
-              </ion-select>
-            </ion-item>
   
             <ion-item>
               <ion-select label="Activo" name="isTeamListActive" [placeholder]="list.isTeamListActive ? 'Si' : 'No'">
@@ -85,16 +60,7 @@
                 <ion-select-option value="true">Si</ion-select-option>
               </ion-select>
             </ion-item>
-  
-            <ion-item>
-              <ion-input type="text" label="Status" label-placement="stacked" placeholder="Status" [value]="list.teamListStatus" name="teamListStatus"></ion-input>
-            </ion-item>
-          </ion-list>
-  
-          <ion-list [inset]="true">
-            <ion-item>
-              <ion-textarea type="text" label="Comments" labelPlacement="floating" rows="5" [value]="list.teamListNotes" name="teamListNotes"></ion-textarea>
-            </ion-item>
+
           </ion-list>
         </form>
 

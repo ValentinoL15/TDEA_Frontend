@@ -7,6 +7,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotifyService } from '../services/notify.service';
 import { Player } from '../interfaces/Player';
+import { date, format } from "@formkit/tempo"
 
 @Component({
   selector: 'app-players',
@@ -29,31 +30,28 @@ export class PlayersPage implements OnInit {
     },
     shirtColor: "",
     alternativeShirtColor: "",
-    teamListNotes: "",
     isTeamListActive: false,
-    teamListStatus: "",
-    division: {
-      _id:"",
-      order: 0
-    },
     nameList: "",
   }
   player: Player = {
     _id: "",
     firstName: "",
     lastName: "",
-    age: 0,
-    nacimiento: 0
+    nacimiento: "yyyy-mm-dd",
+    dni: 0,
+    shirtNumber: 0
   }
   players: Player[] = []
+  selectedFile: File | null = null;
 
 
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService) { 
     this.form = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required]],
-      age: ['', Validators.required],
+      dni: ['', Validators.required],
       nacimiento: ['', Validators.required],
+      shirtNumber: ['', Validators.required]
     })
   }
 
@@ -90,16 +88,16 @@ export class PlayersPage implements OnInit {
         this.notifyService.error(err.error.message);
         }
       })
-        }
-      
+        }   
   
 
   crearJugador(id:any, form: any){
     const formulario = {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
-      age: this.form.value.age,
-      nacimiento: this.form.value.nacimiento
+      nacimiento: this.form.value.nacimiento,
+      dni: this.form.value.dni,
+      shirtNumber: this.form.value.shirtNumber
     };
     this.userService.crearJugador(id, formulario).subscribe({
       next: (res : any) => {
@@ -127,8 +125,10 @@ export class PlayersPage implements OnInit {
   }
 
   adjustDate(date: Date): Date {
-    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    return date;
+    // Ajuste para compensar el desfase de la zona horaria
+    const offset = date.getTimezoneOffset();
+    const adjustedDate = new Date(date.getTime() + offset * 60000);
+    return adjustedDate;
   }
 
   onWillDismiss(event: Event) {
@@ -136,6 +136,12 @@ export class PlayersPage implements OnInit {
     if (ev.detail.role === 'confirm') {
       this.message = `Hello, ${ev.detail.data}!`;
     }
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+    console.log('Archivo seleccionado:', file);
   }
 
 }
