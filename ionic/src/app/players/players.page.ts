@@ -28,9 +28,9 @@ export class PlayersPage implements OnInit {
     ownerTeam: {
       _id: ""
     },
+    teamPicture: "",
     shirtColor: "",
     alternativeShirtColor: "",
-    isTeamListActive: false,
     nameList: "",
   }
   player: Player = {
@@ -39,7 +39,8 @@ export class PlayersPage implements OnInit {
     lastName: "",
     nacimiento: "yyyy-mm-dd",
     dni: 0,
-    shirtNumber: 0
+    shirtNumber: 0,
+    picturePlayer: ""
   }
   players: Player[] = []
   selectedFile: File | null = null;
@@ -92,14 +93,14 @@ export class PlayersPage implements OnInit {
   
 
   crearJugador(id:any, form: any){
-    const formulario = {
-      firstName: this.form.value.firstName,
-      lastName: this.form.value.lastName,
-      nacimiento: this.form.value.nacimiento,
-      dni: this.form.value.dni,
-      shirtNumber: this.form.value.shirtNumber
-    };
-    this.userService.crearJugador(id, formulario).subscribe({
+    const formData = new FormData();
+    formData.append('firstName', this.form.get('firstName')?.value);
+    formData.append('lastName', this.form.get('lastName')?.value);
+    formData.append('dni', this.form.get('dni')?.value);
+    formData.append('nacimiento', this.form.get('nacimiento')?.value);
+    formData.append('shirtNumber', this.form.get('shirtNumber')?.value);
+    formData.append('image', this.selectedFile as Blob);
+    this.userService.crearJugador(id, formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.obtenerJugadores(id)
@@ -124,12 +125,12 @@ export class PlayersPage implements OnInit {
     })
   }
 
-  adjustDate(date: Date): Date {
+  /* adjustDate(date: Date): Date {
     // Ajuste para compensar el desfase de la zona horaria
     const offset = date.getTimezoneOffset();
     const adjustedDate = new Date(date.getTime() + offset * 60000);
     return adjustedDate;
-  }
+  }*/
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;

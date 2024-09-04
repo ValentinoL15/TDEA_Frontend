@@ -67,4 +67,8 @@ export class AuthService {
     return this.http.patch<any[]>(this.API_URL + '/editar-nacimiento', birthday)
   }
 
+  editUser(form : any){
+    return this.http.put(`${this.API_URL}/edit-user`, form)
+  }
+
 }

@@ -19,7 +19,6 @@ export class CreateTeamPage implements OnInit {
     this.form = this.formBuilder.group({
       teamName: ['', Validators.required],
       teamNotes: ['', Validators.required],
-      isTeamListActive: ['', Validators.required],
       socialMedia: ['', Validators.required]
     })
   }
@@ -38,13 +37,12 @@ export class CreateTeamPage implements OnInit {
   }
 
   createTeam(){
-    const formulario = {
-      teamName: this.form.value.teamName,
-      teamNotes: this.form.value.teamNotes,
-      isTeamListActive: this.form.value.isTeamListActive,
-      socialMedia: this.form.value.socialMedia
-    }
-    this.userService.createTeam(formulario).subscribe({
+    const formData = new FormData();
+    formData.append('teamName', this.form.get('teamName')?.value);
+    formData.append('teamNotes', this.form.get('teamNotes')?.value);
+    formData.append('socialMedia', this.form.get('socialMedia')?.value);
+    formData.append('image', this.selectedFile as Blob);
+    this.userService.createTeam(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         setTimeout(() => {

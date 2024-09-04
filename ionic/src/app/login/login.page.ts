@@ -7,6 +7,7 @@ import { NotifyService } from '../services/notify.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import parsePhoneNumber from 'libphonenumber-js'
 
 
 @Component({
@@ -42,6 +43,8 @@ export class LoginPage implements OnInit {
     }
   ];
 
+  phoneNumber: any
+
   form: FormGroup;
   register: FormGroup;
 
@@ -60,7 +63,7 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required]],
       confirmPassword: ['', Validators.required],
       birthday: ['', Validators.required],
-      phone: ['', Validators.required]
+      phone: ['+54', [Validators.required]],
     })
   }
 
@@ -108,10 +111,45 @@ export class LoginPage implements OnInit {
     modal?.dismiss(null, 'cancel');
   }
 
+  onPhoneInputChange(event: any) {
+    let inputValue = event.detail.value;
+
+    // Filtra solo los números después del prefijo +54
+    const numericValue = inputValue.replace(/^\+54\s*/, '').replace(/\D/g, '');
+
+    // Mantén el formato deseado, como +54 2477
+    let formattedValue = '+54';
+    if (numericValue.length > 0) {
+      formattedValue += '' + numericValue;
+    }
+
+    // Actualiza el valor del campo de teléfono
+    const phoneControl = this.register.get('phone');
+    phoneControl?.setValue(formattedValue, { emitEvent: false });
+  }
+
+
   registerFormSubmit(){
-  
     if(this.register.valid){
-      console.log(this.register.value); // Agregar esto para verificar los datos
+      const phoneNumberValue = this.register.value.phone;
+
+      let phoneNumber;
+      try {
+        phoneNumber = parsePhoneNumber(phoneNumberValue, 'AR'); // 'AR' es el código de país para Argentina
+        
+        if (phoneNumber && phoneNumber.isValid()) {
+          console.log('Número de teléfono válido:', phoneNumber.number); // Número formateado
+        } else {
+          console.error('Número de teléfono inválido');
+          this.notifyService.error('Número de teléfono inválido, el número debe ser con formato: +54-1111-123456');
+          return; // Salir de la función si el número no es válido
+        }
+      } catch (error) {
+        console.error('Error al parsear el número de teléfono:', error);
+        this.notifyService.error('Error al validar el número de teléfono');
+        return; // Salir de la función si ocurre un error
+      }
+  
       const form: Login = {
         firstName: this.register.value.firstName,
         lastName: this.register.value.lastName,

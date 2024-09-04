@@ -12,7 +12,7 @@ export interface List {
     alternativeShirtColor: String,
     belongToTournament?: any,
     players?: Array<any>,
-    isTeamListActive: Boolean,
-    nameList: string
+    nameList: string,
+    teamPicture: string
 
 }

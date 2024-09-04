@@ -12,9 +12,9 @@
 
 <ion-content [fullscreen]="true" color="light" class="ion-padding">
   <ion-list [inset]="true">
-    <ion-item>
-      <ion-input readonly="true" label="Creador de Equipo" [value]="name"></ion-input>
-    </ion-item>
+    <div class="image">
+      <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" />
+    </div>
     <ion-item>
       <ion-input readonly="true" label="Remera Titular" [value]="list.shirtColor"></ion-input>
     </ion-item>
@@ -23,9 +23,6 @@
     </ion-item>
     <ion-item button (click)="goPlayers(list._id)">
       <ion-input readonly="true" label="Jugadores"></ion-input>
-    </ion-item>
-    <ion-item >
-      <ion-input readonly="true" label="Activo" [value]="list.isTeamListActive ? 'Si' : 'No'"></ion-input>
     </ion-item>
   </ion-list>
   
@@ -52,13 +49,6 @@
   
             <ion-item>
               <ion-input type="text" label="Remera Suplente" label-placement="stacked" placeholder="Remera Suplente" name="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
-            </ion-item>
-  
-            <ion-item>
-              <ion-select label="Activo" name="isTeamListActive" [placeholder]="list.isTeamListActive ? 'Si' : 'No'">
-                <ion-select-option value="false">No</ion-select-option>
-                <ion-select-option value="true">Si</ion-select-option>
-              </ion-select>
             </ion-item>
 
           </ion-list>

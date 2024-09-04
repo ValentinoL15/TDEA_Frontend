@@ -5,5 +5,6 @@ export interface Player {
     dni: number,
     shirtNumber: number,
     nacimiento: string,
-    ownerList?: String
+    ownerList?: String,
+    picturePlayer: string
 }

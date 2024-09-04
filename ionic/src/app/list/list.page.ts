@@ -61,9 +61,9 @@ export class ListPage implements OnInit {
     ownerTeam: {
       _id: ""
     },
+    teamPicture: "",
     shirtColor: "",
     alternativeShirtColor: "",
-    isTeamListActive: false,
     nameList: "",
   }
   name:string = ""
@@ -73,7 +73,6 @@ export class ListPage implements OnInit {
     _id: "",
     teamName: "",
     teamNotes: "",
-    isTeamListActive: false,
     socialMedia: "",
   }
 
