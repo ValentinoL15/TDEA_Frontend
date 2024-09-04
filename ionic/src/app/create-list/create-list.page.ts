@@ -21,8 +21,8 @@ export class CreateListPage implements OnInit {
   list: List = {
     shirtColor: "",
     alternativeShirtColor: "",
-    isTeamListActive: false,
-    nameList: ""
+    nameList: "",
+    teamPicture: ""
   }
   form: FormGroup
   divisiones: Division[] = []
@@ -33,7 +33,6 @@ export class CreateListPage implements OnInit {
       nameList: ['', Validators.required],
       shirtColor: ['', Validators.required],
       alternativeShirtColor: ['', Validators.required],
-      isTeamListActive: ['', Validators.required],
     })
   }
 
@@ -81,14 +80,12 @@ export class CreateListPage implements OnInit {
   }
 
   createList(){
-    const formulario = {
-      nameList: this.form.value.nameList,
-      shirtColor: this.form.value.shirtColor,
-      alternativeShirtColor: this.form.value.alternativeShirtColor,
-      isTeamListActive: this.form.value.isTeamListActive === false,
-    };
-    console.log(formulario)
-    this.userService.createList(this.id,formulario).subscribe({
+    const formData = new FormData();
+    formData.append('nameList', this.form.get('nameList')?.value);
+    formData.append('shirtColor', this.form.get('shirtColor')?.value);
+    formData.append('alternativeShirtColor', this.form.get('alternativeShirtColor')?.value);
+    formData.append('image', this.selectedFile as Blob);
+    this.userService.createList(this.id,formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         window.location.href = `/create-list/${this.id}`

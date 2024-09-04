@@ -11,7 +11,7 @@ export class UserService {
   //API_URL= 'http://localhost:3000/api/futbol'
   constructor(private http: HttpClient) { }
 
-  createTeam(form : Team){
+  createTeam(form : any){
     return this.http.post(`${this.API_URL}/crear-equipo`, form)
   }
 

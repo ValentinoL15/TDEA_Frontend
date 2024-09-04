@@ -16,7 +16,6 @@ export class TeamsPage implements OnInit {
   equipo: Team = {
     teamName: "",
     teamNotes: "",
-    isTeamListActive: false,
     socialMedia: "",
   }
 
@@ -67,6 +66,7 @@ export class TeamsPage implements OnInit {
     this.userService.getTeam(id).subscribe({
       next: (res : any) => {
         this.equipo = res.team
+        console.log(this.equipo)
       },
       error: (err : any) => {
         console.log(err)
@@ -79,7 +79,6 @@ export class TeamsPage implements OnInit {
       teamName: form.teamName.value,
       teamNotes: form.teamNotes.value,
       socialMedia: form.socialMedia.value,
-      isTeamListActive: form.isTeamListActive.value
     }
     this.userService.editTeam(id,formulario).subscribe({
       next: (res : any) => {

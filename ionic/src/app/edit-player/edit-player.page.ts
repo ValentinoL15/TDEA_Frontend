@@ -21,7 +21,8 @@ player: Player = {
   dni:0,
   shirtNumber: 0,
   nacimiento: "yyyy-mm-dd",
-  ownerList: ""
+  ownerList: "",
+  picturePlayer: ""
 }
 players: Player[] = []
 

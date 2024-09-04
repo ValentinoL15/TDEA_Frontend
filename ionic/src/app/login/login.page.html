@@ -1,4 +1,4 @@
-  <ion-content [fullscreen]="true" class="fondo">
+  <ion-content [fullscreen]="true" class="fondo" color="light">
     <div class="conteiner">
       
       <div class="img-container">
@@ -53,13 +53,12 @@
         </ion-list>
 
         <ion-item class="item">
-            <ion-input type="number" label="Telefono" labelPlacement="floating" formControlName="phone"></ion-input>
+            <ion-input type="tel" formControlName="phone" label="Teléfono" labelPlacement="floating" placeholder="Teléfono" (ionInput)="onPhoneInputChange($event)"></ion-input>
           </ion-item>
           
 
         <ion-item class="item">
-          <label for="">Nacimiento</label>
-          <ion-input formControlName="birthday" type="date" class="date-time" id="start" name="trip-start"  />
+          <ion-input label="Nacimiento" labelPlacement="stacked" formControlName="birthday" type="date" id="start" />
         </ion-item>
 
         <ion-item class="item">

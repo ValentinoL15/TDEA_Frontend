@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goUser()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>edit-profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="editProfile(miForm)">Editar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list inset="true">
+    <ion-list-header>
+      <ion-label>Mis Datos</ion-label>
+    </ion-list-header>
+    <form #miForm>
+    <ion-item>
+      <ion-input label="Nombre" labelPlacement="stacked" readonly="true" [value]="usuario.firstName + ' ' + usuario.lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="DNI" labelPlacement="stacked" readonly="true" [value]="usuario.docNumber">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Telefono" id="phone" labelPlacement="stacked" name="phone" [value]="usuario.phone" (ionInput)="onPhoneInputChange($event)">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Email" labelPlacement="stacked" name="email" [value]="usuario.email">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h3>Contraseña</h3>
+        <p>*************</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Nacimiento" type="date" labelPlacement="stacked" name="birthday" [value]="usuario.birthday"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Super Mario World</ion-label>
+    </ion-item>
+  </form>
+  </ion-list>
+</ion-content>

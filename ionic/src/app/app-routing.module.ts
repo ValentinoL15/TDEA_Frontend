@@ -142,7 +142,11 @@ const routes: Routes = [
   {
     path: 'tournament/:id',
     loadChildren: () => import('./tournament/tournament.module').then( m => m.TournamentPageModule)
+  },  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   }
+
 ];
 @NgModule({
   imports: [

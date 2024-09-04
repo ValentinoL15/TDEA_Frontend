@@ -10,6 +10,11 @@
 <ion-content [fullscreen]="true" color="light" class="ion-padding">
 
   <ion-list [inset]="true" *ngFor="let player of players">
+
+    <div class="image">
+      <img [src]="player.picturePlayer" alt="" width="200px" height="200px" />
+    </div>
+
     <ion-item>
       <ion-input (click)="goPlayer(player._id)" readonly="true" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
     </ion-item>

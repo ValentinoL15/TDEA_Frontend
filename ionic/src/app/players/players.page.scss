@@ -4,3 +4,9 @@
     right: 20px; /* Ajusta según el espacio que desees del borde derecho */
     z-index: 1;
   }
+
+  .image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }

@@ -12,7 +12,12 @@
 
 <ion-content [fullscreen]="true" color="light">
   <div class="contenedor">
+
   <ion-list [inset]="true">
+
+    <div class="image">
+      <img class="img-alumno" [src]="equipo.teamImage" alt="" width="200px" height="200px" />
+    </div>
 
     <ion-item>
       <ion-input readonly="true" label="Equipo" label-placement="fixed" placeholder="Nombre de equipo" [value]="equipo.teamName"></ion-input>
@@ -20,10 +25,6 @@
   
     <ion-item>
       <ion-input readonly="true" label="Instagram" label-placement="fixed" placeholder="Instagram" [value]="equipo.socialMedia"></ion-input>
-    </ion-item>
-    
-    <ion-item class="item">
-      <ion-input readonly="true" label="Activo" label-placement="fixed" [value]="equipo.isTeamListActive ? 'Sí' : 'No'"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -58,14 +59,6 @@
 
             <ion-item>
               <ion-input label="Instagram" label-placement="fixed" [value]="equipo.socialMedia" name="socialMedia"></ion-input>
-            </ion-item>
-
-            <ion-item>
-            <label >Activo</label>
-            <ion-select class="select" [value]="equipo.isTeamListActive" [placeholder]="equipo.isTeamListActive ? 'Si' : 'No'" name="isTeamListActive">
-              <ion-select-option value="true">Si</ion-select-option>
-              <ion-select-option value="false">No</ion-select-option>
-            </ion-select>
             </ion-item>
 
           </ion-list>
