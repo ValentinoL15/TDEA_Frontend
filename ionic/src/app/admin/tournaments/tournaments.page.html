@@ -28,7 +28,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-input readonly="true" label="Campeonato" [value]="tournament.type"></ion-input>
+        <ion-input readonly="true" label="Campeonato" [value]="tournament.campeonato.type"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -116,11 +116,8 @@
           </ion-item>
 
           <ion-item>
-            <ion-select label="Campeonato" [value]="tournament.type" name="type">
-              <ion-select-option value="Pretemporada">Pretemporada</ion-select-option>
-              <ion-select-option value="Amistoso">Amistoso</ion-select-option>
-              <ion-select-option value="Apertura">Apertura</ion-select-option>
-              <ion-select-option value="Clausura">Clausura</ion-select-option>
+            <ion-select label="Campeonato" [value]="tournament.campeonato._id" name="campeonato">
+              <ion-select-option [value]="tournament.campeonato._id">{{tournament.campeonato.type}}</ion-select-option>
             </ion-select>
           </ion-item> 
 

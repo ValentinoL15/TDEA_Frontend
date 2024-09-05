@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" class="fondo">
+<ion-content [fullscreen]="true" class="fondo" color="light">
   <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-buttons slot="start">
@@ -15,9 +15,9 @@
 
   <div class="container">
     <form [formGroup]="form">
-        <ion-input class="item" type="text" label="Equipo" label-placement="floating" placeholder="Nombre del equipo" formControlName="teamName" ></ion-input>
-        <ion-input class="item" type="text" label="Instagram" label-placement="floating" placeholder="Usuario123" formControlName="socialMedia" ></ion-input>
-        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="stacked" placeholder="Describe a tu equipo. (Equipo de trabajo,colegio,etc...)" formControlName="teamNotes" ></ion-textarea>
+        <ion-input class="item" type="text" label="Equipo" label-placement="stacked" placeholder="Nombre del equipo" formControlName="teamName" ></ion-input>
+        <ion-input class="item" type="text" label="Instagram" label-placement="stacked" placeholder="Usuario123" formControlName="socialMedia" ></ion-input>
+        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="stacked" placeholder="Ej: Equipo de trabajo, Equipo de colegio..." formControlName="teamNotes" ></ion-textarea>
         <div class="foto">
           <label>Foto de Escudo</label>
         </div>

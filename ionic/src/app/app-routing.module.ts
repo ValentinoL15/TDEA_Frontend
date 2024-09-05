@@ -39,20 +39,12 @@ const routes: Routes = [
     loadChildren: () => import('./admin/create-format/create-format.module').then( m => m.CreateFormatPageModule)
   },
   {
-    path: 'create-division',
-    loadChildren: () => import('./admin/create-division/create-division.module').then( m => m.CreateDivisionPageModule)
-  },
-  {
     path: 'format/:id',
     loadChildren: () => import('./admin/format/format.module').then( m => m.FormatPageModule)
   },
   {
     path: 'category/:id',
     loadChildren: () => import('./admin/category/category.module').then( m => m.CategoryPageModule)
-  },
-  {
-    path: 'division/:id',
-    loadChildren: () => import('./admin/division/division.module').then( m => m.DivisionPageModule)
   },
   {
     path: 'home-tournament',
@@ -98,6 +90,14 @@ const routes: Routes = [
     path: 'edit-horarios/:id',
     loadChildren: () => import('./admin/edit-horarios/edit-horarios.module').then( m => m.EditHorariosPageModule)
   },
+  {
+    path: 'campeonato/:id',
+    loadChildren: () => import('./admin/campeonato/campeonato.module').then( m => m.CampeonatoPageModule)
+  },
+  {
+    path: 'create-campeonato',
+    loadChildren: () => import('./admin/create-campeonato/create-campeonato.module').then( m => m.CreateCampeonatoPageModule)
+  },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
     path: 'create-team',
@@ -142,7 +142,8 @@ const routes: Routes = [
   {
     path: 'tournament/:id',
     loadChildren: () => import('./tournament/tournament.module').then( m => m.TournamentPageModule)
-  },  {
+  },
+  {
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   }

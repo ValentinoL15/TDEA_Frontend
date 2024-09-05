@@ -44,6 +44,7 @@ players: Player[] = []
     this.userService.getPlayer(id).subscribe({
       next: (res: any) => {
         this.player = res.player
+        console.log(this.player)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
