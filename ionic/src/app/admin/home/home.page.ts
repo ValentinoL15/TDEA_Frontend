@@ -21,8 +21,8 @@ goCategories(){
   this.router.navigate(['/create-category'])
 }
 
-goDivisions(){
-  this.router.navigate(['/create-division'])
+goChampions(){
+  this.router.navigate(['/create-campeonato'])
 }
 
 goStadiums(){

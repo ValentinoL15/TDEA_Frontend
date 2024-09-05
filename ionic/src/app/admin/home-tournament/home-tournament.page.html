@@ -37,8 +37,8 @@
       <ion-list [inset]="true">
         <ion-item>
           <ion-select label="Activo" placeholder="¿Está activo?" formControlName="isTournamentActive">
-            <ion-select-option value="true">Activo</ion-select-option>
-            <ion-select-option value="false">No Activo</ion-select-option>
+            <ion-select-option value="true">Si</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
@@ -50,11 +50,8 @@
           <ion-input type="number" placeholder="Agregar año" formControlName="ano" class="value-right"/>
         </ion-item>
         <ion-item>
-          <ion-select label="Campeonato" placeholder="Tipo de Torneo" formControlName="type">
-            <ion-select-option value="Pretemporada">Pretemporada</ion-select-option>
-            <ion-select-option value="Amistoso">Amistoso</ion-select-option>
-            <ion-select-option value="Apertura">Apertura</ion-select-option>
-            <ion-select-option value="Clausura">Clausura</ion-select-option>
+          <ion-select label="Campeonato" placeholder="Tipo de Torneo" formControlName="campeonato">
+            <ion-select-option *ngFor="let champ of campeonatos" [value]="champ._id">{{champ.type}}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>

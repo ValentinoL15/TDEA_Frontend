@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CreateDivisionPageRoutingModule } from './create-division-routing.module';
+import { CreateCampeonatoPageRoutingModule } from './create-campeonato-routing.module';
 
-import { CreateDivisionPage } from './create-division.page';
+import { CreateCampeonatoPage } from './create-campeonato.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateDivisionPageRoutingModule,
+    CreateCampeonatoPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [CreateDivisionPage]
+  declarations: [CreateCampeonatoPage]
 })
-export class CreateDivisionPageModule {}
+export class CreateCampeonatoPageModule {}

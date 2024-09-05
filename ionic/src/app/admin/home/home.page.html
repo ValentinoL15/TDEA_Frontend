@@ -4,36 +4,37 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" color="light">
+  <div class="border">
+    <div class="separator">
+      <ion-item button class="button" (click)="goCategories()">
+        <ion-label class="creator">Categorias</ion-label>
+      </ion-item>
+    </div>
+  
   <div class="separator">
-    <ion-item button class="button" (click)="goCategories()">
-      <ion-label class="creator">Categorias</ion-label>
+    <ion-item button class="button" (click)="goChampions()">
+      <ion-label class="creator">Campeonatos</ion-label>
     </ion-item>
   </div>
-
-<div class="separator">
-  <ion-item button class="button" (click)="goDivisions()">
-    <ion-label class="creator">Divisiones</ion-label>
-  </ion-item>
-</div>
-
-<div class="separator">
-  <ion-item button class="button" (click)="goFormats()">
-    <ion-label class="creator">Formatos</ion-label>
-  </ion-item>
-</div>
-
-<div class="separator">
-  <ion-item button class="button" (click)="goStadiums()">
-    <ion-label class="creator">Estadios</ion-label>
-  </ion-item>
-</div>
-
-<div class="separator">
-  <ion-item class="danger">
-    <ion-label (click)="cerrarSesion()" class="creator">Cerrar Sesión</ion-label>
-  </ion-item>
-</div>
-
+  
+  <div class="separator">
+    <ion-item button class="button" (click)="goFormats()">
+      <ion-label class="creator">Formatos</ion-label>
+    </ion-item>
+  </div>
+  
+  <div class="separator">
+    <ion-item button class="button" (click)="goStadiums()">
+      <ion-label class="creator">Estadios</ion-label>
+    </ion-item>
+  </div>
+  
+  <div class="separator">
+    <ion-item class="danger">
+      <ion-label (click)="cerrarSesion()" class="creator">Cerrar Sesión</ion-label>
+    </ion-item>
+  </div>
+  </div>
   
 </ion-content>

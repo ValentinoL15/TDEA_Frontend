@@ -1,3 +1,4 @@
+import { Campeonato } from "./Campeonato";
 import { Category } from "./Category";
 import { Day } from "./Day";
 import { Format } from "./Format";
@@ -7,7 +8,7 @@ export interface Tournament {
     _id?: any,
     nameFantasy: String,
     ano: number,
-    type: string,
+    campeonato: Campeonato,
     rangeAgeSince: number,
     rangeAgeUntil: number,
     category: Category,

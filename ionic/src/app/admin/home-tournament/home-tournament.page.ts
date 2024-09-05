@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Campeonato } from 'src/app/interfaces/Campeonato';
 import { Category } from 'src/app/interfaces/Category';
 import { Format } from 'src/app/interfaces/Format';
 import { Tournament } from 'src/app/interfaces/Tournament';
@@ -18,12 +19,15 @@ export class HomeTournamentPage implements OnInit {
   form: FormGroup;
   categories: Category[] = [];
   formats: Format[] = []
+  campeonatos: Campeonato[] = []
   tournaments: Tournament[] = []
   tournament: Tournament = {
     _id: "",
     nameFantasy: "",
     ano: 0,
-    type: "",
+    campeonato:{
+      type: ""
+    } ,
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",
@@ -52,11 +56,11 @@ export class HomeTournamentPage implements OnInit {
     this.form = this.formBuilder.group({
       nameFantasy: ['', Validators.required],
       ano: ['', Validators.required],
-      type: ['', Validators.required],
       rangeAgeSince: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
       rangeAgeUntil: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
       category: ['', Validators.required],
       format: ['', Validators.required],
+      campeonato: ['', Validators.required],
       isTournamentActive: ['', Validators.required],
       isTournamentMasculine: ['', Validators.required],
       tournamentDate: ['', Validators.required],
@@ -71,6 +75,7 @@ export class HomeTournamentPage implements OnInit {
     this.getCategories()
     this.getFormats()
     this.getTournaments()
+    this.getCampeonatos()
   }
 
 isModalOpen = false;
@@ -85,6 +90,17 @@ getCategories(){
       this.categories = res.categories
     },
     error: (err) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+getCampeonatos(){
+  this.tournamentServ.getCampeonatos().subscribe({
+    next: (res : any) => {
+      this.campeonatos = res.campeonatos
+    },
+    error: (err : any) => {
       this.notifyService.error(err.error.message)
     }
   })
@@ -108,11 +124,11 @@ createTournament(){
   const formulario : Tournament = {
     nameFantasy: this.form.value.nameFantasy,
     ano: this.form.value.ano,
-    type: this.form.value.type,
     rangeAgeSince: this.form.value.rangeAgeSince,
     rangeAgeUntil: this.form.value.rangeAgeUntil,
     category: this.form.value.category,
     format: this.form.value.format,
+    campeonato: this.form.value.campeonato,
     isTournamentActive: this.form.value.isTournamentActive,
     isTournamentMasculine: this.form.value.isTournamentMasculine,
     tournamentDate: this.form.value.tournamentDate,

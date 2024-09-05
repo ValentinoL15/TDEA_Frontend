@@ -18,7 +18,9 @@ export class TournamentPage implements OnInit {
   tournament: Tournament = {
     nameFantasy: "",
     ano: 0,
-    type: "",
+    campeonato: {
+      type: ""
+    },
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",

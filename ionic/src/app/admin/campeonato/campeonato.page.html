@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Campeonato</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setOpen(true)">Editar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list inset="true">
+    <ion-item>
+    <ion-input readonly="true" label="Campeonato" [value]="campeonato.type"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Welcome</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="editCampeonato(miForm)" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" color="light">
+        <form #miForm>
+          <ion-list inset="true">
+          <ion-item class="input-class">
+            <ion-input
+              label="Campeonato"
+              labelPlacement="stacked"
+              type="text"
+              placeholder="Ej: Clausura, Apertura..."
+              name="type"
+              [value]="campeonato.type"
+            ></ion-input>
+          </ion-item>
+          </ion-list>
+        </form>
+        <div class="container">
+          <ion-button color="danger" expand="block" (click)="eliminarCampeonato()">
+            Eliminar Campeonato
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

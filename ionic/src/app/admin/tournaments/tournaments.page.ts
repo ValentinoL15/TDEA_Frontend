@@ -20,7 +20,9 @@ export class TournamentsPage implements OnInit {
   tournament: Tournament = {
     nameFantasy: "",
     ano: 0,
-    type: "",
+    campeonato:{
+      type: ""
+    },
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",
@@ -140,7 +142,7 @@ export class TournamentsPage implements OnInit {
       rangeAgeSince: form.rangeAgeSince.value,
       rangeAgeUntil: form.rangeAgeUntil.value,
       tournamentDate: form.tournamentDate.value,
-      type: form.type.value,
+      campeonato: form.campeonato.value,
       ano:form.ano.value,
       category: form.category.value,
       format: form.format.value,

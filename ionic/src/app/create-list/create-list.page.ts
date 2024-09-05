@@ -6,6 +6,7 @@ import { List } from '../interfaces/List';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TournamentService } from '../services/tournament.service';
 import { Division } from '../interfaces/Division';
+import { Campeonato } from '../interfaces/Campeonato';
 
 
 
@@ -25,7 +26,7 @@ export class CreateListPage implements OnInit {
     teamPicture: ""
   }
   form: FormGroup
-  divisiones: Division[] = []
+  campeonatos: Campeonato[] = []
   selectedFile: File | null = null;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
@@ -51,7 +52,7 @@ export class CreateListPage implements OnInit {
       this.id = params['id']
     })
     this.getLists(this.id)
-    this.getDivisions()
+    this.getCampeonatos()
   }
   
   goList(id:any){
@@ -68,10 +69,10 @@ export class CreateListPage implements OnInit {
     })
   }
 
-  getDivisions(){
-    this.tournamentServ.getDivisions().subscribe({
+  getCampeonatos(){
+    this.tournamentServ.getCampeonatos().subscribe({
       next: (res : any) => {
-        this.divisiones = res.divisions
+        this.campeonatos = res.campeonatos
       },
       error: (err) => {
         console.log(err.error.message);

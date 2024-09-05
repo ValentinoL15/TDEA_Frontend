@@ -42,14 +42,6 @@ const routes: Routes = [
     loadChildren: () => import('./tournaments/tournaments.module').then( m => m.TournamentsPageModule)
   },
   {
-    path: 'create-division',
-    loadChildren: () => import('./create-division/create-division.module').then( m => m.CreateDivisionPageModule)
-  },
-  {
-    path: 'division',
-    loadChildren: () => import('./division/division.module').then( m => m.DivisionPageModule)
-  },
-  {
     path: 'home-tournament',
     loadChildren: () => import('./home-tournament/home-tournament.module').then( m => m.HomeTournamentPageModule)
   },
@@ -88,16 +80,15 @@ const routes: Routes = [
   {
     path: 'edit-horarios/:id',
     loadChildren: () => import('./edit-horarios/edit-horarios.module').then( m => m.EditHorariosPageModule)
+  },
+  {
+    path: 'campeonato/:id',
+    loadChildren: () => import('./campeonato/campeonato.module').then( m => m.CampeonatoPageModule)
+  },
+  {
+    path: 'create-campeonato',
+    loadChildren: () => import('./create-campeonato/create-campeonato.module').then( m => m.CreateCampeonatoPageModule)
   }
-
-
-
-
-
-
-
-
-
 
 ];
 

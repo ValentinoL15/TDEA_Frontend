@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Team } from '../interfaces/Team';
 import { AlertController } from '@ionic/angular';
+import { Campeonato } from '../interfaces/Campeonato';
 
 @Component({
   selector: 'app-list',
@@ -53,7 +54,7 @@ export class ListPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService, private alertController: AlertController) { }
   @ViewChild(IonModal) modal!: IonModal;
   id:any
-  divisiones: Division[] = []
+  campeonatos: Campeonato[] = []
   list: List = {
     ownerUser: { firstName: "",
       lastName: "",
@@ -83,7 +84,7 @@ export class ListPage implements OnInit {
       this.id = params['id']
     })
     this.getLista(this.id)
-    this.getDivisions()
+    this.getCampeonatos()
   }
 
 
@@ -91,10 +92,10 @@ export class ListPage implements OnInit {
     this.router.navigate([`/players/${id}`])
   }
 
-  getDivisions(){
-    this.tournamentServ.getDivisions().subscribe({
+  getCampeonatos(){
+    this.tournamentServ.getCampeonatos().subscribe({
       next: (res : any) => {
-        this.divisiones = res.divisions
+        this.campeonatos = res.campeonatos
       },
       error: (err) => {
         console.log(err.error.message);

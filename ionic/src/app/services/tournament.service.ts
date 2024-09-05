@@ -60,26 +60,26 @@ export class TournamentService {
     return this.http.delete(`${this.API_URL}/eliminar-formato/${id}`)
   }
 
-/*********************************************DIVISIONES***********************************************/ 
+/*********************************************CAMPEONATOS***********************************************/ 
 
-  createDivision(form : any){
-    return this.http.post(`${this.API_URL}/agregar-division`, form)
+  createCampeonato(form : any){
+    return this.http.post(`${this.API_URL}/agregar-campeonato`, form)
   }
 
-  getDivisions(){
-    return this.http.get(`${this.API_URL}/obtener-divisiones`)
+  getCampeonatos(){
+    return this.http.get(`${this.API_URL}/obtener-campeonatos`)
   }
 
-  getDivision(id:any){
-    return this.http.get(`${this.API_URL}/obtener-division/${id}`)
+  getCampeonato(id:any){
+    return this.http.get(`${this.API_URL}/obtener-campeonato/${id}`)
   }
 
-  editDivision(id:any, form : any){
-    return this.http.put(`${this.API_URL}/editar-division/${id}`, form)
+  editCampeonato(id:any, form : any){
+    return this.http.put(`${this.API_URL}/editar-campeonato/${id}`, form)
   }
 
-  deleteDivision(id:any){
-    return this.http.delete(`${this.API_URL}/eliminar-division/${id}`)
+  deleteCampeonato(id:any){
+    return this.http.delete(`${this.API_URL}/eliminar-campeonato/${id}`)
   }
 
 /*******************************************EMPRESAS****************************************************/
