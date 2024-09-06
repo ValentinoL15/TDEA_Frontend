@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Campeonato } from 'src/app/interfaces/Campeonato';
 import { Category } from 'src/app/interfaces/Category';
+import { Edad } from 'src/app/interfaces/Edad';
 import { Format } from 'src/app/interfaces/Format';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
@@ -17,10 +19,17 @@ export class TournamentsPage implements OnInit {
   id:any
   categories: Category[] = [];
   formats: Format[] = []
+  campeonatos: Campeonato[] = []
+  edades: Edad[] = []
   tournament: Tournament = {
     nameFantasy: "",
     ano: 0,
     campeonato:{
+      _id: "",
+      type: ""
+    },
+    edad: {
+      _id: "",
       type: ""
     },
     rangeAgeSince: 0,
@@ -75,6 +84,8 @@ export class TournamentsPage implements OnInit {
     })
     this.getCategories()
     this.getFormats()
+    this.getCampeonatos()
+    this.getEdades()
   }
 
   isModalOpen = false;
@@ -93,6 +104,28 @@ export class TournamentsPage implements OnInit {
 
   goStadiums(){
     this.router.navigate([`/stadiums-disponibles/${this.id}`])
+  }
+
+  getCampeonatos(){
+    this.tournamentServ.getCampeonatos().subscribe({
+      next: (res : any) => {
+        this.campeonatos = res.campeonatos
+      },
+      error: (err : any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  getEdades(){
+    this.tournamentServ.getEdades().subscribe({
+      next: (res : any) => {
+        this.edades = res.edades
+      },
+      error: (err : any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
   }
 
   getCategories(){
@@ -143,13 +176,13 @@ export class TournamentsPage implements OnInit {
       rangeAgeUntil: form.rangeAgeUntil.value,
       tournamentDate: form.tournamentDate.value,
       campeonato: form.campeonato.value,
+      edad: form.edad.value,
       ano:form.ano.value,
       category: form.category.value,
       format: form.format.value,
       isTournamentMasculine: form.isTournamentMasculine.value,
       isTournamentActive: form.isTournamentActive.value,
       tournamentNotes: form.tournamentNotes.value,
-      ageDescripcion: form.ageDescripcion.value,
       tarifaInscripcion: form.tarifaInscripcion.value,
       tarifaPartido: form.tarifaPartido.value
     };

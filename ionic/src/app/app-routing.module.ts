@@ -98,6 +98,14 @@ const routes: Routes = [
     path: 'create-campeonato',
     loadChildren: () => import('./admin/create-campeonato/create-campeonato.module').then( m => m.CreateCampeonatoPageModule)
   },
+  {
+    path: 'create-edad',
+    loadChildren: () => import('./admin/create-edad/create-edad.module').then( m => m.CreateEdadPageModule)
+  },
+  {
+    path: 'edad/:id',
+    loadChildren: () => import('./admin/edad/edad.module').then( m => m.EdadPageModule)
+  },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
     path: 'create-team',

@@ -11,7 +11,7 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{tournament.nameFantasy}}</ion-card-title>
-      <ion-card-subtitle>{{tournament.campeonato}}</ion-card-subtitle>
+      <ion-card-subtitle>{{tournament.campeonato.type}}</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
@@ -51,9 +51,39 @@
     </ion-card-content>
 
     <div class="contenedor-button">
-      <ion-button fill="outline" color="success">Inscribirse</ion-button>
+      <ion-button fill="outline" color="success" (click)="setOpen(true)">Inscribirse</ion-button>
     </div>
 
-
   </ion-card>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" color="light">
+        <div class="contenedor">
+          <ion-text color="warning"><ion-icon name="alert-circle"></ion-icon></ion-text>
+          <span style="font-weight: bold; text-align: center;">Elige una lista para ingresar al torneo</span>
+        </div>
+        
+        <ion-list inset="true">
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label> Mis Listas </ion-label>
+            </ion-item-divider>
+        
+            <ion-item *ngFor="let list of lists">
+              <ion-label>{{list.nameList}}</ion-label>
+            </ion-item>
+          </ion-item-group>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

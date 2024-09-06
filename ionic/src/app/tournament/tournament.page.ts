@@ -5,6 +5,9 @@ import { NotifyService } from '../services/notify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Day } from '../interfaces/Day';
+import { Category } from '../interfaces/Category';
+import { UserService } from '../services/user.service';
+import { List } from '../interfaces/List';
 
 @Component({
   selector: 'app-tournament',
@@ -14,11 +17,15 @@ import { Day } from '../interfaces/Day';
 export class TournamentPage implements OnInit {
 
   days: Day[] = []
+  lists: List[] = []
 
   tournament: Tournament = {
     nameFantasy: "",
     ano: 0,
     campeonato: {
+      type: ""
+    },
+    edad: {
       type: ""
     },
     rangeAgeSince: 0,
@@ -66,7 +73,7 @@ export class TournamentPage implements OnInit {
     }]
   }
   currentYear = new Date().getFullYear();
-  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController) { }
+  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private userService: UserService) { }
 
   id:any
 
@@ -76,11 +83,29 @@ export class TournamentPage implements OnInit {
       this.getTournament(this.id)
     })
     this.getDays(this.id)
-    
+    this.getLists()
+  }
+
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
   }
 
   volver(){
     this.router.navigate(['/user/torneos']);
+  }
+
+  getLists(){
+    this.userService.getAllLists().subscribe({
+      next: (res : any) => {
+        this.lists = res.listsOwner
+        console.log(this.lists)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.messsage)
+      }
+    })
   }
 
   getTournament(id:any){

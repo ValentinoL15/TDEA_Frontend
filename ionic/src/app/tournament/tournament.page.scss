@@ -32,4 +32,11 @@ p {
     font-size: 1.1em;
 }
 
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 

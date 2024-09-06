@@ -55,6 +55,11 @@
           </ion-select>
         </ion-item>
         <ion-item>
+          <ion-select label="Edad" placeholder="Tipo de Edad" formControlName="edad">
+            <ion-select-option *ngFor="let edad of edades" [value]="edad._id">{{edad.type}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
           <ion-select label="Formato" placeholder="Formato" formControlName="format">
             <ion-select-option *ngFor="let format of formats" [value]="format._id">{{format.formatName}}</ion-select-option>
           </ion-select>
@@ -66,13 +71,6 @@
         <ion-item>
           <ion-label>Hasta</ion-label>
           <ion-input placeholder="Ej: 1999" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Edad" placeholder="Edad" formControlName="ageDescripcion">
-            <ion-select-option value="Sub18">Sub 18</ion-select-option>
-            <ion-select-option value="+18">+18</ion-select-option>
-            <ion-select-option value="+30">+30</ion-select-option>
-          </ion-select>
         </ion-item>
         <ion-item>
           <ion-select label="Sexo" formControlName="isTournamentMasculine">
