@@ -140,4 +140,43 @@ export class TournamentPage implements OnInit {
     return adjustedDate;
   }
 
+  async confirmInscription(teamListId: string, teamListName: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Inscripción',
+      message: `¿Estás seguro de inscribir la lista: ${teamListName} en este torneo?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Inscripción cancelada');
+          }
+        },
+        {
+          text: 'Inscribirme',
+          handler: () => {
+            this.inscribirse(teamListId);
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  inscribirse(teamListId: string) {
+    const payload = { teamListId };  // Crea un objeto con el teamListId
+    this.userService.ingresarTorneo(this.id, payload).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        setTimeout(() => {
+          window.location.href = `/user/home`
+        }, 800)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    });
+  }
+
 }

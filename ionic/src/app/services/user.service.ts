@@ -79,6 +79,10 @@ export class UserService {
     return this.http.delete(`${this.API_URL}/eliminar-jugador/${id}`)
   }
 
+  /*********************************************INGRESAR-TORNEO***********************************************/ 
+  ingresarTorneo(id : any, form : any){
+    return this.http.put(`${this.API_URL}/registrarse-torneo/${id}`, form)
+  }
 
 
 }
