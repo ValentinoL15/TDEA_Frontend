@@ -32,6 +32,10 @@
       </ion-item>
 
       <ion-item>
+        <ion-input readonly="true" label="Edad" [value]="tournament.edad.type"></ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-input readonly="true" label="Formato" [value]="tournament.format.formatName"></ion-input>
       </ion-item>
 
@@ -117,7 +121,7 @@
 
           <ion-item>
             <ion-select label="Campeonato" [value]="tournament.campeonato._id" name="campeonato">
-              <ion-select-option [value]="tournament.campeonato._id">{{tournament.campeonato.type}}</ion-select-option>
+              <ion-select-option *ngFor="let champ of campeonatos" [value]="champ._id">{{champ.type}}</ion-select-option>
             </ion-select>
           </ion-item> 
 
@@ -128,10 +132,8 @@
           </ion-item>
 
           <ion-item>
-            <ion-select label="Edad" name="ageDescripcion" [value]="tournament.ageDescripcion">
-              <ion-select-option value="Sub18">Sub 18</ion-select-option>
-              <ion-select-option value="+18">+18</ion-select-option>
-              <ion-select-option value="+30">+30</ion-select-option>
+            <ion-select label="Edad" name="edad" [value]="tournament.edad._id">
+              <ion-select-option *ngFor="let edad of edades" [value]="edad._id">{{edad.type}}</ion-select-option>
             </ion-select>
           </ion-item>
 

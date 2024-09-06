@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Campeonato } from 'src/app/interfaces/Campeonato';
 import { Category } from 'src/app/interfaces/Category';
+import { Edad } from 'src/app/interfaces/Edad';
 import { Format } from 'src/app/interfaces/Format';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
@@ -20,6 +21,7 @@ export class HomeTournamentPage implements OnInit {
   categories: Category[] = [];
   formats: Format[] = []
   campeonatos: Campeonato[] = []
+  edades: Edad[] = []
   tournaments: Tournament[] = []
   tournament: Tournament = {
     _id: "",
@@ -28,6 +30,9 @@ export class HomeTournamentPage implements OnInit {
     campeonato:{
       type: ""
     } ,
+    edad: {
+      type: ""
+    },
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",
@@ -61,6 +66,7 @@ export class HomeTournamentPage implements OnInit {
       category: ['', Validators.required],
       format: ['', Validators.required],
       campeonato: ['', Validators.required],
+      edad: ['', Validators.required],
       isTournamentActive: ['', Validators.required],
       isTournamentMasculine: ['', Validators.required],
       tournamentDate: ['', Validators.required],
@@ -76,6 +82,7 @@ export class HomeTournamentPage implements OnInit {
     this.getFormats()
     this.getTournaments()
     this.getCampeonatos()
+    this.getEdades()
   }
 
 isModalOpen = false;
@@ -106,6 +113,17 @@ getCampeonatos(){
   })
 }
 
+getEdades(){
+  this.tournamentServ.getEdades().subscribe({
+    next: (res : any) => {
+      this.edades = res.edades
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
 getFormats(){
   this.tournamentServ.getFormats().subscribe({
     next: (res : any) => {
@@ -129,6 +147,7 @@ createTournament(){
     category: this.form.value.category,
     format: this.form.value.format,
     campeonato: this.form.value.campeonato,
+    edad: this.form.value.edad,
     isTournamentActive: this.form.value.isTournamentActive,
     isTournamentMasculine: this.form.value.isTournamentMasculine,
     tournamentDate: this.form.value.tournamentDate,

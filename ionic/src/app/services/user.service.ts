@@ -53,6 +53,10 @@ export class UserService {
     return this.http.delete(`${this.API_URL}/eliminar-lista/${id}`)
   }
 
+  getAllLists(){
+    return this.http.get(`${this.API_URL}/obtener-mis-listas`)
+  }
+
   /************************************************PLAYERS**************************************************/ 
 
   crearJugador(id:any, form:any){

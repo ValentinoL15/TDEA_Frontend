@@ -25,6 +25,10 @@ goChampions(){
   this.router.navigate(['/create-campeonato'])
 }
 
+goEdades(){
+  this.router.navigate(['/create-edad'])
+}
+
 goStadiums(){
   this.router.navigate(['/empresa'])
 }

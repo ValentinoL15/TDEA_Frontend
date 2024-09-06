@@ -82,6 +82,28 @@ export class TournamentService {
     return this.http.delete(`${this.API_URL}/eliminar-campeonato/${id}`)
   }
 
+/*********************************************EDADES****************************************************/ 
+
+createEdad(form : any){
+  return this.http.post(`${this.API_URL}/agregar-edad`, form)
+}
+
+getEdades(){
+  return this.http.get(`${this.API_URL}/obtener-edades`)
+}
+
+getEdad(id:any){
+  return this.http.get(`${this.API_URL}/obtener-edad/${id}`)
+}
+
+editEdad(id:any, form : any){
+  return this.http.put(`${this.API_URL}/editar-edad/${id}`, form)
+}
+
+deleteEdad(id:any){
+  return this.http.delete(`${this.API_URL}/eliminar-edad/${id}`)
+}
+
 /*******************************************EMPRESAS****************************************************/
 
 createEmpresa(form : any){
