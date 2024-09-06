@@ -23,6 +23,10 @@ const routes: Routes = [
       {
         path: 'torneos',
         loadChildren: () => import('../tournaments/tournaments.module').then( m => m.TournamentsPageModule)
+      },
+      {
+        path: 'inscripciones',
+        loadChildren: () => import('../inscripciones/inscripciones.module').then( m => m.InscripcionesPageModule)
       }
     ]
   },

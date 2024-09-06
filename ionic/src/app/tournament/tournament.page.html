@@ -73,13 +73,15 @@
         </div>
         
         <ion-list inset="true">
-          <ion-item-group>
+          <ion-item-group #miForm>
             <ion-item-divider>
               <ion-label> Mis Listas </ion-label>
             </ion-item-divider>
         
-            <ion-item *ngFor="let list of lists">
-              <ion-label>{{list.nameList}}</ion-label>
+            <ion-item *ngFor="let list of lists" (click)="confirmInscription(list._id, list.nameList)">
+              <label class="full-width-label">{{ list.nameList }}</label>
+              <!-- Input de tipo hidden para enviar el ID si es necesario -->
+              <ion-input type="hidden" [value]="list._id"></ion-input>
             </ion-item>
           </ion-item-group>
         </ion-list>

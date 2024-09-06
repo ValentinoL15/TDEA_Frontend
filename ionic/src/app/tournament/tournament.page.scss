@@ -32,11 +32,12 @@ p {
     font-size: 1.1em;
 }
 
-.contenedor {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
+.full-width-label {
+    width: 100vw;
+    text-align: left; /* Alinea el texto a la izquierda */
+  }
+  
+
+
 
 
