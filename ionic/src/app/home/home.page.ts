@@ -16,6 +16,15 @@ export class HomePage implements OnInit {
 
   id:any
   equipos: Team[] = []
+  equipo: Team = {
+    _id: "",
+    teamName: "",
+    teamNotes: "",
+    socialMedia: "",
+    teamImage:""
+  }
+  equipoSeleccionado: Team | null = null; 
+  team: any = {}
 
 
   isModalOpen = false;
@@ -29,6 +38,10 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getTeams()
+  }
+
+  onEquipoChange(equipoId: string) {
+    this.equipoSeleccionado = this.equipos.find(e => e._id === equipoId) || null;
   }
 
   goTeam(id:any){
@@ -49,6 +62,7 @@ export class HomePage implements OnInit {
   ir() {
     this.router.navigate(['/create-team']);
   }
+
 
 
   
