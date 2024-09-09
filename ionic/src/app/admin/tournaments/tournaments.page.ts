@@ -105,6 +105,10 @@ export class TournamentsPage implements OnInit {
   goStadiums(){
     this.router.navigate([`/stadiums-disponibles/${this.id}`])
   }
+  
+  goTeasmSubscribed(){
+    this.router.navigate([`/suscribed-teams/${this.id}`])
+  }
 
   getCampeonatos(){
     this.tournamentServ.getCampeonatos().subscribe({

@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Equipos suscritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let list of lists">
+    <img alt="Silhouette of mountains" [src]="list.teamPicture" />
+    <ion-card-header>
+      <ion-card-title>Creador: {{list.ownerUser?.firstName + " " + list.ownerUser?.lastName}}</ion-card-title>
+      <ion-card-subtitle>Nombre de la Lista: {{list.nameList}}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content (click)="goPlayers(id,list._id)">
+      <ion-item detail="true">
+        <ion-label>Equipo</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

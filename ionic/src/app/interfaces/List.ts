@@ -1,3 +1,5 @@
+import { Player } from "./Player"
+
 export interface List {
     _id?: any,
     ownerUser?: {
@@ -11,7 +13,16 @@ export interface List {
     shirtColor: String,
     alternativeShirtColor: String,
     belongToTournament?: any,
-    players?: Array<any>,
+    players?: [{
+        _id?: string,
+        firstName: String,
+        lastName: String,
+        dni: number,
+        shirtNumber: number,
+        nacimiento: string,
+        ownerList?: String,
+        picturePlayer: string
+    }],
     nameList: string,
     teamPicture: string
 

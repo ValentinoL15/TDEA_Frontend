@@ -64,7 +64,7 @@
       </ion-item>
 
       <ion-item detail="true">
-        <ion-input readonly="true" label="Equipos Suscriptos" [value]="tournament.teamSubscribed"></ion-input>
+        <ion-input readonly="true" label="Equipos Suscriptos" (click)="goTeasmSubscribed()"></ion-input>
       </ion-item>
 
       <ion-item detail="true" (click)="goDay()">
