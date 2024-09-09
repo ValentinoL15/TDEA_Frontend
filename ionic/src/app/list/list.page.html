@@ -13,7 +13,7 @@
 <ion-content [fullscreen]="true" color="light" class="ion-padding">
   <ion-list [inset]="true">
     <div class="image">
-      <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" />
+      <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
     </div>
     <ion-item>
       <ion-input readonly="true" label="Remera Titular" [value]="list.shirtColor"></ion-input>
@@ -35,7 +35,7 @@
           </ion-buttons>
           <ion-title>Lista</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="confirm(list._id, miForm)">Confirm</ion-button>
+              <ion-button (click)="editLista(miForm)">Confirm</ion-button>
             </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -71,6 +71,15 @@
   header="Alert!"
   [buttons]="alertButtons"
   (didDismiss)="setResult($event)"
+></ion-alert>
+
+<ion-alert
+  trigger="imagen-alert"
+  header="Editar Imagen de la lista"
+  [buttons]="alertImagen"
+  [inputs]="alertInputImage"
+  (change)="onFileSelected($event)"
+  (didDismiss)="setResults($event)"
 ></ion-alert>
 
 

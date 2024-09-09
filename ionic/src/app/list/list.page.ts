@@ -77,6 +77,38 @@ export class ListPage implements OnInit {
     socialMedia: "",
   }
 
+  //BUTTON
+  public alertImagen = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        this.editImage()
+      },
+    },
+  ];
+  setResults(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
+  //INPUTS
+  public alertInputImage = [
+    {
+      placeholder: 'Elige una foto',
+      name: 'image',
+      type: 'file'
+    },
+  ];
+
+  selectedFile: File | null = null
+
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   ngOnInit() {
@@ -103,26 +135,6 @@ export class ListPage implements OnInit {
     })
   }
 
-  confirm(id:any, form:any){
-    const formulario = {
-      shirtColor: form.shirtColor.value,
-      alternativeShirtColor: form.alternativeShirtColor.value,
-      isTeamListActive: form.isTeamListActive.value === 'true',
-    }
-    console.log(formulario)
-    this.userService.editList(id,formulario).subscribe({
-      next: (res : any) => {
-        this.notifyService.success(res.message)
-        this.getLista(this.id)
-        this.setOpen(false)
-      },
-      error: (err) => {
-        console.log(err.error.message);
-      }
-    })
-  }
-
-
   volver(id:any){
     this.router.navigate([`/create-list/${id}`])
   }
@@ -137,6 +149,23 @@ export class ListPage implements OnInit {
       },
       error: (err: any) => {
         console.log(err.error.message)
+      }
+    })
+  }
+
+  editLista(form : any){
+    const formulario = {
+      shirtColor: form.shirtColor.value,
+      alternativeShirtColor: form.alternativeShirtColor.value,
+    }
+    this.userService.editList(this.id,formulario).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getLista(this.id)
+        this.setOpen(false)
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message);
       }
     })
   }
@@ -180,6 +209,26 @@ export class ListPage implements OnInit {
     if (ev.detail.role === 'confirm') {
       this.message = `Hello, ${ev.detail.data}!`;
     }
+  }
+
+  editImage(){
+    const form = new FormData();
+    form.append('image',  this.selectedFile as Blob);
+    this.userService.editPhotoList(this.id, form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getLista(this.id)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  onFileSelected(event : any){
+    const file : File = event.target.files[0]
+    this.selectedFile = file
+    console.log('Archivo seleccionado:', file);
   }
 
 }

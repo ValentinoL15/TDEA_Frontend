@@ -18,6 +18,7 @@ export class TeamsPage implements OnInit {
     teamNotes: "",
     socialMedia: "",
   }
+  selectedFile: File | null = null;
 
   public alertButtons = [
     {
@@ -38,6 +39,35 @@ export class TeamsPage implements OnInit {
   setResult(ev : any) {
     console.log(`Dismissed with role: ${ev.detail.role}`);
   }
+
+  public alertImagen = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        this.editImagen()
+      },
+    },
+  ];
+  setResults(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
+  //INPUTS
+  public alertInputImage = [
+    {
+      placeholder: 'Elige una foto',
+      name: 'image',
+      type: 'file'
+    },
+  ];
 
   constructor(private userService: UserService, private notifyService: NotifyService, private route: ActivatedRoute, private router: Router, private alertController: AlertController) { }
 
@@ -126,6 +156,26 @@ export class TeamsPage implements OnInit {
     });
   
     await alert.present();
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+    console.log('Archivo seleccionado:', file);
+  }
+
+  editImagen(){
+    const form = new FormData();
+      form.append('image', this.selectedFile as Blob);
+    this.userService.editPhoto(this.id, form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getTeam(this.id)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
   }
 
 

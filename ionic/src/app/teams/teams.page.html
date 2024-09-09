@@ -16,7 +16,7 @@
   <ion-list [inset]="true">
 
     <div class="image">
-      <img class="img-alumno" [src]="equipo.teamImage" alt="" width="200px" height="200px" />
+      <img class="img-alumno" [src]="equipo.teamImage" alt="" width="200px" height="200px" id="imagen-alert" name="photo"/>
     </div>
 
     <ion-item>
@@ -87,5 +87,14 @@
   header="Alert!"
   [buttons]="alertButtons"
   (didDismiss)="setResult($event)"
+></ion-alert>
+
+<ion-alert
+  trigger="imagen-alert"
+  header="Editar Imagen"
+  [buttons]="alertImagen"
+  [inputs]="alertInputImage"
+  (change)="onFileSelected($event)"
+  (didDismiss)="setResults($event)"
 ></ion-alert>
 
