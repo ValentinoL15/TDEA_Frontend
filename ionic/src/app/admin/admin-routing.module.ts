@@ -96,7 +96,17 @@ const routes: Routes = [
   {
     path: 'edad/:id',
     loadChildren: () => import('./edad/edad.module').then( m => m.EdadPageModule)
+  },
+  {
+    path: 'suscribed-teams/:id',
+    loadChildren: () => import('./suscribed-teams/suscribed-teams.module').then( m => m.SuscribedTeamsPageModule)
+  },
+  {
+    path: 'players-subscribed/:tournamentSubscribed/:id',
+    loadChildren: () => import('./players-subscribed/players-subscribed.module').then( m => m.PlayersSubscribedPageModule)
   }
+
+
 
 
 ];

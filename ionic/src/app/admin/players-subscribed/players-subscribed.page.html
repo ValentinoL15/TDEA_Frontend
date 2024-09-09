@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>playersSubscribed</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let player of players" style="margin: 25px 10px;">
+    <img [src]="player.picturePlayer" height="300px" width="100%"/>
+    <ion-card-header>
+      <ion-card-title>Jugador: {{player.firstName + " " + player.lastName}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Nació el {{player.nacimiento}} y posee la camiseta número {{player.shirtNumber}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

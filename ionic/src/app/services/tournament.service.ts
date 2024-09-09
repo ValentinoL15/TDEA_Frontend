@@ -195,6 +195,10 @@ deleteStadium(id : any){
     return this.http.delete(`${this.API_URL}/eliminar-torneo/${id}`)
   }
 
+  getListSubscribed(id : any){
+    return this.http.get(`${this.API_URL}/obtener-equipos-suscritos/${id}`)
+  }
+
   /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

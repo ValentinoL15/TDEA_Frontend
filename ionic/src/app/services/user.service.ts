@@ -91,6 +91,10 @@ export class UserService {
     return this.http.delete(`${this.API_URL}/eliminar-jugador/${id}`)
   }
 
+  getPlayerLista(tournamentSubscribed: any, id: any){
+    return this.http.get(`${this.API_URL}/obtener-jugador-lista/${tournamentSubscribed}/${id}`)
+  }
+
   /*********************************************INGRESAR-TORNEO***********************************************/ 
   ingresarTorneo(id : any, form : any){
     return this.http.put(`${this.API_URL}/registrarse-torneo/${id}`, form)
