@@ -11,8 +11,8 @@
 
   <ion-list [inset]="true" *ngFor="let player of players">
 
-    <div class="image">
-      <img [src]="player.picturePlayer" alt="" width="200px" height="200px" />
+    <div class="image" (click)="goPlayer(player._id)">
+      <img [src]="player.picturePlayer" alt="" width="200px" height="200px"/>
     </div>
 
     <ion-item>

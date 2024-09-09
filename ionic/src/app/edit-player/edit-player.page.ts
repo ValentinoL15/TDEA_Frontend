@@ -26,6 +26,38 @@ player: Player = {
 }
 players: Player[] = []
 
+    //BUTTON
+    public alertImagen = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Alert canceled');
+        },
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => {
+          this.editImage()
+        },
+      },
+    ];
+    setResults(ev : any) {
+      console.log(`Dismissed with role: ${ev.detail.role}`);
+    }
+  
+    //INPUTS
+    public alertInputImage = [
+      {
+        placeholder: 'Elige una foto',
+        name: 'photo',
+        type: 'file'
+      },
+    ];
+  
+    selectedImage: File | null = null
+
 
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService) { }
 
@@ -104,5 +136,26 @@ players: Player[] = []
       }
     })
   }
+
+  editImage(){
+    const form = new FormData();
+    form.append('image',  this.selectedImage as Blob);
+    this.userService.editPhotoPlayer(this.id, form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getPlayer(this.id)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  onFileSelectedImage(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedImage = file;
+    console.log('Archivo seleccionado:', file);
+  }
+
 
 }

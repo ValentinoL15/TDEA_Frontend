@@ -27,6 +27,10 @@ export class UserService {
     return this.http.put(`${this.API_URL}/editar-equipo/${id}`, form)
   }
 
+  editPhoto(id : any, image : any){
+    return this.http.patch(`${this.API_URL}/editar-imagen-equipo/${id}`, image)
+  }
+
   eliminarTeam(id:any){
     return this.http.delete(`${this.API_URL}/eliminar-equipo/${id}`)
   }
@@ -47,6 +51,10 @@ export class UserService {
 
   editList(id: any, form : any){
     return this.http.put(`${this.API_URL}/editar-lista/${id}`, form)
+  }
+
+  editPhotoList(id: any, image : any){
+    return this.http.patch(`${this.API_URL}/editar-imagen-lista/${id}`, image)
   }
 
   eliminarLista(id:any){
@@ -73,6 +81,10 @@ export class UserService {
 
   editPlayer(id:any, form:any){
     return this.http.put(`${this.API_URL}/editar-jugador/${id}`, form)
+  }
+
+  editPhotoPlayer(id : any, image : any){
+    return this.http.patch(`${this.API_URL}/editar-imagen-jugador/${id}`, image)
   }
 
   deletPlayer(id:any){

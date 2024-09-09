@@ -61,21 +61,9 @@
             </ion-select>
           </ion-item>
           <ion-item>
-            <ion-label>Hora</ion-label>
-            <input
-            type="time"
-            id="timeInput"
-            name="newTime"
-            [(ngModel)]="newTime"
-            required
-          />
-          <ion-button (click)="addTime()">Agregar</ion-button> <!-- Botón para agregar horario -->
-          </ion-item>
-        </ion-list>
-        <ion-list [inset]="true">
-          <ion-item *ngFor="let time of times; let i = index">
-            {{ time }}
-            <ion-button fill="clear" color="danger" (click)="removeTime(i)">Eliminar</ion-button>
+            <ion-select label="Dias de atencion" name="type" class="select" multiple="true" [(ngModel)]="selectedTimes">
+              <ion-select-option *ngFor="let time of times" [value]="time">{{time}}</ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-list>
       </form>

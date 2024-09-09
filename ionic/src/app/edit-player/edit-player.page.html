@@ -12,7 +12,7 @@
 
 <ion-content [fullscreen]="true" color="light">
   <div class="image">
-    <img [src]="player.picturePlayer" alt="" width="200px" height="200px" />
+    <img [src]="player.picturePlayer" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
   </div>
   <ion-list [inset]="true">
     <form #miForm>
@@ -57,3 +57,12 @@
 
 
 </ion-content>
+
+<ion-alert
+  trigger="imagen-alert"
+  header="Editar Imagen de la lista"
+  [buttons]="alertImagen"
+  [inputs]="alertInputImage"
+  (change)="onFileSelectedImage($event)"
+  (didDismiss)="setResults($event)"
+></ion-alert>

@@ -46,6 +46,7 @@ export class PlayersPage implements OnInit {
   selectedFile: File | null = null;
 
 
+
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService) { 
     this.form = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -144,5 +145,6 @@ export class PlayersPage implements OnInit {
     this.selectedFile = file;
     console.log('Archivo seleccionado:', file);
   }
+
 
 }
