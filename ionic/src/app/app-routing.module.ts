@@ -164,9 +164,14 @@ const routes: Routes = [
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
   {
-    path: 'inscripciones',
+    path: 'inscripciones/:id',
     loadChildren: () => import('./inscripciones/inscripciones.module').then( m => m.InscripcionesPageModule)
+  },
+  {
+    path: 'alineaciones/:id',
+    loadChildren: () => import('./alineaciones/alineaciones.module').then( m => m.AlineacionesPageModule)
   }
+
 
 
 ];

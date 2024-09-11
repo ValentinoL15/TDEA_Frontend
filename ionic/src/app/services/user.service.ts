@@ -95,6 +95,23 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-jugador-lista/${tournamentSubscribed}/${id}`)
   }
 
+  getTitulares(id : any){
+    return this.http.get(`${this.API_URL}/obtener-titulares/${id}`)
+  }
+
+  getSuplentes(id : any){
+    return this.http.get(`${this.API_URL}/obtener-suplentes/${id}`)
+  }
+
+  agregarTitulares(id : any, jugador: any){
+    return this.http.put(`${this.API_URL}/agregar-titular/${id}`, jugador)
+  }
+
+  agregarSuplentes(id : any, jugador : any){
+    return this.http.put(`${this.API_URL}/agregar-suplente/${id}`, jugador)
+  }
+  
+
   /*********************************************INGRESAR-TORNEO***********************************************/ 
   ingresarTorneo(id : any, form : any){
     return this.http.put(`${this.API_URL}/registrarse-torneo/${id}`, form)

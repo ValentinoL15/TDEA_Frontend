@@ -10,19 +10,11 @@ export interface List {
     ownerTeam?: {
         _id?: any,
     },
+    alineacion: number,
     shirtColor: String,
     alternativeShirtColor: String,
     belongToTournament?: any,
-    players?: [{
-        _id?: string,
-        firstName: String,
-        lastName: String,
-        dni: number,
-        shirtNumber: number,
-        nacimiento: string,
-        ownerList?: String,
-        picturePlayer: string
-    }],
+    players?: Player[]
     nameList: string,
     teamPicture: string
 

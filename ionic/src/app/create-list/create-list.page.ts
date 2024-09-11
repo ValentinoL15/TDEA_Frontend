@@ -21,6 +21,7 @@ export class CreateListPage implements OnInit {
   lists: List[] = []
   list: List = {
     shirtColor: "",
+    alineacion: 0,
     alternativeShirtColor: "",
     nameList: "",
     teamPicture: ""
@@ -34,6 +35,7 @@ export class CreateListPage implements OnInit {
       nameList: ['', Validators.required],
       shirtColor: ['', Validators.required],
       alternativeShirtColor: ['', Validators.required],
+      alineacion: ['', Validators.required]
     })
   }
 
@@ -85,6 +87,7 @@ export class CreateListPage implements OnInit {
     formData.append('nameList', this.form.get('nameList')?.value);
     formData.append('shirtColor', this.form.get('shirtColor')?.value);
     formData.append('alternativeShirtColor', this.form.get('alternativeShirtColor')?.value);
+    formData.append('alineacion', this.form.get('alineacion')?.value);
     formData.append('image', this.selectedFile as Blob);
     this.userService.createList(this.id,formData).subscribe({
       next: (res : any) => {

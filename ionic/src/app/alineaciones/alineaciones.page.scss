@@ -1,0 +1,52 @@
+.cont1 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+}
+
+.element1-cont1{
+    grid-column: 2;
+    grid-row: 4;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+}
+
+.element2-cont1{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+}
+
+.element3-cont1{
+    grid-column: 3;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+}
+
+.element4-cont1{
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+}
+
+.element5-cont1{
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+}
+
+.toolbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
