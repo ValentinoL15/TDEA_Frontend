@@ -28,6 +28,7 @@ export class PlayersPage implements OnInit {
     ownerTeam: {
       _id: ""
     },
+    alineacion: 0,
     teamPicture: "",
     shirtColor: "",
     alternativeShirtColor: "",
@@ -106,7 +107,13 @@ export class PlayersPage implements OnInit {
         this.notifyService.success(res.message)
         this.obtenerJugadores(id)
         this.form.reset()
-        this.setOpen(false)
+        this.selectedFile = null;
+
+      // Resetear manualmente el campo de archivo
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = '';  // Resetear el valor del input file
+      }
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)

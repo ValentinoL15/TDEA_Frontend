@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button (click)="volver(list.ownerTeam?._id)">Cancel</ion-button>
     </ion-buttons>
-    <ion-title>Lista</ion-title>
+    <ion-title>{{list.nameList}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="setOpen(true)">Editar</ion-button>
     </ion-buttons>
@@ -21,8 +21,14 @@
     <ion-item>
       <ion-input readonly="true" label="Remera Suplente" [value]="list.alternativeShirtColor"></ion-input>
     </ion-item>
-    <ion-item button (click)="goPlayers(list._id)">
+    <ion-item>
+      <ion-input readonly="true" label="Formato de Equipo" [value]="'Futbol ' + list.alineacion"></ion-input>
+    </ion-item>
+    <ion-item detail="true" (click)="goPlayers(list._id)">
       <ion-input readonly="true" label="Jugadores"></ion-input>
+    </ion-item>
+    <ion-item detail="true" (click)="goAlineacion()">
+      <ion-input readonly="true" label="Alineaciones"></ion-input>
     </ion-item>
   </ion-list>
   
@@ -49,6 +55,10 @@
   
             <ion-item>
               <ion-input type="text" label="Remera Suplente" label-placement="stacked" placeholder="Remera Suplente" name="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="number" label="Tipo" label-placement="stacked" placeholder="Formato de equipo" name="alineacion" [value]="list.alineacion"></ion-input>
             </ion-item>
 
           </ion-list>
