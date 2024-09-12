@@ -1,3 +1,4 @@
+import { Alineacion } from "./Alineacion"
 import { Player } from "./Player"
 
 export interface List {
@@ -10,7 +11,22 @@ export interface List {
     ownerTeam?: {
         _id?: any,
     },
-    alineacion: number,
+    alineacion?: {
+        _id?: string,
+    teamList?: string,
+    arquero?: Player,
+    defensor1?: Player,
+    defensor2?: Player,
+    defensor3?: Player,
+    defesnor4?: Player,
+    mediocampista1?: Player,
+    mediocampista2?: Player,
+    mediocampista3?: Player,
+    mediocampista4?: Player,
+    delantero1?: Player,
+    delantero2?: Player,
+    },
+    typeAlineacion: number,
     shirtColor: String,
     alternativeShirtColor: String,
     belongToTournament?: any,

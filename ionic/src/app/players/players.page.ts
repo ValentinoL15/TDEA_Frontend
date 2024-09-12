@@ -28,7 +28,55 @@ export class PlayersPage implements OnInit {
     ownerTeam: {
       _id: ""
     },
-    alineacion: 0,
+    typeAlineacion: 0,
+    alineacion: {
+      _id: "",
+    teamList: "",
+    arquero: {
+      _id: "",
+    firstName: "",
+    },
+    defensor1: {
+      _id: "",
+      firstName: "",
+    },
+    defensor2: {
+      _id: "",
+      firstName: "",
+    },
+    defensor3: {
+      _id: "",
+      firstName: "",
+    },
+    defesnor4: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista1: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista2: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista3: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista4: {
+      _id: "",
+      firstName: "",
+    },
+    delantero1: {
+      _id: "",
+      firstName: "",
+    },
+    delantero2: {
+      _id: "",
+      firstName: "",
+    },
+    },
     teamPicture: "",
     shirtColor: "",
     alternativeShirtColor: "",

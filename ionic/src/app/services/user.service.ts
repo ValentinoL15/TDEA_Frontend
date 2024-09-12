@@ -99,8 +99,8 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-titulares/${id}`)
   }
 
-  getSuplentes(id : any){
-    return this.http.get(`${this.API_URL}/obtener-suplentes/${id}`)
+  getSuplentes(id : any, alineacion: any){
+    return this.http.get(`${this.API_URL}/obtener-suplentes/${id}/${alineacion}`)
   }
 
   agregarTitulares(id : any, jugador: any){
@@ -115,6 +115,12 @@ export class UserService {
   /*********************************************INGRESAR-TORNEO***********************************************/ 
   ingresarTorneo(id : any, form : any){
     return this.http.put(`${this.API_URL}/registrarse-torneo/${id}`, form)
+  }
+
+  /*****************************************ALINEACIONES*******************************************************/
+
+  addArquero(id:any, arquero:any){
+    return this.http.put(`${this.API_URL}/agregar-arquero/${id}`, arquero)
   }
 
 

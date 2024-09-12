@@ -168,7 +168,7 @@ const routes: Routes = [
     loadChildren: () => import('./inscripciones/inscripciones.module').then( m => m.InscripcionesPageModule)
   },
   {
-    path: 'alineaciones/:id',
+    path: 'alineaciones/:id/:alineacion',
     loadChildren: () => import('./alineaciones/alineaciones.module').then( m => m.AlineacionesPageModule)
   }
 

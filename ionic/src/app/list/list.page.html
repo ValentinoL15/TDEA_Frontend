@@ -22,7 +22,7 @@
       <ion-input readonly="true" label="Remera Suplente" [value]="list.alternativeShirtColor"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input readonly="true" label="Formato de Equipo" [value]="'Futbol ' + list.alineacion"></ion-input>
+      <ion-input readonly="true" label="Formato de Equipo" [value]="'Futbol ' + list.typeAlineacion"></ion-input>
     </ion-item>
     <ion-item detail="true" (click)="goPlayers(list._id)">
       <ion-input readonly="true" label="Jugadores"></ion-input>
@@ -58,7 +58,7 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="number" label="Tipo" label-placement="stacked" placeholder="Formato de equipo" name="alineacion" [value]="list.alineacion"></ion-input>
+              <ion-input type="number" label="Tipo" label-placement="stacked" placeholder="Formato de equipo" name="typeAlineacion" [value]="list.typeAlineacion"></ion-input>
             </ion-item>
 
           </ion-list>
