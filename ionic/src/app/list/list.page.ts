@@ -62,9 +62,57 @@ export class ListPage implements OnInit {
     ownerTeam: {
       _id: ""
     },
+    typeAlineacion: 0,
     teamPicture: "",
     shirtColor: "",
-    alineacion: 0,
+    alineacion: {
+      _id: "",
+    teamList: "",
+    arquero: {
+      _id: "",
+    firstName: "",
+    },
+    defensor1: {
+      _id: "",
+      firstName: "",
+    },
+    defensor2: {
+      _id: "",
+      firstName: "",
+    },
+    defensor3: {
+      _id: "",
+      firstName: "",
+    },
+    defesnor4: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista1: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista2: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista3: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista4: {
+      _id: "",
+      firstName: "",
+    },
+    delantero1: {
+      _id: "",
+      firstName: "",
+    },
+    delantero2: {
+      _id: "",
+      firstName: "",
+    },
+    },
     alternativeShirtColor: "",
     nameList: "",
   }
@@ -126,7 +174,7 @@ export class ListPage implements OnInit {
   }
 
   goAlineacion(){
-    this.router.navigate([`/alineaciones/${this.id}`])
+    this.router.navigate([`/alineaciones/${this.id}/${this.list.alineacion?._id}`])
   }
 
   getCampeonatos(){
@@ -150,7 +198,7 @@ export class ListPage implements OnInit {
         this.list = res.list;
         this.name = `${this.list.ownerUser?.firstName} ${this.list.ownerUser?.lastName}`;
         this.idOwnerTeam = `${this.list.ownerTeam?._id}`
-        console.log(this.divisionId)
+        console.log(this.list)
       },
       error: (err: any) => {
         console.log(err.error.message)
@@ -162,6 +210,7 @@ export class ListPage implements OnInit {
     const formulario = {
       shirtColor: form.shirtColor.value,
       alternativeShirtColor: form.alternativeShirtColor.value,
+      typeAlineacion: form.typeAlineacion.value
     }
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {

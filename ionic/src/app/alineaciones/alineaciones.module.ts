@@ -8,12 +8,15 @@ import { AlineacionesPageRoutingModule } from './alineaciones-routing.module';
 
 import { AlineacionesPage } from './alineaciones.page';
 
+import { DragDropModule } from '@angular/cdk/drag-drop'
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AlineacionesPageRoutingModule
+    AlineacionesPageRoutingModule,
+    DragDropModule
   ],
   declarations: [AlineacionesPage]
 })

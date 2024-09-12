@@ -21,7 +21,55 @@ export class CreateListPage implements OnInit {
   lists: List[] = []
   list: List = {
     shirtColor: "",
-    alineacion: 0,
+    typeAlineacion: 0,
+    alineacion: {
+      _id: "",
+    teamList: "",
+    arquero: {
+      _id: "",
+    firstName: "",
+    },
+    defensor1: {
+      _id: "",
+      firstName: "",
+    },
+    defensor2: {
+      _id: "",
+      firstName: "",
+    },
+    defensor3: {
+      _id: "",
+      firstName: "",
+    },
+    defesnor4: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista1: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista2: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista3: {
+      _id: "",
+      firstName: "",
+    },
+    mediocampista4: {
+      _id: "",
+      firstName: "",
+    },
+    delantero1: {
+      _id: "",
+      firstName: "",
+    },
+    delantero2: {
+      _id: "",
+      firstName: "",
+    },
+    },
     alternativeShirtColor: "",
     nameList: "",
     teamPicture: ""
@@ -35,7 +83,7 @@ export class CreateListPage implements OnInit {
       nameList: ['', Validators.required],
       shirtColor: ['', Validators.required],
       alternativeShirtColor: ['', Validators.required],
-      alineacion: ['', Validators.required]
+      typeAlineacion: ['', Validators.required]
     })
   }
 
@@ -87,7 +135,7 @@ export class CreateListPage implements OnInit {
     formData.append('nameList', this.form.get('nameList')?.value);
     formData.append('shirtColor', this.form.get('shirtColor')?.value);
     formData.append('alternativeShirtColor', this.form.get('alternativeShirtColor')?.value);
-    formData.append('alineacion', this.form.get('alineacion')?.value);
+    formData.append('typeAlineacion', this.form.get('typeAlineacion')?.value);
     formData.append('image', this.selectedFile as Blob);
     this.userService.createList(this.id,formData).subscribe({
       next: (res : any) => {

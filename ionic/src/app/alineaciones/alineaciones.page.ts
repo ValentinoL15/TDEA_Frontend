@@ -24,9 +24,57 @@ list: List = {
   ownerTeam: {
     _id: ""
   },
+  typeAlineacion: 0,
   teamPicture: "",
   shirtColor: "",
-  alineacion: 0,
+  alineacion: {
+    _id: "",
+  teamList: "",
+  arquero: {
+    _id: "",
+  firstName: "",
+  },
+  defensor1: {
+    _id: "",
+    firstName: "",
+  },
+  defensor2: {
+    _id: "",
+    firstName: "",
+  },
+  defensor3: {
+    _id: "",
+    firstName: "",
+  },
+  defesnor4: {
+    _id: "",
+    firstName: "",
+  },
+  mediocampista1: {
+    _id: "",
+    firstName: "",
+  },
+  mediocampista2: {
+    _id: "",
+    firstName: "",
+  },
+  mediocampista3: {
+    _id: "",
+    firstName: "",
+  },
+  mediocampista4: {
+    _id: "",
+    firstName: "",
+  },
+  delantero1: {
+    _id: "",
+    firstName: "",
+  },
+  delantero2: {
+    _id: "",
+    firstName: "",
+  },
+  },
   alternativeShirtColor: "",
   nameList: "",
   players: [{
@@ -49,6 +97,7 @@ team: Team = {
 }
 
 id:any
+formacion: any
 equipo: any
 formatoSeleccionado: any;
 players: Player[] = []
@@ -58,16 +107,38 @@ titulares: any
 ngOnInit() {
   this.route.params.subscribe(params => {
     this.id = params['id']
+    this.formacion = params['alineacion']
   })
   this.getSuplentes()
+  this.getList(this.id)
 }
 
 volver(){
   this.router.navigate([`/list/${this.id}`])
 }
 
+isModalOpen = false;
+
+setOpen(isOpen: boolean) {
+  this.isModalOpen = isOpen;
+}
+
+
+
+getList(id:any){
+  this.userService.getList(id).subscribe({
+    next: (res : any) => {
+      this.list = res.list
+      console.log(this.list)
+    },
+    error: (err: any) => {
+      console.error(err);
+    }
+  })
+}
+
 getSuplentes(){
-  this.userService.getSuplentes(this.id).subscribe({
+  this.userService.getSuplentes(this.id, this.formacion).subscribe({
     next: (res : any) => {
       this.suplentes = res.suplentes
       console.log(this.suplentes)
@@ -87,6 +158,23 @@ getTitulares(){
       this.notifyService.error(err.error.message)
     }
   })
+}
+
+/**********************ARQUERO-ALINEACION**********************/ 
+
+agregarArquero(form: any){
+  const formulario = {
+    arquero: form.arquero.value
+  }
+  this.userService.addArquero(this.formacion,formulario).subscribe({
+    next: (res : any) => {
+      this.notifyService.success(res.message)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+  
 }
 
 }

@@ -13,6 +13,7 @@
     grid-row: 4;
     justify-self: center; /* Centrar horizontalmente */
     align-self: center;   /* Centrar verticalmente */
+    text-align: center;
 }
 
 .element2-cont1{
@@ -20,6 +21,7 @@
     grid-row: 3;
     justify-self: center; /* Centrar horizontalmente */
     align-self: center;   /* Centrar verticalmente */
+    text-align: center;
 }
 
 .element3-cont1{
@@ -27,6 +29,7 @@
     grid-row: 3;
     justify-self: center; /* Centrar horizontalmente */
     align-self: center;   /* Centrar verticalmente */
+    text-align: center;
 }
 
 .element4-cont1{
@@ -34,6 +37,7 @@
     grid-row: 2;
     justify-self: center; /* Centrar horizontalmente */
     align-self: center;   /* Centrar verticalmente */
+    text-align: center;
 }
 
 .element5-cont1{
@@ -41,6 +45,7 @@
     grid-row: 1;
     justify-self: center; /* Centrar horizontalmente */
     align-self: center;   /* Centrar verticalmente */
+    text-align: center;
 }
 
 .toolbar {
@@ -49,4 +54,15 @@
     flex-direction: row;
     align-items: center;
     text-align: center;
+}
+
+.modal-padre{
+    width: 100%;
+    display: flex;
+}
+
+.modal-hijo {
+    display: flex;
+    margin-left: 10px;
+    flex-direction: column;
 }

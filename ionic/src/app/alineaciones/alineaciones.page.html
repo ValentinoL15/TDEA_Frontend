@@ -8,32 +8,44 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="cont1">
+  <div class="cont1" #miForm>
     <div class="element1-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
-      <p></p>
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
+      <ion-input type="hidden" [value]="list.alineacion?.arquero"></ion-input>
+      <p *ngIf="list.alineacion?.arquero === null">1</p>
+      <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
     <div class="element2-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
     </div>
     <div class="element3-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
     </div>
     <div class="element4-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
     </div>
     <div class="element5-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
     </div>
   </div>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <div class="toolbar">
-      <div *ngFor="let suplente of suplentes">
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Modal</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false)">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div *ngFor="let player of list.players">
         <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
-        <p>{{suplente.firstName}}</p>
+        <ion-input></ion-input>
       </div>
-    </div>
-  </ion-toolbar>
-</ion-footer>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
