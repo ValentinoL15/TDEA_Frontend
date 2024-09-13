@@ -119,8 +119,16 @@ export class UserService {
 
   /*****************************************ALINEACIONES*******************************************************/
 
-  addArquero(id:any, arquero:any){
-    return this.http.put(`${this.API_URL}/agregar-arquero/${id}`, arquero)
+  getAlineacion(id : any){
+    return this.http.get(`${this.API_URL}/obtener-alineacion/${id}`)
+  }
+
+  addArquero(id:any, player:any){
+    return this.http.put(`${this.API_URL}/agregar-arquero/${id}`, player)
+  }
+
+  addDefensor1(id: any, player:any){
+    return this.http.put(`${this.API_URL}/agregar-defensor1/${id}`, player)
   }
 
 
