@@ -112,10 +112,9 @@ selectPlayer(player: any) {
     // Llamar al servicio para actualizar la posición
     this.userService.updatePosition(this.formacion, this.selectedPosition, player._id).subscribe({
       next: (res : any) => {
-        console.log(res);
         this.notifyService.success(res.message);
-        this.getList(this.id)
         this.setOpen(false);  // Cierra el modal después de seleccionar el jugador
+        this.getList(this.id)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
@@ -123,6 +122,18 @@ selectPlayer(player: any) {
     });
   }
   
+}
+
+resetAlineacion(){
+  this.userService.resetearPosiciones(this.id).subscribe({
+    next: (res : any) => {
+      this.notifyService.success(res.message);
+      this.getList(this.id)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  })
 }
 
 }
