@@ -10,7 +10,7 @@
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
     background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para cubrir el contenido */
-    z-index: 9999; /* Asegurarse de que esté por encima de otros elementos */
+    z-index: 99999; /* Asegurarse de que esté por encima de otros elementos */
   }
   
   .hourglassBackground {
