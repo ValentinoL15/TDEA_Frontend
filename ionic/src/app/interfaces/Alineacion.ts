@@ -7,7 +7,7 @@ export interface Alineacion {
     defensor1?: Player,
     defensor2?: Player,
     defensor3?: Player,
-    defesnor4?: Player,
+    defensor4?: Player,
     mediocampista1?: Player,
     mediocampista2?: Player,
     mediocampista3?: Player,
