@@ -123,8 +123,8 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-alineacion/${id}`)
   }
 
-  addArquero(id:any, player:any){
-    return this.http.put(`${this.API_URL}/agregar-arquero/${id}`, player)
+  updatePosition(id: any, posicion: string, jugadorId: any) {
+    return this.http.put(`${this.API_URL}/actualizar-posicion/${id}`, { posicion, jugadorId });
   }
 
   addDefensor1(id: any, player:any){

@@ -8,27 +8,416 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="cont1" #miForm>
+  <div class="cont1" *ngIf="list.typeAlineacion === 5">
+    <!-- Arquero -->
     <div class="element1-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
+
+    <!-- Defensor 1 -->
     <div class="element2-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor1')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
     </div>
+
+    <!-- Defensor 2 -->
     <div class="element3-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor2 === null">3</p>
+      <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
     </div>
+
+    <!-- Mediocampista 1 -->
     <div class="element4-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista1 === null">4</p>
+      <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
     </div>
+
+    <!-- Mediocampista 2 -->
     <div class="element5-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero1 === null">5</p>
+      <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
     </div>
   </div>
+
+  <div class="cont2" *ngIf="list.typeAlineacion === 0">
+    <!-- Arquero -->
+    <div class="element1-cont2">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.arquero === null">1</p>
+      <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 1 -->
+    <div class="element2-cont2">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor1 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 2 -->
+    <div class="element3-cont2">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor2 === null">3</p>
+      <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 1 -->
+    <div class="element4-cont2">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
+      <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 2 -->
+    <div class="element5-cont2">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista2 === null">4</p>
+      <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
+    </div>
+
+    <div class="element6-cont2">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero1 === null">6</p>
+      <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
+    </div>
+  </div>
+
+  <div class="cont3" *ngIf="list.typeAlineacion === 0">
+    <!-- Arquero -->
+    <div class="element1-cont3">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.arquero === null">1</p>
+      <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 1 -->
+    <div class="element2-cont3">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor1 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 2 -->
+    <div class="element3-cont3">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor2 === null">3</p>
+      <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 3 -->
+    <div class="element4-cont3">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor3 === null">4</p>
+      <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 1 -->
+    <div class="element5-cont3">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
+      <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 2 -->
+    <div class="element6-cont3">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
+      <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
+    </div>
+
+    <!-- delantero 1 -->
+    <div class="element7-cont3">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero1 === null">7</p>
+      <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
+    </div>
+  </div>
+
+  <div class="cont4" *ngIf="list.typeAlineacion === 0">
+    <!-- Arquero -->
+    <div class="element1-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.arquero === null">1</p>
+      <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 1 -->
+    <div class="element2-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor1 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 2 -->
+    <div class="element3-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor2 === null">3</p>
+      <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 3 -->
+    <div class="element4-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor3 === null">4</p>
+      <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 1 -->
+    <div class="element5-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
+      <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 2 -->
+    <div class="element6-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
+      <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
+    </div>
+
+    <!-- delantero 1 -->
+    <div class="element7-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero1 === null">7</p>
+      <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
+    </div>
+
+    <!-- Delantero 2 -->
+    <div class="element8-cont4">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero2 === null">5</p>
+      <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
+    </div>
+  </div>
+
+  <div class="cont5" *ngIf="list.typeAlineacion === 0">
+    <!-- Arquero -->
+    <div class="element1-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.arquero === null">1</p>
+      <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 1 -->
+    <div class="element2-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor1 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 2 -->
+    <div class="element3-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor2 === null">3</p>
+      <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 3 -->
+    <div class="element4-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor3 === null">4</p>
+      <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 1 -->
+    <div class="element5-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
+      <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 2 -->
+    <div class="element6-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
+      <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 3 -->
+    <div class="element7-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista3 === null">7</p>
+      <p *ngIf="list.alineacion?.mediocampista3 !== null">{{list.alineacion?.mediocampista3?.firstName}}</p>
+    </div>
+
+    <!-- delantero 1 -->
+    <div class="element8-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero1 === null">8</p>
+      <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
+    </div>
+
+    <!-- Delantero 2 -->
+    <div class="element9-cont5">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero2 === null">9</p>
+      <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
+    </div>
+  </div>
+
+  <div class="cont6" *ngIf="list.typeAlineacion === 0">
+    <!-- Arquero -->
+    <div class="element1-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.arquero === null">1</p>
+      <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 1 -->
+    <div class="element2-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor1 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 2 -->
+    <div class="element3-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor2 === null">3</p>
+      <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 3 -->
+    <div class="element4-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor3 === null">4</p>
+      <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 4 -->
+    <div class="element5-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor4')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor4 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor4 !== null">{{list.alineacion?.defensor4?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 1 -->
+    <div class="element6-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
+      <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 2 -->
+    <div class="element7-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
+      <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 3 -->
+    <div class="element8-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista3 === null">7</p>
+      <p *ngIf="list.alineacion?.mediocampista3 !== null">{{list.alineacion?.mediocampista3?.firstName}}</p>
+    </div>
+
+    <!-- delantero 1 -->
+    <div class="element9-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero1 === null">8</p>
+      <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
+    </div>
+
+    <!-- delantero 2 -->
+    <div class="element10-cont6">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero2 === null">8</p>
+      <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
+    </div>
+  </div>
+
+  <div class="cont7" *ngIf="list.typeAlineacion === 6">
+    <!-- Arquero -->
+    <div class="element1-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.arquero === null">1</p>
+      <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 1 -->
+    <div class="element2-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor1 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 2 -->
+    <div class="element3-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor2 === null">3</p>
+      <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 3 -->
+    <div class="element4-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor3 === null">4</p>
+      <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
+    </div>
+
+    <!-- Defensor 4 -->
+    <div class="element5-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('defensor4')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor4 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor4 !== null">{{list.alineacion?.defensor4?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 1 -->
+    <div class="element6-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
+      <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 2 -->
+    <div class="element7-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
+      <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
+    </div>
+
+    <!-- Mediocampista 3 -->
+    <div class="element8-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('mediocampista3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.mediocampista3 === null">7</p>
+      <p *ngIf="list.alineacion?.mediocampista3 !== null">{{list.alineacion?.mediocampista3?.firstName}}</p>
+    </div>
+
+    <!-- delantero 1 -->
+    <div class="element9-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero1')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero1 === null">9</p>
+      <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
+    </div>
+
+    <!-- delantero 2 -->
+    <div class="element10-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero2')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero2 === null">18</p>
+      <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
+    </div>
+
+    <!-- delantero 3 -->
+    <div class="element11-cont7">
+      <img src="../../assets/icon/shirt-solid (1).svg" (click)="openModal('delantero3')" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.delantero3 === null">28</p>
+      <p *ngIf="list.alineacion?.delantero3 !== null">{{list.alineacion?.delantero3?.firstName}}</p>
+    </div>
+  </div>
+  
+
+
+  
+
+
 </ion-content>
 
 <ion-modal [isOpen]="isModalOpen">
@@ -42,7 +431,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding" #miForm>
-      <div *ngFor="let player of list.players" >
+      <div *ngFor="let player of list.suplente" (click)="selectPlayer(player)">
         <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
         <p>{{player.firstName}}</p>
       </div>

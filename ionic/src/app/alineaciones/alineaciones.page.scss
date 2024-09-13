@@ -7,7 +7,6 @@
     justify-self: center;
     align-self: center;
 }
-
 .element1-cont1{
     grid-column: 2;
     grid-row: 4;
@@ -15,7 +14,6 @@
     align-self: center;   /* Centrar verticalmente */
     text-align: center;
 }
-
 .element2-cont1{
     grid-column: 1;
     grid-row: 3;
@@ -23,7 +21,6 @@
     align-self: center;   /* Centrar verticalmente */
     text-align: center;
 }
-
 .element3-cont1{
     grid-column: 3;
     grid-row: 3;
@@ -31,7 +28,6 @@
     align-self: center;   /* Centrar verticalmente */
     text-align: center;
 }
-
 .element4-cont1{
     grid-column: 2;
     grid-row: 2;
@@ -39,7 +35,6 @@
     align-self: center;   /* Centrar verticalmente */
     text-align: center;
 }
-
 .element5-cont1{
     grid-column: 2;
     grid-row: 1;
@@ -47,6 +42,462 @@
     align-self: center;   /* Centrar verticalmente */
     text-align: center;
 }
+
+/**************************************CONTENEDOR 2*****************************************/
+
+.cont2 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+}
+
+.element1-cont2{
+    grid-column: 2;
+    grid-row: 4;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element2-cont2{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element3-cont2{
+    grid-column: 3;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element4-cont2{
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element5-cont2{
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element6-cont2{
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+/******************************************CONTENDOR 3**********************************************/
+
+.cont3 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+}
+
+.element1-cont3{
+    grid-column: 2;
+    grid-row: 4;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element2-cont3{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element3-cont3{
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element4-cont3{
+    grid-column: 3;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element5-cont3{
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element6-cont3{
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element7-cont3{
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+/******************************************CONTENDOR 4**********************************************/
+
+.cont4 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+}
+
+.element1-cont4{
+    grid-column: 2;
+    grid-row: 4;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element2-cont4{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element3-cont4{
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element4-cont4{
+    grid-column: 3;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element5-cont4{
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element6-cont4{
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element7-cont4{
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element8-cont4{
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+/******************************************CONTENDOR 5**********************************************/
+
+.cont5 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+}
+
+.element1-cont5{
+    grid-column: 2;
+    grid-row: 4;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element2-cont5{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element3-cont5{
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element4-cont5{
+    grid-column: 3;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element5-cont5{
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element6-cont5{
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element7-cont5{
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element8-cont5{
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+.element9-cont5{
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+/******************************************CONTENDOR 6**********************************************/
+
+.cont6 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+}
+
+.element1-cont6{
+    grid-column: 3;
+    grid-row: 4;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element2-cont6{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element3-cont6{
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element4-cont6{
+    grid-column: 4;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element5-cont6{
+    grid-column: 5;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element6-cont6{
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element7-cont6{
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element8-cont6{
+    grid-column: 5;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+.element9-cont6{
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+.element10-cont6{
+    grid-column: 4;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+/******************************************CONTENDOR 7**********************************************/
+
+.cont7 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+}
+
+.element1-cont7{
+    grid-column: 3;
+    grid-row: 4;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element2-cont7{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element3-cont7{
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element4-cont7{
+    grid-column: 4;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element5-cont7{
+    grid-column: 5;
+    grid-row: 3;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element6-cont7{
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element7-cont7{
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+.element8-cont7{
+    grid-column: 5;
+    grid-row: 2;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+.element9-cont7{
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+.element10-cont7{
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+.element11-cont7{
+    grid-column: 5;
+    grid-row: 1;
+    justify-self: center; /* Centrar horizontalmente */
+    align-self: center;   /* Centrar verticalmente */
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .toolbar {
     width: 100%;

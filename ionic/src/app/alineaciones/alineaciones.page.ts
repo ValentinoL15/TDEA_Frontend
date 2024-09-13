@@ -19,62 +19,22 @@ constructor(private route: ActivatedRoute, private router: Router, private notif
 }
 
 list: List = {
-  ownerUser: { firstName: "",
-    lastName: "",
-  },
-  ownerTeam: {
-    _id: ""
-  },
+  ownerUser: { firstName: "", lastName: "" },
+  ownerTeam: { _id: "" },
   typeAlineacion: 0,
   teamPicture: "",
   shirtColor: "",
   alineacion: {
-    _id: "",
-  teamList: "",
-  arquero: {
-    _id: "",
-  firstName: "",
-  },
-  defensor1: {
-    _id: "",
-    firstName: "",
-  },
-  defensor2: {
-    _id: "",
-    firstName: "",
-  },
-  defensor3: {
-    _id: "",
-    firstName: "",
-  },
-  defesnor4: {
-    _id: "",
-    firstName: "",
-  },
-  mediocampista1: {
-    _id: "",
-    firstName: "",
-  },
-  mediocampista2: {
-    _id: "",
-    firstName: "",
-  },
-  mediocampista3: {
-    _id: "",
-    firstName: "",
-  },
-  mediocampista4: {
-    _id: "",
-    firstName: "",
-  },
-  delantero1: {
-    _id: "",
-    firstName: "",
-  },
-  delantero2: {
-    _id: "",
-    firstName: "",
-  },
+    arquero: { _id: "", firstName: "" },
+    defensor1: { _id: "", firstName: "" },
+    defensor2: { _id: "", firstName: "" },
+    defensor3: { _id: "", firstName: "" },
+    mediocampista1: { _id: "", firstName: "" },
+    mediocampista2: { _id: "", firstName: "" },
+    mediocampista3: { _id: "", firstName: "" },
+    delantero1: { _id: "", firstName: "" },
+    delantero2: { _id: "", firstName: "" },
+    delantero3: {_id: "",firstName: "",},
   },
   alternativeShirtColor: "",
   nameList: "",
@@ -87,8 +47,12 @@ list: List = {
     nacimiento: "",
     ownerList: "",
     picturePlayer: ""
-}],
-}
+  }],
+  suplente: [{
+    _id: "",
+    firstName: ""
+  }]
+};
 
 team: Team = {
   _id: "",
@@ -103,25 +67,13 @@ equipo: any
 formatoSeleccionado: any;
 players: Player[] = []
 suplentes:Player[] = [];
-alineacion:Alineacion = {
-  _id: "",
-  arquero: {
-    _id: "",
-    firstName: "",
-  },
-  defensor1: {
-    _id: "",
-    firstName: "",
-  }
-}
+selectedPosition: string | null = null;
 
 ngOnInit() {
   this.route.params.subscribe(params => {
     this.id = params['id']
     this.formacion = params['alineacion']
   })
-  this.getSuplentes()
-  this.getAlineacion()
   this.getList(this.id)
   
 }
@@ -136,7 +88,10 @@ setOpen(isOpen: boolean) {
   this.isModalOpen = isOpen;
 }
 
-
+openModal(position: any) {
+  this.selectedPosition = position;
+  this.setOpen(true);
+}
 
 getList(id:any){
   this.userService.getList(id).subscribe({
@@ -150,35 +105,24 @@ getList(id:any){
   })
 }
 
-getSuplentes(){
-  this.userService.getSuplentes(this.id, this.formacion).subscribe({
-    next: (res : any) => {
-      this.suplentes = res.suplentes
-      console.log(this.suplentes)
-    },
-    error: (err: any) => {
-      this.notifyService.error(err.error.message)
-    }
-  })
-}
-
-getAlineacion(){
-  this.userService.getAlineacion(this.formacion).subscribe({
-    next: (res : any) => {
-      this.alineacion = res.alineacion
-    },
-    error: (err: any) => {
-      console.error(err);
-    }
-  })
-}
-
 /**********************ARQUERO-ALINEACION**********************/ 
 
-
-
-
-
-
+selectPlayer(player: any) {
+  if (this.selectedPosition && this.list.alineacion) {
+    // Llamar al servicio para actualizar la posición
+    this.userService.updatePosition(this.formacion, this.selectedPosition, player._id).subscribe({
+      next: (res : any) => {
+        console.log(res);
+        this.notifyService.success(res.message);
+        this.getList(this.id)
+        this.setOpen(false);  // Cierra el modal después de seleccionar el jugador
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    });
+  }
+  
+}
 
 }

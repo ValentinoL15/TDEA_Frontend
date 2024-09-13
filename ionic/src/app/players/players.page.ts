@@ -48,7 +48,7 @@ export class PlayersPage implements OnInit {
       _id: "",
       firstName: "",
     },
-    defesnor4: {
+    defensor4: {
       _id: "",
       firstName: "",
     },
@@ -64,15 +64,15 @@ export class PlayersPage implements OnInit {
       _id: "",
       firstName: "",
     },
-    mediocampista4: {
-      _id: "",
-      firstName: "",
-    },
     delantero1: {
       _id: "",
       firstName: "",
     },
     delantero2: {
+      _id: "",
+      firstName: "",
+    },
+    delantero3: {
       _id: "",
       firstName: "",
     },
