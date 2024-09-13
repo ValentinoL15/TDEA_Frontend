@@ -58,7 +58,15 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="number" label="Tipo" label-placement="stacked" placeholder="Formato de equipo" name="typeAlineacion" [value]="list.typeAlineacion"></ion-input>
+            <ion-select label="Formato de equipo" label-placement="stacked" name="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion">
+              <ion-select-option value="5">Futbol 5</ion-select-option>
+              <ion-select-option value="6">Futbol 6</ion-select-option>
+              <ion-select-option value="7">Futbol 7</ion-select-option>
+              <ion-select-option value="8">Futbol 8</ion-select-option>
+              <ion-select-option value="9">Futbol 9</ion-select-option>
+              <ion-select-option value="10">Futbol 10</ion-select-option>
+              <ion-select-option value="11">Futbol 11</ion-select-option>
+            </ion-select>
             </ion-item>
 
           </ion-list>

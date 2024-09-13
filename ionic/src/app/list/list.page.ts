@@ -166,6 +166,7 @@ export class ListPage implements OnInit {
     })
     this.getLista(this.id)
     this.getCampeonatos()
+
   }
 
 

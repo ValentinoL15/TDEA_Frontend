@@ -127,9 +127,7 @@ export class UserService {
     return this.http.put(`${this.API_URL}/actualizar-posicion/${id}`, { posicion, jugadorId });
   }
 
-  addDefensor1(id: any, player:any){
-    return this.http.put(`${this.API_URL}/agregar-defensor1/${id}`, player)
+  resetearPosiciones(id:any){
+    return this.http.put(`${this.API_URL}/reset-alineacion/${id}`, {})
   }
-
-
 }
