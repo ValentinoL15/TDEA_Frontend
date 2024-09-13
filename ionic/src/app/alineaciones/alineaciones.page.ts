@@ -7,6 +7,7 @@ import { List } from '../interfaces/List';
 import { Team } from '../interfaces/Team';
 import { Player } from '../interfaces/Player';
 import { Alineacion } from '../interfaces/Alineacion';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-alineaciones',
@@ -15,7 +16,7 @@ import { Alineacion } from '../interfaces/Alineacion';
 })
 export class AlineacionesPage implements OnInit {
 
-constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,) {
+constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,  private spinnerService: SpinnerService) {
 }
 
 list: List = {
@@ -106,15 +107,16 @@ getList(id:any){
 }
 
 /**********************ARQUERO-ALINEACION**********************/ 
-
 selectPlayer(player: any) {
   if (this.selectedPosition && this.list.alineacion) {
+    this.spinnerService.show(); // Mostrar spinner antes de la solicitud
     // Llamar al servicio para actualizar la posición
     this.userService.updatePosition(this.formacion, this.selectedPosition, player._id).subscribe({
       next: (res : any) => {
-        this.notifyService.success(res.message);
-        this.setOpen(false);  // Cierra el modal después de seleccionar el jugador
-        this.getList(this.id)
+       
+          this.getList(this.id)
+          this.setOpen(false)
+        
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
@@ -127,7 +129,7 @@ selectPlayer(player: any) {
 resetAlineacion(){
   this.userService.resetearPosiciones(this.id).subscribe({
     next: (res : any) => {
-      this.notifyService.success(res.message);
+      this.notifyService.success(res.message)
       this.getList(this.id)
     },
     error: (err: any) => {
