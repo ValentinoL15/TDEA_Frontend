@@ -10,13 +10,14 @@
 <ion-content [fullscreen]="true">
   <div class="cont1" #miForm>
     <div class="element1-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
-      <ion-input type="hidden" [value]="list.alineacion?.arquero"></ion-input>
+      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
     <div class="element2-cont1">
-      <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/shirt-solid (1).svg" width="50px" height="50px" alt="">
+      <p *ngIf="list.alineacion?.defensor1 === null">2</p>
+      <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
     </div>
     <div class="element3-cont1">
       <img src="../../assets/icon/shirt-solid (1).svg" (click)="setOpen(true)" width="50px" height="50px" alt="">
@@ -40,10 +41,10 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
-      <div *ngFor="let player of list.players">
+    <ion-content class="ion-padding" #miForm>
+      <div *ngFor="let player of list.players" >
         <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
-        <ion-input></ion-input>
+        <p>{{player.firstName}}</p>
       </div>
     </ion-content>
   </ng-template>

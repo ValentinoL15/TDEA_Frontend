@@ -6,6 +6,7 @@ import { TournamentService } from '../services/tournament.service';
 import { List } from '../interfaces/List';
 import { Team } from '../interfaces/Team';
 import { Player } from '../interfaces/Player';
+import { Alineacion } from '../interfaces/Alineacion';
 
 @Component({
   selector: 'app-alineaciones',
@@ -102,7 +103,17 @@ equipo: any
 formatoSeleccionado: any;
 players: Player[] = []
 suplentes:Player[] = [];
-titulares: any
+alineacion:Alineacion = {
+  _id: "",
+  arquero: {
+    _id: "",
+    firstName: "",
+  },
+  defensor1: {
+    _id: "",
+    firstName: "",
+  }
+}
 
 ngOnInit() {
   this.route.params.subscribe(params => {
@@ -110,7 +121,9 @@ ngOnInit() {
     this.formacion = params['alineacion']
   })
   this.getSuplentes()
+  this.getAlineacion()
   this.getList(this.id)
+  
 }
 
 volver(){
@@ -149,32 +162,23 @@ getSuplentes(){
   })
 }
 
-getTitulares(){
-  this.userService.getTitulares(this.id).subscribe({
+getAlineacion(){
+  this.userService.getAlineacion(this.formacion).subscribe({
     next: (res : any) => {
-      this.titulares = res.titulares
+      this.alineacion = res.alineacion
     },
     error: (err: any) => {
-      this.notifyService.error(err.error.message)
+      console.error(err);
     }
   })
 }
 
 /**********************ARQUERO-ALINEACION**********************/ 
 
-agregarArquero(form: any){
-  const formulario = {
-    arquero: form.arquero.value
-  }
-  this.userService.addArquero(this.formacion,formulario).subscribe({
-    next: (res : any) => {
-      this.notifyService.success(res.message)
-    },
-    error: (err: any) => {
-      this.notifyService.error(err.error.message)
-    }
-  })
-  
-}
+
+
+
+
+
 
 }
