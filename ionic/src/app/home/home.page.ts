@@ -40,12 +40,7 @@ export class HomePage implements OnInit {
     this.getTeams()
   }
 
-   customActionSheetOptions = {
-    header: 'Colors',
-    subHeader: 'Select your favorite color',
-  };
-
-  onEquipoChange(equipoId: any) {
+  onEquipoChange(equipoId: string) {
     this.equipoSeleccionado = this.equipos.find(e => e._id === equipoId) || null;
   }
 
