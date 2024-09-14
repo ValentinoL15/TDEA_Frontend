@@ -1,25 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-item>
-      <div class="select-contain">
-        <div class="select">
-      <ion-select [interfaceOptions]="customActionSheetOptions" interface="popover" placeholder="Selecciona un equipo"
+      <ion-select label="Mi Equipo" labelPlacement="stacked" placeholder="Selecciona un equipo"
         (ionChange)="onEquipoChange($event.detail.value)">
-        <ion-list>
-          <ion-item>
-              <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">
-                <div style="display: flex; align-items: center;">
-                  <img [src]="equipo.teamImage" width="25px" height="25px" alt="" style="margin-right: 8px;">
-                  {{ equipo.teamName }}
-                </div>
-              </ion-select-option>
-          </ion-item>
-        </ion-list>
+        <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">{{equipo.teamName}}</ion-select-option>
       </ion-select>
-      </div>
-      <img *ngIf="equipoSeleccionado" [src]="equipoSeleccionado?.teamImage" width="30px" height="20px" alt="">
-      <img *ngIf="equipoSeleccionado === null" src="../../assets/icon/user-regular.svg" width="20px" height="20px" alt="">
-    </div>
     </ion-item>
   </ion-toolbar>
 </ion-header>
@@ -40,18 +25,10 @@
       </ion-card-content>
     </ion-card>
 
-  <!--<div class="container">
+  <div class="container">
     <div class="boton">
       <ion-button (click)="ir()">
         CREAR NUEVO EQUIPO
-      </ion-button>
-    </div>
-  </div>-->
-
-  <div class="container-button">
-    <div class="button">
-      <ion-button shape="round" (click)="ir()">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </div>
   </div>
