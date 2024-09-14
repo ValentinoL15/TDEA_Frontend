@@ -1,91 +1,90 @@
-
 .boton {
-    margin: 0 15px 15px 0
+  margin: 0 15px 15px 0
 }
 
 .button {
-    width: 100%;
-    margin-top: 10px;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .contain-modal {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .toolbar {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra horizontalmente */
-    justify-content: center; /* Centra verticalmente */
-    height: 100%; /* Asegura que el div ocupe toda la altura disponible */
-    padding: 16px; /* Ajusta el padding según sea necesario */
-    width: 100%;
-  }
-  
-  .item {
-    width: 100%;
-  }
-  
-  ion-header {
-    text-align: center; /* Opcional: centra el texto del header */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente */
+  justify-content: center; /* Centra verticalmente */
+  height: 100%; /* Asegura que el div ocupe toda la altura disponible */
+  padding: 16px; /* Ajusta el padding según sea necesario */
+  width: 100%;
+}
 
-  .image {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  }
+.item {
+  width: 100%;
+}
 
-  .card {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+ion-header {
+  text-align: center; /* Opcional: centra el texto del header */
+}
 
-  .dropdown-container {
-    background-color: white;
-    position: absolute;
-    width: 100%;
-    z-index: 10;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-  
-  .dropdown-container ion-item {
-    --padding-start: 0px;
-  }
+.image {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
-  .select-contain {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    align-items: center;
-  }
+.card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .container-button {
-    position: fixed;
-    bottom: 20px; /* Ajusta según el espacio que desees del fondo de la pantalla */
-    right: 20px; /* Ajusta según el espacio que desees del borde derecho */
-    z-index: 1;
-  }
+.dropdown-container {
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+}
 
-  .image{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-  }
+.dropdown-container ion-item {
+  --padding-start: 0px;
+}
+
+.select-contain {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+}
+
+.container-button {
+  position: fixed;
+  bottom: 20px; /* Ajusta según el espacio que desees del fondo de la pantalla */
+  right: 20px; /* Ajusta según el espacio que desees del borde derecho */
+  z-index: 1;
+}
+
+.image{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
 
