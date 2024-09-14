@@ -10,7 +10,6 @@
               <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">
                 <div style="display: flex; align-items: center;">
                   <img [src]="equipo.teamImage" width="25px" height="25px" alt="" style="margin-right: 8px;">
-                  <p>Equipo: </p>
                   {{ equipo.teamName }}
                   
                 </div>
