@@ -68,8 +68,4 @@ export class HomePage implements OnInit {
     this.router.navigate(['/create-team']);
   }
 
-
-
-  
-
 }
