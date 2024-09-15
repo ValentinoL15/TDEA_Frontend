@@ -88,3 +88,26 @@ ion-header {
   padding-top: 20px;
 }
 
+.select{
+  display: flex;
+  align-items: center;
+}
+
+.principal{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  margin-top: 10px;
+  text-align: center;
+}
+
+.descripcion {
+  color: grey;
+}
+
+

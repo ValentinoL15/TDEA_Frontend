@@ -1,53 +1,44 @@
-<ion-header>
+<ion-header *ngIf="equipos">
   <ion-toolbar>
     <ion-item>
       <div class="select-contain">
         <div class="select">
-      <ion-select [interfaceOptions]="customActionSheetOptions" interface="popover" placeholder="Selecciona un equipo"
-        (ionChange)="onEquipoChange($event.detail.value)">
-        <ion-list>
-          <ion-item>
-              <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">
-                <div style="display: flex; align-items: center;">
-                  <img [src]="equipo.teamImage" width="25px" height="25px" alt="" style="margin-right: 8px;">
-                  {{ equipo.teamName }}
-                  
-                </div>
-              </ion-select-option>
-          </ion-item>
-        </ion-list>
-      </ion-select>
+          <ion-select toggleIcon="none" interface="popover"
+            placeholder="Selecciona un equipo" (ionChange)="onEquipoChange($event.detail.value)">
+            <ion-list>
+              <ion-item>
+                <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">
+                  <div class="selected">
+                    <img [src]="equipo.teamImage" alt="">
+                    {{ equipo.teamName }}
+                  </div>
+                </ion-select-option>
+              </ion-item>
+            </ion-list>
+          </ion-select>
+          <img *ngIf="equipoSeleccionado" style="border-radius: 50%;" [src]="equipoSeleccionado.teamImage" width="30px" height="30px">
+          <img *ngIf="equipoSeleccionado === null" src="../../assets/icon/user-regular.svg" width="20px" height="20px" alt="">
+        </div>
       </div>
-      <img *ngIf="equipoSeleccionado" [src]="equipoSeleccionado?.teamImage" width="30px" height="20px" alt="">
-      <img *ngIf="equipoSeleccionado === null" src="../../assets/icon/user-regular.svg" width="20px" height="20px" alt="">
-    </div>
     </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="fondo" color="light">
 
-    <ion-card *ngIf="equipoSeleccionado" (click)="goTeam(equipoSeleccionado._id)" >
-      <div class="image">
-        <img [src]="equipoSeleccionado.teamImage" width="250px" height="200px" />
-      </div>
-      <ion-card-header>
-        <ion-card-title>{{equipoSeleccionado.teamName}}</ion-card-title>
-        <ion-card-subtitle>{{equipoSeleccionado.socialMedia}}</ion-card-subtitle>
-      </ion-card-header>
-
-      <ion-card-content>
-        {{equipoSeleccionado.teamNotes}}
-      </ion-card-content>
-    </ion-card>
-
-  <!--<div class="container">
-    <div class="boton">
-      <ion-button (click)="ir()">
-        CREAR NUEVO EQUIPO
-      </ion-button>
+  <div class="principal" *ngIf="equipoSeleccionado" (click)="goTeam(equipoSeleccionado._id)">
+    <div class="image">
+      <img [src]="equipoSeleccionado.teamImage" width="250px" height="200px" />
     </div>
-  </div>-->
+    <div class="title">
+      <h1>{{equipoSeleccionado.teamName}}</h1>
+      <h3>{{equipoSeleccionado.socialMedia}}</h3>
+    </div>
+
+    <div class="descripcion">
+      {{equipoSeleccionado.teamNotes}}
+    </div>
+  </div>
 
   <div class="container-button">
     <div class="button">
