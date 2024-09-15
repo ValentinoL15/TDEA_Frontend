@@ -1,30 +1,26 @@
-<ion-header *ngIf="equipos">
-  <ion-toolbar>
-    <ion-item>
-      <div class="select-contain">
-        <div class="select">
-          <ion-select toggleIcon="none" interface="popover"
-            placeholder="Selecciona un equipo" (ionChange)="onEquipoChange($event.detail.value)">
-            <ion-list>
-              <ion-item>
-                <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">
-                  <div class="selected">
-                    <img [src]="equipo.teamImage" alt="">
-                    {{ equipo.teamName }}
-                  </div>
-                </ion-select-option>
-              </ion-item>
-            </ion-list>
-          </ion-select>
-          <img *ngIf="equipoSeleccionado" style="border-radius: 50%;" [src]="equipoSeleccionado.teamImage" width="30px" height="30px">
-          <img *ngIf="equipoSeleccionado === null" src="../../assets/icon/user-regular.svg" width="20px" height="20px" alt="">
-        </div>
-      </div>
-    </ion-item>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true" class="fondo" color="light">
+
+  <div class="select-contain">
+    <div class="select">
+      <ion-select toggleIcon="none" interface="popover"
+        placeholder="Selecciona un equipo" (ionChange)="onEquipoChange($event.detail.value)">
+        <ion-list>
+          <ion-item>
+            <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">
+              <div class="selected">
+                <img [src]="equipo.teamImage" alt="">
+                {{ equipo.teamName }}
+              </div>
+            </ion-select-option>
+          </ion-item>
+        </ion-list>
+      </ion-select>
+      <img *ngIf="equipoSeleccionado" style="border-radius: 50%;" [src]="equipoSeleccionado.teamImage" width="30px" height="30px">
+      <img *ngIf="equipoSeleccionado === null" src="../../assets/icon/user-regular.svg" width="20px" height="20px" alt="">
+    </div>
+  </div>
 
   <div class="principal" *ngIf="equipoSeleccionado" (click)="goTeam(equipoSeleccionado._id)">
     <div class="image">
