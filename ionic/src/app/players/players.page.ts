@@ -126,6 +126,7 @@ export class PlayersPage implements OnInit {
     this.userService.getPlayersTeam().subscribe({
       next : (res : any) => {
         this.players = res.listOfPlayers;
+        console.log(this.players);
       },
       error : (err : any) => {
         this.notifyService.error(err.error.message)
@@ -134,7 +135,7 @@ export class PlayersPage implements OnInit {
   }
   
 
-  crearJugador(id:any, form: any){
+  crearJugador(form: any){
     const formData = new FormData();
     formData.append('firstName', this.form.get('firstName')?.value);
     formData.append('lastName', this.form.get('lastName')?.value);
@@ -142,7 +143,7 @@ export class PlayersPage implements OnInit {
     formData.append('nacimiento', this.form.get('nacimiento')?.value);
     formData.append('shirtNumber', this.form.get('shirtNumber')?.value);
     formData.append('image', this.selectedFile as Blob);
-    this.userService.crearJugador(id, formData).subscribe({
+    this.userService.crearJugador(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         

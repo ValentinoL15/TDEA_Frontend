@@ -47,10 +47,14 @@ export class UserService {
     return this.http.get(`${this.API_URL}/equipo-seleccionado`)
   }
 
+  getEmpty(){
+    return this.http.get(`${this.API_URL}/obtener-empty`)
+  }
+
   /*************************************************LISTA***************************************************/ 
 
-  createList(id:any, form: any){
-    return this.http.post(`${this.API_URL}/crear-lista/${id}`, form)
+  createList(form: any){
+    return this.http.post(`${this.API_URL}/crear-lista`, form)
   }
 
   getLists(id:any){
@@ -79,8 +83,8 @@ export class UserService {
 
   /************************************************PLAYERS**************************************************/ 
 
-  crearJugador(id:any, form:any){
-    return this.http.post(`${this.API_URL}/crear-jugador/${id}`, form)
+  crearJugador( form:any){
+    return this.http.post(`${this.API_URL}/crear-jugador`, form)
   }
 
   getPlayers(id:any){
