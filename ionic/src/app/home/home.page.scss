@@ -53,19 +53,6 @@ ion-header {
   align-items: center;
 }
 
-.dropdown-container {
-  background-color: white;
-  position: absolute;
-  width: 100%;
-  z-index: 10;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.dropdown-container ion-item {
-  --padding-start: 0px;
-}
-
 .select-contain {
   width: 100%;
   display: flex;
@@ -91,6 +78,7 @@ ion-header {
 .select{
   display: flex;
   align-items: center;
+  margin-right: 20px;
 }
 
 .principal{
