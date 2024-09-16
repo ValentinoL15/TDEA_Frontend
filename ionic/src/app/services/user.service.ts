@@ -35,6 +35,18 @@ export class UserService {
     return this.http.delete(`${this.API_URL}/eliminar-equipo/${id}`)
   }
 
+  actualizarEquipo(equipoId : any){
+    return this.http.put(`${this.API_URL}/mostrar-equipo`, {active: equipoId})
+  }
+
+  getPlayersTeam(){
+    return this.http.get(`${this.API_URL}/obtener-jugadores-equipo`)
+  }
+
+  getTeamActive(){
+    return this.http.get(`${this.API_URL}/equipo-seleccionado`)
+  }
+
   /*************************************************LISTA***************************************************/ 
 
   createList(id:any, form: any){

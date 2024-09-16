@@ -1,9 +1,8 @@
-<ion-content [fullscreen]="true" class="fondo" color="light">
+<ion-content [fullscreen]="true" class="fondo" color="light" *ngFor="let equipo of team">
 
   <div class="select-contain">
     <div class="select">
-      <ion-select toggleIcon="none" interface="popover"
-        placeholder="Selecciona un equipo" (ionChange)="onEquipoChange($event.detail.value)">
+      <ion-select toggleIcon="none" interface="popover" [placeholder]="equipo.teamName" (ionChange)="onEquipoChange($event.detail.value)">
         <ion-list>
           <ion-item>
             <ion-select-option *ngFor="let equipo of equipos" [value]="equipo._id">
@@ -15,22 +14,22 @@
           </ion-item>
         </ion-list>
       </ion-select>
-      <img *ngIf="equipoSeleccionado" style="border-radius: 50%;" [src]="equipoSeleccionado.teamImage" width="35px" height="35px">
-      <img *ngIf="equipoSeleccionado === null" src="../../assets/icon/user-regular.svg" width="20px" height="20px" alt="">
+      <img *ngIf="equipo" style="border-radius: 50%;" [src]="equipo.teamImage" width="35px" height="35px">
+      <img *ngIf="equipo === null" src="../../assets/icon/user-regular.svg" width="20px" height="20px" alt="">
     </div>
   </div>
 
-  <div class="principal" *ngIf="equipoSeleccionado" (click)="goTeam(equipoSeleccionado._id)">
+  <div class="principal" (click)="goTeam(equipo._id)">
     <div class="image">
-      <img [src]="equipoSeleccionado.teamImage" width="250px" height="200px" />
+      <img [src]="equipo.teamImage" width="250px" height="200px" />
     </div>
     <div class="title">
-      <h1>{{equipoSeleccionado.teamName}}</h1>
-      <h3>{{equipoSeleccionado.socialMedia}}</h3>
+      <h1>{{equipo.teamName}}</h1>
+      <h3>{{equipo.socialMedia}}</h3>
     </div>
 
     <div class="descripcion">
-      {{equipoSeleccionado.teamNotes}}
+      {{equipo.teamNotes}}
     </div>
   </div>
 

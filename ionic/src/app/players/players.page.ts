@@ -114,32 +114,24 @@ export class PlayersPage implements OnInit {
 
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = params['id']
-    })
-    this.getList(this.id)
-    this.obtenerJugadores(this.id)
+  this.getPlayers()
   }
 
-
-  volver(id:any){
-    this.router.navigate([`/list/${id}`])
-  }
 
   goPlayer(id:any){
     this.router.navigate([`/edit-player/${id}`])
   }
 
-  obtenerJugadores(id:any){
-    this.userService.getPlayers(id).subscribe({
-      next: (res : any) => {
-        this.players = res.listOfPlayers
-        },
-      error: (err: any) => {
-        this.notifyService.error(err.error.message);
-        }
-      })
-        }   
+  getPlayers(){
+    this.userService.getPlayersTeam().subscribe({
+      next : (res : any) => {
+        this.players = res.listOfPlayers;
+      },
+      error : (err : any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
   
 
   crearJugador(id:any, form: any){
@@ -153,7 +145,7 @@ export class PlayersPage implements OnInit {
     this.userService.crearJugador(id, formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.obtenerJugadores(id)
+        
         this.form.reset()
         this.selectedFile = null;
 
@@ -169,24 +161,6 @@ export class PlayersPage implements OnInit {
     })
     
   }
-
-  getList(id:any){
-    this.userService.getList(id).subscribe({
-      next: (res : any) => {
-        this.list = res.list
-      },
-      error: (err: any) => {
-        console.error(err);
-      }
-    })
-  }
-
-  /* adjustDate(date: Date): Date {
-    // Ajuste para compensar el desfase de la zona horaria
-    const offset = date.getTimezoneOffset();
-    const adjustedDate = new Date(date.getTime() + offset * 60000);
-    return adjustedDate;
-  }*/
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;

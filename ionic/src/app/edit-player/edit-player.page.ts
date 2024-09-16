@@ -68,8 +68,8 @@ players: Player[] = []
     this.getPlayer(this.id)
   }
 
-  goList(id:any){
-    this.router.navigate([`/players/${this.player.ownerList}`])
+  goList(){
+    this.router.navigate([`/user/players`])
   }
 
   getPlayer(id:any){
@@ -103,7 +103,7 @@ players: Player[] = []
     }
     this.userService.editPlayer(id,formulario).subscribe({
       next: (res: any) => {
-        window.location.href = `/players/${this.player.ownerList}`
+        window.location.href = `/user/players`
         this.notifyService.success(res.message)
       },
       error: (err: any) => {

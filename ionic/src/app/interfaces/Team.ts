@@ -3,5 +3,6 @@ export interface Team {
     teamName: String,
     teamNotes: String,
     socialMedia: String,
-    teamImage?:String
+    teamImage?:String,
+    active: boolean
 }
