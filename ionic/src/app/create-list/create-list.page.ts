@@ -93,25 +93,22 @@ export class CreateListPage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  volver(){
-    this.router.navigate([`/team/${this.id}`]);
-  }
-
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id']
     })
-    this.getLists(this.id)
+    this.getLists()
     this.getCampeonatos()
   }
   
   goList(id:any){
     this.router.navigate([`/list/${id}`])
   }
-  getLists(id:any){
-    this.userService.getLists(id).subscribe({
+  getLists(){
+    this.userService.getAllLists().subscribe({
       next: (res : any) => {
-        this.lists = res.lista
+        this.lists = res.listsOwner
+        console.log(this.lists)
       },
       error: (err) => {
         console.log(err.error.message);
@@ -137,7 +134,7 @@ export class CreateListPage implements OnInit {
     formData.append('alternativeShirtColor', this.form.get('alternativeShirtColor')?.value);
     formData.append('typeAlineacion', this.form.get('typeAlineacion')?.value);
     formData.append('image', this.selectedFile as Blob);
-    this.userService.createList(this.id,formData).subscribe({
+    this.userService.createList(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         window.location.href = `/create-list/${this.id}`

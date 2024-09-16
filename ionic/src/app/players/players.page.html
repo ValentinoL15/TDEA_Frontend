@@ -7,37 +7,44 @@
 
 <ion-content [fullscreen]="true" color="light" class="ion-padding">
 
-  <ion-list [inset]="true" *ngFor="let player of players">
+  <div *ngIf="players">
+    <ion-list [inset]="true" *ngFor="let player of players">
 
-    <div class="image" (click)="goPlayer(player._id)">
-      <img [src]="player.picturePlayer" alt="" width="200px" height="200px"/>
-    </div>
-
-    <ion-item>
-      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input (click)="goPlayer(player._id)" readonly="true" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input (click)="goPlayer(player._id)" readonly="true" label="DNI" [value]="player.dni"></ion-input>
-    </ion-item>
-
-  </ion-list>
-
-  <div class="container-button">
-    <div class="button">
-      <ion-button shape="round" (click)="setOpen(true)">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-      </ion-button>
+      <div class="image" (click)="goPlayer(player._id)">
+        <img [src]="player.picturePlayer" alt="" width="200px" height="200px"/>
+      </div>
+  
+      <ion-item>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" label="DNI" [value]="player.dni"></ion-input>
+      </ion-item>
+  
+    </ion-list>
+  
+    <div class="container-button">
+      <div class="button">
+        <ion-button shape="round" (click)="setOpen(true)">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </div>
     </div>
   </div>
+
+  <div class="players" *ngIf="!players">
+    <h1>Por favor crea o elige un equipo para agregar jugadores</h1>
+  </div>
+  
 
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
@@ -48,7 +55,7 @@
           </ion-buttons>
           <ion-title>Crear jugador</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="crearJugador(list._id,form)">Confirmar</ion-button>
+            <ion-button (click)="crearJugador(form)">Confirmar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>

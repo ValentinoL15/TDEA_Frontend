@@ -190,8 +190,8 @@ export class ListPage implements OnInit {
     })
   }
 
-  volver(id:any){
-    this.router.navigate([`/create-list/${id}`])
+  volver(){
+    this.router.navigate([`/user/create-list`])
   }
 
   getLista(id:any) {
@@ -246,7 +246,7 @@ export class ListPage implements OnInit {
               next: (res: any) => {
                 this.notifyService.success(res.message);
                 setTimeout(() => {
-                  window.location.href = `/create-list/${this.list.ownerTeam?._id}`;
+                  window.location.href = `/user/create-list`;
                 }, 500); 
               },
               error: (err: any) => {

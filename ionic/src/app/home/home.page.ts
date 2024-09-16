@@ -26,7 +26,15 @@ export class HomePage implements OnInit {
     active: false
   }
   equipoSeleccionado: Team | null = null; 
-  team: Team[] = []
+  team: Team = {
+    _id: "",
+    teamName: "",
+    teamNotes: "",
+    socialMedia: "",
+    teamImage:"",
+    active: false
+  }
+  emptyUser: any = {}
 
 
   isModalOpen = false;
@@ -41,6 +49,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.getTeams()
     this.getTeamActive()
+    this.getUserEmpty()
   }
 
   customActionSheetOptions = {
@@ -75,6 +84,17 @@ export class HomePage implements OnInit {
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  getUserEmpty(){
+    this.userService.getEmpty().subscribe({
+      next: (res : any) => {
+        this.emptyUser = res.userEmpty
+      },
+      error: (err) => {
+        console.log(err)
       }
     })
   }
