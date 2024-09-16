@@ -140,7 +140,7 @@ const routes: Routes = [
     loadChildren: () => import('./create-list/create-list.module').then( m => m.CreateListPageModule)
   },
   {
-    path: 'players/:id',
+    path: 'players',
     loadChildren: () => import('./players/players.module').then( m => m.PlayersPageModule)
   },
   {

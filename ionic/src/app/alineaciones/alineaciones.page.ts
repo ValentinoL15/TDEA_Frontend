@@ -60,6 +60,7 @@ team: Team = {
   teamName: "",
   teamNotes: "",
   socialMedia: "",
+  active: false
 }
 
 id:any

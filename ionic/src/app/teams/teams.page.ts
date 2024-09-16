@@ -17,6 +17,7 @@ export class TeamsPage implements OnInit {
     teamName: "",
     teamNotes: "",
     socialMedia: "",
+    active: false
   }
   selectedFile: File | null = null;
 

@@ -124,6 +124,7 @@ export class ListPage implements OnInit {
     teamName: "",
     teamNotes: "",
     socialMedia: "",
+    active: false
   }
 
   //BUTTON
