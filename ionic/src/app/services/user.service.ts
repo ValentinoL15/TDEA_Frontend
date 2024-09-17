@@ -81,6 +81,10 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-mis-listas`)
   }
 
+  addPlayerList(id : any, jugadorId: any){
+    return this.http.put(`${this.API_URL}/agregar-jugador-lista/${id}`, {jugadorId})
+  }
+
   /************************************************PLAYERS**************************************************/ 
 
   crearJugador( form:any){

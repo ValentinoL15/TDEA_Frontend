@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifyService } from '../services/notify.service';
 import { UserService } from '../services/user.service';
@@ -8,6 +8,9 @@ import { Team } from '../interfaces/Team';
 import { Player } from '../interfaces/Player';
 import { Alineacion } from '../interfaces/Alineacion';
 import { SpinnerService } from '../services/spinner.service';
+import { IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+
 
 @Component({
   selector: 'app-alineaciones',
@@ -15,6 +18,7 @@ import { SpinnerService } from '../services/spinner.service';
   styleUrls: ['./alineaciones.page.scss'],
 })
 export class AlineacionesPage implements OnInit {
+  @ViewChild(IonModal) modal!: IonModal;
 
 constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,  private spinnerService: SpinnerService) {
 }
@@ -65,11 +69,23 @@ team: Team = {
 
 id:any
 formacion: any
-equipo: any
+equipo: Team = {
+  _id: "",
+  teamName: "",
+  teamNotes: "",
+  socialMedia: "",
+  active: false,
+  players: [{
+    _id: "",
+    firstName: "",
+    lastName: "",
+  }]
+}
 formatoSeleccionado: any;
 players: Player[] = []
 suplentes:Player[] = [];
 selectedPosition: string | null = null;
+player: any
 
 ngOnInit() {
   this.route.params.subscribe(params => {
@@ -77,7 +93,7 @@ ngOnInit() {
     this.formacion = params['alineacion']
   })
   this.getList(this.id)
-  
+  this.getTeam()
 }
 
 volver(){
@@ -95,6 +111,17 @@ openModal(position: any) {
   this.setOpen(true);
 }
 
+getTeam(){
+  this.userService.getTeamActive().subscribe({
+    next: (res : any) => {
+      this.equipo = res.team;
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
 getList(id:any){
   this.userService.getList(id).subscribe({
     next: (res : any) => {
@@ -107,6 +134,28 @@ getList(id:any){
   })
 }
 
+selectedPlayer(player : Player){
+  console.log("player:", player); // Imprime el objeto completo para verificar su estructura
+  console.log("player._id:", player._id); // Imprime solo el ID del jugador
+  if (!player._id) {
+    this.notifyService.error('ID del jugador no disponible');
+    return;
+}
+    this.userService.addPlayerList(this.id, player._id).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getTeam()
+        this.getList(this.id)
+        this.modal.dismiss(null, 'cancel');
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+}
+
+
+
 /**********************ARQUERO-ALINEACION**********************/ 
 selectPlayer(player: any) {
   if (this.selectedPosition && this.list.alineacion) {
@@ -114,10 +163,9 @@ selectPlayer(player: any) {
     // Llamar al servicio para actualizar la posición
     this.userService.updatePosition(this.formacion, this.selectedPosition, player._id).subscribe({
       next: (res : any) => {
-       
           this.getList(this.id)
           this.setOpen(false)
-        
+          this.getTeam()
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
@@ -137,6 +185,22 @@ resetAlineacion(){
       this.notifyService.error(err.error.message);
     }
   })
+}
+
+////////////////////////MODAL ID/////////////////////////////////
+
+message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+name?: string;
+
+cancel() {
+  this.modal.dismiss(null, 'cancel');
+}
+
+onWillDismiss(event: Event) {
+  const ev = event as CustomEvent<OverlayEventDetail<string>>;
+  if (ev.detail.role === 'confirm') {
+    this.message = `Hello, ${ev.detail.data}!`;
+  }
 }
 
 }

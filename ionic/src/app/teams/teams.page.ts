@@ -17,7 +17,8 @@ export class TeamsPage implements OnInit {
     teamName: "",
     teamNotes: "",
     socialMedia: "",
-    active: false
+    active: false,
+    
   }
   selectedFile: File | null = null;
 
@@ -83,10 +84,6 @@ export class TeamsPage implements OnInit {
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
-  }
-
-  goLists(id:any){
-    this.router.navigate([`/create-list/${id}`])
   }
 
   volver(){
