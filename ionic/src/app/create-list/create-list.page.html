@@ -11,12 +11,17 @@
       <ion-input label="Lista" readonly="true" [value]="list.nameList" (click)="goList(list._id)"></ion-input>
     </ion-item>
     </ion-list>
-</div>
+
   <div class="container">
     <ion-button style="font-weight: bold;" expand="block" (click)="setOpen(true)">
       Crear Lista de Buena Fe
     </ion-button>
   </div>
+</div>
+
+<div class="listaEmpty" *ngIf="!lists">
+  <h1>Por favor crea o elige un equipo para ver tus listas</h1>
+</div>
 
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>

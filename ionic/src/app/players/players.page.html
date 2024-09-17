@@ -41,6 +41,10 @@
     </div>
   </div>
 
+  <div class="addPlayers" *ngIf="players.length === 0">
+    <h1>Agrega jugadores a tu Equipo!</h1>
+  </div>
+
   <div class="players" *ngIf="!players">
     <h1>Por favor crea o elige un equipo para agregar jugadores</h1>
   </div>

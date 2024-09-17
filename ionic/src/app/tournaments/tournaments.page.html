@@ -9,21 +9,26 @@
 
 <ion-content [fullscreen]="true" color="light">
 
-  <ion-card *ngFor="let torneo of torneos">
-    <ion-card-header>
-      <ion-card-title>{{torneo.nameFantasy}}</ion-card-title>
-      <ion-card-subtitle>Torneo</ion-card-subtitle>
-    </ion-card-header>
-  
-    <ion-card-content>
-      {{torneo.tournamentNotes}}
-    </ion-card-content>
-  
-    <div class="contenedor-button">
-      <ion-button fill="clear" (click)="goTournament(torneo._id)">Ingresar</ion-button>
-    </div>
+  <div *ngIf="lists">
+    <ion-card *ngFor="let torneo of torneos">
+      <ion-card-header>
+        <ion-card-title>{{torneo.nameFantasy}}</ion-card-title>
+        <ion-card-subtitle>Torneo</ion-card-subtitle>
+      </ion-card-header>
     
+      <ion-card-content>
+        {{torneo.tournamentNotes}}
+      </ion-card-content>
     
-  </ion-card>
+      <div class="contenedor-button">
+        <ion-button fill="clear" (click)="goTournament(torneo._id)">Ingresar</ion-button>
+      </div>
+    </ion-card>
+  </div>
+
+  <div class="listEmpty" *ngIf="!lists">
+    <h1>Por favor crea o elige un equipo para poder ver los torneos disponibles</h1>
+  </div>
+
 
 </ion-content>
