@@ -146,7 +146,7 @@ export class PlayersPage implements OnInit {
     this.userService.crearJugador(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        
+        this.getPlayers()
         this.form.reset()
         this.selectedFile = null;
 

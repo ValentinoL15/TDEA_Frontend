@@ -18,10 +18,12 @@ constructor(private router: Router, private notifyService: NotifyService, privat
 
 id:any
 torneos: Tournament[] = []
+lists: List[] = []
 
 
 ngOnInit() {
   this.getTournaments()
+  this.getLists()
 }
 
 volver(){
@@ -40,6 +42,18 @@ getTournaments(){
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+getLists(){
+  this.userService.getAllLists().subscribe({
+    next: (res : any) => {
+      this.lists = res.listsOwner
+      console.log(this.lists)
+    },
+    error: (err) => {
+      console.log(err.error.message);
     }
   })
 }
