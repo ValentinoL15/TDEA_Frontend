@@ -170,11 +170,6 @@ export class ListPage implements OnInit {
 
   }
 
-
-  goPlayers(id:any){
-    this.router.navigate([`/players/${id}`])
-  }
-
   goAlineacion(){
     this.router.navigate([`/alineaciones/${this.id}/${this.list.alineacion?._id}`])
   }
