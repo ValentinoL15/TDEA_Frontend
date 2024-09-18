@@ -564,15 +564,17 @@ ion-content.ion-padding{
 }
 
 .container-button {
-    position: absolute;
+    width: 100%;
+    position: fixed;
     bottom: 80px; /* Ajusta según el espacio que desees del fondo de la pantalla */
-    right: 10px; /* Ajusta según el espacio que desees del borde derecho */
+    left: 10px; /* Ajusta según el espacio que desees del borde derecho */
     z-index: 1000000;
   }
 
+
 .button {
     position: absolute; /* Posiciona la flecha fuera del flujo del documento */
-    top: 0px; /* Ajusta la distancia desde el borde superior */
+    top: 10px; /* Ajusta la distancia desde el borde superior */
     right: 10px; /* Ajusta la distancia desde el borde izquierdo */
     z-index: 10; 
 }
@@ -584,7 +586,7 @@ ion-icon {
 
 .btn-header {
     position: absolute;
-    top: 10px;
+    top: 1px;
     right: 10px;
 }
 

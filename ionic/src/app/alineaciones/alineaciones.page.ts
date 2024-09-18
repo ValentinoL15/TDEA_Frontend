@@ -8,7 +8,7 @@ import { Team } from '../interfaces/Team';
 import { Player } from '../interfaces/Player';
 import { Alineacion } from '../interfaces/Alineacion';
 import { SpinnerService } from '../services/spinner.service';
-import { IonModal } from '@ionic/angular';
+import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 
 
@@ -20,7 +20,28 @@ import { OverlayEventDetail } from '@ionic/core/components';
 export class AlineacionesPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
-constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,  private spinnerService: SpinnerService) {
+constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,  private spinnerService: SpinnerService, private alertController: AlertController) {
+}
+
+public alertButtons = [
+  {
+    text: 'Cancel',
+    role: 'cancel',
+    handler: () => {
+      console.log('Alert canceled');
+    },
+  },
+  {
+    text: 'OK',
+    role: 'confirm',
+    handler: () => {
+      console.log('Alert confirmed');
+    },
+  },
+];
+
+setResult(ev : any) {
+  console.log(`Dismissed with role: ${ev.detail.role}`);
 }
 
 list: List = {
@@ -89,7 +110,12 @@ formatoSeleccionado: any;
 players: Player[] = []
 suplentes:Player[] = [];
 selectedPosition: string | null = null;
-player: Player | null = null
+player: Player = {
+  _id: "",
+  firstName: "",
+  lastName: "",
+  dni: 0,
+}
 
 ngOnInit() {
   this.route.params.subscribe(params => {
@@ -138,21 +164,80 @@ getList(id:any){
   })
 }
 
-selectedPlayer(player : Player){
-  if (!player._id) {
-    this.notifyService.error('ID del jugador no disponible');
-    return;
-}
-    this.userService.agregarSuplentes(this.id, player._id).subscribe({
-      next: (res : any) => {
-        this.notifyService.success(res.message)
-        this.getTeam()
-        this.getList(this.id)
+async selectedPlayer(player : any) {
+  const alert = await this.alertController.create({
+    header: 'Confirmar Suplente',
+    message: `¿Estás seguro de que quieres agregar a ${player.firstName + " " + player.lastName} a los suplentes?`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          // El usuario ha cancelado, no hacer nada
+        }
       },
-      error: (err: any) => {
-        this.notifyService.error(err.error.message)
+      {
+        text: 'Agregar',
+        handler: () => {
+          // El usuario ha confirmado, proceder con la eliminación
+          if (!player._id) {
+            this.notifyService.error('ID del jugador no disponible');
+            return;
+        }
+            this.userService.agregarSuplentes(this.id, player._id).subscribe({
+              next: (res : any) => {
+                this.notifyService.success(res.message)
+                this.getTeam()
+                this.getList(this.id)
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message)
+              }
+            })
+        }
       }
-    })
+    ]
+  });
+
+  await alert.present();
+}
+
+async eliminarPlayer(player : any) {
+  const alert = await this.alertController.create({
+    header: 'Confirmar eliminación',
+    message: `¿Estás seguro de que quieres sacar a ${player.firstName + " " + player.lastName} de los suplentes?`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          // El usuario ha cancelado, no hacer nada
+        }
+      },
+      {
+        text: 'Eliminar',
+        handler: () => {
+          // El usuario ha confirmado, proceder con la eliminación
+          if (!player._id) {
+            this.notifyService.error('ID del jugador no disponible');
+            return;
+          }
+          this.userService.eliminarSuplente(this.id, player._id).subscribe({
+            next: (res : any) => {
+              this.notifyService.success(res.message)
+              this.getTeam()
+              this.getList(this.id)
+            },
+            error: (err: any) => {
+              this.notifyService.error(err.error.message)
+            }
+          })
+        }
+      }
+    ]
+  });
+
+  await alert.present();
 }
 
 isAvailable(player: Player): boolean {

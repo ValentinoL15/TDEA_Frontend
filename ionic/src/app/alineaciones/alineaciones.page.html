@@ -4,7 +4,7 @@
     <ion-icon (click)="volver()" name="arrow-back-outline"></ion-icon>
   </div>
   <div class="boton">
-    <ion-button shape="round" color="dark" (click)="resetAlineacion()">Reset</ion-button>
+    <ion-button shape="round" color="dark" (click)="resetAlineacion()" style="font-weight: bold;">Reset</ion-button>
   </div>
 
 
@@ -464,8 +464,8 @@
 
   <div class="container-button" id="abrir-modal">
     <div class="button">
-      <ion-button shape="round">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      <ion-button shape="round" style="font-weight: bold;">
+        Agregar Suplentes
       </ion-button>
     </div>
   </div>
@@ -488,7 +488,7 @@
         <div class="contain-principal">
           <h3>Jugadores Totales</h3>
           <div class="contenedor-totales">
-            <div class="jugadores" *ngFor="let jugador of equipo.players" (click)="selectedPlayer(jugador)">
+            <div class="jugadores" *ngFor="let jugador of equipo.players" id="present-alert2" (click)="selectedPlayer(jugador)">
               <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
               <p>{{jugador.firstName}}</p>
             </div>
@@ -496,7 +496,7 @@
 
           <h3>Banco de Suplentes</h3>
           <div class="contenedor-suplentes">
-            <div class="suplentes" *ngFor="let suplente of list.suplente">
+            <div class="suplentes" *ngFor="let suplente of list.suplente" id="present-alert" (click)="eliminarPlayer(suplente)">
               <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
               <p>{{suplente.firstName}}</p>
             </div>
@@ -515,9 +515,12 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Jugadores del Equipo</ion-title>
-        <ion-buttons style="margin-bottom: 30px;" slot="end">
-          <ion-button (click)="setOpen(false)">Cerrar</ion-button>
-        </ion-buttons>
+        <div class="btn-header">
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+          </ion-buttons>
+        </div>
+        
       </ion-toolbar>
     </ion-header>
     <ion-content color="light">
@@ -535,3 +538,17 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+
+<ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+
+<ion-alert
+  trigger="present-alert2"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
