@@ -176,5 +176,9 @@ export class PlayersPage implements OnInit {
     console.log('Archivo seleccionado:', file);
   }
 
+  restartPlayers(){
+    window.location.href = '/user/players'
+  }
+
 
 }

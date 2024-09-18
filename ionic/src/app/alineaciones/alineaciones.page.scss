@@ -114,7 +114,7 @@
     grid-column: 2;
     grid-row: 4;
     justify-self: center; /* Centrar horizontalmente */
-    align-self: center;   /* Centrar verticalmente */
+    align-self: flex-end;   /* Centrar verticalmente */
     text-align: center;
 }
 .element2-cont3{
@@ -535,14 +535,48 @@
 .contenedor-suplentes{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    white-space: nowrap;
+    justify-content: flex-start; /* Alinea los jugadores a la izquierda */
     text-align: center;
     width: 100%;
+    overflow-x: auto; /* Cambia scroll a auto para evitar comportamientos inesperados */
+    padding: 0 10px; /* Ajusta padding solo en los lados izquierdo y derecho */
+    scroll-padding-left: 10px; /* Asegura que haya padding al hacer scroll al inicio */
+    scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
 }
 
+.contenedor-suplentes::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento en Webkit (Chrome, Safari) */
+}
+
+
 .suplentes{ 
-    padding: 0 10px;
+    flex: 0 0 auto;
+    margin-right: 10px; /* Agrega espacio entre las imágenes */
+    text-align: center;
+}
+
+.title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+ion-toolbar {
+    padding: 0;
+}
+
+img {
+    display: block;
+    margin: 0 auto; /* Centra la imagen en su contenedor */
+}
+
+ion-modal {
+    z-index: 9999; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.contenedor-totales {
+    z-index: 9999; /* Haz que el contenido sea visible sobre otros */
 }
 
 .contenedor {
