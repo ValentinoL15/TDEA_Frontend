@@ -117,6 +117,7 @@ player: Player = {
   dni: 0,
 }
 
+
 ngOnInit() {
   this.route.params.subscribe(params => {
     this.id = params['id']
@@ -280,6 +281,25 @@ resetAlineacion(){
   })
 }
 
+isTitular(playerId: any): boolean {
+  return this.list?.titular?.some((titularPlayer: any) => titularPlayer._id === playerId) || false;
+}
+
+isSuplente(playerId: any): boolean {
+  return this.list?.suplente?.some((suplentePlayer: any) => suplentePlayer._id === playerId) || false;
+}
+
+getCamisetaColor(playerId: any): string {
+  if (this.isTitular(playerId)) {
+    return 'green';  // Si es titular, camiseta verde
+  } else if (this.isSuplente(playerId)) {
+    return 'blue';   // Si es suplente, camiseta azul
+  } else {
+    return 'white';  // Si no está en ninguna lista, camiseta blanca
+  }
+}
+
+
 ////////////////////////MODAL ID/////////////////////////////////
 
 message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
@@ -295,5 +315,7 @@ onWillDismiss(event: Event) {
     this.message = `Hello, ${ev.detail.data}!`;
   }
 }
+
+
 
 }

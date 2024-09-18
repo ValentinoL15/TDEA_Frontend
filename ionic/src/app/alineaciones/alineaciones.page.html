@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content class="ion-padding">
 
   <div class="arrow">
     <ion-icon (click)="volver()" name="arrow-back-outline"></ion-icon>
@@ -462,14 +462,6 @@
     </div>
   </div>
 
-  <div class="container-button" id="abrir-modal">
-    <div class="button">
-      <ion-button shape="round" style="font-weight: bold;">
-        Agregar Suplentes
-      </ion-button>
-    </div>
-  </div>
-
   <ion-modal trigger="abrir-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
@@ -494,21 +486,34 @@
             </div>
           </div>
 
-          <h3>Banco de Suplentes</h3>
-          <div class="contenedor-suplentes">
-            <div class="suplentes" *ngFor="let suplente of list.suplente" id="present-alert" (click)="eliminarPlayer(suplente)">
-              <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
-              <p>{{suplente.firstName}}</p>
-            </div>
-          </div>
-
         </div>
       </ion-content>
     </ng-template>
   </ion-modal>
 
-
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div class="title">
+      <h3>Banco de Suplentes</h3>
+    </div>
+      
+          <div class="contenedor-suplentes">
+            <div class="suplentes" *ngFor="let suplente of list.suplente" id="present-alert" (click)="eliminarPlayer(suplente)">
+            
+                <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
+                <p>{{suplente.firstName}}</p>
+            
+            
+            </div>
+          </div>
+          <div id="abrir-modal">
+            <div class="button">
+              <ion-icon slot="icon-only" name="add-outline" color="white"></ion-icon>
+            </div>
+          </div>
+  </ion-toolbar>
+</ion-footer>
 
 <ion-modal [isOpen]="isModalOpen">
   <ng-template>
@@ -528,7 +533,7 @@
         <h1>Jugadores Totales</h1>
         <div class="contenedor-totales">
           <div class="jugadores" *ngFor="let player of equipo.players" (click)="selectPlayer(player)">
-            <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
+            <img [ngStyle]="{'background-color': getCamisetaColor(player._id)}" src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
             <p >{{player.firstName}}</p>
           </div>
         </div>
