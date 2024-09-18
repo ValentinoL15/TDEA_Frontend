@@ -128,7 +128,7 @@ export class UserService {
   }
 
   agregarSuplentes(id : any, jugador : any){
-    return this.http.put(`${this.API_URL}/agregar-suplente/${id}`, jugador)
+    return this.http.put(`${this.API_URL}/agregar-suplente/${id}`, { titularId: jugador })
   }
   
 

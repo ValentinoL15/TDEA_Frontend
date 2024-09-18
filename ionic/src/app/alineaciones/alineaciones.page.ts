@@ -89,7 +89,7 @@ formatoSeleccionado: any;
 players: Player[] = []
 suplentes:Player[] = [];
 selectedPosition: string | null = null;
-player: any
+player: Player | null = null
 
 ngOnInit() {
   this.route.params.subscribe(params => {
@@ -139,18 +139,15 @@ getList(id:any){
 }
 
 selectedPlayer(player : Player){
-  console.log("player:", player); // Imprime el objeto completo para verificar su estructura
-  console.log("player._id:", player._id); // Imprime solo el ID del jugador
   if (!player._id) {
     this.notifyService.error('ID del jugador no disponible');
     return;
 }
-    this.userService.addPlayerList(this.id, player._id).subscribe({
+    this.userService.agregarSuplentes(this.id, player._id).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.getTeam()
         this.getList(this.id)
-        this.modal.dismiss(null, 'cancel');
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -160,7 +157,7 @@ selectedPlayer(player : Player){
 
 isAvailable(player: Player): boolean {
   const isTitular = this.list.titular?.some(titular => titular._id === player._id);
-  const isSuplente = this.suplentes.some(suplente => suplente._id === player._id);
+  const isSuplente = this.list.suplente?.some(suplente => suplente._id === player._id);
   
   return !isTitular && !isSuplente;
 }
