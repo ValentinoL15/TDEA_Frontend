@@ -56,6 +56,10 @@ list: List = {
   suplente: [{
     _id: "",
     firstName: ""
+  }],
+  titular: [{
+    _id: "",
+    firstName: ""
   }]
 };
 
@@ -152,6 +156,13 @@ selectedPlayer(player : Player){
         this.notifyService.error(err.error.message)
       }
     })
+}
+
+isAvailable(player: Player): boolean {
+  const isTitular = this.list.titular?.some(titular => titular._id === player._id);
+  const isSuplente = this.suplentes.some(suplente => suplente._id === player._id);
+  
+  return !isTitular && !isSuplente;
 }
 
 

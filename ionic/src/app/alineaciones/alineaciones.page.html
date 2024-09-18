@@ -458,9 +458,9 @@
     </ion-header>
     <ion-content color="light">
       <div class="contain-principal">
-        <div class="contenedor-suplentes" *ngFor="let player of list.suplente" (click)="selectPlayer(player)">
+        <div class="contenedor-suplentes" *ngFor="let player of equipo.players" (click)="selectPlayer(player)">
             <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
-            <p>{{player.firstName}}</p>
+            <p *ngIf="isAvailable(player)">{{player.firstName}}</p>
         </div>
       </div>
 
