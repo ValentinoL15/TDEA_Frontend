@@ -30,6 +30,10 @@ export interface List {
         _id?: string,
         firstName?: string
     }],
+    titular?: [{
+        _id?: string,
+        firstName?: string
+    }]
     typeAlineacion: number,
     shirtColor: String,
     alternativeShirtColor: String,
