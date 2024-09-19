@@ -125,13 +125,16 @@ ngOnInit() {
     this.formacion = params['alineacion']
   })
   this.getList(this.id)
-  this.getTeam()
   this.getSuplentes()
   this.getTitulares()
 }
 
 volver(){
-  window.location.href = `/list/${this.id}`
+  window.location.href = `/user/create-list`
+}
+
+addPLayers(){
+  this.router.navigate([`add-players/${this.id}`])
 }
 
 isModalOpen = false;
@@ -143,17 +146,6 @@ setOpen(isOpen: boolean) {
 openModal(position: any) {
   this.selectedPosition = position;
   this.setOpen(true);
-}
-
-getTeam(){
-  this.userService.getTeamActive().subscribe({
-    next: (res : any) => {
-      this.equipo = res.team;
-    },
-    error: (err: any) => {
-      this.notifyService.error(err.error.message)
-    }
-  })
 }
 
 getList(id:any){
@@ -191,7 +183,6 @@ async selectedPlayer(player : any) {
             this.userService.agregarSuplentes(this.id, player._id).subscribe({
               next: (res : any) => {
                 this.notifyService.success(res.message)
-                this.getTeam()
                 this.getList(this.id)
                 this.getSuplentes()
                 this.getTitulares()
@@ -231,7 +222,6 @@ async eliminarPlayer(player : any) {
           this.userService.eliminarSuplente(this.id, player._id).subscribe({
             next: (res : any) => {
               this.notifyService.success(res.message)
-              this.getTeam()
               this.getList(this.id)
               this.getSuplentes()
               this.getTitulares()
@@ -288,7 +278,6 @@ selectPlayer(player: any) {
       next: (res : any) => {
           this.getList(this.id)
           this.setOpen(false)
-          this.getTeam()
           this.getSuplentes()
           this.getTitulares()
       },

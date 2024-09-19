@@ -170,7 +170,12 @@ const routes: Routes = [
   {
     path: 'alineaciones/:id/:alineacion',
     loadChildren: () => import('./alineaciones/alineaciones.module').then( m => m.AlineacionesPageModule)
+  },
+  {
+    path: 'add-players/:id',
+    loadChildren: () => import('./add-players/add-players.module').then( m => m.AddPlayersPageModule)
   }
+
 
 
 
