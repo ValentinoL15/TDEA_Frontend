@@ -579,6 +579,13 @@ ion-modal {
     z-index: 9999; /* Haz que el contenido sea visible sobre otros */
 }
 
+.camiseta-img {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+}
+
 .contenedor {
     display: flex;
     width: 100%;
@@ -603,7 +610,32 @@ ion-content.ion-padding{
     bottom: 80px; /* Ajusta según el espacio que desees del fondo de la pantalla */
     left: 10px; /* Ajusta según el espacio que desees del borde derecho */
     z-index: 1000000;
-  }
+}
+
+.camiseta{ 
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.descripcion{
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.back{
+    width: 100%;
+    background-color: #000;
+    height: 5px;
+}
+
+.banco-suplentes{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
 
 .button {

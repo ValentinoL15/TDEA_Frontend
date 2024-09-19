@@ -119,8 +119,8 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-titulares/${id}`)
   }
 
-  getSuplentes(id : any, alineacion: any){
-    return this.http.get(`${this.API_URL}/obtener-suplentes/${id}/${alineacion}`)
+  getSuplentes(id : any){
+    return this.http.get(`${this.API_URL}/obtener-suplentes/${id}`)
   }
 
   agregarTitulares(id : any, jugador: any){

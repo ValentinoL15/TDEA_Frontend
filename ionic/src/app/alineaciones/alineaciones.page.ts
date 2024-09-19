@@ -125,6 +125,7 @@ ngOnInit() {
   })
   this.getList(this.id)
   this.getTeam()
+  this.getSuplentes()
 }
 
 volver(){
@@ -190,6 +191,7 @@ async selectedPlayer(player : any) {
                 this.notifyService.success(res.message)
                 this.getTeam()
                 this.getList(this.id)
+                this.getSuplentes()
               },
               error: (err: any) => {
                 this.notifyService.error(err.error.message)
@@ -228,6 +230,7 @@ async eliminarPlayer(player : any) {
               this.notifyService.success(res.message)
               this.getTeam()
               this.getList(this.id)
+              this.getSuplentes()
             },
             error: (err: any) => {
               this.notifyService.error(err.error.message)
@@ -246,6 +249,17 @@ isAvailable(player: Player): boolean {
   const isSuplente = this.list.suplente?.some(suplente => suplente._id === player._id);
   
   return !isTitular && !isSuplente;
+}
+
+getSuplentes(){
+  this.userService.getSuplentes(this.id).subscribe({
+    next: (res: any) => {
+      this.suplentes = res.suplentes
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
 }
 
 
@@ -289,13 +303,13 @@ isSuplente(playerId: any): boolean {
   return this.list?.suplente?.some((suplentePlayer: any) => suplentePlayer._id === playerId) || false;
 }
 
-getCamisetaColor(playerId: any): string {
+getCamisetaImage(playerId: any): string {
   if (this.isTitular(playerId)) {
-    return 'green';  // Si es titular, camiseta verde
+    return '../../assets/icon/remera-roja.svg';  // Imagen para titulares
   } else if (this.isSuplente(playerId)) {
-    return 'blue';   // Si es suplente, camiseta azul
+    return '../../assets/icon/remera-verde.svg';  // Imagen para suplentes
   } else {
-    return 'white';  // Si no está en ninguna lista, camiseta blanca
+    return '../../assets/icon/shirt-solid (1).svg';  // Imagen para jugadores no listados
   }
 }
 
