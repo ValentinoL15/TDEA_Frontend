@@ -131,7 +131,7 @@ ngOnInit() {
 }
 
 volver(){
-  this.router.navigate([`/list/${this.id}`])
+  window.location.href = `/list/${this.id}`
 }
 
 isModalOpen = false;
@@ -326,7 +326,7 @@ getCamisetaImage(playerId: any): string {
   if (this.isTitular(playerId)) {
     return '../../assets/icon/remera-titulares.svg';  // Imagen para titulares
   } else if (this.isSuplente(playerId)) {
-    return '../../assets/icon/shirt-solid (1).svg';  // Imagen para suplentes
+    return '../../assets/icon/remera-titulares.svg';  // Imagen para suplentes
   } else {
     return '../../assets/icon/shirt-solid (1).svg';  // Imagen para jugadores no listados
   }
@@ -348,7 +348,6 @@ onWillDismiss(event: Event) {
     this.message = `Hello, ${ev.detail.data}!`;
   }
 }
-
 
 
 }
