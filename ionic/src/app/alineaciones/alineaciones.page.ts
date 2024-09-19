@@ -272,7 +272,6 @@ getTitulares(){
 /**********************ARQUERO-ALINEACION**********************/ 
 selectPlayer(player: any) {
   if (this.selectedPosition && this.list.alineacion) {
-    this.spinnerService.show(); // Mostrar spinner antes de la solicitud
     // Llamar al servicio para actualizar la posición
     this.userService.updatePosition(this.formacion, this.selectedPosition, player._id).subscribe({
       next: (res : any) => {
