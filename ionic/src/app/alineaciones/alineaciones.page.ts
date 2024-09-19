@@ -269,6 +269,7 @@ getTitulares(){
 
 
 
+
 /**********************ARQUERO-ALINEACION**********************/ 
 selectPlayer(player: any) {
   if (this.selectedPosition && this.list.alineacion) {
@@ -327,7 +328,7 @@ message = 'This modal example uses triggers to automatically open a modal when t
 name?: string;
 
 cancel() {
-  this.modal.dismiss(null, 'cancel');
+  window.location.href = `/alineaciones/${this.id}/${this.formacion}`
 }
 
 onWillDismiss(event: Event) {
