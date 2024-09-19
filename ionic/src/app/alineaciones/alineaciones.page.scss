@@ -551,6 +551,20 @@
     text-align: center;
   }
 
+  .contenedor-horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* Habilita el scroll horizontal */
+    white-space: nowrap;
+    align-items: center;
+  }
+  
+  .suplentes {
+    margin-right: 15px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+
 
 .title{
     width: 100%;
