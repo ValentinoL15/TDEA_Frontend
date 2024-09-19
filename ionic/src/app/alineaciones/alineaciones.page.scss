@@ -532,29 +532,25 @@
     padding: 10px 10px;
 }
 
-.contenedor-suplentes{
+.contenedor-suplentes {
     display: flex;
     flex-direction: row;
-    white-space: nowrap;
-    justify-content: flex-start; /* Alinea los jugadores a la izquierda */
-    text-align: center;
-    width: 100%;
-    overflow-x: auto; /* Cambia scroll a auto para evitar comportamientos inesperados */
-    padding: 0 10px; /* Ajusta padding solo en los lados izquierdo y derecho */
-    scroll-padding-left: 10px; /* Asegura que haya padding al hacer scroll al inicio */
+    overflow-x: auto; /* Permite el scroll horizontal */
+    white-space: nowrap; /* Previene que los elementos salten de línea */
+    padding: 10px 0; /* Espaciado entre los elementos y los bordes del contenedor */
     scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
-}
-
-.contenedor-suplentes::-webkit-scrollbar {
-    display: none; /* Oculta la barra de desplazamiento en Webkit (Chrome, Safari) */
-}
-
-
-.suplentes{ 
-    flex: 0 0 auto;
-    margin-right: 10px; /* Agrega espacio entre las imágenes */
+  }
+  
+  .contenedor-suplentes::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento en navegadores basados en WebKit */
+  }
+  
+  .suplentes {
+    flex: 0 0 auto; /* Hace que cada elemento tenga tamaño fijo y no se ajuste */
+    margin-right: 10px; /* Añade espacio entre los elementos */
     text-align: center;
-}
+  }
+
 
 .title{
     width: 100%;
