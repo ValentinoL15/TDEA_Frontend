@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mis jugadores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="title"> 
+    <h1>Jugadores de equipo</h1>
+  </div>
+
+  <div class="contenedor">
+    <div class="players" *ngFor="let player of team.players" (click)="selectedPlayer(player)">
+      <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
+      <p>{{player.firstName}}</p>
+    </div>
+  </div>
+  
+  
+</ion-content>

@@ -8,7 +8,7 @@
 <div *ngIf="lists" >
   <ion-list [inset]="true" *ngFor="let list of lists">
     <ion-item>
-      <ion-input label="Lista" readonly="true" [value]="list.nameList" (click)="goList(list._id)"></ion-input>
+      <ion-input label="Lista" readonly="true" [value]="list.nameList" (click)="goList(list._id,list.alineacion)"></ion-input>
     </ion-item>
     </ion-list>
 
