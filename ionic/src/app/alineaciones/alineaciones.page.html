@@ -481,12 +481,24 @@
           <h3>Jugadores Totales</h3>
           <div class="contenedor-totales">
             <div class="jugadores" *ngFor="let jugador of equipo.players" id="present-alert2" (click)="selectedPlayer(jugador)">
-              <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
+              <img [src]="getCamisetaImage(jugador._id)" width="40px" height="40px" alt="Camiseta">
               <p>{{jugador.firstName}}</p>
             </div>
           </div>
-
         </div>
+
+        <div class="back"></div>
+
+        <div style="width: 100%; display: flex; justify-content: center; margin: 10px 0;">
+          <h2>Mis Suplentes</h2>
+        </div>
+        
+        <div class="banco-suplentes">
+        <div class="suplentes" *ngFor="let suplente of suplentes" (click)="eliminarPlayer(suplente)">
+          <img src="../../assets/icon/remera-verde.svg" width="40px" height="40px" alt="">
+          {{suplente.firstName}}
+        </div>
+      </div>
       </ion-content>
     </ng-template>
   </ion-modal>
@@ -500,11 +512,8 @@
       
           <div class="contenedor-suplentes">
             <div class="suplentes" *ngFor="let suplente of list.suplente" id="present-alert" (click)="eliminarPlayer(suplente)">
-            
-                <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
+                <img src="../../assets/icon/remera-verde.svg" width="40px" height="40px" alt="">
                 <p>{{suplente.firstName}}</p>
-            
-            
             </div>
           </div>
           <div id="abrir-modal">
@@ -533,11 +542,35 @@
         <h1>Jugadores Totales</h1>
         <div class="contenedor-totales">
           <div class="jugadores" *ngFor="let player of equipo.players" (click)="selectPlayer(player)">
-            <img [ngStyle]="{'background-color': getCamisetaColor(player._id)}" src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
-            <p >{{player.firstName}}</p>
+            <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+            <p>{{player.firstName}}</p>
           </div>
         </div>
+      </div>
 
+      <div class="back"></div>
+
+      <div style="margin-top: 15px;">
+        <div class="camiseta">
+          <div>
+            <img src="../../assets/icon/remera-roja.svg" width="40px" height="40px" alt="Camiseta roja">
+          </div>
+            <p class="descripcion">Jugador que pertenece al equipo titular</p>
+        </div>
+  
+        <div class="camiseta">
+          <div>
+            <img src="../../assets/icon/remera-verde.svg" width="40px" height="40px" alt="Camiseta roja">
+          </div>
+            <p class="descripcion">Jugador que pertenece a los suplentes</p>
+        </div>
+  
+        <div class="camiseta">
+          <div>
+            <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="Camiseta roja">
+          </div>
+            <p class="descripcion">Jugador no perteneciente a la lista</p>
+        </div>
       </div>
 
     </ion-content>
