@@ -109,6 +109,7 @@ equipo: Team = {
 formatoSeleccionado: any;
 players: Player[] = []
 suplentes:Player[] = [];
+titulares: Player[] = []
 selectedPosition: string | null = null;
 player: Player = {
   _id: "",
@@ -126,6 +127,7 @@ ngOnInit() {
   this.getList(this.id)
   this.getTeam()
   this.getSuplentes()
+  this.getTitulares()
 }
 
 volver(){
@@ -192,6 +194,7 @@ async selectedPlayer(player : any) {
                 this.getTeam()
                 this.getList(this.id)
                 this.getSuplentes()
+                this.getTitulares()
               },
               error: (err: any) => {
                 this.notifyService.error(err.error.message)
@@ -208,7 +211,7 @@ async selectedPlayer(player : any) {
 async eliminarPlayer(player : any) {
   const alert = await this.alertController.create({
     header: 'Confirmar eliminación',
-    message: `¿Estás seguro de que quieres sacar a ${player.firstName + " " + player.lastName} de los suplentes?`,
+    message: `¿Estás seguro de que quieres eliminar a ${player.firstName + " " + player.lastName} de los suplentes y de esta lista?`,
     buttons: [
       {
         text: 'Cancelar',
@@ -231,6 +234,7 @@ async eliminarPlayer(player : any) {
               this.getTeam()
               this.getList(this.id)
               this.getSuplentes()
+              this.getTitulares()
             },
             error: (err: any) => {
               this.notifyService.error(err.error.message)
@@ -262,6 +266,17 @@ getSuplentes(){
   })
 }
 
+getTitulares(){
+  this.userService.getTitulares(this.id).subscribe({
+    next: (res: any) => {
+      this.titulares = res.titulares
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
 
 
 /**********************ARQUERO-ALINEACION**********************/ 
@@ -274,6 +289,8 @@ selectPlayer(player: any) {
           this.getList(this.id)
           this.setOpen(false)
           this.getTeam()
+          this.getSuplentes()
+          this.getTitulares()
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
@@ -288,6 +305,8 @@ resetAlineacion(){
     next: (res : any) => {
       this.notifyService.success(res.message)
       this.getList(this.id)
+      this.getSuplentes()
+      this.getTitulares()
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
@@ -305,9 +324,9 @@ isSuplente(playerId: any): boolean {
 
 getCamisetaImage(playerId: any): string {
   if (this.isTitular(playerId)) {
-    return '../../assets/icon/remera-roja.svg';  // Imagen para titulares
+    return '../../assets/icon/remera-titulares.svg';  // Imagen para titulares
   } else if (this.isSuplente(playerId)) {
-    return '../../assets/icon/remera-verde.svg';  // Imagen para suplentes
+    return '../../assets/icon/shirt-solid (1).svg';  // Imagen para suplentes
   } else {
     return '../../assets/icon/shirt-solid (1).svg';  // Imagen para jugadores no listados
   }

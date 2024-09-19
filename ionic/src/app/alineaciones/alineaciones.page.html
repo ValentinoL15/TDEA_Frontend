@@ -495,7 +495,7 @@
         
         <div class="banco-suplentes">
         <div class="suplentes" *ngFor="let suplente of suplentes" (click)="eliminarPlayer(suplente)">
-          <img src="../../assets/icon/remera-verde.svg" width="40px" height="40px" alt="">
+          <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
           {{suplente.firstName}}
         </div>
       </div>
@@ -511,7 +511,7 @@
     </div>
           <div class="contenedor-suplentes">
             <div class="suplentes" *ngFor="let suplente of list.suplente" id="present-alert" (click)="eliminarPlayer(suplente)">
-                <img src="../../assets/icon/remera-verde.svg" width="40px" height="40px" alt="">
+                <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="">
                 <p>{{suplente.firstName}}</p>
             </div>
           </div>
@@ -549,29 +549,29 @@
 
       <div class="back"></div>
 
-      <div style="margin-top: 15px;">
-        <div class="camiseta">
-          <div>
-            <img src="../../assets/icon/remera-roja.svg" width="40px" height="40px" alt="Camiseta roja">
-          </div>
-            <p class="descripcion">Jugador que pertenece al equipo titular</p>
-        </div>
-  
-        <div class="camiseta">
-          <div>
-            <img src="../../assets/icon/remera-verde.svg" width="40px" height="40px" alt="Camiseta roja">
-          </div>
-            <p class="descripcion">Jugador que pertenece a los suplentes</p>
-        </div>
-  
-        <div class="camiseta">
-          <div>
-            <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="Camiseta roja">
-          </div>
-            <p class="descripcion">Jugador no perteneciente a la lista</p>
+      <div class="contain-principal">
+        <h2>Mis titulares</h2>
+        <div class="contenedor-totales">
+          <div class="jugadores" *ngFor="let titu of titulares">
+            <img src="../../assets/icon/remera-titulares.svg" width="40px" height="40px" alt="Camiseta">
+            <p>{{titu.firstName}}</p>
+          </div>  
         </div>
       </div>
 
+      <div class="back"></div>
+
+      <div class="contain-principal">
+        <h2>Mis Suplentes</h2>
+        <div class="contenedor-totales">
+          <div class="jugadores" *ngFor="let suple of suplentes" (click)="selectPlayer(suple)">
+            <img src="../../assets/icon/shirt-solid (1).svg" width="40px" height="40px" alt="Camiseta">
+            <p>{{suple.firstName}}</p>
+          </div>  
+        </div>
+      </div>
+
+      
     </ion-content>
   </ng-template>
 </ion-modal>
