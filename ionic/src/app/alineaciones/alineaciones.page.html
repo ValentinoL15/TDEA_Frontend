@@ -524,7 +524,7 @@
 
 
 
-<ion-modal [isOpen]="isModalOpen" [breakpoints]="[0.25, 0.23]" [initialBreakpoint]="0.23" [backdropBreakpoint]="0.25" [canDismiss]="true">
+<ion-modal [isOpen]="isModalOpen" [breakpoints]="[0.25, 0.23]" [initialBreakpoint]="0.23" [backdropBreakpoint]="0.25" >
   <ng-template>
     <ion-header>
       <ion-toolbar>
@@ -534,13 +534,55 @@
             <ion-button (click)="setOpen(false)">Cerrar</ion-button>
           </ion-buttons>
         </div>
-        
       </ion-toolbar>
     </ion-header>
     <ion-content color="light">
       <div class="title">
         <h1>Mis Suplentes</h1>
+        <ion-icon id="abrir-modal-futbol" name="add-circle-outline" size="large" color="primary"></ion-icon>
       </div>
+
+      <ion-modal trigger="abrir-modal-futbol" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Agregar Jugador</ion-title>
+              <div class="btn-header">
+                <ion-buttons  slot="end">
+                  <ion-button (click)="cancel()" [strong]="true">Cancelar</ion-button>
+                </ion-buttons>
+              </div>
+      
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+      
+            <div class="contain-principal">
+              <h3>Titulares</h3>
+              <div class="contenedor-totales">
+                <div class="jugadores" *ngFor="let jugador of list.titular" id="present-alert2" (click)="selectedPlayer(jugador)">
+                  <img [src]="getCamisetaImage(jugador._id)" width="40px" height="40px" alt="Camiseta">
+                  <p>{{jugador.firstName}}</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="back"></div>
+      
+            <div style="width: 100%; display: flex; justify-content: center; margin: 10px 0;">
+              <h2>Suplentes</h2>
+            </div>
+            <div class="contenedor-totales">
+              <div class="jugadores" *ngFor="let suplente of suplentes" (click)="eliminarPlayer(suplente)">
+                <img src="../../assets/icon/remera-titulares.svg" width="40px" height="40px" alt="">
+                {{suplente.firstName}}
+              </div>
+            </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+        
+      
         <div class="contenedor-horizontal">
           <div class="suplentes" *ngFor="let player of list.suplente" (click)="selectPlayer(player)">
             <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
@@ -552,6 +594,8 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+
+
 
 <ion-alert
   trigger="present-alert"

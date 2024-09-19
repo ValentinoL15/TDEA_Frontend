@@ -565,12 +565,17 @@
     text-align: center;
   }
 
+  ion-modal::part(handle) {
+    display: none !important;
+}
 
 .title{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
 }
+
 
 ion-toolbar {
     padding: 0;
