@@ -86,10 +86,15 @@ ngOnInit() {
   this.getTeam()
 }
 
+volver(){
+  window.location.href = `/alineaciones/${this.id}/${this.list.alineacion?._id}`
+}
+
 getList(id : any){
   this.userService.getList(id).subscribe({
     next: (res : any) => {
       this.list = res.list
+      console.log(this.list)
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
