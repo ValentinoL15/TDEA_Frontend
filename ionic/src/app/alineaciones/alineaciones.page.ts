@@ -10,6 +10,7 @@ import { Alineacion } from '../interfaces/Alineacion';
 import { SpinnerService } from '../services/spinner.service';
 import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -20,7 +21,17 @@ import { OverlayEventDetail } from '@ionic/core/components';
 export class AlineacionesPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
-constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,  private spinnerService: SpinnerService, private alertController: AlertController) {
+form: FormGroup
+selectedFile: File | null = null;
+
+constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,  private spinnerService: SpinnerService, private alertController: AlertController, private formBuilder: FormBuilder) {
+  this.form = this.formBuilder.group({
+    firstName: ['', [Validators.required, Validators.minLength(3)]],
+    lastName: ['', [Validators.required]],
+    dni: ['', Validators.required],
+    nacimiento: ['', Validators.required],
+    shirtNumber: ['', Validators.required]
+  })
 }
 
 public alertButtons = [
@@ -45,6 +56,7 @@ setResult(ev : any) {
 }
 
 list: List = {
+  _id: "",
   ownerUser: { firstName: "", lastName: "" },
   ownerTeam: { _id: "" },
   typeAlineacion: 0,
@@ -345,5 +357,68 @@ onWillDismiss(event: Event) {
   }
 }
 
+/***********************************************MODAL-LIST*******************************/
+
+isCreatePlayerModalOpen = false;
+
+openCreatePlayerModal() {
+  this.setOpen(false)
+  this.isCreatePlayerModalOpen = true; // Abre el modal de crear jugador
+}
+
+closeCreatePlayerModal() {
+  this.isCreatePlayerModalOpen = false; // Cierra el modal de crear jugador
+}
+restartPlayers(){
+  window.location.href = '/user/players'
+}
+
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  this.selectedFile = file;
+  console.log('Archivo seleccionado:', file);
+}
+
+crearJugador(){
+  const formData = new FormData();
+  formData.append('firstName', this.form.get('firstName')?.value);
+  formData.append('lastName', this.form.get('lastName')?.value);
+  formData.append('dni', this.form.get('dni')?.value);
+  formData.append('nacimiento', this.form.get('nacimiento')?.value);
+  formData.append('shirtNumber', this.form.get('shirtNumber')?.value);
+  formData.append('image', this.selectedFile as Blob);
+  console.log("My list: " ,this.list._id)
+  this.userService.agregarJugadorLista(this.list._id,formData).subscribe({
+    next: (res : any) => {
+      this.notifyService.success(res.message)
+      this.form.reset()
+      this.getList(this.id)
+      this.getSuplentes()
+      this.getTitulares()
+      this.selectedFile = null;
+
+    // Resetear manualmente el campo de archivo
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';  // Resetear el valor del input file
+    }
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+  
+}
+
+isAddPlayerModalOpen = false;
+
+openAddPlayerModal() {
+  this.setOpen(false)
+  this.isAddPlayerModalOpen = true;
+}
+
+closeAddPlayerModal() {
+  this.isAddPlayerModalOpen = false;
+}
 
 }

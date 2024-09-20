@@ -529,59 +529,18 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Suplentes</ion-title>
-        <div class="btn-header">
+        
           <ion-buttons slot="end">
             <ion-button (click)="setOpen(false)">Cerrar</ion-button>
           </ion-buttons>
-        </div>
+        
       </ion-toolbar>
     </ion-header>
     <ion-content color="light">
       <div class="title">
         <h1>Mis Suplentes</h1>
-        <ion-icon id="abrir-modal-futbol" name="add-circle-outline" size="large" color="primary"></ion-icon>
-      </div>
-
-      <ion-modal trigger="abrir-modal-futbol" (willDismiss)="onWillDismiss($event)">
-        <ng-template>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>Agregar Jugador</ion-title>
-              <div class="btn-header">
-                <ion-buttons  slot="end">
-                  <ion-button (click)="cancel()" [strong]="true">Cancelar</ion-button>
-                </ion-buttons>
-              </div>
-      
-            </ion-toolbar>
-          </ion-header>
-          <ion-content class="ion-padding">
-      
-            <div class="contain-principal">
-              <h3>Titulares</h3>
-              <div class="contenedor-totales">
-                <div class="jugadores" *ngFor="let jugador of list.titular" id="present-alert2" (click)="selectedPlayer(jugador)">
-                  <img [src]="getCamisetaImage(jugador._id)" width="40px" height="40px" alt="Camiseta">
-                  <p>{{jugador.firstName}}</p>
-                </div>
-              </div>
-            </div>
-      
-            <div class="back"></div>
-      
-            <div style="width: 100%; display: flex; justify-content: center; margin: 10px 0;">
-              <h2>Suplentes</h2>
-            </div>
-            <div class="contenedor-totales">
-              <div class="jugadores" *ngFor="let suplente of suplentes" (click)="eliminarPlayer(suplente)">
-                <img src="../../assets/icon/remera-titulares.svg" width="40px" height="40px" alt="">
-                {{suplente.firstName}}
-              </div>
-            </div>
-          </ion-content>
-        </ng-template>
-      </ion-modal>
-        
+        <ion-icon (click)="openAddPlayerModal()" name="add-circle-outline" size="large" color="primary"></ion-icon>
+      </div> 
       
       <div class="contenedor-horizontal">
         <div class="suplentes" *ngFor="let player of list.suplente" (click)="selectPlayer(player)">
@@ -590,14 +549,106 @@
         </div>
     
         <!-- Botón fijo al final de los jugadores -->
-        <button class="boton-fijo" shape="round" (click)="addPLayers()">
+        <button class="boton-fijo" shape="round" (click)="openCreatePlayerModal()">
           <ion-icon slot="icon-only" name="add"></ion-icon>
         </button>
       </div>
       
-      
     </ion-content>
   </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="isCreatePlayerModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="closeCreatePlayerModal()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title style="text-align: center;">Jugador</ion-title>
+        <ion-buttons slot="end" >
+          <ion-button (click)="crearJugador()">Confirmar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content color="light" class="ion-padding">
+      <form [formGroup]="form">
+        <ion-list [inset]="true">
+          <ion-item>
+            <ion-input label="Nombre" labelPlacement="stacked" type="text" placeholder="Ingrese un nombre"
+              formControlName="firstName"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-input label="Apellido" labelPlacement="stacked" type="text" placeholder="Ingrese un apellido"
+              formControlName="lastName"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-input label="Fecha de Nacimiento" labelPlacement="stacked" type="date" placeholder="Ingrese una edad"
+              formControlName="nacimiento"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-input label="DNI" labelPlacement="stacked" type="number" placeholder="Ingrese DNI"
+              formControlName="dni"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-input label="Número de camiseta" labelPlacement="stacked" type="number" placeholder="Ej: 7"
+              formControlName="shirtNumber"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <div class="foto">
+              <label>Foto del Jugador</label>
+            </div>
+            <ion-input id="fileInput" style="padding: 10px 0;" type="file" (change)="onFileSelected($event)"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="isAddPlayerModalOpen" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Agregar Jugador</ion-title>
+      
+        <ion-buttons slot="end">
+          <ion-button (click)="closeAddPlayerModal()" [strong]="true">Cancelar</ion-button>
+        </ion-buttons>
+      
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <div class="contain-principal">
+      <h3>Titulares</h3>
+      <div class="contenedor-totales">
+        <div class="jugadores" *ngFor="let jugador of list.titular" id="present-alert2" (click)="selectedPlayer(jugador)">
+          <img [src]="getCamisetaImage(jugador._id)" width="40px" height="40px" alt="Camiseta">
+          <p>{{jugador.firstName}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="back"></div>
+
+    <div style="width: 100%; display: flex; justify-content: center; margin: 10px 0;">
+      <h2>Suplentes</h2>
+    </div>
+    <div class="contenedor-totales">
+      <div class="jugadores" *ngFor="let suplente of suplentes" (click)="eliminarPlayer(suplente)">
+        <img src="../../assets/icon/remera-titulares.svg" width="40px" height="40px" alt="">
+        {{suplente.firstName}}
+      </div>
+    </div>
+  </ion-content>
+</ng-template>
 </ion-modal>
 
 

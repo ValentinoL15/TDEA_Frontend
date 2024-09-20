@@ -174,7 +174,11 @@ const routes: Routes = [
   {
     path: 'add-players/:id',
     loadChildren: () => import('./add-players/add-players.module').then( m => m.AddPlayersPageModule)
+  },  {
+    path: 'add-players-list',
+    loadChildren: () => import('./add-players-list/add-players-list.module').then( m => m.AddPlayersListPageModule)
   }
+
 
 
 

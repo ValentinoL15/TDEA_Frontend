@@ -640,16 +640,6 @@
     text-align: center;
 }
 
-
-
-.toolbar {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-}
-
 .modal-padre {
     width: 100%;
     display: flex;
@@ -757,11 +747,6 @@ ion-modal::part(handle) {
     align-items: center;
 }
 
-
-ion-toolbar {
-    padding: 0;
-}
-
 img {
     display: block;
     margin: 0 auto;
@@ -803,7 +788,7 @@ ion-content.ion-padding {
     /* Ajusta la distancia desde el borde superior */
     left: 10px;
     /* Ajusta la distancia desde el borde izquierdo */
-    z-index: 10;
+    
     /* Asegúrate de que la flecha esté encima de otros elementos */
 }
 
@@ -850,15 +835,6 @@ ion-content.ion-padding {
 }
 
 
-.button {
-    position: absolute;
-    /* Posiciona la flecha fuera del flujo del documento */
-    top: 10px;
-    /* Ajusta la distancia desde el borde superior */
-    right: 10px;
-    /* Ajusta la distancia desde el borde izquierdo */
-    z-index: 10;
-}
 
 ion-icon {
     font-size: 20px; // Tamaño de la flecha
@@ -870,6 +846,7 @@ ion-icon {
     top: 1px;
     right: 10px;
 }
+
 
 /*button {
     display: inline-block;
