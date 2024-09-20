@@ -23,6 +23,9 @@ export class AlineacionesPage implements OnInit {
 
 form: FormGroup
 selectedFile: File | null = null;
+alineacion: Alineacion = {
+  _id: "",
+}
 
 constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService,  private spinnerService: SpinnerService, private alertController: AlertController, private formBuilder: FormBuilder) {
   this.form = this.formBuilder.group({
@@ -123,12 +126,14 @@ players: Player[] = []
 suplentes:Player[] = [];
 titulares: Player[] = []
 selectedPosition: string | null = null;
+ titularSeleccionado: string | null = null;
 player: Player = {
   _id: "",
   firstName: "",
   lastName: "",
   dni: 0,
 }
+suplente: any
 
 
 ngOnInit() {
@@ -139,6 +144,7 @@ ngOnInit() {
   this.getList(this.id)
   this.getSuplentes()
   this.getTitulares()
+  this.getAlineacion()
 }
 
 volver(){
@@ -257,6 +263,43 @@ async eliminarPlayer(player : any) {
   await alert.present();
 }
 
+async addSuplente() {
+  const alert = await this.alertController.create({
+    header: 'Confirmar Cambio',
+    message: `¿Estás seguro de que quieres enviar este jugador al banco de suplentes?`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          // El usuario ha cancelado, no hacer nada
+        }
+      },
+      {
+        text: 'Aceptar',
+        handler: () => {
+          // El usuario ha confirmado, proceder con la eliminación
+        
+          this.userService.enviarSuplente(this.formacion, this.selectedPosition).subscribe({
+            next: (res : any) => {
+              this.notifyService.success(res.message)
+              this.getList(this.id)
+              this.getSuplentes()
+              this.getTitulares()
+            },
+            error: (err: any) => {
+              this.notifyService.error(err.error.message)
+            }
+          })
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+
 isAvailable(player: Player): boolean {
   const isTitular = this.list.titular?.some(titular => titular._id === player._id);
   const isSuplente = this.list.suplente?.some(suplente => suplente._id === player._id);
@@ -279,6 +322,18 @@ getTitulares(){
   this.userService.getTitulares(this.id).subscribe({
     next: (res: any) => {
       this.titulares = res.titulares
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+getAlineacion(){
+  this.userService.getAlineacion(this.formacion).subscribe({
+    next: (res: any) => {
+      this.alineacion = res.alineacion
+      console.log(this.alineacion)
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)
