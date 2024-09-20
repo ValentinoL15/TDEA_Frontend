@@ -113,6 +113,24 @@ getTeam(){
   })
 }
 
+isTitular(playerId: any): boolean {
+  return this.list?.titular?.some((titularPlayer: any) => titularPlayer._id === playerId) || false;
+}
+
+isSuplente(playerId: any): boolean {
+  return this.list?.suplente?.some((suplentePlayer: any) => suplentePlayer._id === playerId) || false;
+}
+
+getCamisetaImage(playerId: any): string {
+  if (this.isTitular(playerId)) {
+    return '../../assets/icon/remera-titulares.svg';  // Imagen para titulares
+  } else if (this.isSuplente(playerId)) {
+    return '../../assets/icon/remera-titulares.svg';  // Imagen para suplentes
+  } else {
+    return '../../assets/icon/shirt-solid (1).svg';  // Imagen para jugadores no listados
+  }
+}
+
 async selectedPlayer(player : any) {
   const alert = await this.alertController.create({
     header: 'Confirmar Suplente',

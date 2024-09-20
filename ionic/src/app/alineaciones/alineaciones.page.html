@@ -583,12 +583,17 @@
       </ion-modal>
         
       
-        <div class="contenedor-horizontal">
-          <div class="suplentes" *ngFor="let player of list.suplente" (click)="selectPlayer(player)">
-            <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
-            <p>{{player.firstName}}</p>
-          </div>
+      <div class="contenedor-horizontal">
+        <div class="suplentes" *ngFor="let player of list.suplente" (click)="selectPlayer(player)">
+          <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+          <p>{{player.firstName}}</p>
         </div>
+    
+        <!-- Botón fijo al final de los jugadores -->
+        <button class="boton-fijo" shape="round" (click)="addPLayers()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </button>
+      </div>
       
       
     </ion-content>
