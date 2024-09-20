@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button            >Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Crear jugador</ion-title>
+    <ion-buttons slot="end">
+      <ion-button             >Confirmar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light" class="ion-padding">
+  <form [formGroup]="form">
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-input label="Nombre" labelPlacement="stacked" type="text" placeholder="Ingrese un nombre"
+          formControlName="firstName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Apellido" labelPlacement="stacked" type="text" placeholder="Ingrese un apellido"
+          formControlName="lastName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Fecha de Nacimiento" labelPlacement="stacked" type="date" placeholder="Ingrese una edad"
+          formControlName="nacimiento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="DNI" labelPlacement="stacked" type="number" placeholder="Ingrese DNI"
+          formControlName="dni"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Número de camiseta" labelPlacement="stacked" type="number" placeholder="Ej: 7"
+          formControlName="shirtNumber"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <div class="foto">
+          <label>Foto del Jugador</label>
+        </div>
+        <ion-input id="fileInput" style="padding: 10px 0;" type="file"        ></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+
+
+
+
+
+</ion-content>
