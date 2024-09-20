@@ -133,10 +133,13 @@ volver(){
   window.location.href = `/user/create-list`
 }
 
-addPLayers(){
-  this.router.navigate([`add-players/${this.id}`])
+addPLayers() {
+  if (!this.isModalOpen) {
+    this.router.navigate([`add-players/${this.id}`]);
+  } else {
+    this.notifyService.error("Por favor agrega un jugador a la formación antes de agregar un jugador al equipo")
+  }
 }
-
 isModalOpen = false;
 
 setOpen(isOpen: boolean) {

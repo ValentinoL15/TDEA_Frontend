@@ -7,8 +7,8 @@ import { Team } from '../interfaces/Team';
 })
 export class UserService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
   constructor(private http: HttpClient) { }
 
   createTeam(form : any){
