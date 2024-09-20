@@ -134,12 +134,16 @@ volver(){
 }
 
 addPLayers() {
-  if (!this.isModalOpen) {
-    this.router.navigate([`add-players/${this.id}`]);
-  } else {
-    this.notifyService.error("Por favor agrega un jugador a la formación antes de agregar un jugador al equipo")
+  if (this.isModalOpen) {
+    this.setOpen(false);  // Cierra el modal si está abierto
   }
+  // Espera un breve momento para asegurar el cierre del modal antes de navegar
+  setTimeout(() => {
+    this.router.navigate([`add-players/${this.id}`]);
+  }, 300);  // Ajusta el tiempo de espera si es necesario
 }
+
+
 isModalOpen = false;
 
 setOpen(isOpen: boolean) {
