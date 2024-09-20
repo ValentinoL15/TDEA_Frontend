@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Team } from '../interfaces/Team';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -138,6 +139,12 @@ export class UserService {
   agregarJugadorLista(id : any, form : any){
     return this.http.post(`${this.API_URL}/agregar-jugador-team-lista/${id}`, form)
   }
+
+  enviarSuplente(id: string, position: any): Observable<any> {
+    const body = { position }; // Solo necesitas enviar la posición
+    return this.http.put(`${this.API_URL}/enviar-suplente/${id}`, body);
+}
+  
   
 
   /*********************************************INGRESAR-TORNEO***********************************************/ 

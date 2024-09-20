@@ -377,7 +377,7 @@
   <div class="cont7" *ngIf="list.typeAlineacion === 11">
     <!-- Arquero -->
     <div class="element1-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero'); titularSeleccionado " width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
@@ -543,14 +543,18 @@
       </div> 
       
       <div class="contenedor-horizontal">
-        <div class="suplentes" *ngFor="let player of list.suplente" (click)="selectPlayer(player)">
-          <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
-          <p>{{player.firstName}}</p>
+        <div class="suplentes" *ngFor="let suple of list.suplente" (click)="selectPlayer(suple)">
+          <img [src]="getCamisetaImage(suple._id)" width="40px" height="40px" alt="Camiseta">
+          <p>{{suple.firstName}}</p>
         </div>
     
         <!-- Botón fijo al final de los jugadores -->
         <button class="boton-fijo" shape="round" (click)="openCreatePlayerModal()">
           <ion-icon slot="icon-only" name="add"></ion-icon>
+        </button>
+
+        <button class="boton-fijo" shape="round" (click)="addSuplente()">
+          <ion-icon name="remove-circle-outline" color="danger"></ion-icon>
         </button>
       </div>
       
