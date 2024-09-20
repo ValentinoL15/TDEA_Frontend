@@ -286,6 +286,7 @@ async addSuplente() {
               this.getList(this.id)
               this.getSuplentes()
               this.getTitulares()
+              this.setOpen(false)
             },
             error: (err: any) => {
               this.notifyService.error(err.error.message)
