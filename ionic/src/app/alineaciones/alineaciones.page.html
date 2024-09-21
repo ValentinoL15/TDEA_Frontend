@@ -3,12 +3,8 @@
   <div class="arrow">
     <ion-icon (click)="volver()" name="arrow-back-outline"></ion-icon>
   </div>
-  
     <button class="boton1" (click)="resetAlineacion()" >Reset</button>
-    <button class="boton2" (click)="addPLayers()">Add Players</button>
   
-
-
   <div class="cont1" *ngIf="list.typeAlineacion === 5">
     <!-- Arquero -->
     <div class="element1-cont1">
@@ -524,7 +520,7 @@
 
 
 
-<ion-modal [isOpen]="isModalOpen" [breakpoints]="[0.25, 0.23]" [initialBreakpoint]="0.23" [backdropBreakpoint]="0.25" >
+<ion-modal [isOpen]="isModalOpen" [breakpoints]="[0.23, 0.23]" [initialBreakpoint]="0.23" [backdropBreakpoint]="0.25" >
   <ng-template>
     <ion-header>
       <ion-toolbar>
@@ -538,8 +534,8 @@
     </ion-header>
     <ion-content color="light">
       <div class="title">
-        <h1>Mis Suplentes</h1>
-        <ion-icon (click)="openAddPlayerModal()" name="add-circle-outline" size="large" color="primary"></ion-icon>
+        <ion-icon (click)="openPlayersTeam()" name="people-outline" size="large" color="primary"></ion-icon>
+        <ion-icon (click)="openAddPlayerModal()" name="trash-outline" size="large" color="danger"></ion-icon>
       </div> 
       
       <div class="contenedor-horizontal">
@@ -620,7 +616,7 @@
   <ng-template>
   <ion-header>
     <ion-toolbar>
-      <ion-title>Agregar Jugador</ion-title>
+      <ion-title>Eliminar Jugador</ion-title>
       
         <ion-buttons slot="end">
           <ion-button (click)="closeAddPlayerModal()" [strong]="true">Cancelar</ion-button>
@@ -633,7 +629,7 @@
     <div class="contain-principal">
       <h3>Titulares</h3>
       <div class="contenedor-totales">
-        <div class="jugadores" *ngFor="let jugador of list.titular" id="present-alert2" (click)="selectedPlayer(jugador)">
+        <div class="jugadores" *ngFor="let jugador of list.titular" id="present-alert2" (click)="eliminarPlayer(jugador)">
           <img [src]="getCamisetaImage(jugador._id)" width="40px" height="40px" alt="Camiseta">
           <p>{{jugador.firstName}}</p>
         </div>
@@ -654,6 +650,37 @@
   </ion-content>
 </ng-template>
 </ion-modal>
+
+<ion-modal [isOpen]="isAddPlayersTeam" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Jugadores Totales</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closePlayersTeam()" [strong]="true">Cancelar</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <div *ngIf="equipo.players?.length !== 0">
+      <div class="contenedor-team">
+        <div class="players" *ngFor="let player of equipo.players" (click)="selectedPlayer(player)">
+          <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+          <p>{{player.firstName}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; width: 100%; justify-content: center; align-items: center; height: 100%;" *ngIf="equipo.players?.length === 0">
+      <h1>Agrega jugadores al equipo </h1>
+    </div>
+  </ion-content>
+</ng-template>
+</ion-modal>
+
+
+
 
 
 

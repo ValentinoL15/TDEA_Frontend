@@ -742,8 +742,9 @@ ion-modal::part(handle) {
 
 .title {
     width: 100%;
+    margin: 5px 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: end;
     align-items: center;
 }
 
@@ -832,6 +833,26 @@ ion-content.ion-padding {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.contenedor-team{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px 10px;
+    width: 100%;
+}
+
+.players {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
 }
 
 

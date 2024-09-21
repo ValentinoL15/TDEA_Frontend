@@ -145,6 +145,7 @@ ngOnInit() {
   this.getSuplentes()
   this.getTitulares()
   this.getAlineacion()
+  this.getTeam()
 }
 
 volver(){
@@ -188,7 +189,7 @@ getList(id:any){
 async selectedPlayer(player : any) {
   const alert = await this.alertController.create({
     header: 'Confirmar Suplente',
-    message: `¿Estás seguro de que quieres agregar a ${player.firstName + " " + player.lastName} a los suplentes?`,
+    message: `¿Estás seguro de que quieres agregar a ${player.firstName + " " + player.lastName} a tu lista?`,
     buttons: [
       {
         text: 'Cancelar',
@@ -227,7 +228,7 @@ async selectedPlayer(player : any) {
 async eliminarPlayer(player : any) {
   const alert = await this.alertController.create({
     header: 'Confirmar eliminación',
-    message: `¿Estás seguro de que quieres eliminar a ${player.firstName + " " + player.lastName} de los suplentes y de esta lista?`,
+    message: `¿Estás seguro de que quieres eliminar a ${player.firstName + " " + player.lastName} de esta lista?`,
     buttons: [
       {
         text: 'Cancelar',
@@ -263,43 +264,21 @@ async eliminarPlayer(player : any) {
   await alert.present();
 }
 
-async addSuplente() {
-  const alert = await this.alertController.create({
-    header: 'Confirmar Cambio',
-    message: `¿Estás seguro de que quieres enviar este jugador al banco de suplentes?`,
-    buttons: [
-      {
-        text: 'Cancelar',
-        role: 'cancel',
-        handler: () => {
-          // El usuario ha cancelado, no hacer nada
-        }
-      },
-      {
-        text: 'Aceptar',
-        handler: () => {
-          // El usuario ha confirmado, proceder con la eliminación
-        
-          this.userService.enviarSuplente(this.formacion, this.selectedPosition).subscribe({
-            next: (res : any) => {
-              this.notifyService.success(res.message)
-              this.getList(this.id)
-              this.getSuplentes()
-              this.getTitulares()
-              this.setOpen(false)
-            },
-            error: (err: any) => {
-              this.notifyService.error(err.error.message)
-            }
-          })
-        }
-      }
-    ]
-  });
-
-  await alert.present();
+addSuplente(){
+  this.userService.enviarSuplente(this.formacion, this.selectedPosition).subscribe({
+    next: (res : any) => {
+      this.notifyService.success(res.message)
+      this.getList(this.id)
+      this.getSuplentes()
+      this.getTitulares()
+      this.setOpen(false)
+      this.getTeam()
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
 }
-
 
 isAvailable(player: Player): boolean {
   const isTitular = this.list.titular?.some(titular => titular._id === player._id);
@@ -362,6 +341,18 @@ selectPlayer(player: any) {
     });
   }
   
+}
+
+getTeam(){
+  this.userService.getTeamActive().subscribe({
+    next: (res : any) => {
+      this.equipo = res.team
+      console.log("Mi teeeeeeam",this.equipo)
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
 }
 
 resetAlineacion(){
@@ -475,6 +466,18 @@ openAddPlayerModal() {
 
 closeAddPlayerModal() {
   this.isAddPlayerModalOpen = false;
+}
+
+
+isAddPlayersTeam = false
+
+openPlayersTeam(){
+  this.setOpen(false)
+  this.isAddPlayersTeam = true;
+}
+
+closePlayersTeam(){
+  this.isAddPlayersTeam = false;
 }
 
 }
