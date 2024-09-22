@@ -245,7 +245,7 @@ async eliminarPlayer(player : any) {
             this.notifyService.error('ID del jugador no disponible');
             return;
           }
-          this.userService.eliminarSuplente(this.id, player._id, this.selectedPosition).subscribe({
+          this.userService.eliminarSuplente(this.id, player._id).subscribe({
             next: (res : any) => {
               this.notifyService.success(res.message)
               this.getList(this.id)
