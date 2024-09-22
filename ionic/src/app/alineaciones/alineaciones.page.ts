@@ -245,7 +245,7 @@ async eliminarPlayer(player : any) {
             this.notifyService.error('ID del jugador no disponible');
             return;
           }
-          this.userService.eliminarSuplente(this.id, player._id).subscribe({
+          this.userService.eliminarSuplente(this.id, player._id, this.selectedPosition).subscribe({
             next: (res : any) => {
               this.notifyService.success(res.message)
               this.getList(this.id)
@@ -460,7 +460,6 @@ crearJugador(){
 isAddPlayerModalOpen = false;
 
 openAddPlayerModal() {
-  this.setOpen(false)
   this.isAddPlayerModalOpen = true;
 }
 

@@ -132,8 +132,8 @@ export class UserService {
     return this.http.put(`${this.API_URL}/agregar-suplente/${id}`, { titularId: jugador })
   }
 
-  eliminarSuplente(id : any, jugador: any){
-    return this.http.put(`${this.API_URL}/eliminar-suplente/${id}`, { jugadorId: jugador })
+  eliminarSuplente(id : any, jugador: any, position: any = null){
+    return this.http.put(`${this.API_URL}/eliminar-suplente/${id}`, { jugadorId: jugador, position })
   }
 
   agregarJugadorLista(id : any, form : any){
