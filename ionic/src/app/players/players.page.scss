@@ -66,6 +66,7 @@
   .image img {
     width: 100%; /* Hace que la imagen ocupe todo el espacio disponible */
     height: 100%; /* Asegura que la imagen se estire para ocupar las filas */
+    object-fit: cover; /* Asegura que la imagen no se deforme */
     margin: 0; /* Elimina cualquier margen sobrante */
     padding: 0; /* Elimina cualquier padding sobrante */
   }
