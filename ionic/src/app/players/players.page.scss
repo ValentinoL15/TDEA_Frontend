@@ -5,12 +5,6 @@
     z-index: 1;
   }
 
-  .image{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-  }
 
   .players {
     display: flex;
@@ -30,4 +24,48 @@
     align-items: center;
     text-align: center;
     font-weight: bold;
+  }
+
+  .contenedor {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr 1fr 1fr; /* Todas las filas tendrán la misma altura */
+    margin: 10px 0;
+  }
+
+  .element-1{
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .element-2{
+    grid-column: 2;
+    grid-row: 2
+  }
+
+  .element-3{
+    grid-column: 2;
+    grid-row: 3
+  }
+
+  .element-4{
+    grid-column: 2;
+    grid-row: 4
+  }
+
+  .image{
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 4; /* Hace que la imagen ocupe las 4 filas */
+    display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image img {
+    width: 100%; /* Hace que la imagen ocupe todo el espacio disponible */
+    height: 100%; /* Asegura que la imagen se estire para ocupar las filas */
+    margin: 0; /* Elimina cualquier margen sobrante */
+    padding: 0; /* Elimina cualquier padding sobrante */
   }
