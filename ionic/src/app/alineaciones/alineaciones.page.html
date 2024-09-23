@@ -1,4 +1,4 @@
-<ion-content class="ion-padding" color="light">
+<ion-content class="ion-padding">
 
   <div class="arrow">
     <ion-icon (click)="volver()" name="arrow-back-outline"></ion-icon>
@@ -626,7 +626,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content class="ion-padding">
+  <ion-content class="ion-padding" color="light">
     <div class="contain-principal">
       <h3>Titulares</h3>
       <div class="contenedor-totales">
@@ -663,7 +663,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content class="ion-padding">
+  <ion-content class="ion-padding" color="light">
     <div *ngIf="equipo.players?.length !== 0">
       <div class="contenedor-team">
         <div class="players" *ngFor="let player of equipo.players" (click)="selectedPlayer(player)">
