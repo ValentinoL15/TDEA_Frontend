@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../interfaces/Category';
 import { Format } from '../interfaces/Format';
-import { Division } from '../interfaces/Division';
-import { Season } from '../interfaces/Season';
 
 @Injectable({
   providedIn: 'root'
