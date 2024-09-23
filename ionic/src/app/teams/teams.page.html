@@ -50,10 +50,10 @@
         <form #miForm>
           <ion-list [inset]="true">
             <div class="imagen">
-              <img [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo" />
+              <img [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo">
+              <ion-button class="edit-button" (click)="onSelectImage()" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected($event)" hidden id="file-input" />
             </div>
-            <ion-button class="edit-button" (click)="onSelectImage()" slot="end"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-            <input type="file" (change)="onFileSelected($event)" hidden id="file-input" />
 
             <ion-item>
               <ion-input label="Equipo" label-placement="fixed" [value]="equipo.teamName" name="teamName"></ion-input>
@@ -67,7 +67,7 @@
 
           <ion-list [inset]="true">
             <ion-item>
-              <ion-textarea type="text" label="Comments" labelPlacement="floating" rows="5" [value]="equipo.teamNotes" name="teamNotes"></ion-textarea>
+              <ion-textarea type="text" label="Descripción" labelPlacement="floating" rows="5" [value]="equipo.teamNotes" name="teamNotes"></ion-textarea>
             </ion-item>
           </ion-list>
           
