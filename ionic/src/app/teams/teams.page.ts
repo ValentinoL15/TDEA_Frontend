@@ -173,6 +173,7 @@ export class TeamsPage implements OnInit {
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getTeam(this.id)
+        window.location.href = `/team/${this.id}`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
