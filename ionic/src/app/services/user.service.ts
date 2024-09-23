@@ -90,6 +90,10 @@ export class UserService {
     return this.http.put(`${this.API_URL}/agregar-jugador-lista/${id}`, {jugadorId})
   }
 
+  deletePhotoLista(id : any){
+    return this.http.put(`${this.API_URL}/eliminar-foto-lista/${id}`, {})
+  }
+
   /************************************************PLAYERS**************************************************/ 
 
   crearJugador( form:any){

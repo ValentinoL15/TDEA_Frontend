@@ -13,7 +13,7 @@
 <ion-content [fullscreen]="true" color="light" class="ion-padding">
   <ion-list [inset]="true">
     <div class="image">
-      <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
+      <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
     </div>
     <ion-item>
       <ion-input readonly="true" label="Remera Titular" [value]="list.shirtColor"></ion-input>
@@ -23,9 +23,6 @@
     </ion-item>
     <ion-item>
       <ion-input readonly="true" label="Formato de Equipo" [value]="'Futbol ' + list.typeAlineacion"></ion-input>
-    </ion-item>
-    <ion-item detail="true" (click)="goAlineacion()">
-      <ion-input readonly="true" label="Alineaciones"></ion-input>
     </ion-item>
   </ion-list>
   
@@ -46,6 +43,14 @@
       <ion-content color="light" [fullscreen]="true">
         <form #miForm>
           <ion-list [inset]="true">
+
+            <div class="image">
+              <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
+            </div>
+
             <ion-item>
               <ion-input type="text" label="Remera Titular" label-placement="stacked" placeholder="Remera Titular" name="shirtColor" [value]="list.shirtColor"></ion-input>
             </ion-item>
