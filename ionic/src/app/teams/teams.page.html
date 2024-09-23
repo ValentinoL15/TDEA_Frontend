@@ -51,7 +51,8 @@
           <ion-list [inset]="true">
             <div class="imagen">
               <img [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo">
-              <ion-button class="edit-button" (click)="onSelectImage()" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               <input type="file" (change)="onFileSelected($event)" hidden id="file-input" />
             </div>
 

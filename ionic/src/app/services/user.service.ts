@@ -52,6 +52,10 @@ export class UserService {
     return this.http.get(`${this.API_URL}/obtener-empty`)
   }
 
+  deletePhotoTeam(id : any){
+    return this.http.put(`${this.API_URL}/eliminar-foto-equipo/${id}`, {})
+  }
+
   /*************************************************LISTA***************************************************/ 
 
   createList(form: any){

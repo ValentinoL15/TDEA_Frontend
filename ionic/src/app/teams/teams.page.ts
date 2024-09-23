@@ -186,6 +186,18 @@ export class TeamsPage implements OnInit {
     fileInput.click(); // Simula el clic en el input de archivo oculto
   }
 
+  deletePhoto(){
+    this.userService.deletePhotoTeam(this.id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        window.location.href = `/team/${this.id}`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
   async presentAlertImagen() {
     const alert = await this.alertController.create({
       header: 'Confirmar',

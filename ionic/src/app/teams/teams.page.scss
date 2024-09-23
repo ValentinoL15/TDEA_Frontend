@@ -37,6 +37,13 @@
 .edit-button {
     position: absolute;
     top: -5px;  /* Ajusta la distancia desde la parte superior de la imagen */
-    right: 70px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    right: 85px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+  }
+
+  .edit-button-trash {
+    position: absolute;
+    top: -5px;  /* Ajusta la distancia desde la parte superior de la imagen */
+    right: 45px; /* Ajusta la distancia desde el lado derecho de la imagen */
     z-index: 10; /* Asegura que el botón esté por encima de la imagen */
   }
