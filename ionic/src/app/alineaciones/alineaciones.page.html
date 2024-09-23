@@ -3,7 +3,8 @@
   <div class="arrow">
     <ion-icon (click)="volver()" name="arrow-back-outline"></ion-icon>
   </div>
-    <button class="boton1" (click)="resetAlineacion()" >Reset</button>
+  <ion-icon class="boton1" (click)="resetAlineacion()" name="refresh-outline"></ion-icon>
+  <img class="lapiz" src="../../assets/icon/mdi--edit.svg" (click)="goList()" width="30px" height="30px" alt="">
   
   <div class="cont1" *ngIf="list.typeAlineacion === 5">
     <!-- Arquero -->
