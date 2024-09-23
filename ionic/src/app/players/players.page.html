@@ -11,23 +11,23 @@
     <ion-list [inset]="true" *ngFor="let player of players">
 
       <div class="image" (click)="goPlayer(player._id)">
-        <img [src]="player.picturePlayer" alt="" width="200px" height="200px"/>
+        <img [src]="player.picturePlayer" alt="" width="80px" height="80px"/>
       </div>
   
       <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
       </ion-item>
   
       <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
       </ion-item>
   
       <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
       </ion-item>
   
       <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" label="DNI" [value]="player.dni"></ion-input>
+        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
       </ion-item>
   
     </ion-list>
