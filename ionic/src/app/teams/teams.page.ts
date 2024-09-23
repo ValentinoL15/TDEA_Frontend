@@ -160,6 +160,10 @@ export class TeamsPage implements OnInit {
     const file: File = event.target.files[0];
     this.selectedFile = file;
     console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.presentAlertImagen();
+    }
   }
 
   editImagen(){
@@ -175,6 +179,34 @@ export class TeamsPage implements OnInit {
       }
     })
   }
+  
+  onSelectImage() {
+    const fileInput = document.getElementById('file-input') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
+  }
 
+  async presentAlertImagen() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImagen(); // Llama a la función para editar la imagen
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
 
 }
