@@ -8,29 +8,37 @@
 <ion-content [fullscreen]="true" color="light" class="ion-padding">
 
   <div *ngIf="players">
-    <ion-list [inset]="true" *ngFor="let player of players">
+    <div *ngFor="let player of players" class="contenedor">
 
       <div class="image" (click)="goPlayer(player._id)">
-        <img [src]="player.picturePlayer" alt="" width="80px" height="80px"/>
+        <img [src]="player.picturePlayer" alt=""/>
       </div>
   
-      <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
-      </ion-item>
+      <div class="element-1">
+        <ion-item>
+          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
+        </ion-item>
+      </div>
   
-      <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
-      </ion-item>
+      <div class="element-2">
+        <ion-item>
+          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
+        </ion-item>
+      </div>
   
-      <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
-      </ion-item>
+      <div class="element-3">
+        <ion-item>
+          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="element-4">
+        <ion-item>
+          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
+        </ion-item>
+      </div>
   
-      <ion-item>
-        <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
-      </ion-item>
-  
-    </ion-list>
+    </div>
   
     <div class="container-button">
       <div class="button">
