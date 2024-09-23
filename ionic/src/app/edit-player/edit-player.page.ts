@@ -144,6 +144,7 @@ players: Player[] = []
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getPlayer(this.id)
+        window.location.href = `/edit-player/${this.id}`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);

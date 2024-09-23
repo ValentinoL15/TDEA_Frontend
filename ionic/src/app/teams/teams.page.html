@@ -16,7 +16,7 @@
   <ion-list [inset]="true">
 
     <div class="image">
-      <img class="img-alumno" [src]="equipo.teamImage" alt="" width="200px" height="200px" id="imagen-alert" name="photo"/>
+      <img class="img-alumno" [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo"/>
     </div>
 
     <ion-item>
@@ -49,6 +49,12 @@
       <ion-content class="ion-padding">
         <form #miForm>
           <ion-list [inset]="true">
+            <div class="imagen">
+              <img [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo" />
+            </div>
+            <ion-button class="edit-button" (click)="onSelectImage()" slot="end"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+            <input type="file" (change)="onFileSelected($event)" hidden id="file-input" />
+
             <ion-item>
               <ion-input label="Equipo" label-placement="fixed" [value]="equipo.teamName" name="teamName"></ion-input>
             </ion-item>
@@ -75,15 +81,8 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-  
-</ion-content>
 
-<ion-alert
-  trigger="present-alert"
-  header="Alert!"
-  [buttons]="alertButtons"
-  (didDismiss)="setResult($event)"
-></ion-alert>
+</ion-content>
 
 <ion-alert
   trigger="imagen-alert"
@@ -93,4 +92,13 @@
   (change)="onFileSelected($event)"
   (didDismiss)="setResults($event)"
 ></ion-alert>
+
+<ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+
+
 
