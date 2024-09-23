@@ -264,6 +264,10 @@ async eliminarPlayer(player : any) {
   await alert.present();
 }
 
+goList(){
+  this.router.navigate([`/list/${this.id}`])
+}
+
 addSuplente(){
   this.userService.enviarSuplente(this.formacion, this.selectedPosition).subscribe({
     next: (res : any) => {

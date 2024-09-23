@@ -186,7 +186,7 @@ export class ListPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate([`/user/create-list`])
+    this.router.navigate([`/alineaciones/${this.id}/${this.list.alineacion?._id}`])
   }
 
   getLista(id:any) {
@@ -212,8 +212,7 @@ export class ListPage implements OnInit {
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.getLista(this.id)
-        this.setOpen(false)
+        window.location.href = `/list/${this.id}`
       },
       error: (err) => {
         this.notifyService.error(err.error.message);
