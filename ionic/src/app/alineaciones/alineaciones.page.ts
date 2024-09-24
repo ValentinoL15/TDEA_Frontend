@@ -225,7 +225,8 @@ async eliminarPlayer() {
         text: 'Cancelar',
         role: 'cancel',
         handler: () => {
-          // El usuario ha cancelado, no hacer nada
+          this.myPlayer = null
+          this.myPlayer2 = null
         }
       },
       {
