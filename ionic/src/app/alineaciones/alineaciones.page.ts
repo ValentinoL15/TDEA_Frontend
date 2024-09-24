@@ -126,7 +126,7 @@ players: Player[] = []
 suplentes:Player[] = [];
 titulares: Player[] = []
 selectedPosition: string | null = null;
- titularSeleccionado: string | null = null;
+titularSeleccionado: string | null = null;
 player: Player = {
   _id: "",
   firstName: "",
@@ -136,7 +136,7 @@ player: Player = {
 suplente: any
 myPlayer: any = null
 myPlayer2: any = null
-
+selectedPlayerId: any 
 
 ngOnInit() {
   this.route.params.subscribe(params => {
@@ -197,12 +197,14 @@ agregarJugador(){
       this.getList(this.id)
       this.myPlayer = null
       this.myPlayer2 = null
+      this.selectedPlayerId = null
 
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)
       this.myPlayer = null
       this.myPlayer2 = null
+      this.selectedPlayerId = null
     }
   })
 }
@@ -214,7 +216,12 @@ async selectedPlayer(player : any) {
         }
         this.myPlayer = player._id
         this.myPlayer2 = player._id
+        this.selectedPlayerId = player._id; 
     }
+
+isSelected(playerId: any): boolean {
+  return this.selectedPlayerId === playerId;
+}
 
 async eliminarPlayer() {
   const alert = await this.alertController.create({
@@ -227,6 +234,7 @@ async eliminarPlayer() {
         handler: () => {
           this.myPlayer = null
           this.myPlayer2 = null
+          this.selectedPlayerId = null
         }
       },
       {
@@ -240,11 +248,13 @@ async eliminarPlayer() {
               this.getTitulares()
               this.myPlayer2 = null
               this.myPlayer = null
+              this.selectedPlayerId = null
             },
             error: (err: any) => {
               this.notifyService.error(err.error.message)
               this.myPlayer2 = null
               this.myPlayer = null
+              this.selectedPlayerId = null
             }
           })
         }
@@ -372,6 +382,9 @@ isSuplente(playerId: any): boolean {
 }
 
 getCamisetaImage(playerId: any): string {
+  if (this.selectedPlayerId === playerId) {
+    return '../../assets/icon/remera-verde.svg'; // Imagen verde o seleccionada
+  }
   if (this.isTitular(playerId)) {
     return '../../assets/icon/remera-titulares.svg';  // Imagen para titulares
   } else if (this.isSuplente(playerId)) {
@@ -471,7 +484,9 @@ openPlayersTeam(){
 
 closePlayersTeam(){
   this.myPlayer = null
+  this.myPlayer2 = null
   this.isAddPlayersTeam = false;
+  this.selectedPlayerId = null
 }
 
 }
