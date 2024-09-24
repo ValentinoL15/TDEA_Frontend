@@ -134,6 +134,8 @@ player: Player = {
   dni: 0,
 }
 suplente: any
+myPlayer: any = null
+myPlayer2: any = null
 
 
 ngOnInit() {
@@ -152,7 +154,7 @@ volver(){
   window.location.href = `/user/create-list`
 }
 
-addPLayers() {
+/*addPLayers() {
   if (this.isModalOpen) {
     this.setOpen(false);  // Cierra el modal si está abierto
   }
@@ -160,7 +162,7 @@ addPLayers() {
   setTimeout(() => {
     this.router.navigate([`add-players/${this.id}`]);
   }, 300);  // Ajusta el tiempo de espera si es necesario
-}
+}*/
 
 
 isModalOpen = false;
@@ -186,49 +188,38 @@ getList(id:any){
   })
 }
 
+agregarJugador(){
+  this.userService.agregarSuplentes(this.id,this.myPlayer).subscribe({
+    next: (res : any) => {
+      this.notifyService.success(res.message)
+      this.getTitulares()
+      this.getSuplentes()
+      this.getList(this.id)
+      this.myPlayer = null
+      this.myPlayer2 = null
+
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+      this.myPlayer = null
+      this.myPlayer2 = null
+    }
+  })
+}
+
 async selectedPlayer(player : any) {
-  const alert = await this.alertController.create({
-    header: 'Confirmar Suplente',
-    message: `¿Estás seguro de que quieres agregar a ${player.firstName + " " + player.lastName} a tu lista?`,
-    buttons: [
-      {
-        text: 'Cancelar',
-        role: 'cancel',
-        handler: () => {
-          // El usuario ha cancelado, no hacer nada
-        }
-      },
-      {
-        text: 'Agregar',
-        handler: () => {
-          // El usuario ha confirmado, proceder con la eliminación
           if (!player._id) {
             this.notifyService.error('ID del jugador no disponible');
             return;
         }
-            this.userService.agregarSuplentes(this.id, player._id).subscribe({
-              next: (res : any) => {
-                this.notifyService.success(res.message)
-                this.getList(this.id)
-                this.getSuplentes()
-                this.getTitulares()
-              },
-              error: (err: any) => {
-                this.notifyService.error(err.error.message)
-              }
-            })
-        }
-      }
-    ]
-  });
+        this.myPlayer = player._id
+        this.myPlayer2 = player._id
+    }
 
-  await alert.present();
-}
-
-async eliminarPlayer(player : any) {
+async eliminarPlayer() {
   const alert = await this.alertController.create({
     header: 'Confirmar eliminación',
-    message: `¿Estás seguro de que quieres eliminar a ${player.firstName + " " + player.lastName} de esta lista?`,
+    message: `¿Estás seguro de que quieres eliminar de esta lista?`,
     buttons: [
       {
         text: 'Cancelar',
@@ -240,20 +231,19 @@ async eliminarPlayer(player : any) {
       {
         text: 'Eliminar',
         handler: () => {
-          // El usuario ha confirmado, proceder con la eliminación
-          if (!player._id) {
-            this.notifyService.error('ID del jugador no disponible');
-            return;
-          }
-          this.userService.eliminarSuplente(this.id, player._id).subscribe({
+          this.userService.eliminarSuplente(this.id, this.myPlayer2).subscribe({
             next: (res : any) => {
               this.notifyService.success(res.message)
               this.getList(this.id)
               this.getSuplentes()
               this.getTitulares()
+              this.myPlayer2 = null
+              this.myPlayer = null
             },
             error: (err: any) => {
               this.notifyService.error(err.error.message)
+              this.myPlayer2 = null
+              this.myPlayer = null
             }
           })
         }
@@ -351,7 +341,6 @@ getTeam(){
   this.userService.getTeamActive().subscribe({
     next: (res : any) => {
       this.equipo = res.team
-      console.log("Mi teeeeeeam",this.equipo)
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
@@ -480,6 +469,7 @@ openPlayersTeam(){
 }
 
 closePlayersTeam(){
+  this.myPlayer = null
   this.isAddPlayersTeam = false;
 }
 

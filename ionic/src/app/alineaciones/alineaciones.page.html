@@ -536,7 +536,7 @@
     <ion-content color="light">
       <div class="title">
         <ion-icon (click)="openPlayersTeam()" name="people-outline" size="large" color="primary"></ion-icon>
-        <ion-icon (click)="openAddPlayerModal()" name="trash-outline" size="large" color="danger"></ion-icon>
+        <!--<ion-icon (click)="openAddPlayerModal()" name="trash-outline" size="large" color="danger"></ion-icon>-->
       </div> 
       
       <div class="contenedor-horizontal">
@@ -613,7 +613,7 @@
   </ng-template>
 </ion-modal>
 
-<ion-modal [isOpen]="isAddPlayerModalOpen" (willDismiss)="onWillDismiss($event)">
+<!--<ion-modal [isOpen]="isAddPlayerModalOpen" (willDismiss)="onWillDismiss($event)">
   <ng-template>
   <ion-header>
     <ion-toolbar>
@@ -650,16 +650,16 @@
     </div>
   </ion-content>
 </ng-template>
-</ion-modal>
+</ion-modal>-->
 
 <ion-modal [isOpen]="isAddPlayersTeam" (willDismiss)="onWillDismiss($event)">
   <ng-template>
   <ion-header>
     <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="closePlayersTeam()" [strong]="true">Cancelar</ion-button>
+      </ion-buttons>
       <ion-title>Jugadores Totales</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="closePlayersTeam()" [strong]="true">Cancelar</ion-button>
-        </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
@@ -673,9 +673,20 @@
       </div>
     </div>
 
+    <div style="width: 100%; display: flex; justify-content: space-between;">
+      <div>
+        <ion-button [disabled]="myPlayer === null" (click)="agregarJugador()">Agregar Jugador</ion-button>
+      </div>
+  
+      <div>
+        <ion-button [disabled]="myPlayer2 === null" (click)="eliminarPlayer()" color="danger">Eliminar Jugador</ion-button>
+      </div>
+    </div>
+
     <div style="display: flex; width: 100%; justify-content: center; align-items: center; height: 100%;" *ngIf="equipo.players?.length === 0">
       <h1>Agrega jugadores al equipo </h1>
     </div>
+
   </ion-content>
 </ng-template>
 </ion-modal>
