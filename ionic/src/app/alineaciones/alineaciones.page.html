@@ -615,13 +615,63 @@
 
   <ion-content class="ion-padding" color="light">
     <div *ngIf="equipo.players?.length !== 0">
-      <div class="contenedor-team">
-        <div class="players" *ngFor="let player of equipo.players" (click)="selectedPlayer(player)" [ngClass]="{'selected': isSelected(player._id)}">
-          <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
-          <p>{{player.firstName}}</p>
+      <div style="display: flex; width: 100%; justify-content: center;"> 
+        <h3>Titulares</h3>
+      </div>
+      <div *ngIf="titulares.length !== 0">
+        <div class="contenedor-totales">
+          <div *ngFor="let player of equipo.players">
+            <div class="players" *ngIf="isTitular(player._id)" (click)="selectedPlayer(player)" [ngClass]="{'selected': isSelected(player._id)}">
+              <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+              <p>{{player.firstName}}</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      <div *ngIf="titulares.length === 0" style="display: flex; width: 100%; justify-content: center;">
+        <h2 style="color: red">Ingresar titulares</h2>
+      </div>
+      
+      
+      <!-- Suplentes -->
+      <div style="display: flex; width: 100%; justify-content: center;">
+        <h3>Suplentes</h3>
+      </div>
+      <div *ngIf="suplentes.length !== 0">
+        <div class="contenedor-totales">
+          <div *ngFor="let player of equipo.players">
+            <div class="players" *ngIf="isSuplente(player._id)" (click)="selectedPlayer(player)" [ngClass]="{'selected': isSelected(player._id)}">
+              <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+              <p>{{player.firstName}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="suplentes.length === 0">
+        <h2 style="color: red">Ingresar suplentes</h2>
+      </div>
+      
+      <!-- No listados -->
+      <div style="display: flex; width: 100%; justify-content: center;">
+        <h3>No listados</h3>
+      </div>
+      <div *ngIf="equipo.players?.length !== 0">
+        <div class="contenedor-totales">
+          <div *ngFor="let player of equipo.players">
+            <div class="players" *ngIf="isNoListado(player._id)" (click)="selectedPlayer(player)" [ngClass]="{'selected': isSelected(player._id)}">
+              <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+              <p>{{player.firstName}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="equipo.players?.length === 0">
+        <h2>Agrega jugadores a tu equipo</h2>
+      </div>
+      </div>
+      
 
     <div style="width: 100%; display: flex; justify-content: space-between;">
       <div>

@@ -1,3 +1,4 @@
+import { List } from "./List"
 import { Player } from "./Player"
 
 export interface Team {
@@ -5,6 +6,7 @@ export interface Team {
     teamName: String,
     teamNotes: String,
     socialMedia: String,
+    teamList?: List,
     teamImage?:String,
     players?: Player[]
     active: boolean

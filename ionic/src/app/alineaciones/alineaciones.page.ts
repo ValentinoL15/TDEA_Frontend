@@ -115,6 +115,22 @@ equipo: Team = {
   teamNotes: "",
   socialMedia: "",
   active: false,
+  teamList: {
+    typeAlineacion: 0,
+    shirtColor: "",
+    alternativeShirtColor: "",
+    belongToTournament: "",
+    nameList: "",
+    teamPicture: "",
+    suplente: [{
+      _id: "",
+      firstName: ""
+  }],
+  titular: [{
+      _id: "",
+      firstName: ""
+  }]
+  },
   players: [{
     _id: "",
     firstName: "",
@@ -487,6 +503,18 @@ closePlayersTeam(){
   this.myPlayer2 = null
   this.isAddPlayersTeam = false;
   this.selectedPlayerId = null
+}
+
+isTitularList(playerId: string) {
+  return this.equipo.teamList?.titular?.some(player => player._id === playerId);
+}
+
+isSuplenteList(playerId: string) {
+  return this.equipo.teamList?.suplente?.some(player => player._id === playerId);
+}
+
+isNoListado(playerId: any) {
+  return !this.isTitular(playerId) && !this.isSuplente(playerId);
 }
 
 }

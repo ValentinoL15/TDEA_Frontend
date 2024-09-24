@@ -696,6 +696,12 @@
     /* Oculta la barra de desplazamiento en navegadores basados en WebKit */
 }
 
+.contenedor-no-listados{
+    display: flex;
+    width: 100%;
+    
+}
+
 .suplentes {
     flex: 0 0 auto;
     /* Hace que cada elemento tenga tamaño fijo y no se ajuste */
