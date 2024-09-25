@@ -52,6 +52,7 @@ export class TournamentsPage implements OnInit {
     isTournamentActive: false,
     tarifaInscripcion: 0,
     tarifaPartido: 0,
+    cupos: 0
   }
   currentYear = new Date().getFullYear();
 
@@ -175,7 +176,7 @@ export class TournamentsPage implements OnInit {
 
   editTournament(id:any, form:any){
     const formulario = {
-      nameFantasy: form.nameFantasy.value, //
+      nameFantasy: form.nameFantasy.value, 
       rangeAgeSince: form.rangeAgeSince.value,
       rangeAgeUntil: form.rangeAgeUntil.value,
       tournamentDate: form.tournamentDate.value,

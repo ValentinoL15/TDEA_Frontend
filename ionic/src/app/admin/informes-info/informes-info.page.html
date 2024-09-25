@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>informes-info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-input label="Torneo" [value]="tournament.campeonato.type"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Año" [value]="tournament.ano"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Dia" [value]="getDays()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Formato" [value]="tournament.format.formatName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Tipo" [value]="tournament.edad.type"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Equipos Anotados" [value]="getTeamsSubscribed()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Equipos Reservados" [value]="getTeamsSubscribed()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Equipos Restantes" [value]="getTeamsSubscribed()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Cupos" [value]="tournament.cupos"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

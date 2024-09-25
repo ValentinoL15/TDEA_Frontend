@@ -52,7 +52,8 @@ export class HomeTournamentPage implements OnInit {
     isTournamentMasculine: false,
     isTournamentActive: false,
     tarifaInscripcion: 0,
-    tarifaPartido: 0
+    tarifaPartido: 0,
+    cupos: 0
   }
   ano:any
 
@@ -154,7 +155,8 @@ createTournament(){
     tournamentNotes: this.form.value.tournamentNotes,
     ageDescripcion: this.form.value.ageDescripcion,
     tarifaInscripcion: this.form.value.tarifaInscripcion,
-    tarifaPartido: this.form.value.tarifaPartido
+    tarifaPartido: this.form.value.tarifaPartido,
+    cupos: this.form.value.cupos
   }
   this.tournamentServ.createTournament(formulario).subscribe({
     next: (res : any) => {
