@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Informes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list class="celular" [inset]="true" *ngFor="let torneo of tournaments">
+      <ion-list [inset]="true" *ngFor="let torneo of tournaments">
+        <ion-item>
+          <ion-input label="Torneo" [value]="torneo.campeonato.type"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Año" [value]="torneo.ano"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Dia" [value]="getDays(torneo)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Formato" [value]="torneo.format.formatName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Tipo" [value]="torneo.edad.type"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Equipos Anotados" [value]="getTeamsSubscribed(torneo)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Equipos Reservados" [value]="getTeamsSubscribed(torneo)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Equipos Restantes" [value]="getTeamsSubscribed(torneo)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Cupos" [value]="torneo.cupos"></ion-input>
+        </ion-item>
+      </ion-list>
+  </ion-list> 
+  
+  <div class="computadora">
+    <table class="table" *ngFor="let torneo of tournaments">
+      <thead>
+        <tr>
+          <th scope="col">Torneo</th>
+          <th scope="col">Año</th>
+          <th scope="col">Dias</th>
+          <th scope="col">Formato</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Jornada</th>
+          <th scope="col">A anotar</th>
+          <th scope="col">Activos</th>
+          <th scope="col">Reserva</th>
+          <th scope="col">Cupos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>{{torneo.campeonato.type}}</th>
+          <td>{{torneo.ano}}</td>
+          <td>{{getDays(torneo)}}</td>
+          <td>{{torneo.format.formatName}}</td>
+          <td>{{torneo.edad.type}}</td>
+          <td>Jornada X</td>
+          <td>X Jugadores</td>
+          <td>{{getTeamsSubscribed(torneo)}}</td>
+          <td>X Jugadores</td>
+          <td>{{torneo.cupos}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ion-content>

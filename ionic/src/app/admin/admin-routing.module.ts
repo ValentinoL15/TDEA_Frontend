@@ -104,10 +104,15 @@ const routes: Routes = [
   {
     path: 'players-subscribed/:tournamentSubscribed/:id',
     loadChildren: () => import('./players-subscribed/players-subscribed.module').then( m => m.PlayersSubscribedPageModule)
+  },
+  {
+    path: 'informes',
+    loadChildren: () => import('./informes/informes.module').then( m => m.InformesPageModule)
+  },
+  {
+    path: 'informes-info/:id',
+    loadChildren: () => import('./informes-info/informes-info.module').then( m => m.InformesInfoPageModule)
   }
-
-
-
 
 ];
 

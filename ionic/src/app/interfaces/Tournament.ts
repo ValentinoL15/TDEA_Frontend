@@ -23,7 +23,7 @@ export interface Tournament {
     creator?: String,
     belongTournament?: String,
     day: String,
-    sede:Array <{
+    sede?:Array <{
         _id?: string,
         creator?: String,
         belongDay?: String,
@@ -46,5 +46,6 @@ export interface Tournament {
     isTournamentMasculine: Boolean,
     isTournamentActive: Boolean,
     tarifaInscripcion: number,
-    tarifaPartido: number
+    tarifaPartido: number,
+    cupos: number
 }

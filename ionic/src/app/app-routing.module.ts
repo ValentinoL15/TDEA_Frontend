@@ -114,6 +114,14 @@ const routes: Routes = [
     path: 'players-subscribed/:tournamentSubscribed/:id',
     loadChildren: () => import('./admin/players-subscribed/players-subscribed.module').then( m => m.PlayersSubscribedPageModule)
   },
+  {
+    path: 'informes',
+    loadChildren: () => import('./admin/informes/informes.module').then( m => m.InformesPageModule)
+  },
+  {
+    path: 'informes-info/:id',
+    loadChildren: () => import('./admin/informes-info/informes-info.module').then( m => m.InformesInfoPageModule)
+  },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
     path: 'create-team',
@@ -174,7 +182,8 @@ const routes: Routes = [
   {
     path: 'add-players/:id',
     loadChildren: () => import('./add-players/add-players.module').then( m => m.AddPlayersPageModule)
-  },  {
+  },
+  {
     path: 'add-players-list',
     loadChildren: () => import('./add-players-list/add-players-list.module').then( m => m.AddPlayersListPageModule)
   }

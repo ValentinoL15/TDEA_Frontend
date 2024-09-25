@@ -1,0 +1,18 @@
+.celular {
+    display: block;
+  }
+  
+  .computadora {
+    display: none;
+  }
+  
+  @media (min-width: 768px) { /* Tablets y más grandes */
+    .celular {
+      display: none;
+    }
+  
+    .computadora {
+      display: block;
+      margin: 15px 15px
+    }
+  }
