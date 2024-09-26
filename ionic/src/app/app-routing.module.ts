@@ -186,7 +186,12 @@ const routes: Routes = [
   {
     path: 'add-players-list',
     loadChildren: () => import('./add-players-list/add-players-list.module').then( m => m.AddPlayersListPageModule)
+  },
+  {
+    path: 'success-pay/',
+    loadChildren: () => import('./success-pay/success-pay.module').then( m => m.SuccessPayPageModule)
   }
+
 
 
 
