@@ -188,9 +188,21 @@ const routes: Routes = [
     loadChildren: () => import('./add-players-list/add-players-list.module').then( m => m.AddPlayersListPageModule)
   },
   {
-    path: 'success-pay/',
+    path: 'success',
     loadChildren: () => import('./success-pay/success-pay.module').then( m => m.SuccessPayPageModule)
-  }
+  },
+  {
+    path: 'failure',
+    loadChildren: () => import('./failure-pay/failure-pay.module').then( m => m.FailurePayPageModule)
+  },
+  {
+    path: 'pending',
+    loadChildren: () => import('./pending-pay/pending-pay.module').then( m => m.PendingPayPageModule)
+  },
+
+
+
+
 
 
 
