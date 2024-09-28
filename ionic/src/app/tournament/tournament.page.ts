@@ -165,19 +165,21 @@ export class TournamentPage implements OnInit {
     await alert.present();
   }
 
-  inscribirse(teamListId: string) {
+  inscribirse(teamListId: any) {
     const payload = { teamListId };  // Crea un objeto con el teamListId
     this.userService.ingresarTorneo(this.id, payload).subscribe({
-      next: (res: any) => {
-        this.notifyService.success(res.message);
-        setTimeout(() => {
-          window.location.href = `/user/home`
-        }, 800)
-      },
-      error: (err: any) => {
-        this.notifyService.error(err.error.message);
-      }
+        next: (res: any) => {
+            if (res.redirectUrl) {
+                // Redirige al usuario a la URL de Mercado Pago
+                window.location.href = res.redirectUrl;
+            } else {
+                console.log('Error: No se recibió una URL de redirección');
+            }
+        },
+        error: (err: any) => {
+            this.notifyService.error(err.error.message);
+        }
     });
-  }
+}
 
 }

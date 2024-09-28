@@ -156,9 +156,21 @@ export class UserService {
   
 
   /*********************************************INGRESAR-TORNEO***********************************************/ 
-  ingresarTorneo(id : any, form : any){
-    return this.http.put(`${this.API_URL}/registrarse-torneo/${id}`, form)
+  ingresarTorneo(id: any, teamListId: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/registrarse-torneo/${id}`, teamListId);
   }
+
+  procesarInscripcion(tournamentId: any, teamListId: any): Observable<any> {
+    return this.http.get(`${this.API_URL}/success?tournamentId=${tournamentId}&teamListId=${teamListId}`);
+  }
+
+  getPending(){
+    return this.http.get(`${this.API_URL}/pending`)
+  }
+
+  checkPaymentStatus(paymentId: string) {
+    return this.http.get(`${this.API_URL}/payment-status/${paymentId}`);
+}
 
   /*****************************************ALINEACIONES*******************************************************/
 

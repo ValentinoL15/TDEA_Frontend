@@ -45,7 +45,10 @@
           <p style="text-decoration: underline;">Dia: {{item.day}}</p>
           <p *ngFor="let sede of item.sede">Horarios: {{sede.times}} , Estadio: {{sede.stadium?.code}}</p>
         </div>
-        
+      </div>
+
+      <div class="sections">
+        <h2>Cupos Disponibles: {{tournament.cupos}}</h2>
       </div>
       
     </ion-card-content>
