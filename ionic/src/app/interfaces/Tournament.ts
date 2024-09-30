@@ -17,7 +17,9 @@ export interface Tournament {
     format: Format,
     teamSubscribed?: Array<{
         _id?: string,
-        nameList?: string
+        nameList?: string,
+        monto?: number,
+        pagoFinal?: number
     }>,
     activeStadiums?: Array<any>,
     ageDescripcion: string,
@@ -50,5 +52,5 @@ export interface Tournament {
     isTournamentActive: Boolean,
     tarifaInscripcion: number,
     tarifaPartido: number,
-    cupos: number
+    cupos: number,
 }

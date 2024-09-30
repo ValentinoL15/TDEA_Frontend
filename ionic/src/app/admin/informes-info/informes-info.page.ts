@@ -64,7 +64,7 @@ export class InformesInfoPage implements OnInit {
     isTournamentActive: false,
     tarifaInscripcion: 0,
     tarifaPartido: 0,
-    cupos: 0
+    cupos: 0,
   }
   currentYear = new Date().getFullYear();
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute) { }

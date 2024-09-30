@@ -70,7 +70,7 @@ tournamentId: Tournament = {
   times: []
   }]
   }],
-  cupos: 0
+  cupos: 0,
 }
 list: List = {
   ownerUser: { firstName: "",

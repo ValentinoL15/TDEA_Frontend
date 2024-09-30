@@ -23,6 +23,7 @@ getTournaments(){
   this.tournamentServ.getTournaments().subscribe({
     next: (res : any) => {
       this.tournaments = res.tournaments
+      console.log(this.tournaments)
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
