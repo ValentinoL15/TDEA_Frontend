@@ -74,7 +74,8 @@ export class HomeTournamentPage implements OnInit {
       tournamentNotes: ['', Validators.required],
       ageDescripcion: ['', Validators.required],
       tarifaInscripcion: ['', Validators.required],
-      tarifaPartido: ['', Validators.required]
+      tarifaPartido: ['', Validators.required],
+      cupos: ['', Validators.required],
     })
   }
 
