@@ -42,4 +42,10 @@ getTeamsSubscribed(tournament: Tournament): number {
 goTournament(id:any){
   this.router.navigate([`/informes-info/${id}`])
 }
+
+isModalOpen = false;
+
+setOpen(isOpen: boolean) {
+  this.isModalOpen = isOpen;
+}
 }
