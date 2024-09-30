@@ -145,6 +145,14 @@ export class TournamentPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Confirmar Inscripción',
       message: `¿Estás seguro de inscribir la lista: ${teamListName} en este torneo?`,
+      inputs: [
+        {
+          name: 'userPrice',
+          type: 'number',
+          placeholder: 'Ingresa el monto a pagar',
+          min: 0 // Puedes agregar restricciones como mínimo valor
+        }
+      ],
       buttons: [
         {
           text: 'Cancelar',
@@ -155,8 +163,14 @@ export class TournamentPage implements OnInit {
         },
         {
           text: 'Inscribirme',
-          handler: () => {
-            this.inscribirse(teamListId);
+          handler: (data) => {
+            const userPrice = parseFloat(data.userPrice); // Convertir a número
+            console.log('Monto ingresado:', userPrice);
+            if (isNaN(userPrice) || userPrice <= 0) {
+              this.notifyService.error("Por favor ingrese un monto válido");
+              return; // Detener la ejecución si el monto no es válido
+            }
+            this.inscribirse(teamListId, userPrice); // Pasar el valor al método inscribirse
           }
         }
       ]
@@ -165,21 +179,21 @@ export class TournamentPage implements OnInit {
     await alert.present();
   }
 
-  inscribirse(teamListId: any) {
-    const payload = { teamListId };  // Crea un objeto con el teamListId
+  inscribirse(teamListId: string, monto: number) {
+    const payload = { teamListId, monto }; // Asegúrate de incluir 'monto' en el payload
     this.userService.ingresarTorneo(this.id, payload).subscribe({
-        next: (res: any) => {
-            if (res.redirectUrl) {
-                // Redirige al usuario a la URL de Mercado Pago
-                window.location.href = res.redirectUrl;
-            } else {
-                console.log('Error: No se recibió una URL de redirección');
-            }
-        },
-        error: (err: any) => {
-            this.notifyService.error(err.error.message);
+      next: (res: any) => {
+        if (res.redirectUrl) {
+          // Redirige al usuario a la URL de Mercado Pago
+          window.location.href = res.redirectUrl;
+        } else {
+          console.log('Error: No se recibió una URL de redirección');
         }
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
     });
-}
+  }
 
 }

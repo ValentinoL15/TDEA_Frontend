@@ -15,7 +15,10 @@ export interface Tournament {
     rangeAgeUntil: number,
     category: Category,
     format: Format,
-    teamSubscribed?: Array<any>,
+    teamSubscribed?: Array<{
+        _id?: string,
+        nameList?: string
+    }>,
     activeStadiums?: Array<any>,
     ageDescripcion: string,
     daysTournament?: Array <{
