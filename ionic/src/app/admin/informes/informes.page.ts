@@ -12,6 +12,7 @@ import { TournamentService } from 'src/app/services/tournament.service';
 export class InformesPage implements OnInit {
 
 tournaments: Tournament[] = []
+selectedTournament: any = null;  // Torneo seleccionado
 
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router) { }
 
@@ -46,7 +47,12 @@ goTournament(id:any){
 
 isModalOpen = false;
 
-setOpen(isOpen: boolean) {
+setOpen(isOpen: boolean, torneo?: any) {
   this.isModalOpen = isOpen;
+  if (isOpen) {
+    this.selectedTournament = torneo;  // Guarda el torneo actual al abrir el modal
+  } else {
+    this.selectedTournament = null;  // Restablece el torneo al cerrar el modal
+  }
 }
 }
