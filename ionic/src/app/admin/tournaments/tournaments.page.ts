@@ -52,7 +52,7 @@ export class TournamentsPage implements OnInit {
     isTournamentActive: false,
     tarifaInscripcion: 0,
     tarifaPartido: 0,
-    cupos: 0
+    cupos: 0,
   }
   currentYear = new Date().getFullYear();
 

@@ -71,7 +71,7 @@ export class TournamentPage implements OnInit {
     times: []
     }]
     }],
-    cupos: 0
+    cupos: 0,
   }
   currentYear = new Date().getFullYear();
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private userService: UserService) { }
