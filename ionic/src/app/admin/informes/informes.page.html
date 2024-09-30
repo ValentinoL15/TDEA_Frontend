@@ -70,7 +70,7 @@
           <td>{{getTeamsSubscribed(torneo)}}</td>
           <td>X Jugadores</td>
           <td>{{torneo.cupos}}</td>
-          <td class="eye"><ion-icon name="eye-outline" (click)="setOpen(true)"></ion-icon></td>
+          <td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>
           <ion-modal [isOpen]="isModalOpen">
             <ng-template>
               <ion-header>
@@ -86,14 +86,14 @@
                   <h1>Equipos que han Pagado</h1>
                 </div>
 
-                <ion-list [inset]="true" *ngIf="torneo.teamSubscribed">
-                  <ion-item *ngFor="let list of torneo.teamSubscribed">
-                    <ion-input readonly="true" label="{{list.nameList}}" [value]="'$' + list.pagoFinal"></ion-input>
+                <ion-list [inset]="true" *ngIf="selectedTournament?.pagos">
+                  <ion-item *ngFor="let pago of selectedTournament.pagos">
+                    <ion-input readonly="true" label="{{pago.teamListId?.nameList}}" [value]="'$' + pago.monto"></ion-input>
                   </ion-item>
                 </ion-list>
 
-                <div style="display: flex; width: 100%; justify-content: center; text-align: center;" *ngIf="torneo.teamSubscribed?.length === 0">
-                  <h2>Todavia no se registró ningún equipo</h2>
+                <div style="display: flex; width: 100%; justify-content: center; text-align: center;" *ngIf="!selectedTournament?.pagos?.length">
+                  <h2>Todavía no se registró ningún equipo</h2>
                 </div>
                 
               </ion-content>

@@ -53,4 +53,12 @@ export interface Tournament {
     tarifaInscripcion: number,
     tarifaPartido: number,
     cupos: number,
+    pagos?: Array <{
+        _id?: string,
+        monto?: number,
+        teamListId?: {
+            _id?: string,
+            nameList?: string,
+        }
+    }>
 }
