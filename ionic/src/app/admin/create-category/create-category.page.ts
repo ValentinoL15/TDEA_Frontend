@@ -71,7 +71,7 @@ export class CreateCategoryPage implements OnInit {
         this.categorias = res.categories
       },
       error: (err) => {
-        console.log(err);
+        this.notifyService.error(err.error.message)
       }
     })
   }
