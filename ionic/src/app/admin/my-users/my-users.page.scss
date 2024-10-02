@@ -1,0 +1,12 @@
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 93%;
+    margin-top: 20px;
+  }
+  
+  .table-container {
+    flex: 1;
+    overflow-y: auto;
+  }
+  

@@ -12,6 +12,18 @@ export class UserService {
   //API_URL= 'http://localhost:3000/api/futbol'
   constructor(private http: HttpClient) { }
 
+/*************************************************ADMIN**********************************************/ 
+
+createAdmin(form: any){
+  return this.http.post(`${this.API_URL}/crear-admin`, form)
+}
+
+getUsers(){
+  return this.http.get(`${this.API_URL}/obtener-my-users`)
+}
+
+
+/*************************************************TEAM*****************************************************/
   createTeam(form : any){
     return this.http.post(`${this.API_URL}/crear-equipo`, form)
   }

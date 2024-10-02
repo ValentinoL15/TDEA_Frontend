@@ -33,6 +33,10 @@ goStadiums(){
   this.router.navigate(['/empresa'])
 }
 
+goUsers(){
+  this.router.navigate(['/my-users'])
+}
+
 cerrarSesion(){
   localStorage.removeItem('token');
   this.router.navigate(['/login']);
