@@ -53,8 +53,8 @@ export class FormatPage implements OnInit {
         this.format = res.format
         console.log(this.format)
       },
-      error: (error) => {
-        console.error(error);
+      error: (err) => {
+        this.notifyService.error(err.error.message)
       }
     })
   }
