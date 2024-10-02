@@ -34,9 +34,8 @@
         <ion-item>
           <ion-input label="Cupos" [value]="torneo.cupos"></ion-input>
         </ion-item>
-          <ion-input label="Pagos" ></ion-input>
-        <ion-item>
-
+        <ion-item detail="true" (click)="setOpen(true, torneo)">
+          <ion-input readonly="true" label="Pagos"></ion-input>
         </ion-item>
       </ion-list>
   </ion-list> 

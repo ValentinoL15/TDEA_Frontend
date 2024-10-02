@@ -65,7 +65,7 @@ export class CreateFormatPage implements OnInit {
         this.formatos = res.formats || [];
       },
       error: (err) => {
-        console.log(err);
+        this.notifyService.error(err.error.message)
       }
     })
   }
