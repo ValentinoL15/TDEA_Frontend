@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" color="light">
   <div class="container-fluid">
     <table class="table table-dark table-striped">
       <ng-container>
@@ -18,15 +18,69 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{user.firstName}}</td>
+          <tr *ngFor="let user of users" (click)="goUser(user._id)">
+            <td>{{user.firstName + " " + user.lastName}}</td>
             <td>{{user.rol}}</td>
           </tr>
         </tbody>
       </ng-container>
     </table>
     <div >
-      <ion-button expand="block" (click)="goAdmin()">Crear Administrador</ion-button>
+      <ion-button expand="block" (click)="setOpen(true)">Crear Administrador</ion-button>
     </div>
   </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="createAdmin()">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" color="light">
+        <div [formGroup]="form">
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-input label="Nombre" formControlName="firstName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Apellido" formControlName="lastName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Documento" formControlName="docNumber"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select class="always-flip" toggleIcon="caret-down-sharp" interface="popover" label="Genero" placeholder="Seleccionar Genero" formControlName="gender">
+                <ion-select-option value="masculino">Masculino</ion-select-option>
+                <ion-select-option value="femenino">Femenino</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Telefono" formControlName="phone" (ionInput)="onPhoneInputChange($event)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Email" formControlName="email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Contraseña" formControlName="password"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select class="always-flip" toggleIcon="caret-down-sharp" interface="popover" label="Rol" placeholder="Seleccionar Rol" formControlName="rol" style="width: 100%;">
+                <ion-select-option value="TORNEOS">Torneos</ion-select-option>
+                <ion-select-option value="PAGOS">Pagos</ion-select-option>
+                <ion-select-option value="ADMIN">Administrador</ion-select-option>
+                </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
+

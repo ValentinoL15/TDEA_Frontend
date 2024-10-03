@@ -123,12 +123,12 @@ const routes: Routes = [
     loadChildren: () => import('./admin/informes-info/informes-info.module').then( m => m.InformesInfoPageModule)
   },
   {
-    path: 'create-admin',
-    loadChildren: () => import('./admin/create-admin/create-admin.module').then( m => m.CreateAdminPageModule)
-  },
-  {
     path: 'my-users',
     loadChildren: () => import('./admin/my-users/my-users.module').then( m => m.MyUsersPageModule)
+  },
+  {
+    path: 'admin-users/:id',
+    loadChildren: () => import('./admin/admin-users/admin-users.module').then( m => m.AdminUsersPageModule)
   },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
