@@ -112,14 +112,16 @@ const routes: Routes = [
   {
     path: 'informes-info/:id',
     loadChildren: () => import('./informes-info/informes-info.module').then( m => m.InformesInfoPageModule)
-  },  {
-    path: 'create-admin',
-    loadChildren: () => import('./create-admin/create-admin.module').then( m => m.CreateAdminPageModule)
   },
   {
     path: 'my-users',
     loadChildren: () => import('./my-users/my-users.module').then( m => m.MyUsersPageModule)
+  },
+  {
+    path: 'admin-users/:id',
+    loadChildren: () => import('./admin-users/admin-users.module').then( m => m.AdminUsersPageModule)
   }
+
 
 
 ];

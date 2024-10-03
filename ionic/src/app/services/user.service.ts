@@ -22,6 +22,14 @@ getUsers(){
   return this.http.get(`${this.API_URL}/obtener-my-users`)
 }
 
+getUser(id : any){
+  return this.http.get(`${this.API_URL}/obtener-user/${id}`)
+}
+
+deleteUser(id : any){
+  return this.http.delete(`${this.API_URL}/eliminar-user/${id}`)
+}
+
 
 /*************************************************TEAM*****************************************************/
   createTeam(form : any){

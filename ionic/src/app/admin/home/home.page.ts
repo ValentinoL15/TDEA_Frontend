@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,20 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
-  constructor(private router: Router) { }
+isAdmin: boolean = false
+
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    const token = this.authService.getToken();
+    if(token){
+      const decodedToken: any = jwtDecode(token);
+      if(decodedToken.rol === 'ADMIN'){
+        this.isAdmin = true;
+      }else{
+        this.isAdmin = false;
+      }
+    }
   }
 
 goFormats(){
@@ -39,7 +52,7 @@ goUsers(){
 
 cerrarSesion(){
   localStorage.removeItem('token');
-  this.router.navigate(['/login']);
+  window.location.href = `/login`;
 }
 
 }
