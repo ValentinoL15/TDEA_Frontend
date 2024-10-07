@@ -14,6 +14,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import localeEsAr from '@angular/common/locales/es-AR';
 
 import { registerLocaleData } from '@angular/common';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 registerLocaleData(localeEsAr, 'es-Ar')
 
 
@@ -37,7 +38,8 @@ registerLocaleData(localeEsAr, 'es-Ar')
     {
       provide: LOCALE_ID,
       useValue: 'es-Ar'
-    }
+    },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
 })

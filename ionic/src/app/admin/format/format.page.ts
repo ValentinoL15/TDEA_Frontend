@@ -60,26 +60,26 @@ export class FormatPage implements OnInit {
   }
 
 
-  updateFormat(id:any, form: any){
-    const formulario = {
-      formatName: form.formatName.value,
-      minPlayers: form.minPlayers.value,
-      maxPlayers: form.maxPlayers.value
+  updateFormat(id: any) {
+    // Validación adicional de minPlayers y maxPlayers en el frontend
+    if (this.format.minPlayers >= this.format.maxPlayers) {
+      this.notifyService.error('El número mínimo de jugadores debe ser menor que el número máximo de jugadores');
+      return;
     }
-    console.log(formulario)
-    this.tournamentServ.editFormat(id,formulario).subscribe({
-      next: (res : any) => {
+  
+    // Enviar el formato actualizado al backend
+    this.tournamentServ.editFormat(id, this.format).subscribe({
+      next: (res: any) => {
         this.notifyService.success(res.message);
-        this.getFormato(this.id)
+        this.getFormato(this.id);
         setTimeout(() => {
-          window.location.href = `/create-format`
-        }, 500)
-        
+          window.location.href = `/create-format`;
+        }, 500);
       },
       error: (err) => {
-        this.notifyService.error(err.error.message)
+        this.notifyService.error(err.error.message);
       }
-    })
+    });
   }
 
   eliminarFormato(id:any){

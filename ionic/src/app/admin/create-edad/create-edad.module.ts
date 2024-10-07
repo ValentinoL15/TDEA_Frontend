@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateEdadPageRoutingModule } from './create-edad-routing.module';
 
 import { CreateEdadPage } from './create-edad.page';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CreateEdadPage } from './create-edad.page';
     FormsModule,
     IonicModule,
     CreateEdadPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ],
   declarations: [CreateEdadPage]
 })

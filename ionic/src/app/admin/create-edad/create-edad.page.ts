@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Edad } from 'src/app/interfaces/Edad';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-create-edad',
@@ -68,6 +69,10 @@ createEdad(){
       this.notifyService.error(err.error.message)
     }
   })
+}
+
+drop(event: CdkDragDrop<string[]>): void {
+  moveItemInArray(this.edades, event.previousIndex, event.currentIndex);
 }
 
 }
