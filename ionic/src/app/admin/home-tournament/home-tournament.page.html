@@ -36,7 +36,7 @@
     <form [formGroup]="form">
       <ion-list [inset]="true">
         <ion-item>
-          <ion-select label="Activo" placeholder="¿Está activo?" formControlName="isTournamentActive">
+          <ion-select label="Activo" placeholder="¿Está activo?" interface="popover" formControlName="isTournamentActive">
             <ion-select-option value="true">Si</ion-select-option>
             <ion-select-option value="false">No</ion-select-option>
           </ion-select>
@@ -50,17 +50,17 @@
           <ion-input type="number" placeholder="Agregar año" formControlName="ano" class="value-right"/>
         </ion-item>
         <ion-item>
-          <ion-select label="Campeonato" placeholder="Tipo de Torneo" formControlName="campeonato">
+          <ion-select label="Campeonato" placeholder="Tipo de Torneo" interface="popover" formControlName="campeonato">
             <ion-select-option *ngFor="let champ of campeonatos" [value]="champ._id">{{champ.type}}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-select label="Edad" placeholder="Tipo de Edad" formControlName="edad">
+          <ion-select label="Edad" placeholder="Tipo de Edad" interface="popover" formControlName="edad">
             <ion-select-option *ngFor="let edad of edades" [value]="edad._id">{{edad.type}}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-select label="Formato" placeholder="Formato" formControlName="format">
+          <ion-select label="Formato" placeholder="Formato" interface="popover" formControlName="format">
             <ion-select-option *ngFor="let format of formats" [value]="format._id">{{format.formatName}}</ion-select-option>
           </ion-select>
         </ion-item>
@@ -73,13 +73,13 @@
           <ion-input placeholder="Ej: 1999" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-select label="Sexo" formControlName="isTournamentMasculine">
+          <ion-select label="Sexo" interface="popover" formControlName="isTournamentMasculine">
             <ion-select-option value="true">Masculino</ion-select-option>
             <ion-select-option value="false">Femenino</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-select label="Categoria" placeholder="Categoria" formControlName="category">
+          <ion-select label="Categoria" interface="popover" placeholder="Categoria" formControlName="category">
             <ion-select-option *ngFor="let category of categories" [value]="category._id">{{category.categoryName}}</ion-select-option>
           </ion-select>
         </ion-item>
