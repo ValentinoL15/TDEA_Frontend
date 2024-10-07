@@ -53,6 +53,14 @@ export class AuthService {
     return this.http.post<any[]>(this.API_URL + '/verify-account-code/' + id , { code });
   }
 
+  forgotPassword(email : any){
+    return this.http.post(`${this.API_URL}/forgot-password`, {email})
+  }
+
+  resetPassword(id: any, password: any){
+    return this.http.put(`${this.API_URL}/reset-password/${id}`, {password})
+  }
+
   /****************************************USER*************************************/ 
 
   getUser(){

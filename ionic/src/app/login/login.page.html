@@ -11,7 +11,7 @@
           <ion-input-password-toggle *ngIf="form.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
         </ion-input>
         <div class="forgot-container">
-          <p id="forgot-alert" slot="end">¿Olvidaste tu contraseña?</p>
+          <p slot="end" (click)="goReset()">¿Olvidaste tu contraseña?</p>
         </div>
         <ion-button class="sesion" type="submit" expand="block" style="width: 100%;"><span style="font-weight: bold;">Iniciar sesión</span></ion-button>
       </form>
@@ -88,22 +88,6 @@
     </ion-content>
     </ng-template>
     </ion-modal>
-
-<!-- ALERTAS -->
-
-<ion-alert
-  trigger="present-alert"
-  header="A Short Title Is Best"
-  [buttons]="alertButtons"
-  [inputs]="alertInputs"
-></ion-alert>
-
-<ion-alert
-trigger="forgot-alert"
-header="Por favor, insertá tu correo"
-[buttons]="alertButtons"
-[inputs]="alertInputs"
-></ion-alert>
   
   </ion-content>
 

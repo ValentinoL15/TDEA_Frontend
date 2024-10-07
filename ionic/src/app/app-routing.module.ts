@@ -207,6 +207,15 @@ const routes: Routes = [
     path: 'pending',
     loadChildren: () => import('./pending-pay/pending-pay.module').then( m => m.PendingPayPageModule)
   },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+  },
+  {
+    path: 'reset/:id',
+    loadChildren: () => import('./reset/reset.module').then( m => m.ResetPageModule)
+  },
+
 
 
 
