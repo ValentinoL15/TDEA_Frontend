@@ -29,7 +29,16 @@ export class EmpresaPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getEmpresas()
+    this.getEmpresas();
+    const message = localStorage.getItem('successMessage');
+    
+    if (message) {
+      // Mostrar el mensaje
+      this.notifyServ.success(message);
+      
+      // Limpiar el localStorage para que no aparezca de nuevo
+      localStorage.removeItem('successMessage');
+    }
   }
 
   isModalOpen = false;

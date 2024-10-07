@@ -38,7 +38,7 @@
         </ion-buttons>
         <ion-title>Welcomes</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="updateFormat(format._id, miForm)" [strong]="true">Confirm</ion-button>
+          <ion-button (click)="updateFormat(format._id)" [strong]="true">Confirm</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -46,13 +46,13 @@
       <form #miForm>
         <ion-list [inset]="true">
           <ion-item>
-            <ion-input type="text" label="Formato" [value]="format.formatName" name="formatName"></ion-input>
+            <ion-input type="text" label="Formato" [(ngModel)]="format.formatName" name="formatName"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input type="number" label="Min Jugadores" [value]="format.minPlayers" name="minPlayers"></ion-input>
+            <ion-input type="number" label="Min Jugadores" [(ngModel)]="format.minPlayers" name="minPlayers"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input type="number" label="Max Jugadores" [value]="format.maxPlayers" name="maxPlayers"></ion-input>
+            <ion-input type="number" label="Max Jugadores" [(ngModel)]="format.maxPlayers" name="maxPlayers"></ion-input>
           </ion-item>
         </ion-list>
       </form>

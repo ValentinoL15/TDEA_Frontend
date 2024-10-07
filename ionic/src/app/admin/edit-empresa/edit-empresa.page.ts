@@ -79,6 +79,18 @@ export class EditEmpresaPage implements OnInit {
     })
   }
 
+  eliminarEmpresa(){
+    this.tournamentServ.deleteEmpresa(this.id).subscribe({  
+      next: (res : any) => {
+        localStorage.setItem('successMessage', res.message);
+        window.location.href = '/empresa'
+      },
+      error: (err : any) => {
+        this.notifyServ.error(err.error.message)
+      }
+    })
+  }
+
 
 
 }
