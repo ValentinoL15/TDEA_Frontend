@@ -10,6 +10,9 @@
 <ion-content [fullscreen]="true">
   <div class="contenedor">
     <ion-card>
+      <div style="width: 100%;display: flex; justify-content: end;">
+        <ion-icon (click)="setOpen(true)" size="large" color="primary" name="create-outline"></ion-icon>
+      </div>
       <ion-card-header>
         <ion-card-title>{{user.firstName}}</ion-card-title>
         <ion-card-subtitle>{{user.lastName}}</ion-card-subtitle>
@@ -24,6 +27,56 @@
       </ion-card-content>
     </ion-card>
   </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="editUser(miForm)">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form #miForm>
+          <ion-list [inset]="true">
+          <ion-item>
+            <ion-input name="firstName" label="Nombre" placeholder="Nombre" [value]="user.firstName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="lastName" label="Apellido" placeholder="Apellido" [value]="user.lastName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="email" label="Email" placeholder="Example123@gmail.com" [value]="user.email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Rol" multiple="true" [value]="user.rol" [placeholder]="user.rol" name="rol">
+              <ion-select-option value="TORNEOS">TORNEOS</ion-select-option>
+              <ion-select-option value="PAGOS">PAGOS</ion-select-option>
+              <ion-select-option value="ADMIN">ADMINISTRADOR</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-input name="phone" label="Telefono" placeholder="54247712345678" [value]="user.phone"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="docNumber" label="DNI" placeholder="Documento" [value]="user.docNumber"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Genero" placeholder="Sexo" interface="popover" [value]="user.gender" name="gender">
+              <ion-select-option value="masculino">Masculino</ion-select-option>
+              <ion-select-option value="femenino">Femenino</ion-select-option>
+            </ion-select>
+          </ion-item>
+          </ion-list>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <ion-alert

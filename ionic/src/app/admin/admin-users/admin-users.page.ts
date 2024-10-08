@@ -18,7 +18,7 @@ user: User = {
   lastName: "",
   email: "",
   password: "",
-  rol: "",
+  rol: [],
   gender: "",
   phone: 0,
   docNumber: 0
@@ -99,6 +99,33 @@ async deleteUser(id: any) {
   });
 
   await alert.present();
+}
+
+isModalOpen = false;
+
+setOpen(isOpen: boolean) {
+  this.isModalOpen = isOpen;
+}
+
+editUser(form:any){
+  const formulario = {
+    firstName: form.firstName.value,
+    lastName: form.lastName.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    docNumber: form.docNumber.value,
+    gender: form.gender.value,
+    rol: form.rol.value
+  }
+  this.userService.editUser(this.id, formulario).subscribe({
+    next: (res: any) => {
+      this.notifyService.success('Usuario actualizado con éxito');
+      window.location.href = `/admin-users/${this.id}`
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  })
 }
 
 
