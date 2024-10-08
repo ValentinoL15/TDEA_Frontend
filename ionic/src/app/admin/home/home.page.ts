@@ -18,7 +18,7 @@ isAdmin: boolean = false
     const token = this.authService.getToken();
     if(token){
       const decodedToken: any = jwtDecode(token);
-      if(decodedToken.rol === 'ADMIN'){
+      if(decodedToken.rol == 'ADMIN'){
         this.isAdmin = true;
       }else{
         this.isAdmin = false;
