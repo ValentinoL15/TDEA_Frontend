@@ -30,6 +30,10 @@ deleteUser(id : any){
   return this.http.delete(`${this.API_URL}/eliminar-user/${id}`)
 }
 
+editUser(id:any, form : any){
+  return this.http.put(`${this.API_URL}/editar-user/${id}`, form)
+}
+
 
 /*************************************************TEAM*****************************************************/
   createTeam(form : any){

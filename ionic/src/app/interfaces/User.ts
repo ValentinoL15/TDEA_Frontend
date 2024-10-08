@@ -12,5 +12,5 @@ export interface User {
     notes?: string,
     email: string,
     password:string,
-    rol?: string
+    rol?: string[]
 }
