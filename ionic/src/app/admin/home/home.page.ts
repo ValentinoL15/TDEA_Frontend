@@ -16,13 +16,23 @@ isAdmin: boolean = false
 
   ngOnInit() {
     const token = this.authService.getToken();
-    if(token){
-      const decodedToken: any = jwtDecode(token);
-      if(decodedToken.rol == 'ADMIN'){
-        this.isAdmin = true;
-      }else{
-        this.isAdmin = false;
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        console.log('Token decodificado:', decodedToken); // Depuración
+
+        if (decodedToken.rol && Array.isArray(decodedToken.rol) && decodedToken.rol.includes('ADMIN')) {
+          this.isAdmin = true;
+        } else {
+          this.isAdmin = false;
+        }
+      } catch (error) {
+        console.error('Error al decodificar el token:', error);
+        this.isAdmin = false; // Evitar que se muestre la interfaz de admin en caso de error
       }
+    } else {
+      console.log('No se encontró token.');
+      this.isAdmin = false;
     }
   }
 
