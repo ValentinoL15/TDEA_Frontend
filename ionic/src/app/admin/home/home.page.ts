@@ -21,7 +21,7 @@ isAdmin: boolean = false
         const decodedToken: any = jwtDecode(token);
         console.log('Token decodificado:', decodedToken); // Depuración
 
-        if (decodedToken.rol && Array.isArray(decodedToken.rol) && decodedToken.rol.includes('ADMIN')) {
+        if (decodedToken.rol.includes('ADMIN')) {
           this.isAdmin = true;
         } else {
           this.isAdmin = false;
