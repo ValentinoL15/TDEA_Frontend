@@ -14,14 +14,14 @@
     
       <ion-card-content>
         <form #miFormulario="ngForm">
-          <ion-list [inset]="true">
+          <ion-list >
             <ion-item>
               <ion-label position="stacked">Nueva Contraseña</ion-label>
               <ion-input type="password" name="password" required [(ngModel)]="user.password"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="stacked">Confirmar Contraseña</ion-label>
-              <ion-input style="border-bottom: 1px solid white;" type="password" name="confirmPassword" required [(ngModel)]="user.confirmPassword"></ion-input>
+              <ion-input type="password" name="confirmPassword" required [(ngModel)]="user.confirmPassword"></ion-input>
             </ion-item>
           </ion-list>
       </form>
