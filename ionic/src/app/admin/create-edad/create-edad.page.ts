@@ -15,7 +15,7 @@ export class CreateEdadPage implements OnInit {
 
 form:FormGroup
 edades: Edad[] = [];
-
+isLoading: boolean = true; // Variable para controlar el estado de carga
 
 constructor(private router: Router, private tournamentServ: TournamentService, private notifyService: NotifyService, private fb: FormBuilder) { 
   this.form = this.fb.group({
@@ -48,6 +48,7 @@ getEdades(){
   this.tournamentServ.getEdades().subscribe({
     next: (res: any) => {
       this.edades = res.edades;
+      this.isLoading = false; // Datos cargados, desactivar el spinner
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)
