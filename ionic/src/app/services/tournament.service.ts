@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../interfaces/Category';
 import { Format } from '../interfaces/Format';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,10 @@ export class TournamentService {
     
   }
 
+  updateCategoryOrder(categories: string[]): Observable<any> {
+    return this.http.put(`${this.API_URL}/categories/order`, { categories });
+  }
+
   /*************************************FORMATOS***********************************************/
 
   createFormat(form : Format){
@@ -56,6 +61,10 @@ export class TournamentService {
 
   deleteFormat(id:any){
     return this.http.delete(`${this.API_URL}/eliminar-formato/${id}`)
+  }
+
+  updateFormatsOrder(formats: string[]): Observable<any> {
+    return this.http.put(`${this.API_URL}/formats/order`, { formats });
   }
 
 /*********************************************CAMPEONATOS***********************************************/ 
@@ -80,6 +89,10 @@ export class TournamentService {
     return this.http.delete(`${this.API_URL}/eliminar-campeonato/${id}`)
   }
 
+  updateCampeonatoOrder(campeonatos: any[]): Observable<any> {
+    return this.http.put(`${this.API_URL}/campeonatos/order`, { campeonatos });
+  }
+
 /*********************************************EDADES****************************************************/ 
 
 createEdad(form : any){
@@ -100,6 +113,10 @@ editEdad(id:any, form : any){
 
 deleteEdad(id:any){
   return this.http.delete(`${this.API_URL}/eliminar-edad/${id}`)
+}
+
+updateAgeOrder(ages: any[]): Observable<any> {
+  return this.http.put(`${this.API_URL}/ages/order`, { ages });
 }
 
 /*******************************************EMPRESAS****************************************************/

@@ -63,7 +63,8 @@ export class CreateFormatPage implements OnInit {
   getFormats(){
     this.tournamentServ.getFormats().subscribe({
       next: (res : any) => {
-        this.formatos = res.formats || [];
+        this.formatos = res.formats;
+        this.formatos = res.formats.sort((a:any, b:any) => a.order - b.order); // Aseguramos que se ordenen por el campo 'order'
         this.isLoading = false;
       },
       error: (err) => {
@@ -85,5 +86,16 @@ export class CreateFormatPage implements OnInit {
 
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.formatos, event.previousIndex, event.currentIndex);
+
+    // Enviar el nuevo orden de formatos al backend
+    this.tournamentServ.updateFormatsOrder(this.formatos.map(f => f._id)).subscribe({
+      next: (res: any) => {
+        console.log(res)
+      },
+      error: (err) => {
+        this.notifyService.error('Error al actualizar el orden de formatos');
+        console.error(err);
+      }
+    });
   }
 }

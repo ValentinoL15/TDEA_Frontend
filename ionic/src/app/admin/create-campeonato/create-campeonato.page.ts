@@ -47,6 +47,7 @@ export class CreateCampeonatoPage implements OnInit {
     this.tournamentServ.getCampeonatos().subscribe({
       next: (res : any) => {
         this.campeonatos = res.campeonatos
+        this.campeonatos = res.campeonatos.sort((a:any, b:any) => a.order - b.order); // Aseguramos que se ordenen por el campo 'order'
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
@@ -72,6 +73,17 @@ export class CreateCampeonatoPage implements OnInit {
 
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.campeonatos, event.previousIndex, event.currentIndex);
+
+    // Enviar el nuevo orden de campeonatos al backend
+    this.tournamentServ.updateCampeonatoOrder(this.campeonatos.map(c => c._id)).subscribe({
+      next: (res: any) => {
+        console.log(res)
+      },
+      error: (err) => {
+        this.notifyService.error('Error al actualizar el orden');
+        console.error(err);
+      }
+    });
   }
 
 }

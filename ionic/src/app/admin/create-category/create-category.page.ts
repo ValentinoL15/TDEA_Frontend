@@ -69,6 +69,7 @@ export class CreateCategoryPage implements OnInit {
     this.tournamentServ.getCategories().subscribe({
       next: (res : any) => {
         this.categorias = res.categories
+        this.categorias = res.categories.sort((a:any, b:any) => a.order - b.order);
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
@@ -86,7 +87,19 @@ export class CreateCategoryPage implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
+    // Reorganiza las categorías en memoria
     moveItemInArray(this.categorias, event.previousIndex, event.currentIndex);
+  
+    // Enviar el nuevo orden al backend
+    this.tournamentServ.updateCategoryOrder(this.categorias.map(c => c._id)).subscribe({
+      next: (res: any) => {
+        this.notifyService.success('Orden actualizado correctamente');
+      },
+      error: (err) => {
+        this.notifyService.error('Error al actualizar el orden');
+        console.error(err);
+      }
+    });
   }
 
 }

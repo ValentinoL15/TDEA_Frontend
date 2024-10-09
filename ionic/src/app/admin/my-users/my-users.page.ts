@@ -48,6 +48,7 @@ getUsuarios(){
   this.userService.getUsers().subscribe({
     next: (res : any) => {
       this.users = res.users
+      this.users = this.users.sort((a:any,b:any) => a.order - b.order)
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
@@ -129,9 +130,19 @@ isModalOpen = false;
     const phoneControl = this.form.get('phone');
     phoneControl?.setValue(formattedValue, { emitEvent: false });
   }
-
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.users, event.previousIndex, event.currentIndex);
+
+    // Enviar el nuevo orden de usuarios al backend
+    this.userService.updateUsersOrder(this.users.map(u => u._id)).subscribe({
+      next: (res: any) => {
+        console.log(res)
+      },
+      error: (err) => {
+        this.notifyService.error('Error al actualizar el orden de usuarios');
+        console.error(err);
+      }
+    });
   }
   
 
