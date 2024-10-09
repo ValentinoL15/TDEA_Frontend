@@ -115,7 +115,7 @@ editUser(form:any){
     phone: form.phone.value,
     docNumber: form.docNumber.value,
     gender: form.gender.value,
-    rol: form.rol.value
+    rol: this.user.rol
   }
   this.userService.editUser(this.id, formulario).subscribe({
     next: (res: any) => {
@@ -126,6 +126,15 @@ editUser(form:any){
       this.notifyService.error(err.error.message);
     }
   })
+}
+
+onRoleChange(event: any) {
+  // 'event.detail.value' es el array de roles seleccionados
+  const selectedRoles = event.detail.value;
+  console.log('Roles seleccionados:', selectedRoles);  // Para verificar qué se seleccionó
+
+  // Asignar los roles seleccionados al modelo de usuario
+  this.user.rol = selectedRoles;
 }
 
 
