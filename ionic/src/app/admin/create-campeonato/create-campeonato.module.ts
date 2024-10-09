@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateCampeonatoPageRoutingModule } from './create-campeonato-routing.module';
 
 import { CreateCampeonatoPage } from './create-campeonato.page';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CreateCampeonatoPage } from './create-campeonato.page';
     FormsModule,
     IonicModule,
     CreateCampeonatoPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ],
   declarations: [CreateCampeonatoPage]
 })

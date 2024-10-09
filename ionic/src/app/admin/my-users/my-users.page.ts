@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -127,6 +128,10 @@ isModalOpen = false;
     // Actualiza el valor del campo de teléfono
     const phoneControl = this.form.get('phone');
     phoneControl?.setValue(formattedValue, { emitEvent: false });
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.users, event.previousIndex, event.currentIndex);
   }
   
 

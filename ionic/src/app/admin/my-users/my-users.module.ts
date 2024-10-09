@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MyUsersPageRoutingModule } from './my-users-routing.module';
 
 import { MyUsersPage } from './my-users.page';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { MyUsersPage } from './my-users.page';
     FormsModule,
     IonicModule,
     MyUsersPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ],
   declarations: [MyUsersPage]
 })

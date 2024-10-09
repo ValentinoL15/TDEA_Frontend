@@ -49,8 +49,7 @@ export class InformesInfoPage implements OnInit {
   ],
     category: {
       _id: "",
-      categoryName : "",
-      ageLimiter : 0
+      categoryName : ""
     },
     format: {
       _id:"",

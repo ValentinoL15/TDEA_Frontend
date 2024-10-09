@@ -15,8 +15,7 @@ export class CategoryPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
   id:any;
   category: Category = {
-    categoryName : "",
-    ageLimiter: 0
+    categoryName : ""
   }
 
   constructor(private route : ActivatedRoute, private router: Router, private torunamentServ : TournamentService, private notifyService : NotifyService) { }

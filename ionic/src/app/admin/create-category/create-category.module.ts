@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateCategoryPageRoutingModule } from './create-category-routing.module';
 
 import { CreateCategoryPage } from './create-category.page';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CreateCategoryPage } from './create-category.page';
     FormsModule,
     IonicModule,
     CreateCategoryPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ],
   declarations: [CreateCategoryPage]
 })
