@@ -5,6 +5,7 @@ import { Edad } from 'src/app/interfaces/Edad';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-create-edad',
@@ -17,7 +18,7 @@ form:FormGroup
 edades: Edad[] = [];
 isLoading: boolean = true; // Variable para controlar el estado de carga
 
-constructor(private router: Router, private tournamentServ: TournamentService, private notifyService: NotifyService, private fb: FormBuilder) { 
+constructor(private router: Router, private tournamentServ: TournamentService, private notifyService: NotifyService, private fb: FormBuilder, private UserService: UserService) { 
   this.form = this.fb.group({
     type: ['', Validators.required]
   })
@@ -48,6 +49,7 @@ getEdades(){
   this.tournamentServ.getEdades().subscribe({
     next: (res: any) => {
       this.edades = res.edades;
+      this.edades = res.edades.sort((a:any, b:any) => a.order - b.order); // Aseguramos que se ordenen por el campo 'order'
       this.isLoading = false; // Datos cargados, desactivar el spinner
     },
     error: (err: any) => {
@@ -75,6 +77,17 @@ createEdad(){
 
 drop(event: CdkDragDrop<string[]>): void {
   moveItemInArray(this.edades, event.previousIndex, event.currentIndex);
+
+  // Enviar el nuevo orden de edades al backend
+  this.tournamentServ.updateAgeOrder(this.edades.map(a => a._id)).subscribe({
+    next: (res: any) => {
+      console.log(res)
+    },
+    error: (err : any) => {
+      this.notifyService.error('Error al actualizar el orden');
+      console.error(err);
+    }
+  });
 }
 
 }

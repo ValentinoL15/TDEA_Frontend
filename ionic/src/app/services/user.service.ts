@@ -34,6 +34,10 @@ editUser(id:any, form : any){
   return this.http.put(`${this.API_URL}/editar-user/${id}`, form)
 }
 
+updateUsersOrder(users: any[]): Observable<any> {
+  return this.http.put(`${this.API_URL}/users/order`, { users });
+}
+
 
 /*************************************************TEAM*****************************************************/
   createTeam(form : any){

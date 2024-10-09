@@ -9,9 +9,6 @@
 
 <ion-content [fullscreen]="true" class="ion-padding" color="light">
   <div class="container-fluid">
-    <div *ngIf="isLoading">
-      <ion-spinner></ion-spinner>
-    </div>
     <table class="table table-dark table-striped" cdkDropList (cdkDropListDropped)="drop($event)">
       <ng-container>
         <thead>
