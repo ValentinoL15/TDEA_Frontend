@@ -6,6 +6,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { Category } from 'src/app/interfaces/Category';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-create-category',
@@ -49,8 +50,7 @@ export class CreateCategoryPage implements OnInit {
 
   createCategory(){
     const form: Category = {
-      categoryName : this.form.value.categoryName,
-      ageLimiter : this.form.value.ageLimiter
+      categoryName : this.form.value.categoryName
     }
     this.tournamentServ.createCategory(form).subscribe({
       next: (res : any) => {
@@ -83,6 +83,10 @@ export class CreateCategoryPage implements OnInit {
     if (ev.detail.role === 'confirm') {
       this.message = `Hello, ${ev.detail.data}!`;
     }
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.categorias, event.previousIndex, event.currentIndex);
   }
 
 }

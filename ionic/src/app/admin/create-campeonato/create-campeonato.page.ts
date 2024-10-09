@@ -5,6 +5,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-create-campeonato',
@@ -67,6 +68,10 @@ export class CreateCampeonatoPage implements OnInit {
         this.notifyService.error(err.error.message)
       }
     })
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.campeonatos, event.previousIndex, event.currentIndex);
   }
 
 }

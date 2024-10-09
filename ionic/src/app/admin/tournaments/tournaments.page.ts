@@ -38,7 +38,6 @@ export class TournamentsPage implements OnInit {
     category: {
       _id: "",
       categoryName : "",
-      ageLimiter : 0
     },
     format: {
       _id:"",

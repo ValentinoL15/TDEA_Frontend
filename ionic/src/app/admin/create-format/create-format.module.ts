@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateFormatPageRoutingModule } from './create-format-routing.module';
 
 import { CreateFormatPage } from './create-format.page';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CreateFormatPage } from './create-format.page';
     FormsModule,
     IonicModule,
     CreateFormatPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ],
   declarations: [CreateFormatPage]
 })
