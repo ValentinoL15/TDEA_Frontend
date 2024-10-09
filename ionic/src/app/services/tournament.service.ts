@@ -163,6 +163,10 @@ deleteSede(id : any){
   return this.http.delete(`${this.API_URL}/eliminar-sede/${id}`)
 }
 
+actualizarHorario(id: string, datosHorario: any): Observable<any> {
+  return this.http.put(`${this.API_URL}/actualizar-horario/${id}`, datosHorario);
+}
+
 /***********************************************STADIUMS****************************************************/ 
 createStadium(id : any, form : any){
   return this.http.post(`${this.API_URL}/crear-estadio/${id}`, form)

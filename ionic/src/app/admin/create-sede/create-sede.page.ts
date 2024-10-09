@@ -106,9 +106,9 @@ export class CreateSedePage implements OnInit {
       adress: this.form.value.adress,
       barrio: this.form.value.barrio,
       socialRed: this.form.value.socialRed,
-      daysAttention: this.form.value.daysAttention.map((day: any) => {
+      daysAttention: this.form.value.daysAttention.map((day: string) => {
         return {
-          day: day,  // Aquí, day es simplemente el valor de cada día (como "Lunes", "Martes", etc.)
+          day: day,  // day es simplemente el valor de cada día (como "Lunes", "Martes", etc.)
           start: this.form.value.startTime ? this.form.value.startTime : "00:00",  // Asegúrate de tener las variables startTime y endTime definidas
           end: this.form.value.endTime ? this.form.value.endTime : "00:00"
         };
