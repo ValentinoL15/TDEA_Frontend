@@ -72,17 +72,19 @@ export class LoginPage implements OnInit {
       next: (res : any) => {
         localStorage.setItem("st_1892@121", res.token);
         const role = this.auth.getUserRole();
-        console.log(role?.rol)
-        if(role?.rol === "USER"){
+        console.log(role?.rol);  // Verificar los roles obtenidos
+        
+        // Verificar si el array de roles incluye "USER"
+        if (role?.rol.includes("USER")) {
           this.router.navigate(['/user/home']);
           this.notifyService.success(res.message);
-        } else{
-          this.router.navigate(['/admin/admin-home']); // Redirige a la página de usuario
+        } else {
+          this.router.navigate(['/admin/admin-home']); // Redirige a la página de admin
           this.notifyService.success(res.message);
         }
       },
       error: err => {
-        this.notifyService.error(err.error.message)
+        this.notifyService.error(err.error.message);
       }
     })
     
