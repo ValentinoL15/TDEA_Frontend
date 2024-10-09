@@ -11,9 +11,10 @@
   <div class="container-fluid">
     <div *ngIf="isLoading">
       <ion-spinner></ion-spinner>
+      <h2 style="text-align: center;">Cargando edades...</h2>
     </div>
     <table class="table table-dark table-striped" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div *ngIf="edades.length === 0">
+      <div *ngIf="!isLoading && edades.length === 0">
         <h2 style="text-align: center;">No hay edades creadas por el momento</h2>
       </div>
       <ng-container>
