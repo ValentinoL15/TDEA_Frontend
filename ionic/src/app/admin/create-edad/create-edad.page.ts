@@ -52,6 +52,7 @@ getEdades(){
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)
+      this.isLoading = false;
     }
   })
 }
