@@ -54,7 +54,7 @@
             <ion-input name="email" label="Email" placeholder="Example123@gmail.com" [value]="user.email"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-select label="Rol" multiple="true" [value]="user.rol" [placeholder]="user.rol" name="rol">
+            <ion-select label="Rol" multiple="true" [value]="user.rol" (ionChange)="onRoleChange($event)" [placeholder]="user.rol" name="rol">
               <ion-select-option value="TORNEOS">TORNEOS</ion-select-option>
               <ion-select-option value="PAGOS">PAGOS</ion-select-option>
               <ion-select-option value="ADMIN">ADMINISTRADOR</ion-select-option>
