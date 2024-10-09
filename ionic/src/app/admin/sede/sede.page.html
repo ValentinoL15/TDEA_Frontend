@@ -45,8 +45,11 @@
       <ion-input [value]="sede.socialRed" readonly class="value-right"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label class="label-left" position="stacked">Días de atención</ion-label>
+      <ion-label class="label-left">Días de atención</ion-label>
       <ion-input *ngFor="let days of sede.daysAttention" [value]="days.day + ', '" readonly></ion-input>
+    </ion-item>
+    <ion-item detail="true" (click)="goSede()">
+      <ion-label class="label-left">Horarios</ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="label-left">Encargado</ion-label>

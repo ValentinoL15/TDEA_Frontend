@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>sede-horarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Día</th>
+        <th scope="col">Apertura</th>
+        <th scope="col">Cierre</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let day of sede.daysAttention; let i = index">
+      <tr (click)="setOpen(day)">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ day.day }}</td>
+        <td>{{ day.start }}</td>
+        <td>{{ day.end }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Editar Horario</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input [(ngModel)]="selectedDay.day" placeholder="Día" readonly></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="selectedDay.start" type="time" placeholder="Hora Apertura"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="selectedDay.end" type="time" placeholder="Hora Cierre"></ion-input>
+        </ion-item>
+        <ion-button expand="full" (click)="actualizarHorario()">Guardar Cambios</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

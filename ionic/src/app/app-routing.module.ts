@@ -130,6 +130,10 @@ const routes: Routes = [
     path: 'admin-users/:id',
     loadChildren: () => import('./admin/admin-users/admin-users.module').then( m => m.AdminUsersPageModule)
   },
+  {
+    path: 'sede-horarios/:id',
+    loadChildren: () => import('./admin/sede-horarios/sede-horarios.module').then( m => m.SedeHorariosPageModule)
+  },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
     path: 'create-team',

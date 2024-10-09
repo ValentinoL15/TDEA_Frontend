@@ -61,6 +61,10 @@ export class SedePage implements OnInit {
     this.router.navigate([`/create-stadium/${this.id}`])
   }
 
+  goSede(){
+    this.router.navigate([`/sede-horarios/${this.id}`])
+  }
+
   getSede(id:any){
     this.tournamentServ.getSede(id).subscribe({
       next: (res:any) => {
