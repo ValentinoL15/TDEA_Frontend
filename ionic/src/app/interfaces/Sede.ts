@@ -11,9 +11,13 @@ export interface Sede {
     adress: string,
     barrio: string,
     socialRed: string,
-    daysAttention: Array<string>,
+    daysAttention: Array<{
+        day: string;       // Día de la semana (Lunes, Martes, etc.)
+        start: string;     // Hora de apertura
+        end: string;       // Hora de cierre
+    }>;
     images?: Array<string>,
     encargado: string,
     dueno: string,
-    stadiums?: Stadium
+    stadiums?: Stadium,
 }

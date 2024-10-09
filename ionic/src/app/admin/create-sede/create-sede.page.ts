@@ -27,6 +27,10 @@ export class CreateSedePage implements OnInit {
     phone: 0
   }
   selectedFile: File | null = null;
+  day: any
+  startTime: string = "00:00"; // Por defecto
+  endTime: string = "00:00";   // Por defecto
+
 
   constructor(private route: ActivatedRoute, private tournamentServ: TournamentService, private notifyServ: NotifyService, private router: Router, private fb : FormBuilder) { 
     this.form = this.fb.group({
@@ -38,7 +42,7 @@ export class CreateSedePage implements OnInit {
       adress: ['', Validators.required],
       barrio: ['', Validators.required],
       socialRed: ['', Validators.required],
-      daysAttention: ['', Validators.required],
+      daysAttention: [[], Validators.required],
       encargado: ['', Validators.required],
       dueno: ['', Validators.required]
     })
@@ -89,6 +93,10 @@ export class CreateSedePage implements OnInit {
   }
 
   crearSede(){
+    if (this.form.value.daysAttention.length === 0) {
+      this.notifyServ.error('Debe seleccionar al menos un día de atención.');
+      return;
+    }
     const formulario: Sede = {
       name: this.form.value.name,
       alias: this.form.value.alias,
@@ -98,7 +106,13 @@ export class CreateSedePage implements OnInit {
       adress: this.form.value.adress,
       barrio: this.form.value.barrio,
       socialRed: this.form.value.socialRed,
-      daysAttention: this.form.value.daysAttention,
+      daysAttention: this.form.value.daysAttention.map((day: any) => {
+        return {
+          day: day,  // Aquí, day es simplemente el valor de cada día (como "Lunes", "Martes", etc.)
+          start: this.form.value.startTime ? this.form.value.startTime : "00:00",  // Asegúrate de tener las variables startTime y endTime definidas
+          end: this.form.value.endTime ? this.form.value.endTime : "00:00"
+        };
+      }),
       encargado: this.form.value.encargado,
       dueno: this.form.value.dueno
     }

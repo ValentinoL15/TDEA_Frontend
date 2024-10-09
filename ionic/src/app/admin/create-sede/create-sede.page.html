@@ -69,13 +69,13 @@
             <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" formControlName="socialRed"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-select label="Dias de atencion" name="type" class="select" multiple="true" formControlName="daysAttention">
+            <ion-select label="Dias de atencion" [(ngModel)]="day" name="type" class="select" multiple="true" formControlName="daysAttention">
               <ion-select-option value="Lunes">Lunes</ion-select-option>
               <ion-select-option value="Martes">Martes</ion-select-option>
-              <ion-select-option value="Miercoles">Miercoles</ion-select-option>
+              <ion-select-option value="Miércoles">Miercoles</ion-select-option>
               <ion-select-option value="Jueves">Jueves</ion-select-option>
               <ion-select-option value="Viernes">Viernes</ion-select-option>
-              <ion-select-option value="Sabado">Sabado</ion-select-option>
+              <ion-select-option value="Sábado">Sabado</ion-select-option>
               <ion-select-option value="Domingo">Domingo</ion-select-option>
             </ion-select>
           </ion-item>
