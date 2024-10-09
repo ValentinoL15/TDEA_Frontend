@@ -9,6 +9,9 @@
 
 <ion-content [fullscreen]="true">
   <div class="container-fluid">
+    <div *ngIf="isLoading">
+      <ion-spinner></ion-spinner>
+    </div>
     <table class="table table-dark table-striped" cdkDropList (cdkDropListDropped)="drop($event)">
       <div *ngIf="edades.length === 0">
         <h2 style="text-align: center;">No hay edades creadas por el momento</h2>

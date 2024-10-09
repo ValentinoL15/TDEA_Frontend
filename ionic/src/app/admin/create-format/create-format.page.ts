@@ -17,7 +17,7 @@ export class CreateFormatPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   form:FormGroup
-
+  isLoading: boolean = true; // Variable para controlar el estado de carga
   formatos: Format[] = []
 
   constructor(private formBuilder: FormBuilder, private tournamentServ: TournamentService, private notifyService: NotifyService, private router : Router) {
@@ -64,6 +64,7 @@ export class CreateFormatPage implements OnInit {
     this.tournamentServ.getFormats().subscribe({
       next: (res : any) => {
         this.formatos = res.formats || [];
+        this.isLoading = false;
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
