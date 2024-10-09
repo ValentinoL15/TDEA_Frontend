@@ -22,7 +22,13 @@ export class SedePage implements OnInit {
     adress: "",
     barrio: "",
     socialRed: "",
-    daysAttention: [],
+    daysAttention: [
+      {
+        day: "",
+        start: "",
+        end: ""
+      },
+    ],
     encargado: "",
     dueno: ""
   }
