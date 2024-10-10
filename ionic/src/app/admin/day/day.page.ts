@@ -6,6 +6,7 @@ import { TournamentService } from 'src/app/services/tournament.service';
 import { Schedule } from 'src/app/interfaces/Schedule';
 import { AlertController } from '@ionic/angular';
 import { Stadium } from 'src/app/interfaces/Stadium';
+import { Sede } from 'src/app/interfaces/Sede';
 
 @Component({
   selector: 'app-day',
@@ -15,11 +16,60 @@ import { Stadium } from 'src/app/interfaces/Stadium';
 export class DayPage implements OnInit {
 
   id:any
+
+  sede: Sede = {
+    belongToEmpresa: "",
+    name : "",
+    alias: "",
+    status: "",
+    phone: 0,
+    celular: 0,
+    adress: "",
+    barrio: "",
+    socialRed: "",
+    daysAttention: [
+      {
+        day: "",
+        start: "",
+        end: ""
+      },
+    ],
+    encargado: "",
+    dueno: "",
+    stadiums: []
+  }
+
   dia: Day = {
     day: "",
+    sede: {
+      name: "",
+    alias: "",
+    status: "",
+    phone: 0,
+    celular: 0,
+    adress: "",
+    barrio: "",
+    socialRed: "",
+    daysAttention: [{
+        day: "" ,     // Día de la semana (Lunes, Martes, etc.)
+        start: "",  // Hora de apertura
+        end: ""    // Hora de cierre
+    }],
+    encargado: "",
+    dueno: "",
+    },
     horarios: {
-      times: []
-    }
+      times: [],
+      stadium: [{
+        code: "",
+            type: 0,
+            length: 0,
+            width: 0,
+            roof: "",
+            grass: "",
+            punctuaction: 0,
+      }]
+    },
   }
   horarios: Schedule[] = []
   newTime: string = '';  // Variable para almacenar el horario nuevo
@@ -84,7 +134,7 @@ export class DayPage implements OnInit {
     console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
-  constructor( private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController ) { }
+  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -109,10 +159,17 @@ export class DayPage implements OnInit {
     this.router.navigate([`/create-day/${this.dia.belongTournament}`])
   }
 
+  getSede(){
+    this.tournamentServ.getSede(this.id).subscribe({
+
+    })
+  }
+
   getDay(id:any){
     this.tournamentServ.getDay(id).subscribe({
       next: (res : any) => {
         this.dia = res.day
+        console.log(",i dia" ,this.dia)
       },
       error: (err) => {
         this.notifyService.error(err.error.message)

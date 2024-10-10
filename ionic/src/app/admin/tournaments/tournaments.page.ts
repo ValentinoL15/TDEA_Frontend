@@ -158,6 +158,7 @@ export class TournamentsPage implements OnInit {
     this.tournamentServ.getTournament(id).subscribe({
       next: (res : any) => {
         this.tournament = res.tournamentFound
+        console.log(this.tournament)
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
       },
       error: (err: any) => {

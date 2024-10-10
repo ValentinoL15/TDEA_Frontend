@@ -61,8 +61,8 @@ export class HomeTournamentPage implements OnInit {
     this.form = this.formBuilder.group({
       nameFantasy: ['', Validators.required],
       ano: ['', Validators.required],
-      rangeAgeSince: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
-      rangeAgeUntil: ['', [Validators.required, Validators.minLength(1000), Validators.maxLength(9000)]],
+      rangeAgeSince: ['', [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
+rangeAgeUntil: ['', [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
       category: ['', Validators.required],
       format: ['', Validators.required],
       campeonato: ['', Validators.required],

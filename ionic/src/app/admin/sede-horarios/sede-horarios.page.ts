@@ -37,6 +37,9 @@ selectedDay: any = {
   start: "",
   end: ""
 };
+daysDisponibles = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+filteredDaysDisponibles: string[] = []; 
+
 constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private tournamentServ: TournamentService) { }
 
 ngOnInit() {
@@ -44,6 +47,18 @@ ngOnInit() {
     this.id = params['id'];
   })
   this.getSede(this.id)
+}
+
+filterDaysDisponibles(): string[] {
+  // Incluir el día seleccionado (selectedDay.day) en las opciones disponibles
+  return this.daysDisponibles.filter(d => 
+    !this.sede.daysAttention.some(day => day.day.trim().toLowerCase() === d.trim().toLowerCase()) || 
+    this.selectedDay.day.trim().toLowerCase() === d.trim().toLowerCase()
+  );
+}
+
+onDayChange(event: any) {
+  this.selectedDay.day = event.detail.value;
 }
 
 getSede(id : any){
@@ -82,6 +97,7 @@ isModalOpen = false;
 setOpen(day: any) {
   this.selectedDay = { ...day };  // Hacemos una copia del día para editarlo
   this.isModalOpen = true;
+  this.filteredDaysDisponibles = this.filterDaysDisponibles();  // Filtrar los días antes de abrir el modal
 }
 
 closeModal() {

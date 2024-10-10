@@ -19,5 +19,5 @@ export interface Sede {
     images?: Array<string>,
     encargado: string,
     dueno: string,
-    stadiums?: Stadium,
+    stadiums?: Stadium[],
 }
