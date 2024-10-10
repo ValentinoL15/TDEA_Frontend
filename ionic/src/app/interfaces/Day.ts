@@ -1,15 +1,17 @@
 import { Schedule } from "./Schedule";
+import { Sede } from "./Sede";
 
 export interface Day {
     _id?:string,
     creator?: String,
     belongTournament?: String,
     day: String,
+    sede?: Sede,
     horarios: {
         _id?: string,
         creator?: String,
         belongDay?: String,
-        stadium?: {
+        stadium?: [{
             _id?: string,
             belongToSede?: string,
             code: string,
@@ -19,7 +21,7 @@ export interface Day {
             roof: string,
             grass: string,
             punctuaction: number,
-        },
+        }],
         times: Array<number>
     }
 }
