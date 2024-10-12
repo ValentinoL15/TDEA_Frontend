@@ -74,7 +74,8 @@ export class DayPage implements OnInit {
   horarios: Schedule[] = []
   newTime: string = '';  // Variable para almacenar el horario nuevo
   selectedTimes: string[] = []; 
-  stadiums: Stadium[] = []
+  stadiums: Stadium[] = [];
+  sedes: Sede[] = [];
   times = [
     "00:00", "00:15", "00:30", "00:45", 
     "01:00", "01:15", "01:30", "01:45", 
@@ -143,6 +144,7 @@ export class DayPage implements OnInit {
     this.getDay(this.id)
     this.getHorarios()
     this.getEstadios()
+    this.getSedes()
   }
 
   goSchedule(id : any){
@@ -198,6 +200,31 @@ export class DayPage implements OnInit {
         this.notifyService.error(err.error.message);
       }
     })
+  }
+
+  getSedes(){
+    this.tournamentServ.getMySedes().subscribe({
+      next: (res : any) => {
+        console.log(res)
+        this.sedes = res.mySedes
+        console.log("Mi sedes:" ,this.sedes)
+      },
+      error: (err : any)=> {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  onSedeChange(event: any) {
+    const selectedSedeId = event.detail.value;
+    const selectedSede = this.sedes.find(sede => sede._id === selectedSedeId);
+    
+    if (selectedSede && Array.isArray(selectedSede.stadiums)) {
+      this.stadiums = selectedSede.stadiums;
+      console.log('Estadios:', this.stadiums); // Verifica que los estadios tienen el campo "code"
+    } else {
+      this.stadiums = [];
+    }
   }
 
   crearHorario(form:any){

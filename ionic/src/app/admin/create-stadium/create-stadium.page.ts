@@ -76,8 +76,9 @@ export class CreateStadiumPage implements OnInit {
     this.tournamentServ.createStadium(this.id, formulario).subscribe({
       next: (res : any) => {
         this.notifyServ.success(res.message)
-        this.getStadiums(this.id)
-        this.setOpen(false)
+        //this.getStadiums(this.id)
+        //this.setOpen(false)
+        window.location.href = `/create-stadium/${this.id}`
       },
       error: (err: any) => {
         this.notifyServ.error(err.error.message)

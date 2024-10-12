@@ -99,8 +99,9 @@ export class SedePage implements OnInit {
     this.tournamentServ.editSede(this.id, formulario).subscribe({
       next: (res:any) => {
         this.notifyServ.success(res.message)
-        this.getSede(this.id)
-        this.setOpen(false)
+        //this.getSede(this.id)
+        //this.setOpen(false)
+        window.location.href = `/sede/${this.id}`
       },
       error: (err:any) => {
         this.notifyServ.error(err.error.message)

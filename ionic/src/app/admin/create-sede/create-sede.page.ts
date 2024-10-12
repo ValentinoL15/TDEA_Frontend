@@ -119,8 +119,9 @@ export class CreateSedePage implements OnInit {
     this.tournamentServ.createSede(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyServ.success(res.message)
-        this.getSedes(this.id)
-        this.setOpen(false)
+        //this.getSedes(this.id)
+        //this.setOpen(false)
+        window.location.href = `/create-sede/${this.id}`
       },
       error: (err : any) => {
         this.notifyServ.error(err.error.message)
