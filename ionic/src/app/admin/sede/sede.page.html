@@ -132,9 +132,21 @@
           </ion-item>
         </form>
         </ion-list>
+
+        <div class="container">
+          <ion-button expand="block" color="danger" (click)="eliminarSede()">Eliminar Sede</ion-button>
+        </div>
       </ion-content>
       
     </ng-template>
   </ion-modal>
 
 </ion-content>
+
+<ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+

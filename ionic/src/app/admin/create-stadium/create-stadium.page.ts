@@ -41,8 +41,8 @@ export class CreateStadiumPage implements OnInit {
     this.form.reset()
   }
 
-  goStadium(){
-    this.router.navigate([`/admin/stadium/${this.id}`])
+  goStadium(id : any){
+    this.router.navigate([`/admin/stadium/${id}`])
   }
 
   isModalOpen = false;
