@@ -42,7 +42,7 @@ volver(){
 }
 
 goEdad(id:any){
-  this.router.navigate([`/edad/${id}`])
+  this.router.navigate([`/admin/edad/${id}`])
 }
 
 getEdades(){
@@ -66,8 +66,7 @@ createEdad(){
   this.tournamentServ.createEdad(formulario).subscribe({
     next: (res : any) => {
       this.notifyService.success(res.message)
-      this.getEdades()
-      this.setOpen(false)
+      window.location.href = `/admin/create-edad`
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)

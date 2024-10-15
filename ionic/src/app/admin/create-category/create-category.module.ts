@@ -19,7 +19,6 @@ import { Tabs2PageModule } from '../tabs2/tabs2.module';
     CreateCategoryPageRoutingModule,
     ReactiveFormsModule,
     DragDropModule,
-    Tabs2PageModule
   ],
   declarations: [CreateCategoryPage]
 })

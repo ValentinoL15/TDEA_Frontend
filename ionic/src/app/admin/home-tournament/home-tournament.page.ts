@@ -183,7 +183,7 @@ getTournaments(){
 }
 
 goTournament(id:any){
-  this.router.navigate([`/tournaments/${id}`])
+  this.router.navigate([`/admin/tournaments/${id}`])
 }
 
 limitLength(event: any) {

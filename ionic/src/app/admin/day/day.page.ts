@@ -146,7 +146,7 @@ export class DayPage implements OnInit {
   }
 
   goSchedule(id : any){
-    this.router.navigate([`edit-horarios/${id}`])
+    this.router.navigate([`/admin/edit-horarios/${id}`])
   }
 
   isModalOpen = false;
@@ -156,7 +156,7 @@ export class DayPage implements OnInit {
   }
 
   volver(id:any){
-    this.router.navigate([`/create-day/${this.dia.belongTournament}`])
+    this.router.navigate([`/admin/create-day/${this.dia.belongTournament}`])
   }
 
   getSede(){
@@ -169,7 +169,6 @@ export class DayPage implements OnInit {
     this.tournamentServ.getDay(id).subscribe({
       next: (res : any) => {
         this.dia = res.day
-        console.log(",i dia" ,this.dia)
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
@@ -209,9 +208,7 @@ export class DayPage implements OnInit {
     this.tournamentServ.createSchedule(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.getDay(this.id),
-        this.getHorarios()
-        this.setOpen(false)
+        window.location.href = `/admin/day/${this.id}`
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
@@ -246,7 +243,7 @@ export class DayPage implements OnInit {
               next: (res: any) => {
                 this.notifyService.success(res.message);
                 setTimeout(() => {
-                  window.location.href = `/create-day/${this.dia.belongTournament}`;
+                  window.location.href = `/admin/create-day/${this.dia.belongTournament}`;
                 }, 500); 
               },
               error: (err: any) => {

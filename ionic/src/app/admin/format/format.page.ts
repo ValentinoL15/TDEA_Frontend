@@ -42,7 +42,7 @@ export class FormatPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate(['/create-format'])
+    this.router.navigate(['/admin/create-format'])
   }
 
 
@@ -73,7 +73,7 @@ export class FormatPage implements OnInit {
         this.notifyService.success(res.message);
         this.getFormato(this.id);
         setTimeout(() => {
-          window.location.href = `/create-format`;
+          window.location.href = `/admin/create-format`;
         }, 500);
       },
       error: (err) => {
@@ -86,7 +86,7 @@ export class FormatPage implements OnInit {
     this.tournamentServ.deleteFormat(id).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message);
-        window.location.href = '/create-format'
+        window.location.href = '/admin/create-format'
       },
       error: (err) => {
         this.notifyService.error(err.error.message)

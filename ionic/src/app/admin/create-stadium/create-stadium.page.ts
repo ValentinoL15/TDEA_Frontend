@@ -37,12 +37,12 @@ export class CreateStadiumPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate([`/sede/${this.id}`]);
+    this.router.navigate([`/admin/sede/${this.id}`]);
     this.form.reset()
   }
 
   goStadium(){
-    this.router.navigate([`/stadium/${this.id}`])
+    this.router.navigate([`/admin/stadium/${this.id}`])
   }
 
   isModalOpen = false;
@@ -76,8 +76,7 @@ export class CreateStadiumPage implements OnInit {
     this.tournamentServ.createStadium(this.id, formulario).subscribe({
       next: (res : any) => {
         this.notifyServ.success(res.message)
-        this.getStadiums(this.id)
-        this.setOpen(false)
+        window.location.href = `/admin/create-stadium/${this.id}`
       },
       error: (err: any) => {
         this.notifyServ.error(err.error.message)

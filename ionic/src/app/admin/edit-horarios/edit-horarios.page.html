@@ -57,7 +57,7 @@
       
       <ion-list [inset]="true">
         <ion-item>
-          <ion-select label="Dias Disponibles" name="type" class="select" multiple="true" [(ngModel)]="selectedTimes" (ionChange)="onTimeChange($event)">
+          <ion-select label="Horarios Disponibles" name="type" class="select" multiple="true" [(ngModel)]="selectedTimes" (ionChange)="onTimeChange($event)">
             <ion-select-option *ngFor="let time of times" [value]="time">{{time}}</ion-select-option>
           </ion-select>
         </ion-item>

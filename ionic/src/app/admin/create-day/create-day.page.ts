@@ -45,11 +45,11 @@ export class CreateDayPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate([`/tournaments/${this.id}`])
+    this.router.navigate([`/admin/tournaments/${this.id}`])
   }
 
   goDay(id:any){
-    this.router.navigate([`/day/${id}`])
+    this.router.navigate([`/admin/day/${id}`])
   }
 
   getDays(id:any){
@@ -70,9 +70,7 @@ export class CreateDayPage implements OnInit {
     this.tournamentServ.createDay(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message);
-        this.getDays(this.id);
-        this.setOpen(false)
-        this.form.reset()
+        window.location.href = `/admin/create-day/${this.id}`
       },
       error: (err) => {
         this.notifyService.error(err.error.message)

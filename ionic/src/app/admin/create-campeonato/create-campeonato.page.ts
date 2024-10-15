@@ -40,7 +40,7 @@ export class CreateCampeonatoPage implements OnInit {
   }
 
   goCampeonato(id: any){
-    this.router.navigate([`/campeonato/${id}`])
+    this.router.navigate([`/admin/campeonato/${id}`])
   }
 
   getCampeonatos(){
@@ -62,8 +62,7 @@ export class CreateCampeonatoPage implements OnInit {
     this.tournamentServ.createCampeonato(formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.getCampeonatos()
-        this.setOpen(false)
+        window.location.href = `/admin/create-campeonato`
       },
       error: (err) => {
         this.notifyService.error(err.error.message)

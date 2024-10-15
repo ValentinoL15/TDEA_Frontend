@@ -45,7 +45,7 @@ export class CreateCategoryPage implements OnInit {
   }
 
   goCategory(id:any){
-    this.router.navigate([`/category/${id}`])
+    this.router.navigate([`/admin/category/${id}`])
   }
 
   createCategory(){

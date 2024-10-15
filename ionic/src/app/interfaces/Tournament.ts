@@ -10,7 +10,10 @@ export interface Tournament {
     nameFantasy: String,
     ano: number,
     campeonato: Campeonato,
-    edad: Edad,
+    edad: {
+        _id?: string,
+        type: string
+    },
     rangeAgeSince: number,
     rangeAgeUntil: number,
     category: Category,

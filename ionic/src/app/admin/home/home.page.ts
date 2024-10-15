@@ -37,27 +37,27 @@ isAdmin: boolean = false
   }
 
 goFormats(){
-  this.router.navigate(['/create-format'])
+  this.router.navigate(['/admin/create-format'])
 }
 
 goCategories(){
-  this.router.navigate(['/create-category'])
+  this.router.navigate(['/admin/create-category'])
 }
 
 goChampions(){
-  this.router.navigate(['/create-campeonato'])
+  this.router.navigate(['/admin/create-campeonato'])
 }
 
 goEdades(){
-  this.router.navigate(['/create-edad'])
+  this.router.navigate(['/admin/create-edad'])
 }
 
 goStadiums(){
-  this.router.navigate(['/empresa'])
+  this.router.navigate(['/admin/empresa'])
 }
 
 goUsers(){
-  this.router.navigate(['/my-users'])
+  this.router.navigate(['/admin/my-users'])
 }
 
 cerrarSesion(){

@@ -82,7 +82,7 @@ setOpen(isOpen: boolean) {
 
 
 volver(){
-  this.router.navigate([`/day/${this.horario.belongDay}`])
+  this.router.navigate([`/admin/day/${this.horario.belongDay}`])
 }
 
 getSchedule(id : any){
@@ -115,10 +115,11 @@ editSchedule(form : any){
   this.tournamentServ.editSchedules(this.id,formulario).subscribe({
     next: (res : any) => {
       this.notifyService.success(res.message)
-      this.getSchedule(this.id)
-      this.setOpen(false)
-      this.removeTime(form)
-      this.selectedTimes = []
+      //this.getSchedule(this.id)
+      //this.setOpen(false)
+      //this.removeTime(form)
+      //this.selectedTimes = []
+      window.location.href = `/admin/edit-horarios/${this.id}`
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)

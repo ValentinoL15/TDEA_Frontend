@@ -99,15 +99,15 @@ export class TournamentsPage implements OnInit {
   }
 
   goDay(){
-    this.router.navigate([`/create-day/${this.id}`])
+    this.router.navigate([`/admin/create-day/${this.id}`])
   }
 
   goStadiums(){
-    this.router.navigate([`/stadiums-disponibles/${this.id}`])
+    this.router.navigate([`/admin/stadiums-disponibles/${this.id}`])
   }
   
   goTeasmSubscribed(){
-    this.router.navigate([`/suscribed-teams/${this.id}`])
+    this.router.navigate([`/admin/suscribed-teams/${this.id}`])
   }
 
   getCampeonatos(){
@@ -196,7 +196,7 @@ export class TournamentsPage implements OnInit {
       next: (res: any) => {
         this.notifyService.success(res.message)
         this.getTournament(id)
-        window.location.href = `/tournaments/${this.id}`
+        window.location.href = `/admin/tournaments/${this.id}`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)

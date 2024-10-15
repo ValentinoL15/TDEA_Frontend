@@ -25,11 +25,11 @@ export class SuscribedTeamsPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate([`/tournaments/${this.id}`])
+    this.router.navigate([`/admin/tournaments/${this.id}`])
   }
 
   goPlayers(team: any, id : any){
-    this.router.navigate([`/players-subscribed/${team}/${id}`])
+    this.router.navigate([`/admin/players-subscribed/${team}/${id}`])
   }
 
   getLists(id : any){

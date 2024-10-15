@@ -57,7 +57,7 @@ getUsuarios(){
 }
 
 goUser(id:any){
-  this.router.navigate([`/admin-users/${id}`, ])
+  this.router.navigate([`/admin/admin-users/${id}`, ])
 }
 
 volver(){
@@ -104,8 +104,7 @@ isModalOpen = false;
       this.userService.createAdmin(formulario).subscribe({
         next: (res : any) => {
           this.notifyService.success(res.message)
-          this.form.reset()
-          this.getUsuarios()
+          window.location.href = `/admin/my-users`
         },
         error: (err: any) => {
           this.notifyService.error(err.error.message)
