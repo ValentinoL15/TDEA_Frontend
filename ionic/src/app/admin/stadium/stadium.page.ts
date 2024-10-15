@@ -70,8 +70,7 @@ export class StadiumPage implements OnInit {
     this.tournamentServ.editStadium(id,formulario).subscribe({
       next: (res : any) => {
         this.notifyServ.success(res.message)
-        this.getStadium(this.id)
-        this.setOpen(false)
+        window.location.href = `/admin/stadium/${this.id}`
       },
       error: (err : any) => {
         this.notifyServ.error(err.error.message)

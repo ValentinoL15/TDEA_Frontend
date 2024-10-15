@@ -52,7 +52,7 @@ export class EmpresaPage implements OnInit {
   }
 
   goEmpresa(id:any){
-        this.router.navigate([`/edit-empresa/${id}`])
+        this.router.navigate([`/admin/edit-empresa/${id}`])
   }
 
   getEmpresas(){
@@ -79,9 +79,7 @@ export class EmpresaPage implements OnInit {
     }
     this.tournamentServ.createEmpresa(formulario).subscribe({
       next: (res : any) => {
-        this.notifyServ.success(res.message),
-        this.setOpen(false),
-        this.getEmpresas()
+        window.location.href = `admin/empresa`
       },
       error: (err) => {
         this.notifyServ.error(err.error.message)

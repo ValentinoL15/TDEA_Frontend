@@ -66,7 +66,7 @@ getUser(){
 }
 
 volver(){
-  this.router.navigate(['/my-users'])
+  this.router.navigate(['/admin/my-users'])
 }
 
 async deleteUser(id: any) {
@@ -87,7 +87,7 @@ async deleteUser(id: any) {
           // El usuario ha confirmado, proceder con la eliminación
           this.userService.deleteUser(id).subscribe({
             next: (res: any) => {
-              window.location.href = `/my-users`
+              window.location.href = `/admin/my-users`
             },
             error: (err: any) => {
               this.notifyService.error(err.error.message);
@@ -120,7 +120,7 @@ editUser(form:any){
   this.userService.editUser(this.id, formulario).subscribe({
     next: (res: any) => {
       this.notifyService.success('Usuario actualizado con éxito');
-      window.location.href = `/admin-users/${this.id}`
+      window.location.href = `/admin/admin-users/${this.id}`
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);

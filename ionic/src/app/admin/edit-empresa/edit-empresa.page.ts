@@ -38,11 +38,11 @@ export class EditEmpresaPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate(['/empresa'])
+    this.router.navigate(['/admin/empresa'])
   }
 
   goSede(){
-    this.router.navigate([`/create-sede/${this.id}`])
+    this.router.navigate([`/admin/create-sede/${this.id}`])
   }
 
   getEmpresa(id:any){
@@ -70,8 +70,7 @@ export class EditEmpresaPage implements OnInit {
     this.tournamentServ.editEmpresa(this.id, formulario).subscribe({
       next: (res : any) => {
         this.notifyServ.success(res.message)
-        this.getEmpresa(this.id)
-        this.setOpen(false)
+        window.location.href = `admin/edit-empresa/${this.id}`
       },
       error: (err : any) => {
         this.notifyServ.error(err.error.message)
@@ -83,7 +82,7 @@ export class EditEmpresaPage implements OnInit {
     this.tournamentServ.deleteEmpresa(this.id).subscribe({  
       next: (res : any) => {
         localStorage.setItem('successMessage', res.message);
-        window.location.href = '/empresa'
+        window.location.href = '/admin/empresa'
       },
       error: (err : any) => {
         this.notifyServ.error(err.error.message)

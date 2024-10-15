@@ -35,7 +35,7 @@ export class CategoryPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate(['/create-category'])
+    this.router.navigate(['/admin/create-category'])
   }
 
   getCategory(id:any){
@@ -58,8 +58,7 @@ export class CategoryPage implements OnInit {
     this.torunamentServ.editCateogry(id, formulario).subscribe({
       next: (res:any) => {
         this.notifyService.success(res.message)
-        this.getCategory(this.id)
-        this.setOpen(false)
+        window.location.href = "/admin/create-category"
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
@@ -71,7 +70,7 @@ export class CategoryPage implements OnInit {
     this.torunamentServ.deleteCategory(id).subscribe({
       next: (res:any) => {
         this.notifyService.success(res.message)
-        window.location.href = "/create-category"
+        window.location.href = "/admin/create-category"
       },
       error: (err) => {
         this.notifyService.error(err.error.message)

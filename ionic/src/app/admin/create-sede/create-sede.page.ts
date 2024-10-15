@@ -63,11 +63,11 @@ export class CreateSedePage implements OnInit {
   }
 
   volver(){
-    this.router.navigate([`/edit-empresa/${this.id}`])
+    this.router.navigate([`/admin/edit-empresa/${this.id}`])
   }
 
   goSede(id:any){
-    this.router.navigate([`/sede/${id}`])
+    this.router.navigate([`/admin/sede/${id}`])
   }  
 
   getEmpresa(id:any){
@@ -119,9 +119,7 @@ export class CreateSedePage implements OnInit {
     this.tournamentServ.createSede(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyServ.success(res.message)
-        //this.getSedes(this.id)
-        //this.setOpen(false)
-        window.location.href = `/create-sede/${this.id}`
+
       },
       error: (err : any) => {
         this.notifyServ.error(err.error.message)

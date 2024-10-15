@@ -27,7 +27,7 @@ export class EdadPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate(['/create-edad']);
+    this.router.navigate(['/admin/create-edad']);
   }
 
   cancel(){
@@ -57,7 +57,10 @@ export class EdadPage implements OnInit {
     this.tournamentServ.editEdad(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-
+        window.location.href = `/admin/edad/${this.id}`
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message)
       }
     })
   }

@@ -26,7 +26,7 @@ export class CampeonatoPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate(['/create-campeonato']);
+    this.router.navigate(['/admin/create-campeonato']);
   }
 
   cancel(){
@@ -58,7 +58,7 @@ export class CampeonatoPage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         setTimeout(() => {
-          window.location.href = '/create-campeonato'
+          window.location.href = '/admin/create-campeonato'
         }, 800)
       },
       error: (err : any) => {
@@ -72,7 +72,7 @@ export class CampeonatoPage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         setTimeout(() => {
-          window.location.href = '/create-campeonato'
+          window.location.href = '/admin/create-campeonato'
         }, 800)
       },
       error: (err : any) => {

@@ -51,7 +51,7 @@ export class CreateFormatPage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.formatos.push(res.format)
-        this.cancel()
+        window.location.href = `/admin/create-format`
       },
       error: (err) => {
         console.log(err);
@@ -74,7 +74,7 @@ export class CreateFormatPage implements OnInit {
   }
 
   goFormat(id:any){
-    this.router.navigate([`/format/${id}`])
+    this.router.navigate([`/admin/format/${id}`])
   }
 
   onWillDismiss(event: Event) {
