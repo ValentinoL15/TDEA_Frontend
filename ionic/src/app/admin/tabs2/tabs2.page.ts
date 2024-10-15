@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabs2',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tabs2Page implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
+  }
+
+  navigateToAdminHome() {
+    this.router.navigate(['/admin/admin-home']); // Cambia a la ruta correcta
+  }
+
+  navigateToCreateCategory() {
+    this.router.navigate(['/create-category']); // Asegúrate de que esta ruta esté bien configurada
   }
 
 }
