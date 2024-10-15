@@ -155,6 +155,10 @@ getSedes(id : any){
   return this.http.get(`${this.API_URL}/obtener-sedes/${id}`)
 }
 
+getMySedes(){
+  return this.http.get(`${this.API_URL}/obtener-mis-sedes`)
+}
+
 editSede(id : any, form : any){
   return this.http.put(`${this.API_URL}/editar-sede/${id}`, form)
 }

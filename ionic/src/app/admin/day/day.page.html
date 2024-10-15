@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="volver(dia.belongTournament)">Cancel</ion-button>
+      <ion-button (click)="volver(dia.belongTournament)">Volver</ion-button>
     </ion-buttons>
     <ion-title>{{dia.day}}</ion-title>
   </ion-toolbar>
@@ -55,17 +55,27 @@
       <ion-content class="ion-padding">
         <form #miForm>
         <ion-list [inset]="true">
-          <ion-item>
-            <ion-select label="Estadios disponibles"  name="stadium" >
+           <!-- Selección de sedes -->
+           <ion-item>
+            <ion-select label="Sedes disponibles" name="sede" (ionChange)="onSedeChange($event)">
+              <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{sede.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <!-- Mostrar el select de estadios solo si hay estadios disponibles -->
+          <ion-item *ngIf="stadiums.length > 0">
+            <ion-select label="Estadios disponibles" name="stadium">
               <ion-select-option *ngFor="let stadium of stadiums" [value]="stadium._id">{{stadium.code}}</ion-select-option>
             </ion-select>
           </ion-item>
+
           <ion-item>
-            <ion-select label="Dias de atencion" name="type" class="select" multiple="true" [(ngModel)]="selectedTimes">
+            <ion-select label="Días de atención" name="type" class="select" multiple="true" [(ngModel)]="selectedTimes">
               <ion-select-option *ngFor="let time of times" [value]="time">{{time}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
+        
       </form>
       </ion-content>
     </ng-template>
