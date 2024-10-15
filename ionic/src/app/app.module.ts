@@ -15,6 +15,7 @@ import localeEsAr from '@angular/common/locales/es-AR';
 
 import { registerLocaleData } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { Tabs2PageModule } from "./admin/tabs2/tabs2.module";
 registerLocaleData(localeEsAr, 'es-Ar')
 
 
@@ -24,7 +25,7 @@ registerLocaleData(localeEsAr, 'es-Ar')
 
 @NgModule({
   declarations: [AppComponent, SpinnerComponent],
-  imports: [BrowserModule , IonicModule.forRoot(), AppRoutingModule, HttpClientModule, BrowserAnimationsModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, BrowserAnimationsModule, Tabs2PageModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy } , 
     { 
       provide: RouteReuseStrategy, 

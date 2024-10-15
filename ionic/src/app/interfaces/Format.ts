@@ -1,6 +1,6 @@
 export interface Format {
     _id?:any,
-    formatName: String,
+    formatName: string,
     minPlayers: Number,
     maxPlayers: Number
 }

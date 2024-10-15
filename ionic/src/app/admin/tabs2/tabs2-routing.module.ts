@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { Tabs2Page } from './tabs2.page';
-import { HomeTournamentPage } from '../home-tournament/home-tournament.page';
 
 const routes: Routes = [
   {
@@ -10,28 +9,23 @@ const routes: Routes = [
     component: Tabs2Page,
     children: [
       {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
-      {
         path: 'admin-home',
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
         path: 'home-tournament',
-        loadChildren: () => import('../home-tournament/home-tournament.module').then( m => m.HomeTournamentPageModule)
+        loadChildren: () => import('../home-tournament/home-tournament.module').then(m => m.HomeTournamentPageModule)
       },
       {
         path: 'informes',
-        loadChildren: () => import('../informes/informes.module').then( m => m.InformesPageModule)
+        loadChildren: () => import('../informes/informes.module').then(m => m.InformesPageModule)
+      },
+      {
+        path: '',
+        redirectTo: 'admin-home',  // Redirigir a admin-home al cargar el tab
+        pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/admin-home',
-    pathMatch: 'full'
   }
 ];
 
