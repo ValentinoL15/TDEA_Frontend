@@ -14,7 +14,7 @@
   </div>
 
   <ion-list [inset]="true" *ngFor="let stadium of stadiums">
-  <ion-item button (click)="goStadium()">
+  <ion-item button (click)="goStadium(stadium._id)">
     <ion-label>{{stadium.code}}</ion-label>
   </ion-item>
   </ion-list>
