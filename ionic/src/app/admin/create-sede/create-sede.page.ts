@@ -93,10 +93,6 @@ export class CreateSedePage implements OnInit {
   }
 
   crearSede(){
-    if (this.form.value.daysAttention.length === 0) {
-      this.notifyServ.error('Debe seleccionar al menos un día de atención.');
-      return;
-    }
     const formulario: Sede = {
       name: this.form.value.name,
       alias: this.form.value.alias,
