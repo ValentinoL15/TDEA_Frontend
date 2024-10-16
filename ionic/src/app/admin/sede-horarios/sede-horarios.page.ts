@@ -50,10 +50,9 @@ ngOnInit() {
 }
 
 filterDaysDisponibles(): string[] {
-  // Incluir el día seleccionado (selectedDay.day) en las opciones disponibles
   return this.daysDisponibles.filter(d => 
-    !this.sede.daysAttention.some(day => day.day.trim().toLowerCase() === d.trim().toLowerCase()) || 
-    this.selectedDay.day.trim().toLowerCase() === d.trim().toLowerCase()
+    !this.sede.daysAttention.some(day => day.day === d) || 
+    this.selectedDay.day === d
   );
 }
 
@@ -74,17 +73,23 @@ getSede(id : any){
 }
 
 actualizarHorario() {
-  const datosHorario = {
-    day: this.selectedDay.day,
-    start: this.selectedDay.start,
-    end: this.selectedDay.end
-  };
+  // Verifica si el día ya existe
+  const existingDayIndex = this.sede.daysAttention.findIndex(day => day.day === this.selectedDay.day);
 
-  this.tournamentServ.actualizarHorario(this.id, datosHorario).subscribe({
+  if (existingDayIndex > -1) {
+    // Actualiza el horario si el día ya existe
+    this.sede.daysAttention[existingDayIndex] = this.selectedDay;
+  } else {
+    // Agrega un nuevo día si no existe
+    this.sede.daysAttention.push(this.selectedDay);
+  }
+
+  // Envía la actualización al servidor
+  this.tournamentServ.actualizarHorario(this.id, { daysAttention: this.sede.daysAttention }).subscribe({
     next: (res: any) => {
       this.notifyService.success('Horario actualizado con éxito');
       this.closeModal();
-      this.getSede(this.id); // Recargar la sede para ver los cambios
+      this.getSede(this.id);
     },
     error: (err: any) => {
       this.notifyService.error('Error al actualizar el horario');
@@ -95,11 +100,15 @@ actualizarHorario() {
 isModalOpen = false;
 
 setOpen(day: any) {
-  this.selectedDay = { ...day };  // Hacemos una copia del día para editarlo
-  this.isModalOpen = true;
-  this.filteredDaysDisponibles = this.filterDaysDisponibles();  // Filtrar los días antes de abrir el modal
+  this.selectedDay = { 
+    day: day.day[0] || day.day,  // Asegúrate de que esto sea un string
+    start: day.start,
+    end: day.end
+  };
+  console.log("Día seleccionado:", this.selectedDay.day);
+  this.isModalOpen = true; // Asegúrate de abrir el modal aquí
+  this.filteredDaysDisponibles = this.filterDaysDisponibles();
 }
-
 closeModal() {
   this.isModalOpen = false;
 }

@@ -167,7 +167,7 @@ deleteSede(id : any){
   return this.http.delete(`${this.API_URL}/eliminar-sede/${id}`)
 }
 
-actualizarHorario(id: string, datosHorario: any): Observable<any> {
+actualizarHorario(id: any, datosHorario: any): Observable<any> {
   return this.http.put(`${this.API_URL}/actualizar-horario/${id}`, datosHorario);
 }
 

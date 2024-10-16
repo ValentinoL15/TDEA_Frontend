@@ -55,16 +55,16 @@
       <ion-content class="ion-padding">
         <form #miForm>
         <ion-list [inset]="true">
-           <!-- Selección de sedes -->
-           <ion-item>
-            <ion-select label="Sedes disponibles" name="sede" (ionChange)="onSedeChange($event)">
+          <!-- Selección de sedes -->
+          <ion-item>
+            <ion-select label="Sedes disponibles" name="sede" interface="popover" (ionChange)="onSedeChange($event)">
               <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{sede.name}}</ion-select-option>
             </ion-select>
           </ion-item>
           
           <!-- Mostrar el select de estadios solo si hay estadios disponibles -->
           <ion-item *ngIf="stadiums.length > 0">
-            <ion-select label="Estadios disponibles" name="stadium">
+            <ion-select label="Estadios disponibles" name="stadium" interface="popover">
               <ion-select-option *ngFor="let stadium of stadiums" [value]="stadium._id">{{stadium.code}}</ion-select-option>
             </ion-select>
           </ion-item>
