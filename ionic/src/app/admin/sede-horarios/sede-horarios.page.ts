@@ -37,7 +37,7 @@ selectedDay: any = {
   start: "",
   end: ""
 };
-daysDisponibles = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+daysDisponibles = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
 filteredDaysDisponibles: string[] = []; 
 
 constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private tournamentServ: TournamentService) { }
@@ -50,14 +50,17 @@ ngOnInit() {
 }
 
 filterDaysDisponibles(): string[] {
-  return this.daysDisponibles.filter(d => 
+  const filtered = this.daysDisponibles.filter(d => 
     !this.sede.daysAttention.some(day => day.day === d) || 
     this.selectedDay.day === d
   );
+  console.log('Días disponibles filtrados:', filtered);
+  return filtered;
 }
 
 onDayChange(event: any) {
   this.selectedDay.day = event.detail.value;
+  console.log('Día seleccionado cambiado a:', this.selectedDay.day);
 }
 
 getSede(id : any){
@@ -73,15 +76,34 @@ getSede(id : any){
 }
 
 actualizarHorario() {
-  // Verifica si el día ya existe
-  const existingDayIndex = this.sede.daysAttention.findIndex(day => day.day === this.selectedDay.day);
+  // Verifica que se haya seleccionado un día
+  if (!this.selectedDay.day) {
+    this.notifyService.error('Por favor selecciona un día.');
+    return;
+  }
+
+  // Encuentra si el día seleccionado ya existe en daysAttention
+  const existingDayIndex = this.sede.daysAttention.findIndex(existingDay => existingDay.day === this.selectedDay.day);
 
   if (existingDayIndex > -1) {
-    // Actualiza el horario si el día ya existe
-    this.sede.daysAttention[existingDayIndex] = this.selectedDay;
+    // Si el día ya existe, actualiza solo el horario del día existente
+    this.sede.daysAttention[existingDayIndex].start = this.selectedDay.start;
+    this.sede.daysAttention[existingDayIndex].end = this.selectedDay.end;
   } else {
-    // Agrega un nuevo día si no existe
-    this.sede.daysAttention.push(this.selectedDay);
+    // Si el día no existe, busca si hay un día seleccionado que queremos reemplazar
+    const dayToReplaceIndex = this.sede.daysAttention.findIndex(existingDay => existingDay.day === this.selectedDay.day);
+
+    if (dayToReplaceIndex > -1) {
+      // Si existe un día que va a ser reemplazado, elimínalo
+      this.sede.daysAttention.splice(dayToReplaceIndex, 1);
+    }
+    
+    // Agrega el nuevo día
+    this.sede.daysAttention.push({
+      day: this.selectedDay.day,
+      start: this.selectedDay.start,
+      end: this.selectedDay.end
+    });
   }
 
   // Envía la actualización al servidor
@@ -97,16 +119,17 @@ actualizarHorario() {
   });
 }
 
+
 isModalOpen = false;
 
 setOpen(day: any) {
+  console.log('Abriendo modal para:', day);
   this.selectedDay = { 
-    day: day.day[0] || day.day,  // Asegúrate de que esto sea un string
+    day: day.day,
     start: day.start,
     end: day.end
   };
-  console.log("Día seleccionado:", this.selectedDay.day);
-  this.isModalOpen = true; // Asegúrate de abrir el modal aquí
+  this.isModalOpen = true; 
   this.filteredDaysDisponibles = this.filterDaysDisponibles();
 }
 closeModal() {

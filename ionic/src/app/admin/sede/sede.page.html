@@ -113,17 +113,11 @@
           <ion-item>
             <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" name="socialRed" [value]="sede.socialRed"></ion-input>
           </ion-item>
-            <ion-item>
-              <ion-select label="Dias de At" [placeholder]="sede.daysAttention" [value]="sede.daysAttention" name="daysAttention" multiple="true" >
-                <ion-select-option value="Lunes">Lunes</ion-select-option>
-                <ion-select-option value="Martes">Martes</ion-select-option>
-                <ion-select-option value="Miercoles">Miercoles</ion-select-option>
-                <ion-select-option value="Jueves">Jueves</ion-select-option>
-                <ion-select-option value="Viernes">Viernes</ion-select-option>
-                <ion-select-option value="Sabado">Sabado</ion-select-option>
-                <ion-select-option value="Domingo">Domingo</ion-select-option>
-              </ion-select>
-            </ion-item>
+          <ion-item>
+            <ion-select label="Días de Atención" [placeholder]="'Selecciona días'" name="daysAttention" multiple="true" [(ngModel)]="selectedDays" (ionChange)="updateDaysAttention()">
+                <ion-select-option *ngFor="let day of allDays" [value]="day">{{ day }}</ion-select-option>
+            </ion-select>
+        </ion-item>
           <ion-item>
             <ion-input label="Encargado" label-placement="floating" placeholder="Encargado" name="encargado" [value]="sede.encargado"></ion-input>
           </ion-item>
