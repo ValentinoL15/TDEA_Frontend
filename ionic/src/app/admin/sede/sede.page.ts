@@ -122,7 +122,7 @@ export class SedePage implements OnInit {
     this.tournamentServ.editSede(this.id, formulario).subscribe({
       next: (res:any) => {
         this.notifyServ.success(res.message)
-
+        window.location.href = `/admin/sede/${this.id}`
       },
       error: (err:any) => {
         this.notifyServ.error(err.error.message)
