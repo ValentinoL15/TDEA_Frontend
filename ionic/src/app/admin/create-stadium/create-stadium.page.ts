@@ -24,7 +24,7 @@ export class CreateStadiumPage implements OnInit {
       length: ['', Validators.required],
       width: ['', Validators.required],
       roof: ['', Validators.required],
-      grass: ['', Validators.required],
+      grass: ['SinDefinir', Validators.required],
       punctuaction: ['', Validators.required]
     })
   }
