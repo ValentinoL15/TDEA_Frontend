@@ -50,7 +50,7 @@ const routes: Routes = [
     loadChildren: () => import('./create-day/create-day.module').then( m => m.CreateDayPageModule)
   },
   {
-    path: 'day/:id',
+    path: 'day/:id/:dayId',
     loadChildren: () => import('./day/day.module').then( m => m.DayPageModule)
   },
   {

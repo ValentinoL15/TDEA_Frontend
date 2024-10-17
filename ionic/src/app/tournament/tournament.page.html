@@ -42,7 +42,7 @@
         <h2>Dias y horarios</h2>
         <div *ngFor="let item of tournament.daysTournament">
           <p style="text-decoration: underline;">Dia: {{item.day}}</p>
-          <p *ngFor="let sede of item.sede">Horarios: {{sede.times}} , Estadio: {{sede.stadium?.code}}</p>
+          <p *ngFor="let sede of tournament.daysTournament">Horarios: {{sede.time}} , Estadio: {{sede.stadium}}</p>
         </div>
       </div>
 

@@ -48,15 +48,10 @@ export class TournamentPage implements OnInit {
     tarifaInscripcion: 0,
     tarifaPartido: 0,
     daysTournament: [{
-      _id:"",
-    creator: "",
-    belongTournament: "",
-    day: "",
-    sede: [{
-      _id: "",
-    creator: "",
-    belongDay: "",
-    stadium: {
+      day: {
+        type: ""
+      },
+      stadium: {
         _id: "",
         belongToSede: "",
         code: "",
@@ -66,9 +61,11 @@ export class TournamentPage implements OnInit {
         roof: "",
         grass: "",
         punctuaction: 0,
-    },
-    times: []
-    }]
+      },
+      time: {
+        _id: "",
+        type: [] // Aquí debes definir correctamente el array de strings según el tipo esperado
+      }
     }],
     cupos: 0,
   }

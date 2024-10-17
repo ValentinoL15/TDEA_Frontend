@@ -25,28 +25,26 @@ export class InformesInfoPage implements OnInit {
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",
-    daysTournament: [
-      {
-          _id: "",
-          day: "",
-          sede: [
-              {
-                  _id: "",
-                  stadium: {
-                      _id: "",
-                      code: "",
-                      type: 0,
-                      length: 0,
-                      width: 0,
-                      roof: "",
-                      grass: "",
-                      punctuaction: 0
-                  },
-                  times: []
-              }
-          ]
+    daysTournament: [{
+      day: {
+        type: ""
+      },
+      stadium: {
+        _id: "",
+    belongToSede: "",
+    code: "",
+    type: 0,
+    length: 0,
+    width: 0,
+    roof: "",
+    grass: "",
+    punctuaction: 0,
+      },
+      time: {
+        _id: "",
+        type: [] // Aquí debes definir correctamente el array de strings según el tipo esperado
       }
-  ],
+    }],
     category: {
       _id: "",
       categoryName : ""
