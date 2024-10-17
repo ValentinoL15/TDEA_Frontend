@@ -1,86 +1,36 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="volver(dia.belongTournament)">Volver</ion-button>
-    </ion-buttons>
-    <ion-title>{{dia.day}}</ion-title>
+  <ion-toolbar> 
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-
-  <div *ngIf="horarios.length === 0" class="contenedor">
-    <h1>No hay horarios del dia {{dia.day}} para mostrar</h1>
-  </div>
-
-  <div *ngFor="let horario of horarios">
-    <ion-list [inset]="true"> 
-      <ion-item (click)="goSchedule(horario._id)">
-        <ion-icon aria-hidden="true" name="time-outline" slot="start"></ion-icon>
-        <ion-label>{{horario.stadium?.code}}</ion-label>
-        <ion-input readonly="true" />
+  <form>
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-input 
+          label="Día" [value]="tournamentDay?.day || 'Día no disponible'">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <!-- Mostrar horarios seleccionados -->
+        <ion-select 
+          label="Horarios" 
+          [placeholder]="'Selecciona horarios'" 
+          [(ngModel)]="selectedTimes"
+          name="horariosSeleccionados"
+          [multiple]="true">
+          <!-- Mostrar todas las opciones de horarios -->
+          <ion-select-option *ngFor="let time of times" [value]="time">
+            {{ time }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select [placeholder]="tournamentDay" ></ion-select>
       </ion-item>
     </ion-list>
-  </div>
-
-  <div class="container-button">
-    <div class="button" >
-      <ion-button shape="round" (click)="setOpen(true)" [strong]="true">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-      </ion-button>
-    </div>
-  </div>
-
-  <div class="container-trash">
-    <div class="button" >
-      <ion-button shape="round" [strong]="true" color="danger" (click)="deleteDay(dia._id)">
-        <ion-icon slot="icon-only" name="trash-outline" ></ion-icon>
-      </ion-button>
-    </div>
-  </div>
-
-  <ion-modal [isOpen]="isModalOpen">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button (click)="setOpen(false)">Cerrar</ion-button>
-          </ion-buttons>
-          <ion-title>Crear Horario</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="crearHorario(miForm)" >Confirmar</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <form #miForm>
-        <ion-list [inset]="true">
-          <!-- Selección de sedes -->
-          <ion-item>
-            <ion-select label="Sedes disponibles" name="sede" interface="popover" (ionChange)="onSedeChange($event)">
-              <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{sede.name}}</ion-select-option>
-            </ion-select>
-          </ion-item>
-          
-          <!-- Mostrar el select de estadios solo si hay estadios disponibles -->
-          <ion-item *ngIf="stadiums.length > 0">
-            <ion-select label="Estadios disponibles" name="stadium" interface="popover">
-              <ion-select-option *ngFor="let stadium of stadiums" [value]="stadium._id">{{stadium.code}}</ion-select-option>
-            </ion-select>
-          </ion-item>
-
-          <ion-item>
-            <ion-select label="Días de atención" name="type" class="select" multiple="true" [(ngModel)]="selectedTimes">
-              <ion-select-option *ngFor="let time of times" [value]="time">{{time}}</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-list>
-        
-      </form>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-
+  </form>
 </ion-content>
 
 <ion-alert

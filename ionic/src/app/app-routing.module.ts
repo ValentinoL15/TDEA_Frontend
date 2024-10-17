@@ -59,7 +59,7 @@ const routes: Routes = [
     loadChildren: () => import('./admin/create-day/create-day.module').then( m => m.CreateDayPageModule)
   },
   {
-    path: 'day/:id',
+    path: 'day/:id/:dayId',
     loadChildren: () => import('./admin/day/day.module').then( m => m.DayPageModule)
   },
   {

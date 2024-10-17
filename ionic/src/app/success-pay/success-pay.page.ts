@@ -47,27 +47,24 @@ tournamentId: Tournament = {
   tarifaInscripcion: 0,
   tarifaPartido: 0,
   daysTournament: [{
-    _id:"",
-  creator: "",
-  belongTournament: "",
-  day: "",
-  sede: [{
-    _id: "",
-  creator: "",
-  belongDay: "",
-  stadium: {
+    day: {
+      type: ""
+    },
+    stadium: {
       _id: "",
-      belongToSede: "",
-      code: "",
-      type: 0,
-      length: 0,
-      width: 0,
-      roof: "",
-      grass: "",
-      punctuaction: 0,
-  },
-  times: []
-  }]
+    belongToSede: "",
+    code: "",
+    type: 0,
+    length: 0,
+    width: 0,
+    roof: "",
+    grass: "",
+    punctuaction: 0,
+    },
+    time: {
+      _id: "",
+      type: [] // Aquí debes definir correctamente el array de strings según el tipo esperado
+    }
   }],
   cupos: 0,
 }

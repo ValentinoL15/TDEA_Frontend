@@ -3,6 +3,7 @@ import { Category } from "./Category";
 import { Day } from "./Day";
 import { Edad } from "./Edad";
 import { Format } from "./Format";
+import { Sede } from "./Sede";
 import { Stadium } from "./Stadium";
 
 export interface Tournament {
@@ -26,29 +27,20 @@ export interface Tournament {
     }>,
     activeStadiums?: Array<any>,
     ageDescripcion: string,
-    daysTournament?: Array <{
-    _id?:string,
-    creator?: String,
-    belongTournament?: String,
-    day: String,
-    sede?:Array <{
+    daysTournament?: [{
         _id?: string,
-        creator?: String,
-        belongDay?: String,
-        stadium?: {
+        day?: {
             _id?: string,
-            belongToSede?: string,
-            code: string,
-            type: number,
-            length: number,
-            width: number,
-            roof: string,
-            grass: string,
-            punctuaction: number,
+            type: string
         },
-        times: Array<number>
-    }>
-    }>,
+        stadium?: 
+            Stadium
+        ,
+        time?: {
+            _id?: string,
+            type: string[]
+        }
+    }],
     tournamentDate: Date,
     tournamentNotes: String,
     isTournamentMasculine: Boolean,

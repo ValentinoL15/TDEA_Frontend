@@ -19,7 +19,60 @@ export class CreateDayPage implements OnInit {
 
   form:FormGroup
   id:any
-  dias:Day[] = []
+  dias:Day[] = [];
+  tournament: Tournament = {
+    _id: "",
+    nameFantasy: "",
+    ano: 0,
+    campeonato:{
+      type: ""
+    } ,
+    edad: {
+      type: ""
+    },
+    rangeAgeSince: 0,
+    rangeAgeUntil: 0,
+    ageDescripcion: "",
+    category: {
+      _id: "",
+      categoryName : ""
+    },
+    format: {
+      _id:"",
+    formatName: "",
+    minPlayers: 0,
+    maxPlayers: 0
+    },
+    daysTournament: [{
+      _id: "",
+      day: {
+        _id: "",
+        type: ""
+      },
+      stadium: {
+        _id: "",
+        belongToSede: "",
+        code: "",
+        type: 0,
+        length: 0,
+        width: 0,
+        roof: "",
+        grass: "",
+        punctuaction: 0,
+      },
+      time: {
+        _id: "",
+        type: []
+      }
+    }],
+    tournamentDate: new Date(),
+    tournamentNotes: "",
+    isTournamentMasculine: false,
+    isTournamentActive: false,
+    tarifaInscripcion: 0,
+    tarifaPartido: 0,
+    cupos: 0
+  }
 
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) { 
     this.form = this.formBuilder.group({
@@ -32,7 +85,7 @@ export class CreateDayPage implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id']
     })
-    this.getDays(this.id)
+    this.getTournament()
   }
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
@@ -48,35 +101,21 @@ export class CreateDayPage implements OnInit {
     this.router.navigate([`/admin/tournaments/${this.id}`])
   }
 
-  goDay(id:any){
-    this.router.navigate([`/admin/day/${id}`])
-  }
-
-  getDays(id:any){
-    this.tournamentServ.getDays(id).subscribe({
+  getTournament(){
+    this.tournamentServ.getTournament(this.id).subscribe({
       next: (res : any) => {
-        this.dias = res.days
+        this.tournament = res.tournamentFound;
+        console.log(this.tournament)
       },
-      error: (err) => {
+      error: (err: any) => {
         this.notifyService.error(err.error.message)
       }
     })
   }
 
-  crearDia(){
-    const formulario = {
-      day: this.form.value.day
-    }
-    this.tournamentServ.createDay(this.id,formulario).subscribe({
-      next: (res : any) => {
-        this.notifyService.success(res.message);
-        window.location.href = `/admin/create-day/${this.id}`
-      },
-      error: (err) => {
-        this.notifyService.error(err.error.message)
-      }
-    })
-  }
+goDay(id: any) {
+    this.router.navigate([`/day/${this.id}/${id}`]);
+}
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;

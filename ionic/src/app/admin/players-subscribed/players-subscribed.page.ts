@@ -48,7 +48,7 @@ export class PlayersSubscribedPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate([`/suscribed-teams/${this.tournamentSubscribed}`])
+    this.router.navigate([`admin/suscribed-teams/${this.tournamentSubscribed}`])
   }
 
 

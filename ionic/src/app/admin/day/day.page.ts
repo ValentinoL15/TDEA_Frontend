@@ -7,6 +7,7 @@ import { Schedule } from 'src/app/interfaces/Schedule';
 import { AlertController } from '@ionic/angular';
 import { Stadium } from 'src/app/interfaces/Stadium';
 import { Sede } from 'src/app/interfaces/Sede';
+import { Tournament } from 'src/app/interfaces/Tournament';
 
 @Component({
   selector: 'app-day',
@@ -15,62 +16,66 @@ import { Sede } from 'src/app/interfaces/Sede';
 })
 export class DayPage implements OnInit {
 
-  id:any
+  id:any;
+  dayId:any;
 
-  sede: Sede = {
-    belongToEmpresa: "",
-    name : "",
-    alias: "",
-    status: "",
-    phone: 0,
-    celular: 0,
-    adress: "",
-    barrio: "",
-    socialRed: "",
-    daysAttention: [
-      {
-        day: "",
-        start: "",
-        end: ""
+  tournament: Tournament = {
+    _id: "",
+    nameFantasy: "",
+    ano: 0,
+    campeonato:{
+      type: ""
+    } ,
+    edad: {
+      type: ""
+    },
+    rangeAgeSince: 0,
+    rangeAgeUntil: 0,
+    ageDescripcion: "",
+    category: {
+      _id: "",
+      categoryName : ""
+    },
+    format: {
+      _id:"",
+    formatName: "",
+    minPlayers: 0,
+    maxPlayers: 0
+    },
+    daysTournament: [{
+      _id: "",
+      day: {
+        _id: "",
+        type: ""
       },
-    ],
-    encargado: "",
-    dueno: "",
-    stadiums: []
+      stadium: {
+        _id: "",
+        belongToSede: "",
+        code: "",
+        type: 0,
+        length: 0,
+        width: 0,
+        roof: "",
+        grass: "",
+        punctuaction: 0,
+      },
+      time: {
+        _id: "",
+        type: []
+      }
+    }],
+    tournamentDate: new Date(),
+    tournamentNotes: "",
+    isTournamentMasculine: false,
+    isTournamentActive: false,
+    tarifaInscripcion: 0,
+    tarifaPartido: 0,
+    cupos: 0
   }
 
-  dia: Day = {
-    day: "",
-    sede: {
-      name: "",
-    alias: "",
-    status: "",
-    phone: 0,
-    celular: 0,
-    adress: "",
-    barrio: "",
-    socialRed: "",
-    daysAttention: [{
-        day: "" ,     // Día de la semana (Lunes, Martes, etc.)
-        start: "",  // Hora de apertura
-        end: ""    // Hora de cierre
-    }],
-    encargado: "",
-    dueno: "",
-    },
-    horarios: {
-      times: [],
-      stadium: [{
-        code: "",
-            type: 0,
-            length: 0,
-            width: 0,
-            roof: "",
-            grass: "",
-            punctuaction: 0,
-      }]
-    },
-  }
+  tournamentDay: any = null;
+  selectedStadium: string | null = null; 
+
   horarios: Schedule[] = []
   newTime: string = '';  // Variable para almacenar el horario nuevo
   selectedTimes: string[] = []; 
@@ -140,11 +145,10 @@ export class DayPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id']
+      this.dayId = params['dayId']
     })
-    this.getDay(this.id)
-    this.getHorarios()
-    this.getEstadios()
-    this.getSedes()
+    this.getDayTournament()
+    this.getStadiums()
   }
 
   goSchedule(id : any){
@@ -158,133 +162,55 @@ export class DayPage implements OnInit {
   }
 
   volver(id:any){
-    this.router.navigate([`/admin/create-day/${this.dia.belongTournament}`])
+    this.router.navigate([`/admin/create-day/${this}`])
   }
 
-  getSede(){
-    this.tournamentServ.getSede(this.id).subscribe({
-
-    })
-  }
-
-  getDay(id:any){
-    this.tournamentServ.getDay(id).subscribe({
+  getTournament(){
+    this.tournamentServ.getTournament(this.tournament.daysTournament).subscribe({
       next: (res : any) => {
-        this.dia = res.day
+        this.tournament = res.tournamentFound;
+        console.log(this.tournament)
       },
-      error: (err) => {
+      error: (err: any) => {
         this.notifyService.error(err.error.message)
       }
     })
   }
-
-  getHorarios() {
-    this.tournamentServ.getSchedules(this.id).subscribe({
+  getDayTournament() {
+    this.tournamentServ.getDayTournament(this.id, this.dayId).subscribe({
       next: (res: any) => {
-        this.horarios = res.horarios
-      },
-      error: (err) => {
-        this.notifyService.error(err.error.message);
-      }
-    });
-  }
-
-  getEstadios(){
-    this.tournamentServ.getEstadios().subscribe({
-      next: (res: any) => {
-        this.stadiums = res.stadiums
-        console.log(this.stadiums)
-      },
-      error: (err) => {
-        this.notifyService.error(err.error.message);
-      }
-    })
-  }
-
-  getSedes(){
-    this.tournamentServ.getMySedes().subscribe({
-      next: (res : any) => {
-        console.log(res)
-        this.sedes = res.mySedes
-        console.log("Mi sedes:" ,this.sedes)
-      },
-      error: (err : any)=> {
-        this.notifyService.error(err.error.message)
-      }
-    })
-  }
-
-  onSedeChange(event: any) {
-    const selectedSedeId = event.detail.value;
-    const selectedSede = this.sedes.find(sede => sede._id === selectedSedeId);
-    
-    if (selectedSede && Array.isArray(selectedSede.stadiums)) {
-      this.stadiums = selectedSede.stadiums;
-      console.log('Estadios:', this.stadiums); // Verifica que los estadios tienen el campo "code"
-    } else {
-      this.stadiums = [];
-    }
-  }
-
-  crearHorario(form:any){
-    const formulario = {
-    times: this.selectedTimes,
-    stadium: form.stadium.value
-    }
-    console.log(formulario)
-    this.tournamentServ.createSchedule(this.id,formulario).subscribe({
-      next: (res : any) => {
-        this.notifyService.success(res.message)
-        window.location.href = `/admin/day/${this.id}`
-      },
-      error: (err) => {
-        this.notifyService.error(err.error.message)
-      }
-    })
-  }
-
-  isFormValid(form: any): boolean {
-    // Verifica que ambos campos tengan exactamente dos dígitos
-    const hourValid = form.hour.value.length === 2;
-    const minuteValid = form.minute.value.length === 2;
-    return hourValid && minuteValid;
-  }
-
-  async deleteDay(id: any) {
-    const alert = await this.alertController.create({
-      header: 'Confirmar eliminación',
-      message: '¿Estás seguro de que quieres borrar este dia con sus horarios y estadios asociados?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            // El usuario ha cancelado, no hacer nada
+        console.log('Respuesta del backend:', res); // Verificar la respuesta
+        if (res.day) {
+          this.tournamentDay = res.day;
+          console.log('Día del torneo:', this.tournamentDay); // Verificar que el día esté asignado
+          
+          // Asignar los horarios seleccionados desde el backend a selectedTimes
+          this.selectedTimes = this.tournamentDay.time; 
+          
+          // Si el estadio está disponible, puedes acceder a él aquí
+          if (this.tournamentDay.stadium) {
+            console.log('Estadio:', this.tournamentDay.stadium); // Verificar que el estadio esté asignado
           }
-        },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            // El usuario ha confirmado, proceder con la eliminación
-            this.tournamentServ.deleteDay(id).subscribe({
-              next: (res: any) => {
-                this.notifyService.success(res.message);
-                setTimeout(() => {
-                  window.location.href = `/admin/create-day/${this.dia.belongTournament}`;
-                }, 500); 
-              },
-              error: (err: any) => {
-                this.notifyService.error(err.error.message);
-              }
-            });
-          }
+        } else {
+          this.notifyService.error('No hay día disponible.');
         }
-      ]
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
     });
-  
-    await alert.present();
   }
 
+  getStadiums(){
+    this.tournamentServ.getEstadios().subscribe({
+      next: (res : any) => {
+        this.stadiums = res.stadiums;
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
   
 
 

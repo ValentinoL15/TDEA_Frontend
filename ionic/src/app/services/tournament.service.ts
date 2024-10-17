@@ -222,6 +222,10 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-equipos-suscritos/${id}`)
   }
 
+  getDayTournament(id:any, dayId:any){
+    return this.http.get(`${this.API_URL}/obtener-dia-torneo/${id}/${dayId}`)
+  }
+
   /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){
