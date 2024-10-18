@@ -240,6 +240,8 @@ export class TournamentsPage implements OnInit {
     await alert.present();
   }
 
+  
+
 
 
 }

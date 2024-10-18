@@ -4,6 +4,9 @@
       <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
     <ion-title>Crear Dia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setOpen(true)"><ion-icon name="add-outline"></ion-icon></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,4 +23,49 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Dia</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="form">
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-select placeholder="Dia" label="Dia" interface="popover" labelPlacement="stacked" formControlName="day">
+                <ion-select-option value="Lunes">Lunes</ion-select-option>
+                <ion-select-option value="Martes">Martes</ion-select-option>
+                <ion-select-option value="Miercoles">Miercoles</ion-select-option>
+                <ion-select-option value="Jueves">Jueves</ion-select-option>
+                <ion-select-option value="Viernes">Viernes</ion-select-option>
+                <ion-select-option value="Sabado">Sabado</ion-select-option>
+                <ion-select-option value="Domingo">Domingo</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-select label="Estadio" interface="popover" labelPlacement="stacked" placeholder="Estadio" formControlName="stadium">
+                <ion-select-option *ngFor="let estadio of stadiums" [value]="estadio._id">{{estadio.code}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-select label="Horarios" multiple="true" labelPlacement="stacked" placeholder="Horarios" formControlName="time">
+                <ion-select-option *ngFor="let time of times">{{time}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <div class="container">
+            <ion-button expand="block" (click)="createDay()">Agregar Dia</ion-button>
+          </div>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

@@ -8,6 +8,7 @@ import { AlertController } from '@ionic/angular';
 import { Stadium } from 'src/app/interfaces/Stadium';
 import { Sede } from 'src/app/interfaces/Sede';
 import { Tournament } from 'src/app/interfaces/Tournament';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-day',
@@ -140,7 +141,16 @@ export class DayPage implements OnInit {
     console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
-  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController ) { }
+  dayForm: FormGroup
+  isButtonDisabled: boolean = true;
+
+  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private fb: FormBuilder ) {
+    this.dayForm = this.fb.group({
+      day: [''],
+      stadium: [''],
+      time: ['']
+    })
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -149,6 +159,14 @@ export class DayPage implements OnInit {
     })
     this.getDayTournament()
     this.getStadiums()
+    // Suscribirse a los cambios en el formulario
+    this.dayForm.valueChanges.subscribe(() => {
+      this.isButtonDisabled = !(
+        this.dayForm.get('day')?.dirty ||
+        this.dayForm.get('stadium')?.dirty ||
+        this.dayForm.get('time')?.dirty
+      );
+    });
   }
 
   goSchedule(id : any){
@@ -161,8 +179,9 @@ export class DayPage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  volver(id:any){
-    this.router.navigate([`/admin/create-day/${this}`])
+  volver(){
+    this.router.navigate([`/admin/create-day/${this.id}`])
+    this.dayForm.reset()
   }
 
   getTournament(){
@@ -189,7 +208,7 @@ export class DayPage implements OnInit {
           
           // Si el estadio está disponible, puedes acceder a él aquí
           if (this.tournamentDay.stadium) {
-            console.log('Estadio:', this.tournamentDay.stadium); // Verificar que el estadio esté asignado
+            console.log('Estadio:', this.tournamentDay.stadium.code); // Verificar que el estadio esté asignado
           }
         } else {
           this.notifyService.error('No hay día disponible.');
@@ -201,6 +220,25 @@ export class DayPage implements OnInit {
     });
   }
 
+  editDayTournament(){
+    const formulario = {
+      day: this.dayForm.value.day,
+      stadium: this.dayForm.value.stadium,
+      time: this.dayForm.value.time
+    }
+    this.tournamentServ.editDayTournament(this.id, this.dayId, formulario).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        setTimeout(() => {
+          window.location.href = `admin/create-day/${this.id}`
+        }, 500)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
   getStadiums(){
     this.tournamentServ.getEstadios().subscribe({
       next: (res : any) => {
@@ -210,6 +248,41 @@ export class DayPage implements OnInit {
         this.notifyService.error(err.error.message)
       }
     })
+  }
+
+  async deleteDayTournament() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que quieres borrar este Dia?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // El usuario ha cancelado, no hacer nada
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            // El usuario ha confirmado, proceder con la eliminación
+            this.tournamentServ.deleteDayTournament(this.id, this.dayId).subscribe({
+              next: (res: any) => {
+                this.notifyService.success(res.message);
+                setTimeout(() => {
+                  window.location.href = `/admin/create-day/${this.id}`;
+                }, 500); 
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message);
+              }
+            });
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
   }
   
 
