@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Campeonato } from 'src/app/interfaces/Campeonato';
 import { Category } from 'src/app/interfaces/Category';
 import { Edad } from 'src/app/interfaces/Edad';
 import { Format } from 'src/app/interfaces/Format';
+import { Sede } from 'src/app/interfaces/Sede';
 import { Stadium } from 'src/app/interfaces/Stadium';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
@@ -58,6 +59,10 @@ export class HomeTournamentPage implements OnInit {
   ano:any
 
   stadiums: Stadium[] = []
+  sedes: Sede[] = []
+  sedeSeleccionada: string | null = null;
+  estadioSeleccionado: number | null = null;
+  filteredStadiums: Stadium[] = [];
   times = [
     "00:00", "00:15", "00:30", "00:45", 
     "01:00", "01:15", "01:30", "01:45", 
@@ -105,7 +110,9 @@ export class HomeTournamentPage implements OnInit {
       tarifaInscripcion: ['', Validators.required],
       tarifaPartido: ['', Validators.required],
       cupos: ['', Validators.required],
-      daysTournament: this.formBuilder.array([]) // Inicializa daysTournament como FormArray
+      daysTournament: this.formBuilder.array([]), // Inicializa daysTournament como FormArray
+      sedeSeleccionada: [null],
+      estadioSeleccionado: [''],
     })
   }
 
@@ -116,6 +123,7 @@ export class HomeTournamentPage implements OnInit {
     this.getCampeonatos()
     this.getEdades()
     this.getStadiums()
+    this.getSedes()
   }
 
 isModalOpen = false;
@@ -157,10 +165,23 @@ getEdades(){
   })
 }
 
-getStadiums(){
+getStadiums() {
   this.tournamentServ.getEstadios().subscribe({
+    next: (res: any) => {
+      this.stadiums = res.stadiums; // Guardar todos los estadios
+      this.stadiums = [...this.stadiums]; // Inicialmente, mostrar todos los estadios
+    },
+    error: (err) => {
+      this.notifyService.error(err.error.message);
+    }
+  });
+}
+
+getSedes(){
+  this.tournamentServ.getMySedes().subscribe({
     next: (res : any) => {
-      this.stadiums = res.stadiums
+      this.sedes = res.mySedes
+      console.log("mis sedes", this.sedes)
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
@@ -179,32 +200,24 @@ getFormats(){
   })
 }
 
+addDayTournament() {
+  const dayGroup = new FormGroup({
+    day: new FormControl(''),
+    sedeSeleccionada: new FormControl(''),  // Control para la sede
+    estadioSeleccionado: new FormControl(''),  // Control para el estadio
+    time: new FormControl('') // Control para el horario
+  });
+
+  this.daysTournament.push(dayGroup); // Agrega el nuevo FormGroup al FormArray
+}
+
+// Getter para facilitar el acceso al FormArray
 get daysTournament(): FormArray {
   return this.form.get('daysTournament') as FormArray;
 }
 
-// Método para agregar un nuevo día
-addDayTournament() {
-  const dayGroup = this.formBuilder.group({
-    day: [''],
-    stadium: [''],
-    time: [[]] // Cambia esto si estás usando un FormControl para un select múltiple
-  });
-  this.daysTournament.push(dayGroup);
-}
-
-// Método para agregar un tiempo en un día específico
-addTimeToDay(index: number, time: string) {
-  const day = this.daysTournament.at(index) as FormGroup;
-  const timeArray = day.get('time') as FormArray;
-  timeArray.push(this.formBuilder.control(time, Validators.required));
-}
-
-// Método para eliminar un día
 removeDayTournament(index: number) {
-  if (index > -1) {
-    this.daysTournament.removeAt(index);
-  }
+  this.daysTournament.removeAt(index);
 }
 
 
@@ -234,7 +247,11 @@ createTournament(){
     tarifaInscripcion: this.form.value.tarifaInscripcion,
     tarifaPartido: this.form.value.tarifaPartido,
     cupos: this.form.value.cupos,
-    daysTournament: daysTournament // Agregar los días del torneo
+    daysTournament : this.form.value.daysTournament.map((dayTournament: any) => ({
+      day: dayTournament.day,
+      stadium: dayTournament.estadioSeleccionado, // Asegúrate de que el campo es correcto
+      time: dayTournament.time // Asegúrate de que "time" es un array
+    }))
   }
   this.tournamentServ.createTournament(formulario).subscribe({
     next: (res : any) => {
@@ -270,5 +287,30 @@ limitLength(event: any) {
     input.value = input.value.slice(0, 4);
   }
 }
+
+onSedeChange() {
+  const selectedDays = this.daysTournament.controls;
+
+  selectedDays.forEach((control) => {
+    const dayGroup = control as FormGroup;
+    const sedeId = dayGroup.get('sedeSeleccionada')?.value;
+
+    // Filtrar los estadios según la sede seleccionada
+    this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === sedeId);
+
+    // Reiniciar el estadio seleccionado
+    dayGroup.get('estadioSeleccionado')?.setValue(null);
+
+    // Validación del control de estadio
+    if (this.filteredStadiums.length > 0) {
+      dayGroup.get('estadioSeleccionado')?.setValidators(Validators.required);
+    } else {
+      dayGroup.get('estadioSeleccionado')?.clearValidators();
+    }
+
+    dayGroup.get('estadioSeleccionado')?.updateValueAndValidity();
+  });
+}
+
 
 }
