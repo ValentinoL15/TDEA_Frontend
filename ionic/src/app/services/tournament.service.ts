@@ -226,6 +226,18 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-dia-torneo/${id}/${dayId}`)
   }
 
+  editDayTournament(id : any, dayId: any, form : any){
+    return this.http.put(`${this.API_URL}/editar-dia-torneo/${id}/${dayId}`, form)
+  }
+
+  deleteDayTournament(id: any, dayId: any){
+    return this.http.delete(`${this.API_URL}/eliminar-dia-torneo/${id}/${dayId}`)
+  }
+
+  createDayTournament(id :any, form :any){
+    return this.http.put(`${this.API_URL}/crear-dia-torneo/${id}`, form)
+  }
+
   /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){
