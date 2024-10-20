@@ -82,6 +82,8 @@ export class DayPage implements OnInit {
   selectedTimes: string[] = []; 
   stadiums: Stadium[] = [];
   sedes: Sede[] = [];
+  selectedVenue: string | null = null; 
+  filteredStadiums: Stadium[] = [];
   times = [
     "00:00", "00:15", "00:30", "00:45", 
     "01:00", "01:15", "01:30", "01:45", 
@@ -147,9 +149,10 @@ export class DayPage implements OnInit {
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private fb: FormBuilder ) {
     this.dayForm = this.fb.group({
       day: [''],
+      venue: [''], // Campo para la sede
       stadium: [''],
       time: ['']
-    })
+    });
   }
 
   ngOnInit() {
@@ -159,6 +162,7 @@ export class DayPage implements OnInit {
     })
     this.getDayTournament()
     this.getStadiums()
+    this.getSedes()
     // Suscribirse a los cambios en el formulario
     this.dayForm.valueChanges.subscribe(() => {
       this.isButtonDisabled = !(
@@ -182,6 +186,11 @@ export class DayPage implements OnInit {
   volver(){
     this.router.navigate([`/admin/create-day/${this.id}`])
     this.dayForm.reset()
+  }
+
+  onVenueChange(event: any) {
+    this.selectedVenue = event.detail.value;
+    this.filterStadiums();
   }
 
   getTournament(){
@@ -220,6 +229,16 @@ export class DayPage implements OnInit {
     });
   }
 
+  filterStadiums() {
+    if (this.selectedVenue) {
+      this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === this.selectedVenue);
+    } else {
+      this.filteredStadiums = [];
+    }
+    // Resetear la selección del estadio si es necesario
+    this.dayForm.get('stadium')?.setValue(null);
+  }
+
   editDayTournament(){
     const formulario = {
       day: this.dayForm.value.day,
@@ -245,6 +264,18 @@ export class DayPage implements OnInit {
         this.stadiums = res.stadiums;
       },
       error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  getSedes(){
+    this.tournamentServ.getMySedes().subscribe({
+      next: (res : any) => {
+        this.sedes = res.mySedes
+        console.log("mis sedes", this.sedes)
+      },
+      error: (err : any) => {
         this.notifyService.error(err.error.message)
       }
     })

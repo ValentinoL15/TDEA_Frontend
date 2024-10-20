@@ -4,9 +4,6 @@
       <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
     <ion-title>Horarios</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>Confirmar</ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -25,11 +22,24 @@
           </ion-select>
       </ion-item>
 
-      <ion-item>
+      <!--<ion-item>
         <ion-select [placeholder]="tournamentDay?.stadium?.code" [value]="tournamentDay?.stadium?.code" label="Estadio" labelPlacement="stacked" formControlName="stadium">
           <ion-select-option *ngFor="let stadium of stadiums" [value]="stadium._id">{{stadium.code}}</ion-select-option>
         </ion-select>
+      </ion-item>-->
+
+      <ion-item>
+        <ion-select label="Sede" labelPlacement="stacked" interface="popover" placeholder="Seleccionar sede" formControlName="venue" (ionChange)="onVenueChange($event)">
+          <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{sede.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
+
+      <ion-item *ngIf="filteredStadiums.length > 0">
+        <ion-select label="Estadio" labelPlacement="stacked" [placeholder]="'Selecciona estadio'" formControlName="stadium">
+          <ion-select-option *ngFor="let stadium of filteredStadiums" [value]="stadium._id">{{stadium.code}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
 
       <ion-item>
         <!-- Mostrar horarios seleccionados -->
