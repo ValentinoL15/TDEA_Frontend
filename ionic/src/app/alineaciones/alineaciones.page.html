@@ -9,14 +9,14 @@
   <div class="cont1" *ngIf="list.typeAlineacion === 5">
     <!-- Arquero -->
     <div class="element1-cont1">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('arquero')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
 
     <!-- Defensor 1 -->
     <div class="element2-cont1">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
@@ -24,7 +24,7 @@
 
     <!-- Defensor 2 -->
     <div class="element3-cont1">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor2 === null">3</p>
       <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
@@ -32,7 +32,7 @@
 
     <!-- Mediocampista 1 -->
     <div class="element4-cont1">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista1 === null">4</p>
       <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
@@ -40,7 +40,7 @@
 
     <!-- Mediocampista 2 -->
     <div class="element5-cont1">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero1 === null">5</p>
       <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
@@ -50,14 +50,14 @@
   <div class="cont2" *ngIf="list.typeAlineacion === 6">
     <!-- Arquero -->
     <div class="element1-cont2">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('arquero')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
 
     <!-- Defensor 1 -->
     <div class="element2-cont2">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
@@ -65,7 +65,7 @@
 
     <!-- Defensor 2 -->
     <div class="element3-cont2">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor2 === null">3</p>
       <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
@@ -73,7 +73,7 @@
 
     <!-- Mediocampista 1 -->
     <div class="element4-cont2">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
       <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
@@ -81,14 +81,14 @@
 
     <!-- Mediocampista 2 -->
     <div class="element5-cont2">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista2 === null">4</p>
       <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
     </div>
 
     <div class="element6-cont2">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero1 === null">6</p>
       <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
@@ -98,14 +98,14 @@
   <div class="cont3" *ngIf="list.typeAlineacion === 7">
     <!-- Arquero -->
     <div class="element1-cont3">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('arquero')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
 
     <!-- Defensor 1 -->
     <div class="element2-cont3">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
@@ -113,7 +113,7 @@
 
     <!-- Defensor 2 -->
     <div class="element3-cont3">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor2 === null">3</p>
       <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
@@ -121,7 +121,7 @@
 
     <!-- Defensor 3 -->
     <div class="element4-cont3">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor3 === null">4</p>
       <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
@@ -129,7 +129,7 @@
 
     <!-- Mediocampista 1 -->
     <div class="element5-cont3">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
       <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
@@ -137,7 +137,7 @@
 
     <!-- Mediocampista 2 -->
     <div class="element6-cont3">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
       <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
@@ -145,7 +145,7 @@
 
     <!-- delantero 1 -->
     <div class="element7-cont3">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero1 === null">7</p>
       <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
@@ -155,14 +155,14 @@
   <div class="cont4" *ngIf="list.typeAlineacion === 8">
     <!-- Arquero -->
     <div class="element1-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('arquero')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
 
     <!-- Defensor 1 -->
     <div class="element2-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
@@ -170,7 +170,7 @@
 
     <!-- Defensor 2 -->
     <div class="element3-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor2 === null">3</p>
       <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
@@ -178,7 +178,7 @@
 
     <!-- Defensor 3 -->
     <div class="element4-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor3 === null">4</p>
       <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
@@ -186,7 +186,7 @@
 
     <!-- Mediocampista 1 -->
     <div class="element5-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
       <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
@@ -194,7 +194,7 @@
 
     <!-- Mediocampista 2 -->
     <div class="element6-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
       <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
@@ -202,7 +202,7 @@
 
     <!-- delantero 1 -->
     <div class="element7-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero1 === null">7</p>
       <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
@@ -210,7 +210,7 @@
 
     <!-- Delantero 2 -->
     <div class="element8-cont4">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero2 === null">5</p>
       <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
@@ -220,14 +220,14 @@
   <div class="cont5" *ngIf="list.typeAlineacion === 9">
     <!-- Arquero -->
     <div class="element1-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('arquero')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
 
     <!-- Defensor 1 -->
     <div class="element2-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
@@ -235,7 +235,7 @@
 
     <!-- Defensor 2 -->
     <div class="element3-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor2 === null">3</p>
       <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
@@ -243,7 +243,7 @@
 
     <!-- Defensor 3 -->
     <div class="element4-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor3 === null">4</p>
       <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
@@ -251,7 +251,7 @@
 
     <!-- Mediocampista 1 -->
     <div class="element5-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista1 === null">5</p>
       <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
@@ -259,7 +259,7 @@
 
     <!-- Mediocampista 2 -->
     <div class="element6-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista2 === null">6</p>
       <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
@@ -267,7 +267,7 @@
 
     <!-- Mediocampista 3 -->
     <div class="element7-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista3 === null">7</p>
       <p *ngIf="list.alineacion?.mediocampista3 !== null">{{list.alineacion?.mediocampista3?.firstName}}</p>
@@ -275,7 +275,7 @@
 
     <!-- delantero 1 -->
     <div class="element8-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero1 === null">8</p>
       <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
@@ -283,7 +283,7 @@
 
     <!-- Delantero 2 -->
     <div class="element9-cont5">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero2 === null">9</p>
       <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
@@ -293,14 +293,14 @@
   <div class="cont6" *ngIf="list.typeAlineacion === 10">
     <!-- Arquero -->
     <div class="element1-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero')" width="50px" height="50px" alt="">
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('arquero')" width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
 
     <!-- Defensor 1 -->
     <div class="element2-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
@@ -308,7 +308,7 @@
 
     <!-- Defensor 2 -->
     <div class="element3-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor2 === null">3</p>
       <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
@@ -316,7 +316,7 @@
 
     <!-- Defensor 3 -->
     <div class="element4-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor3 === null">4</p>
       <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
@@ -324,7 +324,7 @@
 
     <!-- Defensor 4 -->
     <div class="element5-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor4')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor4')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor4 === null">5</p>
       <p *ngIf="list.alineacion?.defensor4 !== null">{{list.alineacion?.defensor4?.firstName}}</p>
@@ -332,7 +332,7 @@
 
     <!-- Mediocampista 1 -->
     <div class="element6-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista1 === null">6</p>
       <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
@@ -340,7 +340,7 @@
 
     <!-- Mediocampista 2 -->
     <div class="element7-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista2 === null">7</p>
       <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
@@ -348,7 +348,7 @@
 
     <!-- Mediocampista 3 -->
     <div class="element8-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista3 === null">8</p>
       <p *ngIf="list.alineacion?.mediocampista3 !== null">{{list.alineacion?.mediocampista3?.firstName}}</p>
@@ -356,7 +356,7 @@
 
     <!-- delantero 1 -->
     <div class="element9-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero1 === null">9</p>
       <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
@@ -364,7 +364,7 @@
 
     <!-- delantero 2 -->
     <div class="element10-cont6">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero2 === null">10</p>
       <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
@@ -374,14 +374,14 @@
   <div class="cont7" *ngIf="list.typeAlineacion === 11">
     <!-- Arquero -->
     <div class="element1-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('arquero'); titularSeleccionado " width="50px" height="50px" alt="">
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('arquero'); titularSeleccionado " width="50px" height="50px" alt="">
       <p *ngIf="list.alineacion?.arquero === null">1</p>
       <p *ngIf="list.alineacion?.arquero !== null">{{list.alineacion?.arquero?.firstName}}</p>
     </div>
 
     <!-- Defensor 1 -->
     <div class="element2-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor1 === null">2</p>
       <p *ngIf="list.alineacion?.defensor1 !== null">{{list.alineacion?.defensor1?.firstName}}</p>
@@ -389,7 +389,7 @@
 
     <!-- Defensor 2 -->
     <div class="element3-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor2 === null">3</p>
       <p *ngIf="list.alineacion?.defensor2 !== null">{{list.alineacion?.defensor2?.firstName}}</p>
@@ -397,7 +397,7 @@
 
     <!-- Defensor 3 -->
     <div class="element4-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor3 === null">4</p>
       <p *ngIf="list.alineacion?.defensor3 !== null">{{list.alineacion?.defensor3?.firstName}}</p>
@@ -405,7 +405,7 @@
 
     <!-- Defensor 4 -->
     <div class="element5-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('defensor4')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('defensor4')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.defensor4 === null">5</p>
       <p *ngIf="list.alineacion?.defensor4 !== null">{{list.alineacion?.defensor4?.firstName}}</p>
@@ -413,7 +413,7 @@
 
     <!-- Mediocampista 1 -->
     <div class="element6-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista1 === null">6</p>
       <p *ngIf="list.alineacion?.mediocampista1 !== null">{{list.alineacion?.mediocampista1?.firstName}}</p>
@@ -421,7 +421,7 @@
 
     <!-- Mediocampista 2 -->
     <div class="element7-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista2 === null">7</p>
       <p *ngIf="list.alineacion?.mediocampista2 !== null">{{list.alineacion?.mediocampista2?.firstName}}</p>
@@ -429,7 +429,7 @@
 
     <!-- Mediocampista 3 -->
     <div class="element8-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('mediocampista3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('mediocampista3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.mediocampista3 === null">8</p>
       <p *ngIf="list.alineacion?.mediocampista3 !== null">{{list.alineacion?.mediocampista3?.firstName}}</p>
@@ -437,7 +437,7 @@
 
     <!-- delantero 1 -->
     <div class="element9-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero1')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero1')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero1 === null">10</p>
       <p *ngIf="list.alineacion?.delantero1 !== null">{{list.alineacion?.delantero1?.firstName}}</p>
@@ -445,7 +445,7 @@
 
     <!-- delantero 2 -->
     <div class="element10-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero2')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero2')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero2 === null">9</p>
       <p *ngIf="list.alineacion?.delantero2 !== null">{{list.alineacion?.delantero2?.firstName}}</p>
@@ -453,7 +453,7 @@
 
     <!-- delantero 3 -->
     <div class="element11-cont7">
-      <img src="../../assets/icon/remera-titulares.svg" (click)="openModal('delantero3')" width="50px" height="50px"
+      <img [src]="getShirtImage(form.get('shirtColor')?.value)" (click)="openModal('delantero3')" width="50px" height="50px"
         alt="">
       <p *ngIf="list.alineacion?.delantero3 === null">11</p>
       <p *ngIf="list.alineacion?.delantero3 !== null">{{list.alineacion?.delantero3?.firstName}}</p>
@@ -465,7 +465,6 @@
   <ion-toolbar>
     <div class="title">
       <ion-icon (click)="openPlayersTeam()" name="people-outline" size="large" color="primary"></ion-icon>
-      <!--<ion-icon (click)="openAddPlayerModal()" name="trash-outline" size="large" color="danger"></ion-icon>-->
     </div> 
   </ion-toolbar>
 </ion-footer>
@@ -476,7 +475,6 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Suplentes</ion-title>
-        
           <ion-buttons slot="end">
             <ion-button (click)="setOpen(false)">Cerrar</ion-button>
           </ion-buttons>
@@ -491,7 +489,7 @@
       
       <div class="contenedor-horizontal">
         <div class="suplentes" *ngFor="let suple of list.suplente" (click)="selectPlayer(suple)">
-          <img [src]="getCamisetaImage(suple._id)" width="40px" height="40px" alt="Camiseta">
+          <img [src]="getCamisetaImage(suple._id)" [src]="getShirtImage(form.get('shirtColor')?.value)" width="40px" height="40px" alt="Camiseta">
           <p>{{suple.firstName}}</p>
         </div>
     
@@ -563,45 +561,6 @@
   </ng-template>
 </ion-modal>
 
-<!--<ion-modal [isOpen]="isAddPlayerModalOpen" (willDismiss)="onWillDismiss($event)">
-  <ng-template>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Eliminar Jugador</ion-title>
-      
-        <ion-buttons slot="end">
-          <ion-button (click)="closeAddPlayerModal()" [strong]="true">Cancelar</ion-button>
-        </ion-buttons>
-      
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content class="ion-padding" color="light">
-    <div class="contain-principal">
-      <h3>Titulares</h3>
-      <div class="contenedor-totales">
-        <div class="jugadores" *ngFor="let jugador of list.titular" id="present-alert2" (click)="eliminarPlayer(jugador)">
-          <img [src]="getCamisetaImage(jugador._id)" width="40px" height="40px" alt="Camiseta">
-          <p>{{jugador.firstName}}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="back"></div>
-
-    <div style="width: 100%; display: flex; justify-content: center; margin: 10px 0;">
-      <h2>Suplentes</h2>
-    </div>
-    <div class="contenedor-totales">
-      <div class="jugadores" *ngFor="let suplente of suplentes" (click)="eliminarPlayer(suplente)">
-        <img src="../../assets/icon/remera-titulares.svg" width="40px" height="40px" alt="">
-        {{suplente.firstName}}
-      </div>
-    </div>
-  </ion-content>
-</ng-template>
-</ion-modal>-->
-
 <ion-modal [isOpen]="isAddPlayersTeam" (willDismiss)="onWillDismiss($event)">
   <ng-template>
   <ion-header>
@@ -622,7 +581,7 @@
         <div class="contenedor-totales">
           <div *ngFor="let player of equipo.players">
             <div class="players" *ngIf="isTitular(player._id)" (click)="selectedPlayer(player)" [ngClass]="{'selected': isSelected(player._id)}">
-              <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+              <img [src]="getCamisetaImage(player._id)" [src]="getShirtImage(form.get('shirtColor')?.value)" width="40px" height="40px" alt="Camiseta">
               <p>{{player.firstName}}</p>
             </div>
           </div>
@@ -641,7 +600,7 @@
         <div class="contenedor-totales">
           <div *ngFor="let player of equipo.players">
             <div class="players" *ngIf="isSuplente(player._id)" (click)="selectedPlayer(player)" [ngClass]="{'selected': isSelected(player._id)}">
-              <img [src]="getCamisetaImage(player._id)" width="40px" height="40px" alt="Camiseta">
+              <img [src]="getCamisetaImage(player._id)" [src]="getShirtImage(form.get('shirtColor')?.value)" width="40px" height="40px" alt="Camiseta">
               <p>{{player.firstName}}</p>
             </div>
           </div>

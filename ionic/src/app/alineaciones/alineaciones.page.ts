@@ -342,6 +342,31 @@ getAlineacion(){
   })
 }
 
+getShirtImage(color: string): string {
+  const colour = this.list.shirtColor; // Accede al color de la camiseta
+  switch (colour) {
+    case '#6A1B9A':
+      return '../../assets/icon/remera-violeta.svg';
+    case '#FAFAFA':
+      return '../../assets/icon/shirt-solid (1).svg';
+    case '#212121':
+      return '../../assets/icon/remera-negra.svg';
+    case '#00C853':
+      return '../../assets/icon/remera-verde.svg';
+    case '#FF6F00':
+      return '../../assets/icon/remera-naranja.svg';
+    case '#FFFF00':
+      return '../../assets/icon/remera-amarilla.svg';
+    case '#304FFE':
+      return '../../assets/icon/remera-azul.svg';
+    case '#C62828':
+      return '../../assets/icon/remera-roja.svg';
+    // Añade más casos para cada color
+    default:
+      return '../../assets/icon/remera-titulares.svg'; // Imagen por defecto
+  }
+}
+
 
 
 

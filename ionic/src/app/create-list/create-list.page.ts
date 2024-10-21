@@ -77,6 +77,11 @@ export class CreateListPage implements OnInit {
   form: FormGroup
   campeonatos: Campeonato[] = []
   selectedFile: File | null = null;
+  colors = ["#C62828", "#304FFE", "#FFFF00", "#FF6F00", "#00C853", "#212121", "#FAFAFA", "#6A1B9A"];
+  showColorDropdown = false;
+  selectedColor: string | null = null;
+  showAlternativeColorDropdown = false;
+  selectedAlternativeColor: string | null = null;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
     this.form = this.formBuilder.group({
@@ -91,6 +96,27 @@ export class CreateListPage implements OnInit {
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+  }
+
+  toggleColorDropdown() {
+    this.showColorDropdown = !this.showColorDropdown;
+  }
+
+  toggleAlternativeColorDropdown() {
+    this.showAlternativeColorDropdown = !this.showAlternativeColorDropdown;
+  }
+
+  // Método para seleccionar el color alternativo
+  selectAlternativeShirtColor(color: string) {
+    this.selectedAlternativeColor = color;
+    this.form.patchValue({ alternativeShirtColor: color });
+    this.showAlternativeColorDropdown = false; // Cierra el dropdown después de seleccionar
+  }
+
+  selectShirtColor(color: string) {
+    this.selectedColor = color;
+    this.form.patchValue({ shirtColor: color });
+    this.showColorDropdown = false; // Cierra el dropdown después de seleccionar
   }
 
   ngOnInit() {
