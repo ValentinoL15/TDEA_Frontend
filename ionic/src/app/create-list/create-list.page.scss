@@ -13,3 +13,31 @@
     font-weight: bold;
     text-align: center;
 }
+
+.color-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre los cuadros de color */
+    padding: 10px;
+    border: 1px solid #ccc; /* Borde del dropdown */
+    background-color: white; /* Fondo blanco */
+    position: absolute; /* Para que aparezca sobre otros elementos */
+    z-index: 1000; /* Para asegurarse de que esté encima */
+  }
+  
+  .color-box {
+    width: 30px; /* Ancho del cuadro */
+    height: 30px; /* Alto del cuadro */
+    border: 2px solid transparent; /* Borde transparente por defecto */
+    cursor: pointer;
+  }
+  
+  .color-box.selected {
+    border-color: #000; /* Borde negro para el cuadro seleccionado */
+  }
+  
+  .selected-color {
+    width: 30px; /* Ancho del cuadro de color seleccionado */
+    height: 30px; /* Alto del cuadro de color seleccionado */
+    border: 1px solid #ccc; /* Borde del cuadro */
+  }
