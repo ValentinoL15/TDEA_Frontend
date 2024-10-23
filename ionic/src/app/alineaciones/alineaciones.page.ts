@@ -196,7 +196,7 @@ getList(id:any){
   this.userService.getList(id).subscribe({
     next: (res : any) => {
       this.list = res.list
-      console.log(this.list)
+      console.log(this.list.shirtColor)
     },
     error: (err: any) => {
       console.error(err);

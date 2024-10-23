@@ -15,11 +15,14 @@
     <div class="image">
       <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
     </div>
+
     <ion-item>
-      <ion-input readonly="true" label="Remera Titular" [value]="list.shirtColor"></ion-input>
+      <ion-label>Remera Titular</ion-label>
+      <ion-input type="color" readonly="true" style="width: 30px; padding: 5px;" [value]="list.shirtColor"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input readonly="true" label="Remera Suplente" [value]="list.alternativeShirtColor"></ion-input>
+      <ion-label>Remera Suplente</ion-label>
+      <ion-input type="color" style="width: 30px; padding: 5px;" [value]="list.alternativeShirtColor"></ion-input>
     </ion-item>
     <ion-item>
       <ion-input readonly="true" label="Formato de Equipo" [value]="'Futbol ' + list.typeAlineacion"></ion-input>
@@ -52,11 +55,13 @@
             </div>
 
             <ion-item>
-              <ion-input type="text" label="Remera Titular" label-placement="stacked" placeholder="Remera Titular" name="shirtColor" [value]="list.shirtColor"></ion-input>
+              <ion-label>Remera Titular</ion-label>
+              <ion-input type="color" style="width: 30px; padding: 5px;" name="shirtColor" [value]="list.shirtColor"></ion-input>
             </ion-item>
   
             <ion-item>
-              <ion-input type="text" label="Remera Suplente" label-placement="stacked" placeholder="Remera Suplente" name="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
+              <ion-label>Remera Suplente</ion-label>
+              <ion-input type="color" style="width: 30px; padding: 5px;" name="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
             </ion-item>
 
             <ion-item>

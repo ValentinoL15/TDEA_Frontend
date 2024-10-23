@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateListPageRoutingModule } from './create-list-routing.module';
 
 import { CreateListPage } from './create-list.page';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CreateListPage } from './create-list.page';
     FormsModule,
     IonicModule,
     CreateListPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ColorPickerModule
   ],
   declarations: [CreateListPage]
 })
