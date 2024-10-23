@@ -43,36 +43,23 @@
           </ion-item>
 
 
-        <ion-item (click)="toggleColorDropdown()">
-          <!--<ion-input label="Remera Titular" label-placement="floating" placeholder="Remera Titular" formControlName="shirtColor"></ion-input>-->
+        <!--<ion-item (click)="toggleColorDropdown()">
+        <ion-input label="Remera Titular" label-placement="floating" placeholder="Remera Titular" formControlName="shirtColor"></ion-input>
     
             <ion-label>Remera Titular</ion-label>
             <div class="selected-color" [style.background]="form.get('shirtColor')?.value || '#FFFFFF'"></div>
+        </ion-item>-->
+
+        <ion-item>
+          <ion-label>Remera Titular</ion-label>
+          <ion-input type="color" style="width: 30px; padding: 5px;" formControlName="shirtColor"></ion-input>
         </ion-item>
-
-        <div *ngIf="showColorDropdown" class="color-dropdown">
-          <div 
-            *ngFor="let color of colors" 
-            [style.background]="color" 
-            class="color-box" 
-            (click)="selectShirtColor(color)">
-          </div>
-        </div>
-
-
-        <ion-item (click)="toggleAlternativeColorDropdown()">
+      
+        <ion-item>
           <ion-label>Remera Suplente</ion-label>
-          <div class="selected-color" [style.background]="form.get('alternativeShirtColor')?.value || '#FFFFFF'"></div>
+          <ion-input type="color" style="width: 30px; padding: 5px;" formControlName="alternativeShirtColor"></ion-input>
         </ion-item>
-        
-        <div *ngIf="showAlternativeColorDropdown" class="color-dropdown">
-          <div 
-            *ngFor="let color of colors" 
-            [style.background]="color" 
-            class="color-box" 
-            (click)="selectAlternativeShirtColor(color)">
-          </div>
-        </div>
+
         <ion-item>
           <ion-select label="Formato de equipo" label-placement="floating" placeholder="Elige formato de equipo" formControlName="typeAlineacion">
             <ion-select-option value="5">Futbol 5</ion-select-option>

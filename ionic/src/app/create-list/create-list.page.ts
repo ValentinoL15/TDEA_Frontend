@@ -77,19 +77,20 @@ export class CreateListPage implements OnInit {
   form: FormGroup
   campeonatos: Campeonato[] = []
   selectedFile: File | null = null;
-  colors = ["#C62828", "#304FFE", "#FFFF00", "#FF6F00", "#00C853", "#212121", "#FAFAFA", "#6A1B9A"];
   showColorDropdown = false;
+  colors = ["#C62828", "#304FFE", "#FFFF00", "#FF6F00", "#00C853", "#212121", "#FAFAFA", "#6A1B9A"];
   selectedColor: string | null = null;
   showAlternativeColorDropdown = false;
   selectedAlternativeColor: string | null = null;
+  color: string = '#127bdc'
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
     this.form = this.formBuilder.group({
       nameList: ['', Validators.required],
-      shirtColor: ['', Validators.required],
-      alternativeShirtColor: ['', Validators.required],
+      shirtColor: ['#FFFFFF', Validators.required], // Valor predeterminado
+      alternativeShirtColor: ['#FFFFFF', Validators.required],
       typeAlineacion: ['', Validators.required]
-    })
+    });
   }
 
   isModalOpen = false;
@@ -106,6 +107,11 @@ export class CreateListPage implements OnInit {
     this.showAlternativeColorDropdown = !this.showAlternativeColorDropdown;
   }
 
+  selectShirtColor(color: string) {
+    this.form.patchValue({ shirtColor: color });
+    this.showColorDropdown = false; // Cierra el dropdown después de seleccionar
+  }
+
   // Método para seleccionar el color alternativo
   selectAlternativeShirtColor(color: string) {
     this.selectedAlternativeColor = color;
@@ -113,10 +119,12 @@ export class CreateListPage implements OnInit {
     this.showAlternativeColorDropdown = false; // Cierra el dropdown después de seleccionar
   }
 
-  selectShirtColor(color: string) {
-    this.selectedColor = color;
-    this.form.patchValue({ shirtColor: color });
-    this.showColorDropdown = false; // Cierra el dropdown después de seleccionar
+  onColorChange(event: Event) {
+    const target = event.target as HTMLInputElement; // Asegúrate de que sea un HTMLInputElement
+    if (target && target.value) {
+      this.form.patchValue({ shirtColor: target.value });
+      console.log("Color seleccionado:", target.value);
+    }
   }
 
   ngOnInit() {
