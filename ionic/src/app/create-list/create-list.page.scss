@@ -60,4 +60,23 @@
     border: 1px solid #ddd;
   }
 
+  input[type="color"].custom {
+    --size: 35px;
   
+    width: var(--size);
+    height: var(--size);
+    background: none;
+    padding: 0;
+    border: 0;
+  
+    &::-webkit-color-swatch-wrapper {
+      width: var(--size);
+      height: var(--size);
+      padding: 0;
+    }
+  
+    &::-webkit-color-swatch {
+      border: 3px solid #0a0a0a;
+      border-radius: 50%;
+    }
+  }
