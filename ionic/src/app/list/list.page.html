@@ -43,6 +43,25 @@
       </ion-select>
       </ion-item>
 
+      <ion-item>
+        <ion-select label="Formacion" labelPlacement="stacked" name="formacion" [value]="list.formacion">
+          <div *ngIf="list.typeAlineacion === 5">
+            <ion-select-option value="2-1-1">2-1-1</ion-select-option>
+            <ion-select-option value="1-2-1">1-2-1</ion-select-option>
+          </div>
+          <div *ngIf="list.typeAlineacion === 6">
+            <ion-select-option value="2-2-1">2-2-1</ion-select-option>
+          </div>
+          <div *ngIf="list.typeAlineacion === 7">
+            <ion-select-option value="3-2-1">3-2-1</ion-select-option>
+            <ion-select-option value="2-1-2-1">2-1-2-1</ion-select-option>
+            <ion-select-option value="2-3-1">2-3-1</ion-select-option>
+
+          </div>
+          
+        </ion-select>
+      </ion-item>
+
     </ion-list>
   </form>
 
