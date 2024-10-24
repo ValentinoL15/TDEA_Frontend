@@ -207,7 +207,8 @@ export class ListPage implements OnInit {
     const formulario = {
       shirtColor: form.shirtColor.value,
       alternativeShirtColor: form.alternativeShirtColor.value,
-      typeAlineacion: form.typeAlineacion.value
+      typeAlineacion: form.typeAlineacion.value,
+      formacion: form.formacion.value
     }
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {
@@ -218,6 +219,8 @@ export class ListPage implements OnInit {
       }
     })
   }
+
+  
 
   async deleteList(id: any) {
     const alert = await this.alertController.create({

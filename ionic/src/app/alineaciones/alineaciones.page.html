@@ -6,7 +6,7 @@
   <ion-icon class="boton1" (click)="resetAlineacion()" name="refresh-outline"></ion-icon>
   <img class="lapiz" src="../../assets/icon/mdi--edit.svg" (click)="goList()" width="30px" height="30px" alt="">
   
-  <div class="cont1" *ngIf="list.typeAlineacion === 5">
+  <div [ngClass]="{'cont1': list.formacion === '2-1-1', 'cont1-2': list.formacion === '1-2-1'}" *ngIf="list.typeAlineacion === 5">
     <!-- Arquero -->
     <div class="element1-cont1" (click)="openModal('arquero')">
       <svg width="50" height="50" viewBox="0 0 640 512" [attr.fill]="list.shirtColor" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +109,7 @@
 </div>
 </div>
 
-<div class="cont3" *ngIf="list.typeAlineacion === 7">
+<div [ngClass]="{'cont3': list.formacion === '3-2-1', 'cont3-1': list.formacion === '2-1-2-1', 'cont3-2': list.formacion === '2-3-1'}" *ngIf="list.typeAlineacion === 7">
   <!-- Arquero -->
   <div class="element1-cont3" (click)="openModal('arquero')">
       <svg width="50" height="50" viewBox="0 0 640 512" [attr.fill]="list.shirtColor" xmlns="http://www.w3.org/2000/svg">

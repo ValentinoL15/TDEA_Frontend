@@ -26,6 +26,7 @@ export interface List {
     delantero2?: Player,
     delantero3?: Player
     },
+    formacion?: string,
     suplente?: [{
         _id?: string,
         firstName?: string

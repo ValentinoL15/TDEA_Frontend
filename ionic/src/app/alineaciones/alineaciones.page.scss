@@ -6,9 +6,8 @@
     grid-template-rows: repeat(4, 1fr);
     justify-self: center;
     align-self: center;
-}
 
-.element1-cont1 {
+    .element1-cont1 {
     grid-column: 2;
     grid-row: 4;
     justify-self: center;
@@ -57,6 +56,69 @@
     /* Centrar verticalmente */
     text-align: center;
 }
+}
+
+.cont1-2{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    align-self: center;
+
+    .element1-cont1 {
+        grid-column: 2;
+        grid-row: 4;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element2-cont1 {
+        grid-column: 2;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element3-cont1 {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element4-cont1 {
+        grid-column: 3;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element5-cont1 {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+}
+
+
 
 /**************************************CONTENEDOR 2*****************************************/
 
@@ -68,67 +130,69 @@
     grid-template-rows: repeat(4, 1fr);
     justify-self: center;
     align-self: center;
+
+    .element1-cont2 {
+        grid-column: 2;
+        grid-row: 4;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element2-cont2 {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element3-cont2 {
+        grid-column: 3;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element4-cont2 {
+        grid-column: 3;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element5-cont2 {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element6-cont2 {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
 }
 
-.element1-cont2 {
-    grid-column: 2;
-    grid-row: 4;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
 
-.element2-cont2 {
-    grid-column: 1;
-    grid-row: 3;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
-
-.element3-cont2 {
-    grid-column: 3;
-    grid-row: 3;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
-
-.element4-cont2 {
-    grid-column: 3;
-    grid-row: 2;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
-
-.element5-cont2 {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
-
-.element6-cont2 {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: flex-end;
-    /* Centrar verticalmente */
-    text-align: center;
-}
 
 /******************************************CONTENDOR 3**********************************************/
 
@@ -140,77 +204,241 @@
     grid-template-rows: repeat(4, 1fr);
     justify-self: center;
     align-self: center;
+
+    .element1-cont3 {
+        grid-column: 2;
+        grid-row: 4;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element2-cont3 {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element3-cont3 {
+        grid-column: 2;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element4-cont3 {
+        grid-column: 3;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element5-cont3 {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element6-cont3 {
+        grid-column: 3;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element7-cont3 {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
 }
 
-.element1-cont3 {
-    grid-column: 2;
-    grid-row: 4;
+.cont3-1{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: flex-end;
-    /* Centrar verticalmente */
-    text-align: center;
-}
-
-.element2-cont3 {
-    grid-column: 1;
-    grid-row: 3;
-    justify-self: center;
-    /* Centrar horizontalmente */
     align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
+
+    .element1-cont3 {
+        grid-column: 3;
+        grid-row: 5;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element2-cont3 {
+        grid-column: 2;
+        grid-row: 4;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element3-cont3 {
+        grid-column: 4;
+        grid-row: 4;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element4-cont3 {
+        grid-column: 3;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element5-cont3 {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element6-cont3 {
+        grid-column: 4;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element7-cont3 {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
 }
 
-.element3-cont3 {
-    grid-column: 2;
-    grid-row: 3;
+.cont3-2{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     justify-self: center;
-    /* Centrar horizontalmente */
     align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
+
+    .element1-cont3 {
+        grid-column: 3;
+        grid-row: 4;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element2-cont3 {
+        grid-column: 2;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element3-cont3 {
+        grid-column: 4;
+        grid-row: 3;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element4-cont3 {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element5-cont3 {
+        grid-column: 3;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element6-cont3 {
+        grid-column: 5;
+        grid-row: 2;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: center;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
+    
+    .element7-cont3 {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: center;
+        /* Centrar horizontalmente */
+        align-self: flex-end;
+        /* Centrar verticalmente */
+        text-align: center;
+    }
 }
 
-.element4-cont3 {
-    grid-column: 3;
-    grid-row: 3;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
 
-.element5-cont3 {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
 
-.element6-cont3 {
-    grid-column: 3;
-    grid-row: 2;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: center;
-    /* Centrar verticalmente */
-    text-align: center;
-}
 
-.element7-cont3 {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: center;
-    /* Centrar horizontalmente */
-    align-self: flex-end;
-    /* Centrar verticalmente */
-    text-align: center;
-}
 
 /******************************************CONTENDOR 4**********************************************/
 
@@ -882,44 +1110,3 @@ ion-icon {
     top: 1px;
     right: 10px;
 }
-
-
-/*button {
-    display: inline-block;
-    border-radius: 4px;
-    background-color: #3d405b;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 15px;
-    padding: 10px;
-    width: 120px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin: 5px;
-   }
-
-   button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-   }
-   
-   button span:after {
-    content: '»';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -15px;
-    transition: 0.5s;
-   }
-   
-   button:hover span {
-    padding-right: 15px;
-   }
-   
-   button:hover span:after {
-    opacity: 1;
-    right: 0;
-   }*/
