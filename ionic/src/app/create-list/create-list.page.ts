@@ -87,8 +87,8 @@ export class CreateListPage implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
     this.form = this.formBuilder.group({
       nameList: ['', Validators.required],
-      shirtColor: ['#808080', Validators.required], // Valor predeterminado
-      alternativeShirtColor: ['#808080', Validators.required],
+      shirtColor: ['#FFFFFF', Validators.required], // Valor predeterminado
+      alternativeShirtColor: ['#FFFFFF', Validators.required],
       typeAlineacion: ['', Validators.required]
     });
   }
