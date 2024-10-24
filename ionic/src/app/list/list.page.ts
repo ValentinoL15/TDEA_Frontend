@@ -211,8 +211,7 @@ export class ListPage implements OnInit {
     }
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {
-        this.notifyService.success(res.message)
-        window.location.href = `/list/${this.id}`
+        window.location.href = `/alineaciones/${this.id}/${this.list.alineacion?._id}`
       },
       error: (err) => {
         this.notifyService.error(err.error.message);
