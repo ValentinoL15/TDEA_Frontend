@@ -53,7 +53,7 @@
 </div>
 </div>
 
-<div class="cont2" *ngIf="list.typeAlineacion === 6">
+<div [ngClass]="{'cont2': list.formacion === '2-2-1', 'cont2-1': list.formacion === '2-1-2'}" *ngIf="list.typeAlineacion === 6">
   <!-- Arquero -->
   <div class="element1-cont2" (click)="openModal('arquero')">
     <svg width="50" height="50" viewBox="0 0 640 512" [attr.fill]="list.shirtColor" xmlns="http://www.w3.org/2000/svg">
@@ -174,7 +174,7 @@
   </div>
 </div>
 
-<div class="cont4" *ngIf="list.typeAlineacion === 8">
+<div [ngClass]="{'cont4': list.formacion === '3-2-2', 'cont4-1': list.formacion === '3-3-1', 'cont4-2': list.formacion === '4-2-1'}" *ngIf="list.typeAlineacion === 8">
   <!-- Arquero -->
   <div class="element1-cont4" (click)="openModal('arquero')">
       <svg width="50" height="50" viewBox="0 0 640 512" [attr.fill]="list.shirtColor" xmlns="http://www.w3.org/2000/svg">
@@ -248,7 +248,7 @@
   </div>
 </div>
 
-<div class="cont5" *ngIf="list.typeAlineacion === 9">
+<div [ngClass]="{'cont5': list.formacion === '3-3-2', 'cont5-1': list.formacion === '4-2-2', 'cont5-2': list.formacion === '3-2-3'}" *ngIf="list.typeAlineacion === 9">
   <!-- Arquero -->
   <div class="element1-cont5" (click)="openModal('arquero')">
       <svg width="50" height="50" viewBox="0 0 640 512" [attr.fill]="list.shirtColor" xmlns="http://www.w3.org/2000/svg">
@@ -331,7 +331,7 @@
   </div>
 </div>
 
-<div class="cont6" *ngIf="list.typeAlineacion === 10">
+<div [ngClass]="{'cont6': list.formacion === '4-3-2', 'cont6-1': list.formacion === '4-2-3', 'cont6-2': list.formacion === '3-3-3', 'cont6-3': list.formacion === '3-4-2'}" *ngIf="list.typeAlineacion === 10">
   <!-- Arquero -->
   <div class="element1-cont6" (click)="openModal('arquero')">
       <svg width="50" height="50" viewBox="0 0 640 512" [attr.fill]="list.shirtColor" xmlns="http://www.w3.org/2000/svg">
@@ -424,7 +424,7 @@
 </div>
 
 
-<div class="cont7" *ngIf="list.typeAlineacion === 11">
+<div [ngClass]="{'cont7': list.formacion === '4-3-3', 'cont7-1': list.formacion === '4-4-2', 'cont7-2': list.formacion === '4-2-3-1', 'cont7-3': list.formacion === '4-1-4-1', 'cont7-4': list.formacion === '3-5-2', 'cont7-5': list.formacion === '5-3-2'}" *ngIf="list.typeAlineacion === 11">
   <!-- Arquero -->
   <div class="element1-cont7" (click)="openModal('arquero')">
       <svg width="50" height="50" viewBox="0 0 640 512" [attr.fill]="list.shirtColor" xmlns="http://www.w3.org/2000/svg">
