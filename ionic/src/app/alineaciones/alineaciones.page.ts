@@ -367,7 +367,22 @@ getShirtImage(color: string): string {
   }
 }
 
-
+editFormacion(event: any) {
+  const formacionValue = event.detail.value; // Obtiene el valor seleccionado
+  const formulario = {
+    formacion: formacionValue
+  };
+  
+  this.userService.editFormacion(this.id, formulario).subscribe({
+    next: (res: any) => {
+      this.notifyService.success(res.message);
+      this.getList(this.id)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  });
+}
 
 
 /**********************ARQUERO-ALINEACION**********************/ 

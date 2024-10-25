@@ -3,6 +3,49 @@
   <div class="arrow">
     <ion-icon (click)="volver()" name="arrow-back-outline"></ion-icon>
   </div>
+  <div class="formacion">
+    <form #miForm>
+      <ion-select color="light" name="formacion" [value]="list.formacion" style="font-weight: bold;" (ionChange)="editFormacion($event)">
+        <div *ngIf="list.typeAlineacion === 5">
+          <ion-select-option value="2-1-1">2-1-1</ion-select-option>
+          <ion-select-option value="1-2-1">1-2-1</ion-select-option>
+        </div>
+        <div *ngIf="list.typeAlineacion === 6">
+          <ion-select-option value="2-2-1">2-2-1</ion-select-option>
+          <ion-select-option value="2-1-2">2-1-2</ion-select-option>
+        </div>
+        <div *ngIf="list.typeAlineacion === 7">
+          <ion-select-option value="3-2-1">3-2-1</ion-select-option>
+          <ion-select-option value="2-1-2-1">2-1-2-1</ion-select-option>
+          <ion-select-option value="2-3-1">2-3-1</ion-select-option>
+        </div>
+        <div *ngIf="list.typeAlineacion === 8">
+          <ion-select-option value="3-2-2">3-2-2</ion-select-option>
+          <ion-select-option value="3-3-1">3-3-1</ion-select-option>
+          <ion-select-option value="4-2-1">4-2-1</ion-select-option>
+        </div>
+        <div *ngIf="list.typeAlineacion === 9">
+          <ion-select-option value="3-3-2">3-3-2</ion-select-option>
+          <ion-select-option value="4-2-2">4-2-2</ion-select-option>
+          <ion-select-option value="3-2-3">3-2-3</ion-select-option>
+        </div>
+        <div *ngIf="list.typeAlineacion === 10">
+          <ion-select-option value="4-3-2">4-3-2</ion-select-option>
+          <ion-select-option value="4-2-3">4-2-3</ion-select-option>
+          <ion-select-option value="3-3-3">3-3-3</ion-select-option>
+          <ion-select-option value="3-4-2">3-4-2</ion-select-option>
+        </div>
+        <div *ngIf="list.typeAlineacion === 11">
+          <ion-select-option value="4-3-3">4-3-3</ion-select-option>
+          <ion-select-option value="4-4-2">4-4-2</ion-select-option>
+          <ion-select-option value="4-2-3-1">4-2-3-1</ion-select-option>
+          <ion-select-option value="4-1-4-1">4-1-4-1</ion-select-option>
+          <ion-select-option value="3-5-2">3-5-2</ion-select-option>
+          <ion-select-option value="5-3-2">5-3-2</ion-select-option>
+        </div>
+      </ion-select>
+    </form>
+  </div>
   <ion-icon class="boton1" (click)="resetAlineacion()" name="refresh-outline"></ion-icon>
   <img class="lapiz" src="../../assets/icon/mdi--edit.svg" (click)="goList()" width="30px" height="30px" alt="">
   
