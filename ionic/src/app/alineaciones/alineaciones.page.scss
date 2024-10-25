@@ -2418,6 +2418,14 @@ ion-content.ion-padding {
     /* Asegúrate de que la flecha esté encima de otros elementos */
 }
 
+.formacion {
+    position: absolute;
+    top: 0px;
+    right: 150px;
+    z-index: 99999;
+}
+
+
 .boton1 {
     position: absolute;
     top: 5px;

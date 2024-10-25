@@ -208,7 +208,6 @@ export class ListPage implements OnInit {
       shirtColor: form.shirtColor.value,
       alternativeShirtColor: form.alternativeShirtColor.value,
       typeAlineacion: form.typeAlineacion.value,
-      formacion: form.formacion.value
     }
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {

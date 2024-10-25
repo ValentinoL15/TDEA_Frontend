@@ -122,6 +122,10 @@ updateUsersOrder(users: any[]): Observable<any> {
     return this.http.put(`${this.API_URL}/eliminar-foto-lista/${id}`, {})
   }
 
+  editFormacion(id : any, form : any){
+    return this.http.put(`${this.API_URL}/editar-formacion/${id}`, form)
+  }
+
   /************************************************PLAYERS**************************************************/ 
 
   crearJugador( form:any){
