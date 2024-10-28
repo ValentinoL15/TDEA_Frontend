@@ -101,14 +101,17 @@ export class CreateDayPage implements OnInit {
     "22:00", "22:15", "22:30", "22:45", 
     "23:00", "23:15", "23:30", "23:45"
   ];
+  filteredStadiums: any[] = []; // Para almacenar los estadios filtrados
+  sedes: any[] = [];
 
 
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) { 
     this.form = this.formBuilder.group({
       day: ['', Validators.required],
-      time: ['', Validators.required],
-      stadium: ['', Validators.required]
-    })
+      sede: ['', Validators.required], // Asegúrate de que esto esté aquí
+      stadium: ['', Validators.required],
+      time: ['', Validators.required]
+    });
   }
 
 
@@ -118,6 +121,7 @@ export class CreateDayPage implements OnInit {
     })
     this.getTournament()
     this.getStadiums()
+    this.getSedes()
   }
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
@@ -156,9 +160,22 @@ export class CreateDayPage implements OnInit {
     })
   }
 
+  getSedes(){
+    this.tournamentServ.getMySedes().subscribe({
+      next: (res : any) => {
+        this.sedes = res.mySedes
+        console.log("mis sedes", this.sedes)
+      },
+      error: (err : any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
   createDay(){
     const formulario = {
       day: this.form.value.day,
+      sede: this.form.value.sede,
       stadium: this.form.value.stadium,
       time: this.form.value.time
     }
@@ -174,6 +191,16 @@ export class CreateDayPage implements OnInit {
       }
     })
   }
+
+  onVenueChange(event: any) {
+    const selectedVenueId = event.detail.value; // ID de la sede seleccionada
+    this.form.get('sede')?.setValue(selectedVenueId); // Actualiza el valor de la sede en el formulario
+    this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === selectedVenueId);
+    
+    // Opcional: Limpiar la selección de estadio cuando cambia la sede
+    this.form.get('stadium')?.setValue(null);
+  }
+
 
 goDay(id: any) {
   this.router.navigate([`/day/${this.id}/${id}`]);

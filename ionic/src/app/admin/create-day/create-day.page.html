@@ -36,8 +36,9 @@
       <ion-content class="ion-padding">
         <form [formGroup]="form">
           <ion-list [inset]="true">
+
             <ion-item>
-              <ion-select placeholder="Dia" label="Dia" interface="popover" labelPlacement="stacked" formControlName="day">
+              <ion-select label="Dia" labelPlacement="stacked" interface="popover" formControlName="day" placeholder="Seleccionar Día">
                 <ion-select-option value="Lunes">Lunes</ion-select-option>
                 <ion-select-option value="Martes">Martes</ion-select-option>
                 <ion-select-option value="Miercoles">Miercoles</ion-select-option>
@@ -49,14 +50,20 @@
             </ion-item>
 
             <ion-item>
-              <ion-select label="Estadio" interface="popover" labelPlacement="stacked" placeholder="Estadio" formControlName="stadium">
-                <ion-select-option *ngFor="let estadio of stadiums" [value]="estadio._id">{{estadio.code}}</ion-select-option>
+              <ion-select label="Sede" placeholder="Seleccionar Sede" interface="popover" labelPlacement="stacked" formControlName="sede" (ionChange)="onVenueChange($event)">
+                <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{ sede.name }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item *ngIf="filteredStadiums.length > 0">
+              <ion-select label="Estadio" placeholder="Seleccionar Estadio" interface="popover" labelPlacement="stacked" formControlName="stadium">
+                <ion-select-option *ngFor="let stadium of filteredStadiums" [value]="stadium._id">{{ stadium.code }}</ion-select-option>
               </ion-select>
             </ion-item>
 
             <ion-item>
-              <ion-select label="Horarios" multiple="true" labelPlacement="stacked" placeholder="Horarios" formControlName="time">
-                <ion-select-option *ngFor="let time of times">{{time}}</ion-select-option>
+              <ion-select label="Horarios" placeholder="Seleccionar Horarios" multiple="true" labelPlacement="stacked" formControlName="time">
+                <ion-select-option *ngFor="let time of times">{{ time }}</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-list>
