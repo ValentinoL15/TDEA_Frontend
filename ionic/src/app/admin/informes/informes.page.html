@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <ion-list class="celular" [inset]="true" *ngFor="let torneo of tournaments">
       <ion-list [inset]="true" *ngFor="let torneo of tournaments">
         <ion-item>
           <ion-input label="Torneo" [value]="torneo.campeonato.type"></ion-input>
@@ -38,7 +37,6 @@
           <ion-input readonly="true" label="Pagos"></ion-input>
         </ion-item>
       </ion-list>
-  </ion-list> 
   
   <div class="computadora">
     <table class="table">

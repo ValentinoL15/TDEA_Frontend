@@ -54,6 +54,7 @@ export class TournamentsPage implements OnInit {
     cupos: 0,
   }
   currentYear = new Date().getFullYear();
+  ageRange: { from: number; to: number } = { from: 0, to: 0 };
 
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController) { }
 
@@ -158,7 +159,7 @@ export class TournamentsPage implements OnInit {
     this.tournamentServ.getTournament(id).subscribe({
       next: (res : any) => {
         this.tournament = res.tournamentFound
-        console.log(this.tournament)
+        this.ageRange = res.ageRange; 
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
       },
       error: (err: any) => {
