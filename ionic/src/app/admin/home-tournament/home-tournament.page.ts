@@ -249,6 +249,7 @@ createTournament(){
     cupos: this.form.value.cupos,
     daysTournament : this.form.value.daysTournament.map((dayTournament: any) => ({
       day: dayTournament.day,
+      sede: dayTournament.sedeSeleccionada,
       stadium: dayTournament.estadioSeleccionado, // Asegúrate de que el campo es correcto
       time: dayTournament.time // Asegúrate de que "time" es un array
     }))

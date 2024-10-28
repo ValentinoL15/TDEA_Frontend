@@ -33,6 +33,9 @@ export interface Tournament {
             _id?: string,
             type: string
         },
+        sede?: 
+            Sede
+        
         stadium?: 
             Stadium
         ,

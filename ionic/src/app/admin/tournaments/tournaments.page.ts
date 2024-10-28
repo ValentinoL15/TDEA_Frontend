@@ -32,6 +32,28 @@ export class TournamentsPage implements OnInit {
       _id: "",
       type: ""
     },
+     daysTournament: [{
+      _id: "",
+      day: {
+        _id: "",
+        type: ""
+      },
+      stadium: {
+        _id: "",
+        belongToSede: "",
+        code: "",
+        type: 0,
+        length: 0,
+        width: 0,
+        roof: "",
+        grass: "",
+        punctuaction: 0,
+      },
+      time: {
+        _id: "",
+        type: []
+      }
+    }],
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",

@@ -8,7 +8,7 @@ import { AlertController } from '@ionic/angular';
 import { Stadium } from 'src/app/interfaces/Stadium';
 import { Sede } from 'src/app/interfaces/Sede';
 import { Tournament } from 'src/app/interfaces/Tournament';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-day',
@@ -59,6 +59,23 @@ export class DayPage implements OnInit {
         roof: "",
         grass: "",
         punctuaction: 0,
+      },
+      sede: {
+        name: "",
+        alias: "",
+        status: "",
+        phone: 0,
+        celular: 0,
+        adress: "",
+        barrio: "",
+        socialRed: "",
+        encargado: "",
+        dueno: "",
+        daysAttention: [{
+          day: "",
+          start: "",
+          end: "",
+      }],
       },
       time: {
         _id: "",
@@ -149,7 +166,7 @@ export class DayPage implements OnInit {
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private fb: FormBuilder ) {
     this.dayForm = this.fb.group({
       day: [''],
-      venue: [''], // Campo para la sede
+      sede: [null, Validators.required], // Campo para la sede
       stadium: [''],
       time: ['']
     });
@@ -189,8 +206,10 @@ export class DayPage implements OnInit {
   }
 
   onVenueChange(event: any) {
-    this.selectedVenue = event.detail.value;
-    this.filterStadiums();
+    const selectedVenueId = event.detail.value;
+    console.log('Sede seleccionada:', selectedVenueId); // Verifica que el valor sea correcto
+    this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === selectedVenueId);
+    this.dayForm.get('stadium')?.setValue(null); // Opcional: limpiar la selección de estadio
   }
 
   getTournament(){
@@ -204,21 +223,29 @@ export class DayPage implements OnInit {
       }
     })
   }
+  
   getDayTournament() {
     this.tournamentServ.getDayTournament(this.id, this.dayId).subscribe({
       next: (res: any) => {
-        console.log('Respuesta del backend:', res); // Verificar la respuesta
         if (res.day) {
           this.tournamentDay = res.day;
-          console.log('Día del torneo:', this.tournamentDay); // Verificar que el día esté asignado
-          
-          // Asignar los horarios seleccionados desde el backend a selectedTimes
+  
+          // Establecer la sede y el estadio en el formulario
+          const sedeId = this.tournamentDay.sede;
+          const stadiumId = this.tournamentDay.stadium;
+  
+          this.dayForm.get('sede')?.setValue(sedeId); // Establecer la sede correctamente 
+          this.selectedVenue = sedeId; // Guardar la sede seleccionada
+  
+          // Filtrar los estadios según la sede
+          this.filterStadiums(); // Esto se encargará de establecer los estadios filtrados
+  
+          // Establecer el estadio si existe
+          this.dayForm.get('stadium')?.setValue(stadiumId); 
+  
+          // Asignar horarios seleccionados
           this.selectedTimes = this.tournamentDay.time; 
-          
-          // Si el estadio está disponible, puedes acceder a él aquí
-          if (this.tournamentDay.stadium) {
-            console.log('Estadio:', this.tournamentDay.stadium.code); // Verificar que el estadio esté asignado
-          }
+          this.dayForm.get('time')?.setValue(this.selectedTimes);
         } else {
           this.notifyService.error('No hay día disponible.');
         }
@@ -228,21 +255,29 @@ export class DayPage implements OnInit {
       }
     });
   }
-
+  
   filterStadiums() {
     if (this.selectedVenue) {
       this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === this.selectedVenue);
+  
+      const stadiumId = this.tournamentDay.stadium;
+      if (stadiumId && this.filteredStadiums.some(stadium => stadium._id === stadiumId)) {
+        this.dayForm.get('stadium')?.setValue(stadiumId); // Asegúrate de que este ID esté presente
+      } else {
+        this.dayForm.get('stadium')?.setValue(null); // Limpiar si no está
+      }
     } else {
       this.filteredStadiums = [];
+      this.dayForm.get('stadium')?.setValue(null); // Limpiar si no hay sede
     }
-    // Resetear la selección del estadio si es necesario
-    this.dayForm.get('stadium')?.setValue(null);
   }
+  
 
   editDayTournament(){
     const formulario = {
       day: this.dayForm.value.day,
       stadium: this.dayForm.value.stadium,
+      sede: this.dayForm.value.sede,
       time: this.dayForm.value.time
     }
     this.tournamentServ.editDayTournament(this.id, this.dayId, formulario).subscribe({
