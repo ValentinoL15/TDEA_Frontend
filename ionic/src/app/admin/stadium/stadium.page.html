@@ -5,37 +5,70 @@
     </ion-buttons>
     <ion-title>Estadio</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="setOpen(true)">Editar</ion-button>
+      <ion-button (click)="editStadium(stadium._id, miForm)">Editar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
   <ion-list [inset]="true">
-    <ion-item>
-      <ion-input readonly="true" label="Codigo" label-placement="floating" [value]="stadium.code"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Tipo de cancha" label-placement="floating" [value]="stadium.type"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Largo (Metros)" [value]="stadium.length" label-placement="floating"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Ancho (Metros)" [value]="stadium.width" label-placement="floating"></ion-input>
-    </ion-item>
+    <form #miForm>
       <ion-item>
-        <ion-input readonly="true" label="Techado" [value]="stadium.roof" label-placement="floating"></ion-input>
+        <ion-input label="Codigo" label-placement="floating" placeholder="Codigo" [value]="stadium.code" name="code"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input readonly="true" label="Cesped" [value]="stadium.grass" label-placement="floating"></ion-input>
-      </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Puntuacion" [value]="stadium.punctuaction" label-placement="floating"></ion-input>
-    </ion-item>
-  </ion-list>
 
-  <ion-modal [isOpen]="isModalOpen">
+        <ion-select label="Tipo de cancha" name="type" class="select" [placeholder]="stadium.type" [value]="stadium.type">
+          <ion-select-option value="5">5</ion-select-option>
+          <ion-select-option value="6">6</ion-select-option>
+          <ion-select-option value="7">7</ion-select-option>
+          <ion-select-option value="8">8</ion-select-option>
+          <ion-select-option value="9">9</ion-select-option>
+          <ion-select-option value="10">10</ion-select-option>
+          <ion-select-option value="11">11</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" label="Largo (Metros)" label-placement="floating" placeholder="Longitud" [value]="stadium.length" name="length"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" label="Ancho (Metros)" label-placement="floating" placeholder="Ancho" [value]="stadium.width" name="width" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Techado" name="roof" [value]="stadium.roof" [placeholder]="stadium.roof">
+          <ion-select-option value="Techada">Techada</ion-select-option>
+          <ion-select-option value="Destechada">Destechada</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Cesped" name="grass" [value]="stadium.grass" [placeholder]="stadium.grass">
+          <ion-select-option value="Cesped">Pasto</ion-select-option>
+          <ion-select-option value="Sintetico">Sintetico</ion-select-option>
+          <ion-select-option value="SinDefinir">Sin Definir</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Puntuacion" name="punctuaction" [value]="stadium.punctuaction" [placeholder]="stadium.punctuaction">
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+          <ion-select-option value="4">4</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+          <ion-select-option value="6">6</ion-select-option>
+          <ion-select-option value="7">7</ion-select-option>
+          <ion-select-option value="8">8</ion-select-option>
+          <ion-select-option value="9">9</ion-select-option>
+          <ion-select-option value="10">10</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </form>
+    </ion-list>
+
+    <div class="contianer">
+      <ion-button expand="block" color="danger" (click)="eliminarEstadio()">Eliminar estadio</ion-button>
+    </div>
+
+  <!--<ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -107,7 +140,7 @@
         </div>
       </ion-content>
     </ng-template>
-  </ion-modal>
+  </ion-modal>-->
 </ion-content>
 
 
