@@ -235,9 +235,7 @@ createTournament(){
     (dayTournament.estadioSeleccionado !== '' && dayTournament.estadioSeleccionado !== null)
   );
 
-  if (!hasValidStadium) {
-    return this.notifyService.error('Debes seleccionar al menos un estadio válido o dejar como "A definir".');
-  }
+ 
   const formulario : Tournament = {
     nameFantasy: this.form.value.nameFantasy,
     ano: this.form.value.ano,
