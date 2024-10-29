@@ -66,11 +66,11 @@
         </ion-item>
         <ion-item>
           <ion-label>Desde</ion-label>
-          <ion-input placeholder="Ej: 1990" formControlName="rangeAgeSince" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
+          <ion-input placeholder="Ej: 20" formControlName="rangeAgeSince" class="value-right" (input)="limitLength($event)"  maxlength="2"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Hasta</ion-label>
-          <ion-input placeholder="Ej: 1999" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="4"></ion-input>
+          <ion-input placeholder="Ej: 26" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="2"></ion-input>
         </ion-item>
         <ion-item>
           <ion-select label="Sexo" interface="popover" formControlName="isTournamentMasculine">

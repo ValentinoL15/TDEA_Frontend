@@ -181,7 +181,7 @@ export class TournamentsPage implements OnInit {
     this.tournamentServ.getTournament(id).subscribe({
       next: (res : any) => {
         this.tournament = res.tournamentFound
-        this.ageRange = res.ageRange; 
+        this.ageRange = res.years; 
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
       },
       error: (err: any) => {
