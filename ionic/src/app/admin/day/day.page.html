@@ -32,10 +32,10 @@
         <ion-select
           label="Estadio"
           labelPlacement="stacked"
-          [placeholder]="tournamentDay?.stadium?.code || 'Selecciona estadio'"
+          [placeholder]="tournamentDay?.stadium?.code || 'A definir'"
           formControlName="stadium"
           [value]="tournamentDay.stadium"> <!-- Aquí se establece el valor por defecto -->
-          
+          <ion-select-option value="A definir">A definir</ion-select-option>
           <ion-select-option *ngFor="let stadium of filteredStadiums" [value]="stadium._id">
             {{stadium.code}}
           </ion-select-option>

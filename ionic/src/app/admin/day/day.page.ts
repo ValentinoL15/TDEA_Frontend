@@ -229,6 +229,10 @@ export class DayPage implements OnInit {
       next: (res: any) => {
         if (res.day) {
           this.tournamentDay = res.day;
+
+          if (!this.tournamentDay.stadium) {
+            this.tournamentDay.stadium = { code: '' }; // O cualquier valor por defecto
+          }
   
           // Establecer la sede y el estadio en el formulario
           const sedeId = this.tournamentDay.sede;
@@ -237,8 +241,8 @@ export class DayPage implements OnInit {
           this.dayForm.get('sede')?.setValue(sedeId); // Establecer la sede correctamente 
           this.selectedVenue = sedeId; // Guardar la sede seleccionada
   
-          // Filtrar los estadios según la sede
-          this.filterStadiums(); // Esto se encargará de establecer los estadios filtrados
+          // Llamar a filterStadiums para obtener los estadios de la sede seleccionada
+          this.filterStadiums(); 
   
           // Establecer el estadio si existe
           this.dayForm.get('stadium')?.setValue(stadiumId); 
@@ -256,6 +260,7 @@ export class DayPage implements OnInit {
     });
   }
   
+  
   filterStadiums() {
     if (this.selectedVenue) {
       this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === this.selectedVenue);
@@ -271,6 +276,7 @@ export class DayPage implements OnInit {
       this.dayForm.get('stadium')?.setValue(null); // Limpiar si no hay sede
     }
   }
+  
   
 
   editDayTournament(){
@@ -297,6 +303,7 @@ export class DayPage implements OnInit {
     this.tournamentServ.getEstadios().subscribe({
       next: (res : any) => {
         this.stadiums = res.stadiums;
+        this.filterStadiums(); // Filtrar estadios después de cargar
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
