@@ -230,6 +230,14 @@ createTournament(){
     stadium: dayTournament.stadium,
     time: dayTournament.time // Suponiendo que "time" ya es un array de strings
   }));
+  const hasValidStadium = this.form.value.daysTournament.some((dayTournament: any) => 
+    dayTournament.estadioSeleccionado === 'A definir' || 
+    (dayTournament.estadioSeleccionado !== '' && dayTournament.estadioSeleccionado !== null)
+  );
+
+  if (!hasValidStadium) {
+    return this.notifyService.error('Debes seleccionar al menos un estadio válido o dejar como "A definir".');
+  }
   const formulario : Tournament = {
     nameFantasy: this.form.value.nameFantasy,
     ano: this.form.value.ano,

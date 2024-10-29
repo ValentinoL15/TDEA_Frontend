@@ -57,6 +57,7 @@
 
             <ion-item *ngIf="filteredStadiums.length > 0">
               <ion-select label="Estadio" placeholder="Seleccionar Estadio" interface="popover" labelPlacement="stacked" formControlName="stadium">
+                <ion-select-option value="A definir">A definir</ion-select-option>
                 <ion-select-option *ngFor="let stadium of filteredStadiums" [value]="stadium._id">{{ stadium.code }}</ion-select-option>
               </ion-select>
             </ion-item>
