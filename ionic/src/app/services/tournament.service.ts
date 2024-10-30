@@ -206,9 +206,23 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-torneo/${id}`)
   }
 
-  getTournaments(){
-    return this.http.get(`${this.API_URL}/obtener-torneos`)
-  }
+  getTournaments(skip: number = 0, limit: number = 10, year?: number, torneo?: string) {
+    const params: any = {
+        skip: skip.toString(),
+        limit: limit.toString(),
+    };
+
+    if (year) {
+        params.year = year.toString(); // Agregar año si existe
+    }
+
+    if (torneo) {
+        params.torneo = torneo; // Agregar torneo si existe
+    }
+
+    return this.http.get(`${this.API_URL}/obtener-torneos`, { params });
+}
+
 
   editTournament(id:any, form:any){
     return this.http.put(`${this.API_URL}/editar-torneo/${id}`, form)
