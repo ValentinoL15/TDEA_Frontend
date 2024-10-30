@@ -5,38 +5,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-      <ion-list [inset]="true" *ngFor="let torneo of tournaments">
-        <ion-item>
-          <ion-input label="Torneo" [value]="torneo.campeonato.type"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Año" [value]="torneo.ano"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Dia" [value]="getDays(torneo)"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Formato" [value]="torneo.format.formatName"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Tipo" [value]="torneo.edad?.type"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Equipos Anotados" [value]="getTeamsSubscribed(torneo)"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Equipos Reservados" [value]="getTeamsSubscribed(torneo)"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Equipos Restantes" [value]="getTeamsSubscribed(torneo)"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Cupos" [value]="torneo.cupos"></ion-input>
-        </ion-item>
-        <ion-item detail="true" (click)="setOpen(true, torneo)">
-          <ion-input readonly="true" label="Pagos"></ion-input>
-        </ion-item>
-      </ion-list>
+  <div class="celular">
+    <ion-list [inset]="true" *ngFor="let torneo of tournaments">
+      <ion-item>
+        <ion-input label="Torneo" [value]="torneo.campeonato.type"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Año" [value]="torneo.ano"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Dia" [value]="getDays(torneo)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Formato" [value]="torneo.format.formatName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Tipo" [value]="torneo.edad?.type"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Equipos Anotados" [value]="getTeamsSubscribed(torneo)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Equipos Reservados" [value]="getTeamsSubscribed(torneo)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Equipos Restantes" [value]="getTeamsSubscribed(torneo)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Cupos" [value]="torneo.cupos"></ion-input>
+      </ion-item>
+      <ion-item detail="true" (click)="setOpen(true, torneo)">
+        <ion-input readonly="true" label="Pagos"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+      
   
   <div class="computadora">
     <table class="table">
