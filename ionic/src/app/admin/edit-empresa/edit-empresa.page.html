@@ -5,38 +5,40 @@
     </ion-buttons>
     <ion-title>Empresa</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="setOpen(true)">Editar</ion-button>
+      <ion-button (click)="editEmpresa(miForm)">Editar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <ion-list [inset]="true">
-    <ion-item>
-      <ion-input readonly="true" label="Dueño" name="dueno" [value]="empresa.dueno"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Razon social" name="razonSocial" [value]="empresa.razonSocial"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="CUIT" name="cuit" [value]="empresa.cuit"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Condicion Tributaria" name="condicionTributaria" [value]="empresa.condicionTributaria"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Tipo de Factura" name="tipoFactura" [value]="empresa.tipoFactura"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Domicilio" name="adress" [value]="empresa.adress"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Email" name="mail" [value]="empresa.mail"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input readonly="true" label="Telefono" name="phone" [value]="empresa.phone"></ion-input>
-    </ion-item>
-  </ion-list>
+  <form #miForm>
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-input label="Dueño" name="dueno" [value]="empresa.dueno"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Razon social" name="razonSocial" [value]="empresa.razonSocial"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="CUIT" name="cuit" [value]="empresa.cuit"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Condicion Tributaria" name="condicionTributaria" [value]="empresa.condicionTributaria"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Tipo de Factura" name="tipoFactura" [value]="empresa.tipoFactura"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Domicilio" name="adress" [value]="empresa.adress"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Email" name="mail" [value]="empresa.mail"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Telefono" name="phone" [value]="empresa.phone"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
 
   <ion-list [inset]="true">
     <ion-item button (click)="goSede()">
