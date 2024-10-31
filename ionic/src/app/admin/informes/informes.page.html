@@ -42,31 +42,28 @@
       
   
   <div class="computadora">
-    <div class="contenedor-filter">
-      <div class="ano">
-        <label for="yearInput">Filtrar por año</label>
-        <input
-          class="input"
-          type="number"
-          id="yearInput"
-          [(ngModel)]="filterYear"
-          (ngModelChange)="onYearChange()"
-          placeholder="Ingrese el año"
-        />
-      </div>
-
-      <div class="ano">
-        <label for="torneoInput">Filtrar por torneo</label>
+    <div class="filters">
+      <div>
+        <label for="filterSelect">Filtrar por:</label>
+        <select id="filterSelect" [(ngModel)]="filterType">
+          <option value="torneo">Torneo</option>
+          <option value="ano">Año</option>
+          <option value="dia">Dias</option>
+          <option value="formato">Formato</option>
+          <option value="edad">Tipo</option>
+        </select>
+        
+        <label for="filterInput">Ingrese el valor:</label>
         <input
           class="input"
           type="text"
-          id="torneoInput"
-          [(ngModel)]="filterTorneo"
-          (ngModelChange)="onTorneoChange()"
-          placeholder="Ingrese el torneo"
+          id="filterInput"
+          [(ngModel)]="filterValue"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Ingrese el valor"
         />
       </div>
-    </div>
+      </div>
     <table class="table">
       <thead>
         <tr>

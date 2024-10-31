@@ -33,8 +33,11 @@
   justify-content: space-between;
 }
 
-.ano {
-  margin: 15px 0;
+.filters {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 }
 
 .input {
