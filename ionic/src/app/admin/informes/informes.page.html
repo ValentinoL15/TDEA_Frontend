@@ -44,26 +44,65 @@
   <div class="computadora">
     <div class="filters">
       <div>
-        <label for="filterSelect">Filtrar por:</label>
-        <select id="filterSelect" [(ngModel)]="filterType">
-          <option value="torneo">Torneo</option>
-          <option value="ano">Año</option>
-          <option value="dia">Dias</option>
-          <option value="formato">Formato</option>
-          <option value="edad">Tipo</option>
-        </select>
-        
-        <label for="filterInput">Ingrese el valor:</label>
+          <label for="tournamentInput">Filtrar por Torneo:</label>
+          <input
+              class="input"
+              type="text"
+              id="tournamentInput"
+              [(ngModel)]="tournamentFilter"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Ejemplo: Clausura"
+          />
+      </div>
+
+      <div>
+          <label for="yearInput">Filtrar por Año:</label>
+          <input
+              class="input"
+              type="text"
+              id="yearInput"
+              [(ngModel)]="yearFilter"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Ejemplo: 2024, 2025"
+          />
+      </div>
+
+      <div>
+        <label for="dayInput">Filtrar por Días:</label>
         <input
-          class="input"
-          type="text"
-          id="filterInput"
-          [(ngModel)]="filterValue"
-          (ngModelChange)="onFilterChange()"
-          placeholder="Ingrese el valor"
+            class="input"
+            type="text"
+            id="dayInput"
+            [(ngModel)]="dayFilter"
+            (ngModelChange)="onFilterChange()"
+            placeholder="Ejemplo: Lunes, Miércoles, Sábado"
         />
+    </div>
+
+      <div>
+          <label for="formatInput">Filtrar por Formato:</label>
+          <input
+              class="input"
+              type="text"
+              id="formatInput"
+              [(ngModel)]="formatFilter"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Ejemplo: 5,8,10"
+          />
       </div>
+
+      <div>
+          <label for="ageInput">Filtrar por Edad:</label>
+          <input
+              class="input"
+              type="text"
+              id="ageInput"
+              [(ngModel)]="ageFilter"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Ejemplo: +30"
+          />
       </div>
+  </div>
     <table class="table">
       <thead>
         <tr>
