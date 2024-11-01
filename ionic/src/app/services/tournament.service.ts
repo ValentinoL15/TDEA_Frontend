@@ -206,7 +206,15 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-torneo/${id}`)
   }
 
-  getTournaments(skip: number = 0, limit: number = 10, year?: number, torneo?: string, dia?: string, formato?: string, edad?:string) {
+  getTournaments(
+    skip: number = 0,
+    limit: number = 10,
+    year?: number,
+    torneo?: string,
+    dia?: string,
+    formato?: string,
+    edad?: string
+) {
     const params: any = {
         skip: skip.toString(),
         limit: limit.toString(),
@@ -221,20 +229,19 @@ deleteStadium(id : any){
     }
 
     if (dia) {
-        params.dia = dia; // Agregar día si existe
+        params.dia = dia; // Agregar días como cadena
     }
 
     if (formato) {
         params.formato = formato; // Agregar formato si existe
     }
 
-    if(edad){
-      params.edad = edad;
+    if (edad) {
+        params.edad = edad; // Agregar edad si existe
     }
 
     return this.http.get(`${this.API_URL}/obtener-torneos`, { params });
 }
-
 
 
 
