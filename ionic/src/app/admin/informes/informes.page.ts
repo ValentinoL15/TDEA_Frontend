@@ -21,7 +21,7 @@ totalPages: number = 0
 filterType: string = 'torneo'; // Por defecto, filtrar por torneo
 filterValue: string = ''; // Valor ingresado en el input
 tournamentFilter: string = '';
-yearFilter: string = '';
+yearFilter: string = ''; // Mantenerlo como string para capturar la entrada 
 formatFilter: string = '';
 ageFilter: string = '';
 dayFilter: string = ''; // Nueva propiedad para días
@@ -33,7 +33,7 @@ ngOnInit() {
   this.getTournaments()
 }
 
-getTournaments(skip: number = this.skip, limit: number = this.limit, year?: number, torneo?: string, dia?: string, formato?: string, edad?: string) {
+getTournaments(skip: number = this.skip, limit: number = this.limit, year?: number[], torneo?: string, dia?: string, formato?: string, edad?: string) {
   this.tournamentServ.getTournaments(skip, limit, year, torneo, dia, formato, edad).subscribe({
       next: (res: any) => {
           this.tournaments = res.tournaments;
@@ -50,12 +50,17 @@ onFilterChange() {
   this.skip = 0; // Reiniciar la paginación
   this.currentPage = 1; // Volver a la primera página
 
-  let year: number | undefined = this.yearFilter.length ? +this.yearFilter.trim() : undefined;
+  // Convertir la cadena de años a un arreglo de números
+  let year: number[] | undefined = this.yearFilter
+      .split(',')
+      .map(y => parseInt(y.trim(), 10))
+      .filter(y => !isNaN(y)); // Filtrar años válidos
+
   let formato: string | undefined = this.formatFilter.length ? this.formatFilter.trim() : undefined;
-  let dias: string | undefined = this.dayFilter.trim(); // Obtener los días
+  let dias: string | undefined = this.dayFilter.trim();
 
   // Comprobar si todos los filtros están vacíos
-  if (!year && !this.tournamentFilter && !dias && !formato && !this.ageFilter) {
+  if (!year.length && !this.tournamentFilter && !dias && !formato && !this.ageFilter) {
       // Si todos los filtros están vacíos, traer todos los torneos
       this.getTournaments(); // Llamar sin parámetros
   } else {
@@ -63,14 +68,15 @@ onFilterChange() {
       this.getTournaments(
           this.skip,
           this.limit,
-          year,
+          year.length ? year : undefined, // Pasar arreglo de años o undefined
           this.tournamentFilter,
-          dias.length ? dias : undefined, // Usar la cadena de días
+          dias.length ? dias : undefined,
           formato,
           this.ageFilter.length ? this.ageFilter : undefined
       );
   }
 }
+
 
 calculatePages() {
   this.totalPages = Math.ceil(this.totalTournaments / this.limit);

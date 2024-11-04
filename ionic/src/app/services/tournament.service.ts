@@ -209,7 +209,7 @@ deleteStadium(id : any){
   getTournaments(
     skip: number = 0,
     limit: number = 10,
-    year?: number,
+    year?: number[],
     torneo?: string,
     dia?: string,
     formato?: string,
@@ -220,9 +220,9 @@ deleteStadium(id : any){
         limit: limit.toString(),
     };
 
-    if (year) {
-        params.year = year.toString(); // Agregar año si existe
-    }
+    if (year && year.length > 0) {
+      params.year = year.join(','); // Convierte el arreglo a una cadena
+  }
 
     if (torneo) {
         params.torneo = torneo; // Agregar torneo si existe
