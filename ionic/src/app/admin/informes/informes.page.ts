@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-informes',
@@ -132,4 +134,35 @@ setOpen(isOpen: boolean, torneo?: any) {
     this.selectedTournament = null;  // Restablece el torneo al cerrar el modal
   }
 }
+
+exportToExcel() {
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.tournaments.map(torneo => ({
+    Torneo: torneo.campeonato.type,
+    Año: torneo.ano,
+    Dias: this.getDays(torneo),
+    Formato: torneo.format.formatName,
+    Tipo: torneo.edad.type,
+    Jornada: 'Jornada X',
+    'A anotar': 'X Jugadores',
+    Activos: this.getTeamsSubscribed(torneo),
+    Reserva: 'X Jugadores',
+    Cupos: torneo.cupos,
+    Pagos: torneo.pagos ? torneo.pagos.map(p => `$${p.monto}`).join(', ') : 'N/A'
+  })));
+
+  const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Informe');
+
+  // Generar el archivo Excel
+  const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const data: Blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+  saveAs(data, 'informe_torneos.xlsx');
 }
+}
+
+// Tipo de archivo Excel
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+
+
+
+
