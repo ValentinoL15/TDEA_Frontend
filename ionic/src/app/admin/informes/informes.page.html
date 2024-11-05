@@ -43,17 +43,6 @@
   
   <div class="computadora">
     <div class="filters">
-      <div>
-          <label for="tournamentInput">Filtrar por Torneo:</label>
-          <input
-              class="input"
-              type="text"
-              id="tournamentInput"
-              [(ngModel)]="tournamentFilter"
-              (ngModelChange)="onFilterChange()"
-              placeholder="Ejemplo: Clausura"
-          />
-      </div>
 
       <div>
           <label for="yearInput">Filtrar por Año:</label>
@@ -66,6 +55,18 @@
               placeholder="Ejemplo: 2024, 2025"
           />
       </div>
+
+      <div>
+        <label for="tournamentInput">Filtrar por Torneo:</label>
+        <input
+            class="input"
+            type="text"
+            id="tournamentInput"
+            [(ngModel)]="tournamentFilter"
+            (ngModelChange)="onFilterChange()"
+            placeholder="Ejemplo: Clausura"
+        />
+    </div>
 
       <div>
         <label for="dayInput">Filtrar por Días:</label>
@@ -106,32 +107,32 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Torneo</th>
           <th scope="col">Año</th>
+          <th scope="col">Torneo</th>
           <th scope="col">Dias</th>
           <th scope="col">Formato</th>
           <th scope="col">Tipo</th>
-          <th scope="col">Jornada</th>
+          <!--<th scope="col">Jornada</th>
           <th scope="col">A anotar</th>
+          <th scope="col">Pagos</th>-->
+          <th scope="col">Cupos</th>
           <th scope="col">Activos</th>
           <th scope="col">Reserva</th>
-          <th scope="col">Cupos</th>
-          <th scope="col">Pagos</th>
         </tr>
       </thead>
       <tbody *ngFor="let torneo of tournaments">
         <tr>
-          <th>{{torneo.campeonato.type}}</th>
           <td>{{torneo.ano}}</td>
+          <th>{{torneo.campeonato.type}}</th>
           <td>{{getDays(torneo)}}</td>
           <td>{{torneo.format.formatName}}</td>
           <td>{{torneo.edad.type}}</td>
-          <td>Jornada X</td>
+          <!--<td>Jornada X</td>
           <td>X Jugadores</td>
+          <td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>-->
           <td>{{getTeamsSubscribed(torneo)}}</td>
           <td>X Jugadores</td>
           <td>{{torneo.cupos}}</td>
-          <td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>
           <ion-modal [isOpen]="isModalOpen">
             <ng-template>
               <ion-header>
