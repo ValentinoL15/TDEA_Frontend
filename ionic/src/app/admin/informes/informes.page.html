@@ -130,9 +130,9 @@
           <!--<td>Jornada X</td>
           <td>X Jugadores</td>
           <td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>-->
+          <td>{{torneo.cupos}}</td>
           <td>{{getTeamsSubscribed(torneo)}}</td>
           <td>X Jugadores</td>
-          <td>{{torneo.cupos}}</td>
           <ion-modal [isOpen]="isModalOpen">
             <ng-template>
               <ion-header>
