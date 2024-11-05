@@ -5,6 +5,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { Table } from 'src/app/interfaces/Tables';
 
 @Component({
   selector: 'app-informes',
@@ -28,11 +29,16 @@ formatFilter: string = '';
 ageFilter: string = '';
 dayFilter: string = ''; // Nueva propiedad para días
 pages: number[] = []; // Para almacenar los números de páginas
+tables: Table[] = [];
+selectedColumns: string[] = [];  
+
+
 
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router) { }
 
 ngOnInit() {
   this.getTournaments()
+  this.getTable()
 }
 
 getTournaments(skip: number = this.skip, limit: number = this.limit, year?: number[], torneo?: string, dia?: string, formato?: string, edad?: string) {
@@ -77,6 +83,33 @@ onFilterChange() {
           this.ageFilter.length ? this.ageFilter : undefined
       );
   }
+}
+
+createTable(form: any) {
+  const formulario = {
+    selectedColumns: this.selectedColumns // Usamos el valor de selectedColumns que se ha vinculado con ngModel
+  };
+
+  this.tournamentServ.createTableTournament(formulario).subscribe({
+    next: (res: any) => {
+      this.notifyService.success(res.message);
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  });
+}
+
+getTable(){
+  this.tournamentServ.getTablesTournaments().subscribe({
+    next: (res: any) => {
+      this.tables = res.tables;
+      console.log(this.tables)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  })
 }
 
 
@@ -125,7 +158,6 @@ goTournament(id:any){
 }
 
 isModalOpen = false;
-
 setOpen(isOpen: boolean, torneo?: any) {
   this.isModalOpen = isOpen;
   if (isOpen) {
@@ -133,6 +165,11 @@ setOpen(isOpen: boolean, torneo?: any) {
   } else {
     this.selectedTournament = null;  // Restablece el torneo al cerrar el modal
   }
+}
+
+isModalOpen2 = false
+setOpen2(isOpen2:boolean){
+  this.isModalOpen2 = isOpen2
 }
 
 exportToExcel() {
@@ -158,6 +195,9 @@ exportToExcel() {
   const data: Blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
   saveAs(data, 'informe_torneos.xlsx');
 }
+
+
+
 }
 
 // Tipo de archivo Excel
