@@ -273,15 +273,6 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/crear-dia-torneo/${id}`, form)
   }
 
-/**************************************************TABLE-TOURNAMENT*************************************************/
-  createTableTournament(form : any){
-    return this.http.post(`${this.API_URL}/create-table`, form)
-  }
-
-  getTablesTournaments(){
-    return this.http.get(`${this.API_URL}/get-tables`)
-  }
-
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

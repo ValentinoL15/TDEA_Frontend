@@ -3,6 +3,7 @@ import { Campeonato } from "./Campeonato";
 import { Edad } from "./Edad";
 
 export interface Table {
+    _id?:string,
     name: string,
     lastName: string,
     phone: string,

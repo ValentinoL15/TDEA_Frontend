@@ -42,10 +42,8 @@
       
   
   <div class="computadora">
-    <div style="display: flex; width: 100%; justify-content:end;">
-      <ion-button (click)="setOpen2(true)">Generar Tabla</ion-button>
-    </div>
-    <!--<div class="filters">
+  
+    <div class="filters">
 
 
       <div>
@@ -108,10 +106,6 @@
           />
       </div>
   </div>
-  
-  <div style="display: flex; width: 100%; justify-content:end;">
-    <ion-button (click)="setOpen2(true)">Generar Tabla</ion-button>
-  </div>
 
     <table class="table">
       <thead>
@@ -121,9 +115,7 @@
           <th scope="col">Dias</th>
           <th scope="col">Formato</th>
           <th scope="col">Tipo</th>
-          <th scope="col">Jornada</th>
           <th scope="col">A anotar</th>
-          <th scope="col">Pagos</th>
           <th scope="col">Cupos</th>
           <th scope="col">Activos</th>
           <th scope="col">Reserva</th>
@@ -136,9 +128,8 @@
           <td>{{getDays(torneo)}}</td>
           <td>{{torneo.format.formatName}}</td>
           <td>{{torneo.edad.type}}</td>
-          <td>Jornada X</td>
           <td>X Jugadores</td>
-          <td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>
+          <!--<td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>-->
           <td>{{torneo.cupos}}</td>
           <td>{{getTeamsSubscribed(torneo)}}</td>
           <td>X Jugadores</td>
@@ -172,36 +163,8 @@
           </ion-modal>
         </tr>
       </tbody>
-    </table> -->
-
-    <table class="table" *ngFor="let tournament of tables">
-
-      <thead>
-        <tr>
-          <th *ngIf="tournament.ano !== 0" scope="col">Año</th>
-          <th *ngIf="tournament.campeonato.length !== 0" scope="col">Torneo</th>
-          <th *ngIf="tournament.daysTournament.length !== 0" scope="col">Dias</th>
-          <th *ngIf="tournament.format.length !== 0" scope="col">Formato</th>
-          <th *ngIf="tournament.edad.length !== 0" scope="col">Tipo</th>
-          <th *ngIf="tournament.cupos.length !== 0" scope="col">Cupos</th>
-        </tr>
-      </thead>
-
-      <tbody *ngFor="let torneo of tournaments">
-      <tr>
-        <td *ngIf="tournament.ano !== 0">{{torneo.ano}}</td>
-        <td *ngIf="tournament.campeonato.length !== 0">{{torneo.campeonato.type}}</td>
-        <td *ngIf="tournament.daysTournament.length !== 0">{{getDays(torneo)}}</td>
-        <td *ngIf="tournament.format.length !== 0">{{torneo.format.formatName}}</td>
-        <td *ngIf="tournament.edad.length !== 0">{{torneo.edad.type}}</td>
-        <td *ngIf="tournament.cupos.length !== 0">{{torneo.cupos}}</td>
-      </tr>
-      </tbody>
-      
-    </table>
-
-    <button (click)="exportToExcel()"><img src="../../../assets/icon/file-excel-regular.svg" width="20px" height="20px">Exportar a Excel</button>
-    <!--<nav aria-label="Page navigation example">
+    </table> 
+    <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" (click)="prevPage()" [class.disabled]="currentPage === 1">
           <a class="page-link" href="#">Previous</a>
@@ -213,45 +176,10 @@
           <a class="page-link" href="#">Next</a>
         </li>
       </ul>
-    </nav>-->
+    </nav>
     
 
-    <ion-modal [isOpen]="isModalOpen2">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-buttons slot="start">
-              <ion-button (click)="setOpen2(false)">Volver</ion-button>
-            </ion-buttons>
-            <ion-title style="text-align: center;">Crear Tabla</ion-title>
-          </ion-toolbar>
-        </ion-header>
-
-        <ion-content>
-          <form #miForm="ngForm" (ngSubmit)="createTable(miForm)">
-            <ion-list [inset]="true">
-              <ion-item>
-                <ion-select multiple="true" label="Seleccione columnas" name="selectedColumns" [(ngModel)]="selectedColumns">
-                  <ion-select-option value="ano">Año</ion-select-option>
-                  <ion-select-option value="campeonato">Torneo</ion-select-option>
-                  <ion-select-option value="edad">Edad</ion-select-option>
-                  <ion-select-option value="daysTournament">Días</ion-select-option>
-                  <ion-select-option value="format">Formato</ion-select-option>
-                  <ion-select-option value="cupos">Cupos</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
-          
-            <div class="container">
-              <ion-button type="submit" expand="block">Crear Tabla</ion-button>
-            </div>
-          </form>
-        </ion-content>
-
-      </ng-template>
-
-    </ion-modal>
-
+  
   </div>
 </ion-content>
 
