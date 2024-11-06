@@ -31,13 +31,15 @@ dayFilter: string = ''; // Nueva propiedad para días
 pages: number[] = []; // Para almacenar los números de páginas
 tables: Table[] = [];
 selectedColumns: string[] = [];  
-
+totalCupos: any = {}
+totalActivos: any = {}
 
 
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router) { }
 
 ngOnInit() {
   this.getTournaments()
+  this.getTotalsTournaments()
 }
 
 getTournaments(skip: number = this.skip, limit: number = this.limit, year?: number[], torneo?: string, dia?: string, formato?: string, edad?: string) {
@@ -51,6 +53,18 @@ getTournaments(skip: number = this.skip, limit: number = this.limit, year?: numb
           this.notifyService.error(err.error.message);
       }
   });
+}
+
+getTotalsTournaments(){
+  this.tournamentServ.getTotals().subscribe({
+    next: (res: any) => {
+      this.totalCupos = res.cupos;
+      this.totalActivos = res.activos
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  })
 }
 
 onFilterChange() {

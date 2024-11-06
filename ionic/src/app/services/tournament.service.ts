@@ -273,6 +273,10 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/crear-dia-torneo/${id}`, form)
   }
 
+  getTotals(){
+    return this.http.get(`${this.API_URL}/get-totals`)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

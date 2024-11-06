@@ -115,23 +115,23 @@
           <th scope="col">Dias</th>
           <th scope="col">Formato</th>
           <th scope="col">Tipo</th>
-          <th scope="col">A anotar</th>
           <th scope="col">Cupos</th>
           <th scope="col">Activos</th>
           <th scope="col">Reserva</th>
+          <th scope="col">A anotar</th>
         </tr>
       </thead>
-      <tbody *ngFor="let torneo of tournaments">
-        <tr>
+      <tbody>
+        <tr *ngFor="let torneo of tournaments">
           <td>{{torneo.ano}}</td>
           <th>{{torneo.campeonato.type}}</th>
           <td>{{getDays(torneo)}}</td>
           <td>{{torneo.format.formatName}}</td>
           <td>{{torneo.edad.type}}</td>
-          <td>X Jugadores</td>
           <!--<td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>-->
           <td>{{torneo.cupos}}</td>
           <td>{{getTeamsSubscribed(torneo)}}</td>
+          <td>X Jugadores</td>
           <td>X Jugadores</td>
           <ion-modal [isOpen]="isModalOpen">
             <ng-template>
@@ -161,6 +161,14 @@
               </ion-content>
             </ng-template>
           </ion-modal>
+        </tr>
+        <tr class="table-success">
+          <td colspan="5">Totales</td>
+          <td>{{totalCupos}}</td>
+          <td>{{totalActivos}}</td>
+          <td>X jugadores</td>
+          <td>X jugadores</td>
+          
         </tr>
       </tbody>
     </table> 
