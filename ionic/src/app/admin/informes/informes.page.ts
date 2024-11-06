@@ -38,7 +38,6 @@ constructor(private tournamentServ: TournamentService, private notifyService: No
 
 ngOnInit() {
   this.getTournaments()
-  this.getTable()
 }
 
 getTournaments(skip: number = this.skip, limit: number = this.limit, year?: number[], torneo?: string, dia?: string, formato?: string, edad?: string) {
@@ -83,34 +82,6 @@ onFilterChange() {
           this.ageFilter.length ? this.ageFilter : undefined
       );
   }
-}
-
-createTable(form: any) {
-  const formulario = {
-    selectedColumns: this.selectedColumns // Usamos el valor de selectedColumns que se ha vinculado con ngModel
-  };
-
-  this.tournamentServ.createTableTournament(formulario).subscribe({
-    next: (res: any) => {
-      this.notifyService.success(res.message);
-      this.getTable()
-      this.setOpen2(false)
-    },
-    error: (err: any) => {
-      this.notifyService.error(err.error.message);
-    }
-  });
-}
-
-getTable(){
-  this.tournamentServ.getTablesTournaments().subscribe({
-    next: (res: any) => {
-      this.tables = res.tables;
-    },
-    error: (err: any) => {
-      this.notifyService.error(err.error.message);
-    }
-  })
 }
 
 
@@ -185,7 +156,7 @@ exportToExcel() {
     Activos: this.getTeamsSubscribed(torneo),
     Reserva: 'X Jugadores',
     Cupos: torneo.cupos,
-    Pagos: torneo.pagos ? torneo.pagos.map(p => `$${p.monto}`).join(', ') : 'N/A'
+    //Pagos: torneo.pagos ? torneo.pagos.map(p => `$${p.monto}`).join(', ') : 'N/A'
   })));
 
   const workbook: XLSX.WorkBook = XLSX.utils.book_new();
