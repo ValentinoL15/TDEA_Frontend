@@ -174,27 +174,27 @@
       </tbody>
     </table> -->
 
-    <table class="table" *ngFor="let item of tables">
+    <table class="table" *ngFor="let tournament of tables">
 
       <thead>
         <tr>
-          <th *ngIf="item.ano !== 0" scope="col">Año</th>
-          <th *ngIf="item.campeonato.length !== 0" scope="col">Torneo</th>
-          <th *ngIf="item.daysTournament.length !== 0" scope="col">Dias</th>
-          <th *ngIf="item.format.length !== 0" scope="col">Formato</th>
-          <th *ngIf="item.edad.length !== 0" scope="col">Tipo</th>
-          <th *ngIf="item.cupos.length !== 0" scope="col">Cupos</th>
+          <th *ngIf="tournament.ano !== 0" scope="col">Año</th>
+          <th *ngIf="tournament.campeonato.length !== 0" scope="col">Torneo</th>
+          <th *ngIf="tournament.daysTournament.length !== 0" scope="col">Dias</th>
+          <th *ngIf="tournament.format.length !== 0" scope="col">Formato</th>
+          <th *ngIf="tournament.edad.length !== 0" scope="col">Tipo</th>
+          <th *ngIf="tournament.cupos.length !== 0" scope="col">Cupos</th>
         </tr>
       </thead>
 
       <tbody *ngFor="let torneo of tournaments">
       <tr>
-        <td *ngIf="item.ano !== 0">{{torneo.ano}}</td>
-        <td *ngIf="item.campeonato.length !== 0">{{torneo.campeonato.type}}</td>
-        <td *ngIf="item.daysTournament.length !== 0">{{getDays(torneo)}}</td>
-        <td *ngIf="item.format.length !== 0">{{torneo.format.formatName}}</td>
-        <td *ngIf="item.edad.length !== 0">{{torneo.edad.type}}</td>
-        <td *ngIf="item.cupos.length !== 0">{{torneo.cupos}}</td>
+        <td *ngIf="tournament.ano !== 0">{{torneo.ano}}</td>
+        <td *ngIf="tournament.campeonato.length !== 0">{{torneo.campeonato.type}}</td>
+        <td *ngIf="tournament.daysTournament.length !== 0">{{getDays(torneo)}}</td>
+        <td *ngIf="tournament.format.length !== 0">{{torneo.format.formatName}}</td>
+        <td *ngIf="tournament.edad.length !== 0">{{torneo.edad.type}}</td>
+        <td *ngIf="tournament.cupos.length !== 0">{{torneo.cupos}}</td>
       </tr>
       </tbody>
       
@@ -229,10 +229,9 @@
 
         <ion-content>
           <form #miForm="ngForm" (ngSubmit)="createTable(miForm)">
-            <ion-list>
+            <ion-list [inset]="true">
               <ion-item>
-                <ion-label>Seleccione columnas</ion-label>
-                <ion-select multiple="true" name="selectedColumns" [(ngModel)]="selectedColumns">
+                <ion-select multiple="true" label="Seleccione columnas" name="selectedColumns" [(ngModel)]="selectedColumns">
                   <ion-select-option value="ano">Año</ion-select-option>
                   <ion-select-option value="campeonato">Torneo</ion-select-option>
                   <ion-select-option value="edad">Edad</ion-select-option>
@@ -243,7 +242,9 @@
               </ion-item>
             </ion-list>
           
-            <ion-button type="submit">Crear Tabla</ion-button>
+            <div class="container">
+              <ion-button type="submit" expand="block">Crear Tabla</ion-button>
+            </div>
           </form>
         </ion-content>
 

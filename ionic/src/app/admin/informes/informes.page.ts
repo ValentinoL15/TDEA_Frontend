@@ -93,6 +93,8 @@ createTable(form: any) {
   this.tournamentServ.createTableTournament(formulario).subscribe({
     next: (res: any) => {
       this.notifyService.success(res.message);
+      this.getTable()
+      this.setOpen2(false)
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
@@ -104,7 +106,6 @@ getTable(){
   this.tournamentServ.getTablesTournaments().subscribe({
     next: (res: any) => {
       this.tables = res.tables;
-      console.log(this.tables)
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
