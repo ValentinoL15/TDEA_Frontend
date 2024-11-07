@@ -214,34 +214,22 @@ deleteStadium(id : any){
     dia?: string,
     formato?: string,
     edad?: string
-) {
+  ): Observable<any> {
     const params: any = {
-        skip: skip.toString(),
-        limit: limit.toString(),
+      skip: skip.toString(),
+      limit: limit.toString(),
     };
 
     if (year && year.length > 0) {
-      params.year = year.join(','); // Convierte el arreglo a una cadena
-  }
-
-    if (torneo) {
-        params.torneo = torneo; // Agregar torneo si existe
+      params.year = year.join(',');
     }
-
-    if (dia) {
-        params.dia = dia; // Agregar días como cadena
-    }
-
-    if (formato) {
-        params.formato = formato; // Agregar formato si existe
-    }
-
-    if (edad) {
-        params.edad = edad; // Agregar edad si existe
-    }
+    if (torneo) params.torneo = torneo;
+    if (dia) params.dia = dia;
+    if (formato) params.formato = formato;
+    if (edad) params.edad = edad;
 
     return this.http.get(`${this.API_URL}/obtener-torneos`, { params });
-}
+  }
 
 
 

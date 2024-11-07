@@ -31,8 +31,8 @@ dayFilter: string = ''; // Nueva propiedad para días
 pages: number[] = []; // Para almacenar los números de páginas
 tables: Table[] = [];
 selectedColumns: string[] = [];  
-totalCupos: any = {}
-totalActivos: any = {}
+totalCupos: number = 0;
+totalActivos: number = 0;
 
 
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router) { }
@@ -48,6 +48,8 @@ getTournaments(skip: number = this.skip, limit: number = this.limit, year?: numb
           this.tournaments = res.tournaments;
           this.totalTournaments = res.total;
           this.calculatePages();
+          this.totalCupos = res.cupos;    // Cupos filtrados
+          this.totalActivos = res.activos; // Activos filtrados
       },
       error: (err: any) => {
           this.notifyService.error(err.error.message);
