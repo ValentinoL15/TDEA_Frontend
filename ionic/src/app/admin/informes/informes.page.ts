@@ -161,26 +161,40 @@ setOpen2(isOpen2:boolean){
 }
 
 exportToExcel() {
-  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.tournaments.map(torneo => ({
+  // Definir el array de datos para el informe
+  const tournamentData: any[] = this.tournaments.map(torneo => ({
     Torneo: torneo.campeonato.type,
     Año: torneo.ano,
     Dias: this.getDays(torneo),
     Formato: torneo.format.formatName,
     Tipo: torneo.edad.type,
-    Jornada: 'Jornada X',
-    'A anotar': 'X Jugadores',
+    Cupos: torneo.cupos,
     Activos: this.getTeamsSubscribed(torneo),
     Reserva: 'X Jugadores',
-    Cupos: torneo.cupos,
-    //Pagos: torneo.pagos ? torneo.pagos.map(p => `$${p.monto}`).join(', ') : 'N/A'
-  })));
+    'A anotar': 'X Jugadores'
+  }));
 
+  // Agregar una fila para los totales al final del array
+  tournamentData.push({
+    Torneo: 'Totales',
+    Año: '',
+    Dias: '',
+    Formato: '',
+    Tipo: '',
+    Cupos: this.totalCupos,
+    Activos: this.totalActivos,
+    Reserva: '',
+    'A anotar': ''
+  });
+
+  // Crear la hoja de cálculo
+  const excelWorksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(tournamentData);
   const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Informe');
+  XLSX.utils.book_append_sheet(workbook, excelWorksheet, 'Informe');
 
-  // Generar el archivo Excel
+  // Generar y guardar el archivo Excel
   const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  const data: Blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+  const data: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
   saveAs(data, 'informe_torneos.xlsx');
 }
 
