@@ -11,7 +11,7 @@
   
   <ion-list [inset]="true">
     <ion-item *ngFor="let item of team.deudas">
-      <ion-input label="hola" [value]="item.amount">
+      <ion-input readonly="true" [label]="item.belongTournament?.nameFantasy + ' - '  + item.belongToList.nameList" labelPlacement="stacked" [value]="item.amount">
       </ion-input>
     </ion-item>
   </ion-list>

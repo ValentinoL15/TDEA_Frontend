@@ -171,7 +171,7 @@ export class CreateListPage implements OnInit {
     this.userService.createList(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        window.location.href = `/create-list/${this.id}`
+        window.location.href = `user/create-list/`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
