@@ -137,7 +137,7 @@ export class TournamentPage implements OnInit {
     return adjustedDate;
   }
 
-  async confirmInscription(teamListId: string, teamListName: string) {
+  /*async confirmInscription(teamListId: string, teamListName: string) {
     const alert = await this.alertController.create({
       header: 'Confirmar Inscripción',
       message: `¿Estás seguro de inscribir la lista: ${teamListName} en este torneo?`,
@@ -190,6 +190,41 @@ export class TournamentPage implements OnInit {
         this.notifyService.error(err.error.message);
       }
     });
+  }*/
+
+    async inscription(id: any, teamListId: string) {
+      const alert = await this.alertController.create({
+        header: 'Confirmar Inscripción',
+        message: `¿Estás seguro de inscribir la lista: ${teamListId} en este torneo?`,
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+              console.log('Inscripción cancelada');
+            }
+          },
+          {
+            text: 'Inscribirme',
+            handler: () => {  // No redefinas `id` aquí
+              console.log(id);  // Ahora `id` se refiere al parámetro de `inscription`
+              this.userService.anotarseTorneo(this.id, id).subscribe({
+                next: (res: any) => {
+                  this.notifyService.success(res.message);
+                  this.setOpen(false)
+                },
+                error: (err: any) => {
+                  this.notifyService.error(err.error.message);
+                }
+              });
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
   }
+  
+  
 
 }

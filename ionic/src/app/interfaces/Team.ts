@@ -1,3 +1,4 @@
+import { Deuda } from "./Deudas"
 import { List } from "./List"
 import { Player } from "./Player"
 
@@ -9,5 +10,9 @@ export interface Team {
     teamList?: List,
     teamImage?:String,
     players?: Player[]
-    active: boolean
+    active: boolean,
+    deudas?: [{
+        _id?: string,
+        amount: Number,
+}]
 }

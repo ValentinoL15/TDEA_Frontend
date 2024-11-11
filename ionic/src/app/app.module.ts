@@ -40,7 +40,7 @@ registerLocaleData(localeEsAr, 'es-Ar')
       provide: LOCALE_ID,
       useValue: 'es-Ar'
     },
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })
