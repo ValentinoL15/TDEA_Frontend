@@ -13,6 +13,14 @@ export interface Team {
     active: boolean,
     deudas?: [{
         _id?: string,
+        belongTournament?: {
+            _id?: string,
+            nameFantasy?: string,
+        },
+        belongToList: {
+            _id?: string,
+            nameList?: string
+        }
         amount: Number,
 }]
 }

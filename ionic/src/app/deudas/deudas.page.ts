@@ -21,6 +21,14 @@ export class DeudasPage implements OnInit {
     active: false,
     deudas: [{
       _id: "",
+      belongTournament: {
+        _id: "",
+        nameFantasy: ""
+      },
+      belongToList: {
+        _id: "",
+        nameList: ""
+      },
       amount: 0
     }]
   }
