@@ -219,15 +219,10 @@ const routes: Routes = [
     path: 'reset/:id',
     loadChildren: () => import('./reset/reset.module').then( m => m.ResetPageModule)
   },
-
-
-
-
-
-
-
-
-
+  {
+    path: 'deudas',
+    loadChildren: () => import('./deudas/deudas.module').then( m => m.DeudasPageModule)
+  },
 
 
 ];

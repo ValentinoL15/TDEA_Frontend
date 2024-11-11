@@ -62,7 +62,7 @@
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Modal</ion-title>
+          <ion-title>Ingresar</ion-title>
           <ion-buttons slot="start">
             <ion-button (click)="setOpen(false)">Close</ion-button>
           </ion-buttons>
@@ -80,7 +80,7 @@
               <ion-label> Mis Listas </ion-label>
             </ion-item-divider>
         
-            <ion-item *ngFor="let list of lists" (click)="confirmInscription(list._id, list.nameList)">
+            <ion-item *ngFor="let list of lists" (click)="inscription(list._id,list.nameList)">
               <label class="full-width-label">{{ list.nameList }}</label>
               <!-- Input de tipo hidden para enviar el ID si es necesario -->
               <ion-input type="hidden" [value]="list._id"></ion-input>

@@ -84,6 +84,9 @@ updateUsersOrder(users: any[]): Observable<any> {
     return this.http.put(`${this.API_URL}/eliminar-foto-equipo/${id}`, {})
   }
 
+  getDeuda(){
+    return this.http.get(`${this.API_URL}/obtener-deuda`)
+  }
   /*************************************************LISTA***************************************************/ 
 
   createList(form: any){
@@ -203,6 +206,10 @@ updateUsersOrder(users: any[]): Observable<any> {
   checkPaymentStatus(paymentId: string) {
     return this.http.get(`${this.API_URL}/payment-status/${paymentId}`);
 }
+
+  anotarseTorneo(id : any, teamListId:any){
+    return this.http.post(`${this.API_URL}/anotar-torneo/${id}`, {teamListId})
+  }
 
   /*****************************************ALINEACIONES*******************************************************/
 
