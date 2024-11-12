@@ -18,11 +18,7 @@ export class SuccessPayPage implements OnInit {
 constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private tournamentServ: TournamentService, private userService: UserService) { }
 
 teamListId: any;
-deudaId: Deuda = {
-  _id: "",
-  amount: 0,
-  paid: 0
-};
+deudaId: any;
 tournament: any
 tournamentId: Tournament = {
   nameFantasy: "",
