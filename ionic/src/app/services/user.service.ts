@@ -192,11 +192,11 @@ updateUsersOrder(users: any[]): Observable<any> {
 
   /*********************************************INGRESAR-TORNEO***********************************************/ 
   ingresarTorneo(id: any, teamListId: any): Observable<any> {
-    return this.http.post(`${this.API_URL}/registrarse-torneo/${id}`, teamListId);
+    return this.http.post(`${this.API_URL}/pagar-torneo/${id}`, teamListId);
   }
 
-  procesarInscripcion(tournamentId: any, teamListId: any): Observable<any> {
-    return this.http.get(`${this.API_URL}/success?tournamentId=${tournamentId}&teamListId=${teamListId}`);
+  procesarInscripcion(tournamentId: any,deudaId: any , teamListId: any): Observable<any> {
+    return this.http.get(`${this.API_URL}/success?tournamentId=${tournamentId}&deudaId${deudaId}&teamListId=${teamListId}`);
   }
 
   getPending(){
