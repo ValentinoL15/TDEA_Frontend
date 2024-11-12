@@ -6,6 +6,7 @@ import { Tournament } from '../interfaces/Tournament';
 import { UserService } from '../services/user.service';
 import { List } from '../interfaces/List';
 import { Team } from '../interfaces/Team';
+import { Deuda } from '../interfaces/Deudas';
 
 @Component({
   selector: 'app-success-pay',
@@ -17,6 +18,11 @@ export class SuccessPayPage implements OnInit {
 constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private tournamentServ: TournamentService, private userService: UserService) { }
 
 teamListId: any;
+deudaId: Deuda = {
+  _id: "",
+  amount: 0,
+  paid: 0
+};
 tournament: any
 tournamentId: Tournament = {
   nameFantasy: "",
@@ -139,14 +145,15 @@ ngOnInit() {
   this.route.queryParams.subscribe(params => {
     this.tournamentId = params['tournamentId'];
     this.teamListId = params['teamListId'];
+    this.deudaId = params['deudaId']
 
     // Llamar al servicio para procesar la inscripción
-    if (this.tournamentId && this.teamListId) {
-      this.userService.procesarInscripcion(this.tournamentId, this.teamListId).subscribe({
+    if (this.tournamentId && this.teamListId && this.deudaId) {
+      this.userService.procesarInscripcion(this.tournamentId, this.deudaId, this.teamListId).subscribe({
         next: (res : any) => {
           console.log('Respuesta de inscripción:', res);
           this.tournament = res.tournament
-          console.log(this.tournament)
+          console.log(this.deudaId)
           // Maneja la respuesta aquí, tal vez redirigir o mostrar un mensaje
         },
         error: (err) => {
