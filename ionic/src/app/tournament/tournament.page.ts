@@ -211,7 +211,7 @@ export class TournamentPage implements OnInit {
               this.userService.anotarseTorneo(this.id, id).subscribe({
                 next: (res: any) => {
                   this.notifyService.success(res.message);
-                  this.setOpen(false)
+                  window.location.href = `tournament/${this.id}`
                 },
                 error: (err: any) => {
                   this.notifyService.error(err.error.message);

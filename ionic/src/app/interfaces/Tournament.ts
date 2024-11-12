@@ -3,6 +3,7 @@ import { Category } from "./Category";
 import { Day } from "./Day";
 import { Edad } from "./Edad";
 import { Format } from "./Format";
+import { List } from "./List";
 import { Sede } from "./Sede";
 import { Stadium } from "./Stadium";
 
@@ -46,6 +47,8 @@ export interface Tournament {
     }],
     tournamentDate: Date,
     tournamentNotes: String,
+    activos?: List,
+    reservados?: List,
     isTournamentMasculine: Boolean,
     isTournamentActive: Boolean,
     tarifaInscripcion: number,

@@ -77,8 +77,9 @@ export class DeudasPage implements OnInit {
             this.notifyService.error("Por favor ingrese un monto válido");
             return; // Detener la ejecución si el monto no es válido
           }
-          console.log(teamListId);
-          this.inscribirse(deudaId, teamListId, userPrice); // Pasar `userPrice` al método `inscribirse`
+          console.log(deudaId);
+          
+          this.inscribirse(deudaId, teamListId, userPrice, tournamentId); // Pasar `userPrice` al método `inscribirse`
         }
         }
       ]
@@ -87,8 +88,9 @@ export class DeudasPage implements OnInit {
     await alert.present();
   }
 
-  inscribirse(deudaId: string, teamListId: any, userPrice: number) {
-    const payload = { teamListId, paid: userPrice }; // Incluir el monto pagado en el payload
+  inscribirse(deudaId: any, teamListId: any, userPrice: number,tournamentId: any ) {
+    const payload = { teamListId, paid: userPrice, tournamentId }; // Incluir el monto pagado en el payload
+    console.log("Mi PUTA DEUDA: " + deudaId)
     this.userService.ingresarTorneo(deudaId, payload).subscribe({
       next: (res: any) => {
         if (res.redirectUrl) {

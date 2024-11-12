@@ -8,14 +8,17 @@
 </ion-header>
 
 <ion-content color="light">
-  <ng-container *ngIf="deudaId.paid >= deudaId.amount / 2">
-    <div style="width: 100%;height: 100%;color: green; justify-content: center; display: flex; text-align: center; align-items: center;">
-      <h1>Tu Equipo se ha inscripto al {{tournament?.nameFantasy}}</h1>
+  <ng-container style="height: 100%; width: 100%;" *ngIf="deudaId.paid >= deudaId.deudaTotal / 2">
+    <div style="width: 100%;height: 100%;color: green; justify-content: center; display: flex; text-align: center; align-items: center; flex-direction: column;">
+      <h1>Tu Equipo ya está inscripto al Torneo "{{tournament?.nameFantasy}}"</h1>
+      <h3 style="color: red;">Faltan pagar ${{deudaId.amount}}</h3>
     </div>
   </ng-container>
-  <ng-container *ngIf="deudaId.paid < deudaId.amount / 2">
-    <div style="width: 100%;height: 100%;color: blue; justify-content: center; display: flex; text-align: center; align-items: center;">
-      <h1>Tu Equipo se ha reservado un lugar en {{tournament?.nameFantasy}}</h1>
+  <ng-container style="height: 100%; width: 100%;" *ngIf="deudaId.paid < deudaId.deudaTotal / 2">
+    <div style="width: 100%;height: 100%;color: white; justify-content: center; display: flex; text-align: center; align-items: center; flex-direction: column;">
+      <h2>Tu Equipo se ha reservado un lugar en el Torneo "{{tournament?.nameFantasy}}"</h2>
+      <p>(Debes pagar mas de la mitad del total para confirmar tu lugar el torneo)</p>
+      <h5 style="color: red;">Faltan pagar ${{deudaId.amount}}</h5>
     </div>
   </ng-container>
   

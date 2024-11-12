@@ -19,8 +19,15 @@ constructor(private route: ActivatedRoute, private router: Router, private notif
 
 teamListId: any;
 deudaId: any;
+deuda: Deuda = {
+  _id: "",
+  amount: 0,
+  paid: 0,
+  deudaTotal: 0
+};
 tournament: any
 tournamentId: Tournament = {
+  _id: "",
   nameFantasy: "",
   ano: 0,
   campeonato: {
@@ -149,7 +156,7 @@ ngOnInit() {
         next: (res : any) => {
           console.log('Respuesta de inscripción:', res);
           this.tournament = res.tournament
-          console.log(this.deudaId)
+          console.log(this.tournament)
           // Maneja la respuesta aquí, tal vez redirigir o mostrar un mensaje
         },
         error: (err) => {
@@ -159,6 +166,8 @@ ngOnInit() {
       });
     }
   });
+  this.getDeuda()
+  this.getTournament()
 }
 
 
@@ -166,6 +175,29 @@ getList(id : any){
   this.userService.getList(id).subscribe({
     next: (res: any) => {
       this.list = res.list
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+getTournament(){
+  this.tournamentServ.getTournament(this.tournamentId).subscribe({
+    next: (res: any) => {
+      this.tournament = res.tournamentFound
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+getDeuda(){
+  this.userService.getDeudas(this.deudaId).subscribe({
+    next: (res: any) => {
+      this.deudaId = res.deudas
+      console.log("Esta deuda:" + this.deudaId)
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)

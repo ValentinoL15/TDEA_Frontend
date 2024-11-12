@@ -87,6 +87,10 @@ updateUsersOrder(users: any[]): Observable<any> {
   getDeuda(){
     return this.http.get(`${this.API_URL}/obtener-deuda`)
   }
+
+  getDeudas(deudaId: any){
+    return this.http.get(`${this.API_URL}/obtener-deudas/${deudaId}`)
+  }
   /*************************************************LISTA***************************************************/ 
 
   createList(form: any){
@@ -196,7 +200,7 @@ updateUsersOrder(users: any[]): Observable<any> {
   }
 
   procesarInscripcion(tournamentId: any,deudaId: any , teamListId: any): Observable<any> {
-    return this.http.get(`${this.API_URL}/success?tournamentId=${tournamentId}&deudaId${deudaId}&teamListId=${teamListId}`);
+    return this.http.get(`${this.API_URL}/success?tournamentId=${tournamentId}&deudaId=${deudaId}&teamListId=${teamListId}`);
   }
 
   getPending(){
