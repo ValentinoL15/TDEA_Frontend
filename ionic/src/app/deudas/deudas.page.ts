@@ -47,11 +47,11 @@ export class DeudasPage implements OnInit {
     })
   }
 
-    async confirmInscription(deudaId: any, teamListName: any) {
-      console.log(deudaId, teamListName)
+    async confirmInscription(deudaId: any, teamListId: any, tournamentId: any) {
+      console.log(deudaId, teamListId, tournamentId)
     const alert = await this.alertController.create({
       header: 'Confirmar Inscripción',
-      message: `¿Estás seguro de inscribir la lista: ${teamListName} en este torneo?`,
+      message: `¿Estás seguro de inscribir la lista: ${teamListId} en este torneo?`,
       inputs: [
         {
           name: 'userPrice',
@@ -77,8 +77,8 @@ export class DeudasPage implements OnInit {
             this.notifyService.error("Por favor ingrese un monto válido");
             return; // Detener la ejecución si el monto no es válido
           }
-          console.log(teamListName);
-          this.inscribirse(deudaId, teamListName, userPrice); // Pasar `userPrice` al método `inscribirse`
+          console.log(teamListId);
+          this.inscribirse(deudaId, teamListId, userPrice); // Pasar `userPrice` al método `inscribirse`
         }
         }
       ]
