@@ -6,5 +6,6 @@ export interface Deuda {
     belongTournament?: Tournament,
     belongToList?: List,
     amount: number,
-    paid: number
+    paid: number,
+    deudaTotal: number
 }
