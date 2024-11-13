@@ -33,6 +33,7 @@ tables: Table[] = [];
 selectedColumns: string[] = [];  
 totalCupos: number = 0;
 totalActivos: number = 0;
+totalReservados: number = 0
 
 
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router) { }
@@ -46,6 +47,7 @@ getTournaments(skip: number = this.skip, limit: number = this.limit, year?: numb
   this.tournamentServ.getTournaments(skip, limit, year, torneo, dia, formato, edad).subscribe({
       next: (res: any) => {
           this.tournaments = res.tournaments;
+          console.log(this.tournaments)
           this.totalTournaments = res.total;
           this.calculatePages();
           this.totalCupos = res.cupos;    // Cupos filtrados
@@ -62,6 +64,7 @@ getTotalsTournaments(){
     next: (res: any) => {
       this.totalCupos = res.cupos;
       this.totalActivos = res.activos
+      this.totalReservados = res.reservados
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);

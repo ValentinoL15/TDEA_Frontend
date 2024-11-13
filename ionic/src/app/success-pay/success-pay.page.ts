@@ -19,6 +19,7 @@ constructor(private route: ActivatedRoute, private router: Router, private notif
 
 teamListId: any;
 deudaId: any;
+paid: any
 deuda: Deuda = {
   _id: "",
   amount: 0,
@@ -148,11 +149,12 @@ ngOnInit() {
   this.route.queryParams.subscribe(params => {
     this.tournamentId = params['tournamentId'];
     this.teamListId = params['teamListId'];
-    this.deudaId = params['deudaId']
+    this.deudaId = params['deudaId'];
+    this.paid = params['paid']
 
     // Llamar al servicio para procesar la inscripción
-    if (this.tournamentId && this.teamListId && this.deudaId) {
-      this.userService.procesarInscripcion(this.tournamentId, this.deudaId, this.teamListId).subscribe({
+    if (this.tournamentId && this.teamListId && this.deudaId && this.paid) {
+      this.userService.procesarInscripcion(this.tournamentId, this.deudaId, this.teamListId, this.paid).subscribe({
         next: (res : any) => {
           console.log('Respuesta de inscripción:', res);
           this.tournament = res.tournament
@@ -197,7 +199,7 @@ getDeuda(){
   this.userService.getDeudas(this.deudaId).subscribe({
     next: (res: any) => {
       this.deudaId = res.deudas
-      console.log("Esta deuda:" + this.deudaId)
+      console.log("Esta deuda:" + this.deuda)
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)

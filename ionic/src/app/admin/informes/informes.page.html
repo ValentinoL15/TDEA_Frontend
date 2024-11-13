@@ -117,7 +117,7 @@
           <th scope="col">Tipo</th>
           <th scope="col">Cupos</th>
           <th scope="col">Activos</th>
-          <th scope="col">Reserva</th>
+          <th scope="col">Reservados</th>
           <th scope="col">A anotar</th>
         </tr>
       </thead>
@@ -131,7 +131,7 @@
           <!--<td class="eye" (click)="setOpen(true, torneo)"><ion-icon name="eye-outline"></ion-icon></td>-->
           <td>{{torneo.cupos}}</td>
           <td>{{getTeamsSubscribed(torneo)}}</td>
-          <td>X Jugadores</td>
+          <td>{{torneo.reservados}}</td>
           <td>X Jugadores</td>
           <ion-modal [isOpen]="isModalOpen">
             <ng-template>
