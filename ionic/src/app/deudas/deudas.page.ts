@@ -90,7 +90,6 @@ export class DeudasPage implements OnInit {
 
   inscribirse(deudaId: any, teamListId: any, userPrice: number,tournamentId: any ) {
     const payload = { teamListId, paid: userPrice, tournamentId }; // Incluir el monto pagado en el payload
-    console.log("Mi PUTA DEUDA: " + deudaId)
     this.userService.ingresarTorneo(deudaId, payload).subscribe({
       next: (res: any) => {
         if (res.redirectUrl) {
