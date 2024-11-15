@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
 
   form: FormGroup;
   register: FormGroup;
+  selectedFile: File | null = null;
 
   constructor(private formBuilder: FormBuilder, private registerForm : FormBuilder, private notifyService: NotifyService, private router: Router, private auth : AuthService) {
     this.form = this.formBuilder.group({
@@ -134,7 +135,17 @@ export class LoginPage implements OnInit {
         return; // Salir de la función si ocurre un error
       }
   
-      const form: Login = {
+      const formData = new FormData();
+      formData.append('firstName', this.form.get('firstName')?.value)
+      formData.append('lastName', this.form.get('lastName')?.value)
+      formData.append('docNumber', this.form.get('docNumber')?.value)
+      formData.append('gender', this.form.get('gender')?.value)
+      formData.append('phone', this.form.get('phone')?.value)
+      formData.append('birthday', this.form.get('birthday')?.value)
+      formData.append('email', this.form.get('email')?.value)
+      formData.append('password', this.form.get('password')?.value)
+
+      /*const form: Login = {
         firstName: this.register.value.firstName,
         lastName: this.register.value.lastName,
         docNumber: this.register.value.docNumber,
@@ -143,9 +154,9 @@ export class LoginPage implements OnInit {
         birthday: this.register.value.birthday,
         email: this.register.value.email,
         password: this.register.value.password,
-      }
+      }*/
       
-      this.auth.register(form).subscribe({
+      this.auth.register(formData).subscribe({
         next: (res : any) => {
           this.notifyService.success(res.message);
           const modal = document.querySelector('ion-modal');
@@ -157,8 +168,12 @@ export class LoginPage implements OnInit {
         }
       })
     }
+    }
 
-  
+    onFileSelected(event: any) {
+      const file: File = event.target.files[0];
+      this.selectedFile = file;
+      console.log('Archivo seleccionado:', file);
     }
 
     onWillDismiss(event: Event) {

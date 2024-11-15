@@ -6,6 +6,7 @@ import { NotifyService } from '../services/notify.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,7 +15,7 @@ import parsePhoneNumberFromString from 'libphonenumber-js';
 })
 export class EditProfilePage implements OnInit {
 
-  constructor(private userService: AuthService, private notifyService: NotifyService, private router: Router, private fb: FormBuilder) { 
+  constructor(private userService: AuthService, private notifyService: NotifyService, private router: Router, private fb: FormBuilder, private alertController: AlertController) { 
     
   }
 
@@ -33,6 +34,37 @@ export class EditProfilePage implements OnInit {
     email: "",
     password:"",
   }
+      //BUTTON
+      public alertImagen = [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alert canceled');
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            //this.editProfile()
+          },
+        },
+      ];
+      setResults(ev : any) {
+        console.log(`Dismissed with role: ${ev.detail.role}`);
+      }
+    
+      //INPUTS
+      public alertInputImage = [
+        {
+          placeholder: 'Elige una foto',
+          name: 'photo',
+          type: 'file'
+        },
+      ];
+
+      selectedFile: File | null = null
 
   ngOnInit() {
     this.getUser()
@@ -91,6 +123,7 @@ export class EditProfilePage implements OnInit {
       email : form.email.value,
       phone : form.phone.value,
       birthday : form.birthday.value
+
     }
     console.log(formulario)
     this.userService.editUser(formulario).subscribe({
@@ -106,5 +139,72 @@ export class EditProfilePage implements OnInit {
     })
   }
 
+  editImage(){
+    const form = new FormData();
+    form.append('image',  this.selectedFile as Blob);
+    this.userService.editPhotoProfile(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getUser()
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  async presentAlertImagen() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImage(); // Llama a la función para editar la imagen
+            window.location.href = `user/profile`
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  onSelectImage() {
+    const fileInput = document.getElementById('file-inputs') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
+  }
+
+  deletePhoto(){
+    const form = new FormData();
+    form.append('image',  this.selectedFile as Blob);
+    this.userService.deletePhotoProfile(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        window.location.href = `/user/profile`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  onFileSelected(event : any){
+    const file : File = event.target.files[0]
+    this.selectedFile = file
+    console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.presentAlertImagen();
+    }
+  }
 
 }
