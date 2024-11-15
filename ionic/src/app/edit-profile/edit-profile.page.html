@@ -3,19 +3,25 @@
     <ion-buttons slot="start">
       <ion-button (click)="goUser()">Volver</ion-button>
     </ion-buttons>
-    <ion-title>edit-profile</ion-title>
+    <ion-title>Editar profile</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="editProfile(miForm)">Editar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" color="light">
   <ion-list inset="true">
     <ion-list-header>
       <ion-label>Mis Datos</ion-label>
     </ion-list-header>
     <form #miForm>
+      <div class="image">
+        <img [src]="usuario.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
+        <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+        <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+        <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
+      </div>
     <ion-item>
       <ion-input label="Nombre" labelPlacement="stacked" readonly="true" [value]="usuario.firstName + ' ' + usuario.lastName"></ion-input>
     </ion-item>
@@ -33,16 +39,22 @@
     </ion-item>
     <ion-item>
       <ion-label>
-        <h3>Contraseña</h3>
+        <label>Contraseña</label>
         <p>*************</p>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-input label="Nacimiento" type="date" labelPlacement="stacked" name="birthday" [value]="usuario.birthday"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>Super Mario World</ion-label>
-    </ion-item>
   </form>
   </ion-list>
 </ion-content>
+
+<ion-alert
+  trigger="imagen-alert"
+  header="Editar Imagen de la lista"
+  [buttons]="alertImagen"
+  [inputs]="alertInputImage"
+  (change)="onFileSelected($event)"
+  (didDismiss)="setResults($event)"
+></ion-alert>

@@ -78,5 +78,13 @@ export class AuthService {
   editUser(form : any){
     return this.http.put(`${this.API_URL}/edit-user`, form)
   }
+  
+  editPhotoProfile(image : any){
+    return this.http.patch(`${this.API_URL}/editar-imagen-profile`, image)
+  }
+
+  deletePhotoProfile(image : any){
+    return this.http.put(`${this.API_URL}/eliminar-foto-equipo`, image)
+  }
 
 }

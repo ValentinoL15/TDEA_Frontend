@@ -61,6 +61,13 @@
           <ion-input label="Nacimiento" labelPlacement="stacked" formControlName="birthday" type="date" id="start" />
         </ion-item>
 
+        <ion-item>
+          <div class="foto">
+            <label>Foto de Perfil</label>
+          </div>
+          <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
+        </ion-item>
+
         <ion-item class="item">
           <ion-input formControlName="email" label="Email" labelPlacement="floating" placeholder="Example123@hotmail.com"></ion-input>
         </ion-item>
