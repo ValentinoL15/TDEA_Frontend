@@ -22,35 +22,35 @@
       <ion-list [inset]="true">
         <ion-item id="email-alert" >
           <ion-label>
-            <h3>Email</h3>
+            <label>Email</label>
             <p> {{usuario.email}} </p>
           </ion-label>
         </ion-item>
 
         <ion-item id="email-alert" >
           <ion-label>
-            <h3>Contraseña</h3>
+            <label>Contraseña</label>
             <p>*************</p>
           </ion-label>
         </ion-item>
 
         <ion-item id="phone-alert" >
           <ion-label>
-            <h3>Telefono</h3>
+            <label>Telefono</label>
             <p>{{usuario.phone}}</p>
           </ion-label>
         </ion-item>
 
         <ion-item id="fecha-alert" >
           <ion-label>
-            <h3>Nacimiento</h3>
+            <label>Nacimiento</label>
             <p>{{usuario.birthday}}</p>
           </ion-label>
         </ion-item>
 
         <ion-item id="email-alert" >
           <ion-label>
-            <h3>Foto Perfil</h3>
+            <label>Foto de Perfil</label>
             <img src="../../assets/icon/favicon.png" width="30px" height="30px" alt="">
           </ion-label>
         </ion-item>
@@ -61,7 +61,7 @@
 
         <ion-item detail="true" (click)="goUser()">
           <ion-label>
-            <h3>Editar</h3>
+            <label>Editar</label>
           </ion-label>
         </ion-item>
         
@@ -71,7 +71,7 @@
 
         <ion-item detail="true" (click)="logOut()">
           <ion-label color="danger">
-            <h3>Cerrar sesión</h3>
+            <label>Cerrar Sesión</label>
           </ion-label>
         </ion-item>    
       </ion-list>
