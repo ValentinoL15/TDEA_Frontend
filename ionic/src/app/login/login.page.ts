@@ -136,14 +136,15 @@ export class LoginPage implements OnInit {
       }
   
       const formData = new FormData();
-      formData.append('firstName', this.form.get('firstName')?.value)
-      formData.append('lastName', this.form.get('lastName')?.value)
-      formData.append('docNumber', this.form.get('docNumber')?.value)
-      formData.append('gender', this.form.get('gender')?.value)
-      formData.append('phone', this.form.get('phone')?.value)
-      formData.append('birthday', this.form.get('birthday')?.value)
-      formData.append('email', this.form.get('email')?.value)
-      formData.append('password', this.form.get('password')?.value)
+      formData.append('firstName', this.register.get('firstName')?.value)
+      formData.append('lastName', this.register.get('lastName')?.value)
+      formData.append('docNumber', this.register.get('docNumber')?.value)
+      formData.append('gender', this.register.get('gender')?.value)
+      formData.append('phone', this.register.get('phone')?.value)
+      formData.append('birthday', this.register.get('birthday')?.value)
+      formData.append('email', this.register.get('email')?.value)
+      formData.append('password', this.register.get('password')?.value)
+      formData.append('image', this.selectedFile as Blob);
 
       /*const form: Login = {
         firstName: this.register.value.firstName,

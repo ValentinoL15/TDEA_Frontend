@@ -80,11 +80,11 @@ export class AuthService {
   }
   
   editPhotoProfile(image : any){
-    return this.http.patch(`${this.API_URL}/editar-imagen-profile`, image)
+    return this.http.put(`${this.API_URL}/editar-imagen-profile`, image)
   }
 
   deletePhotoProfile(image : any){
-    return this.http.put(`${this.API_URL}/eliminar-foto-equipo`, image)
+    return this.http.put(`${this.API_URL}/eliminar-foto-profile`, image)
   }
 
 }

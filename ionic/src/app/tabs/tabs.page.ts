@@ -35,7 +35,6 @@ export class TabsPage implements OnInit{
   constructor(private userService: UserService, private notifyService: NotifyService, private router:Router ) {}
 
   ngOnInit(): void {
-    this.getDeudas()
   }
 
 
