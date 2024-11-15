@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { FormBuilder } from '@angular/forms';
 import { NotifyService } from '../services/notify.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-player',
@@ -59,7 +60,7 @@ players: Player[] = []
     selectedImage: File | null = null
 
 
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService) { }
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService, private alertController : AlertController) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -72,17 +73,54 @@ players: Player[] = []
     this.router.navigate([`/user/players`])
   }
 
-  getPlayer(id:any){
+  async presentAlertImagen() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+            this.selectedImage = null; // Reinicia la imagen seleccionada
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImage(); // Llama a la función para editar la imagen
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+  
+  
+
+  getPlayer(id: any) {
     this.userService.getPlayer(id).subscribe({
       next: (res: any) => {
-        this.player = res.player
-        console.log(this.player)
+        this.player = res.player;
+        this.selectedImage = null; // Reinicia la imagen seleccionada
+        console.log('Jugador cargado:', this.player);
+  
+        // Limpia manualmente el input de archivo
+        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.value = '';
+        }
+  
+        // Si tienes un formulario reactivo, reinicia sus valores aquí
       },
       error: (err: any) => {
-        this.notifyService.error(err.error.message)
+        this.notifyService.error(err.error.message);
       }
-    })
+    });
   }
+  
 
   getPlayers(id:any){
     this.userService.getPlayers(id).subscribe({
@@ -96,21 +134,22 @@ players: Player[] = []
     })
   }
 
-  editPlayer(id:any, form:any){
+  editPlayer(id: any, form: any) {
     const formulario = {
       firstName: form.firstName.value,
       lastName: form.lastName.value,
-    }
-    this.userService.editPlayer(id,formulario).subscribe({
+    };
+    this.userService.editPlayer(id, formulario).subscribe({
       next: (res: any) => {
-        window.location.href = `/user/players`
-        this.notifyService.success(res.message)
+        this.notifyService.success(res.message);
+        this.getPlayer(id); // Refresca la información del jugador actualizado
       },
       error: (err: any) => {
-        this.notifyService.error(err.error.message)
+        this.notifyService.error(err.error.message);
       }
-    })
+    });
   }
+  
 
   editEdad(){
     this.notifyService.error('No es posible cambiar la fecha de Nacimiento')
@@ -137,26 +176,34 @@ players: Player[] = []
     })
   }
 
-  editImage(){
+  editImage() {
     const form = new FormData();
-    form.append('image',  this.selectedImage as Blob);
+    form.append('image', this.selectedImage as Blob);
+  
     this.userService.editPhotoPlayer(this.id, form).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
-        this.getPlayer(this.id)
-        window.location.href = `/edit-player/${this.id}`
+        window.location.href = `user/players`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
       }
-    })
+    });
   }
+  
 
   onFileSelectedImage(event: any) {
     const file: File = event.target.files[0];
-    this.selectedImage = file;
-    console.log('Archivo seleccionado:', file);
+    if (file) {
+      this.selectedImage = file;
+      console.log('Archivo seleccionado:', file);
+    } else {
+      console.log('No se seleccionó ningún archivo.');
+    }
+  
+    // Reinicia el input para permitir volver a seleccionar el archivo
+    event.target.value = null;
   }
-
+  
 
 }

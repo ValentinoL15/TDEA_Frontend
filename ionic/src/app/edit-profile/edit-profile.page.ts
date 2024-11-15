@@ -35,6 +35,26 @@ export class EditProfilePage implements OnInit {
     password:"",
   }
       //BUTTON
+      public alertButtons = [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alert canceled');
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            console.log('Alert confirmed');
+          },
+        },
+      ];
+      setResult(ev : any) {
+        console.log(`Dismissed with role: ${ev.detail.role}`);
+      }
+    
       public alertImagen = [
         {
           text: 'Cancel',
@@ -47,7 +67,7 @@ export class EditProfilePage implements OnInit {
           text: 'OK',
           role: 'confirm',
           handler: () => {
-            //this.editProfile()
+            this.editImage()
           },
         },
       ];
@@ -59,7 +79,7 @@ export class EditProfilePage implements OnInit {
       public alertInputImage = [
         {
           placeholder: 'Elige una foto',
-          name: 'photo',
+          name: 'image',
           type: 'file'
         },
       ];
@@ -141,11 +161,12 @@ export class EditProfilePage implements OnInit {
 
   editImage(){
     const form = new FormData();
-    form.append('image',  this.selectedFile as Blob);
+    form.append('image', this.selectedFile as Blob);
+    console.log("Este es mi form: " ,form)
     this.userService.editPhotoProfile(form).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
-        this.getUser()
+        window.location.href = 'user/profile'
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
@@ -169,7 +190,6 @@ export class EditProfilePage implements OnInit {
           text: 'OK',
           handler: () => {
             this.editImage(); // Llama a la función para editar la imagen
-            window.location.href = `user/profile`
           }
         }
       ]
@@ -185,7 +205,7 @@ export class EditProfilePage implements OnInit {
 
   deletePhoto(){
     const form = new FormData();
-    form.append('image',  this.selectedFile as Blob);
+    form.append('image', this.selectedFile as Blob);
     this.userService.deletePhotoProfile(form).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
@@ -196,10 +216,9 @@ export class EditProfilePage implements OnInit {
       }
     })
   }
-
-  onFileSelected(event : any){
-    const file : File = event.target.files[0]
-    this.selectedFile = file
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
     console.log('Archivo seleccionado:', file);
 
     if (file) {
