@@ -48,7 +48,9 @@ export interface Tournament {
     tournamentDate: Date,
     tournamentNotes: String,
     activos?: List,
-    reservados?: List,
+    reservados?: Array<{
+        _id?: string,
+    }>,
     isTournamentMasculine: Boolean,
     isTournamentActive: Boolean,
     tarifaInscripcion: number,

@@ -143,6 +143,10 @@ getTeamsSubscribed(tournament: Tournament): number {
   return tournament.teamSubscribed?.length || 0
 }
 
+getReservas(tournament : Tournament): number {
+  return tournament.reservados?.length || 0
+}
+
 
 goTournament(id:any){
   this.router.navigate([`/informes-info/${id}`])
