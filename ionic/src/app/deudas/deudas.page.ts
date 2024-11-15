@@ -47,11 +47,11 @@ export class DeudasPage implements OnInit {
     })
   }
 
-    async confirmInscription(deudaId: any, teamListId: any, tournamentId: any) {
+    async confirmInscription(deudaId: any, teamListId: any, tournamentId: any, nameList: any) {
       console.log(deudaId, teamListId, tournamentId)
     const alert = await this.alertController.create({
       header: 'Confirmar Inscripción',
-      message: `¿Estás seguro de inscribir la lista: ${teamListId} en este torneo?`,
+      message: `¿Estás seguro de inscribir la lista: '${nameList}' en este torneo?`,
       inputs: [
         {
           name: 'userPrice',
