@@ -12,15 +12,35 @@ import { Router } from '@angular/router';
 })
 export class TabsPage implements OnInit{
 
-  team: Team[] = []
-  constructor(private userService: UserService, private notifyService: NotifyService, private router:Router) {}
+  team: Team = {
+    _id: "",
+    teamName: "",
+    teamNotes: "",
+    socialMedia: "",
+    teamImage:"",
+    active: false,
+    deudas: [{
+        _id: "",
+        belongTournament: {
+            _id: "",
+            nameFantasy: "",
+        },
+        belongToList: {
+            _id: "",
+            nameList: ""
+        },
+        amount: 0,
+}]
+  }
+  constructor(private userService: UserService, private notifyService: NotifyService, private router:Router ) {}
 
   ngOnInit(): void {
-    this.getTeamActive()
+    this.getDeudas()
   }
 
-  getTeamActive(){
-    this.userService.getTeamActive().subscribe({
+
+  getDeudas(){
+    this.userService.getDeuda().subscribe({
       next: (res : any) => {
         this.team = res.team
       },

@@ -25,6 +25,9 @@
     <ion-tab-button tab="deudas" href="/deudas">
       <ion-icon name="cash-outline"></ion-icon>
       <ion-label>Deudas</ion-label>
+      <ng-container *ngFor="let deuda of team.deudas">
+        <div class="badge" *ngIf="deuda._id"></div>
+      </ng-container>
     </ion-tab-button>
 
     <ion-tab-button tab="profile" href="/profile">
