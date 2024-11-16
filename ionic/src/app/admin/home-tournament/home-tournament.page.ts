@@ -235,7 +235,6 @@ createTournament(){
     (dayTournament.estadioSeleccionado !== '' && dayTournament.estadioSeleccionado !== null)
   );
 
- 
   const formulario : Tournament = {
     nameFantasy: this.form.value.nameFantasy,
     ano: this.form.value.ano,

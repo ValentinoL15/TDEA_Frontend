@@ -187,6 +187,8 @@ export class ProfilePage implements OnInit {
         return;
       }
       const formulario = {
+        firstName : form.firstName.value,
+        lastName : form.lastName.value,
         email : form.email.value,
         phone : form.phone.value,
         birthday : form.birthday.value

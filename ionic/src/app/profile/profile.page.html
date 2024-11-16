@@ -102,7 +102,10 @@
         <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
       </div>
     <ion-item>
-      <ion-input label="Nombre" labelPlacement="stacked" readonly="true" [value]="usuario.firstName + ' ' + usuario.lastName"></ion-input>
+      <ion-input label="Nombre" labelPlacement="stacked" name="firstName" [value]="usuario.firstName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Apellido" labelPlacement="stacked" name="lastName" [value]="usuario.lastName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-input label="DNI" labelPlacement="stacked" readonly="true" [value]="usuario.docNumber">
