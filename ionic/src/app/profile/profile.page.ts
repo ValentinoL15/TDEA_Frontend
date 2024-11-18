@@ -222,6 +222,10 @@ export class ProfilePage implements OnInit {
         }
       })
     }
+
+    goReset(){
+      this.router.navigate(['/reset-password'])
+    }
   
     async presentAlertImagen() {
       const alert = await this.alertController.create({
@@ -271,7 +275,7 @@ export class ProfilePage implements OnInit {
       console.log('Archivo seleccionado:', file);
   
       if (file) {
-        this.presentAlertImagen();
+        this.editImage();
       }
     }
 
