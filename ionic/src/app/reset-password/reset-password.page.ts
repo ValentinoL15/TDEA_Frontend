@@ -31,8 +31,15 @@ submitEmail(){
   })
 }
 
-volver(){
-  this.router.navigate(['/login'])
+volver() {
+  const token = localStorage.getItem("st_1892@121");
+  if (token) {
+    this.router.navigate(['/user/profile']);
+  } else {
+    this.router.navigate(['/login']);
+  }
 }
+
+
 
 }

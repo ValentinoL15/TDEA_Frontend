@@ -39,6 +39,10 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
   }
 
+  validateToken(token: string) {
+    return this.http.post(`${this.API_URL}/validate-token`, { token });
+  }
+
   /**********************************SERVICES**********************************/ 
 
   register(form : any){
