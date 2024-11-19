@@ -33,7 +33,8 @@ tables: Table[] = [];
 selectedColumns: string[] = [];  
 totalCupos: number = 0;
 totalActivos: number = 0;
-totalReservados: number = 0
+totalReservados: number = 0;
+anotar: number = 0;
 
 
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router) { }
@@ -65,6 +66,7 @@ getTotalsTournaments(){
       this.totalCupos = res.cupos;
       this.totalActivos = res.activos
       this.totalReservados = res.reservados
+      this.anotar = res.anotar
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
@@ -145,6 +147,13 @@ getTeamsSubscribed(tournament: Tournament): number {
 
 getReservas(tournament : Tournament): number {
   return tournament.reservados?.length || 0
+}
+
+getAnotar(tournament : Tournament){
+  const cupos = tournament.cupos || 0
+  const activos = tournament.teamSubscribed?.length || 0; 
+  const reservados = tournament.reservados?.length || 0
+  return cupos - activos - reservados;
 }
 
 
