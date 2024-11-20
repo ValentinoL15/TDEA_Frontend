@@ -210,7 +210,9 @@ export class TournamentPage implements OnInit {
               console.log(id);  // Ahora `id` se refiere al parámetro de `inscription`
               this.userService.anotarseTorneo(this.id, id).subscribe({
                 next: (res: any) => {
-                  this.notifyService.success(res.message);
+                  setTimeout(() => {
+                    this.notifyService.success(res.message)
+                  }, 1000)
                   window.location.href = `user/deudas`
                 },
                 error: (err: any) => {
