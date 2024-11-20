@@ -53,6 +53,7 @@ getTournaments(skip: number = this.skip, limit: number = this.limit, year?: numb
           this.calculatePages();
           this.totalCupos = res.cupos;    // Cupos filtrados
           this.totalActivos = res.activos; // Activos filtrados
+          this.anotar = res.anotar
       },
       error: (err: any) => {
           this.notifyService.error(err.error.message);
