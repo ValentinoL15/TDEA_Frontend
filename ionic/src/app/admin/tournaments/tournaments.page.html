@@ -63,6 +63,11 @@
         <ion-input readonly="true" label="Valor X Partido" [value]="tournament.tarifaPartido"></ion-input>
       </ion-item>
 
+      
+      <ion-item>
+        <ion-input readonly="true" label="Cupos" [value]="tournament.cupos"></ion-input>
+      </ion-item>
+
       <ion-item detail="true">
         <ion-input readonly="true" label="Equipos Suscriptos" (click)="goTeasmSubscribed()"></ion-input>
       </ion-item>
@@ -167,9 +172,12 @@
             <ion-input placeholder="$" label="Valor de Inscripción" name="tarifaInscripcion" [value]="tournament.tarifaInscripcion"></ion-input>
           </ion-item>
     
-
           <ion-item>
             <ion-input placeholder="$" label="Valor X Partido" name="tarifaPartido" [value]="tournament.tarifaPartido"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input placeholder="$" label="Cupos" name="tarifaPartido" [value]="tournament.cupos"></ion-input>
           </ion-item>
         </ion-list>
 

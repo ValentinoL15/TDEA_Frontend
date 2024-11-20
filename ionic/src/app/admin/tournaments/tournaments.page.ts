@@ -212,7 +212,8 @@ export class TournamentsPage implements OnInit {
       isTournamentActive: form.isTournamentActive.value,
       tournamentNotes: form.tournamentNotes.value,
       tarifaInscripcion: form.tarifaInscripcion.value,
-      tarifaPartido: form.tarifaPartido.value
+      tarifaPartido: form.tarifaPartido.value,
+      cupos: form.cupos.value
     };
     console.log(formulario)
     this.tournamentServ.editTournament(id, formulario).subscribe({
