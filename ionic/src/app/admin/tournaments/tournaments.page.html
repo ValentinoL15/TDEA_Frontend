@@ -65,6 +65,7 @@
 
       <ion-item>
         <ion-input readonly="true" label="Cupos" [value]="tournament.cupos"></ion-input>
+        <ion-button id="present-alert-cupos">+</ion-button>
       </ion-item>
 
       <ion-item detail="true">
@@ -175,9 +176,6 @@
             <ion-input placeholder="$" label="Valor X Partido" name="tarifaPartido" [value]="tournament.tarifaPartido"></ion-input>
           </ion-item>
 
-          <ion-item>
-            <ion-input placeholder="$" label="Cupos" name="cupos" [value]="tournament.cupos"></ion-input>
-          </ion-item>
         </ion-list>
 
         
@@ -198,5 +196,13 @@
   header="Alert!"
   [buttons]="alertButtons"
   (didDismiss)="setResult($event)"
+></ion-alert>
+
+<ion-alert
+  #miForm
+  trigger="present-alert-cupos"
+  header="Agregar Cupos"
+  [buttons]="alertButtonCupo"
+  [inputs]="alertInputs"
 ></ion-alert>
 

@@ -124,6 +124,14 @@ export class HomeTournamentPage implements OnInit {
     this.getEdades()
     this.getStadiums()
     this.getSedes()
+    const message = localStorage.getItem('torneoCreated');
+    if (message) {
+      // Muestra el mensaje usando el servicio de notificaciones
+      this.notifyService.success(message);
+  
+      // Limpia el mensaje del localStorage para evitar que se muestre nuevamente
+      localStorage.removeItem('torneoCreated');
+    }
   }
 
 isModalOpen = false;
@@ -261,10 +269,8 @@ createTournament(){
   }
   this.tournamentServ.createTournament(formulario).subscribe({
     next: (res : any) => {
-      this.notifyService.success(res.message)
-      this.getTournaments()
-      this.setOpen(false)
-      this.router.navigate(['/admin/home-tournament'])
+      localStorage.setItem('torneoCreated', res.message);
+      window.location.href = '/admin/home-tournament'
     },
     error: (err) => {
       this.notifyService.error(err.error.message)
