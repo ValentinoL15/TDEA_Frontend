@@ -65,7 +65,8 @@
 
       <ion-item>
         <ion-input readonly="true" label="Cupos" [value]="tournament.cupos"></ion-input>
-        <ion-button id="present-alert-cupos">+</ion-button>
+        <ion-button id="present-alert-cupos" (click)="presentAddCuposAlert()">+</ion-button>
+        <ion-button id="present-restar-cupos" color="danger" (click)="presentRestCuposAlert()">-</ion-button>
       </ion-item>
 
       <ion-item detail="true">
@@ -191,7 +192,7 @@
   </ion-modal> 
 </ion-content>
 
-<ion-alert
+<!--<ion-alert
   trigger="present-alert"
   header="Alert!"
   [buttons]="alertButtons"
@@ -205,4 +206,11 @@
   [buttons]="alertButtonCupo"
   [inputs]="alertInputs"
 ></ion-alert>
+
+<ion-alert
+  trigger="present-restar-cupos"
+  header="Restar Cupos"
+  [buttons]="alertButtonCupoRest"
+  [inputs]="alertInputsRest"
+></ion-alert>-->
 

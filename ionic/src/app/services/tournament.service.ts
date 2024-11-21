@@ -241,6 +241,10 @@ deleteStadium(id : any){
     return this.http.patch(`${this.API_URL}/editar-cupos/${id}`, { cupos })
   }
 
+  restarCupos(id : any, cupos : any) {
+    return this.http.patch(`${this.API_URL}/restar-cupos/${id}`, { cupos })
+  }
+
   deleteTournament(id:any){
     return this.http.delete(`${this.API_URL}/eliminar-torneo/${id}`)
   }

@@ -80,65 +80,89 @@ export class TournamentsPage implements OnInit {
 
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController) { }
 
-  public alertButtons = [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
-    },
-    {
-      text: 'OK',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-      },
-    },
-  ];
-  setResult(ev : any) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
+  ids: string = '';
+
+  async presentAddCuposAlert() {
+    const alert = await this.alertController.create({
+      header: 'Agregar Cupos',
+      inputs: [
+        {
+          name: 'cupos',
+          type: 'number',
+          placeholder: 'Insertar Cupos',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'OK',
+          handler: (data) => this.handleAddCupos(data),
+        },
+      ],
+    });
+    await alert.present();
   }
 
-  public alertButtonCupo = [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
-    },
-    {
-      text: 'OK',
-      role: 'confirm',
-      handler: (data: any) => {  // 'data' contiene los valores de los inputs
-        const cupos = Number(data.cupos); // Convertimos el valor a número
-  
-        // Verificamos que cupos tenga un valor válido
-        if (!isNaN(cupos) && cupos > 0) {
-          // Enviamos el valor de los cupos al backend
-          this.tournamentServ.editCupos(this.id, cupos).subscribe({
-            next: (res: any) => {
-              localStorage.setItem('cuposUpdated', res.message);
-              window.location.href = `admin/tournaments/${this.id}`
-            },
-            error: (err: any) => {
-              this.notifyService.error(err.error.message);
-            }
-          });
-        } else {
-          this.notifyService.error("El valor de los cupos es inválido")
-        }
-      },
-    },
-  ];
-  public alertInputs = [
-    { name: 'cupos',
-      type: 'number',
-      placeholder: 'Insertar Cupos',
-    },
-  
-  ];
+  async presentRestCuposAlert() {
+    const alert = await this.alertController.create({
+      header: 'Restar Cupos',
+      inputs: [
+        {
+          name: 'cupos',
+          type: 'number',
+          placeholder: 'Restar Cupos',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'OK',
+          handler: (data) => this.handleRestCupos(data),
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  handleAddCupos(data: any) {
+    const cupos = Number(data.cupos);
+    if (!isNaN(cupos) && cupos > 0) {
+      this.tournamentServ.editCupos(this.id, cupos).subscribe({
+        next: (res: any) => {
+          localStorage.setItem('cuposUpdated', res.message);
+          window.location.href = `admin/tournaments/${this.id}`;
+        },
+        error: (err: any) => {
+          this.notifyService.error(err.error.message);
+        },
+      });
+    } else {
+      this.notifyService.error('El valor de los cupos es inválido');
+    }
+  }
+
+  handleRestCupos(data: any) {
+    const cupos = Number(data.cupos);
+    if (!isNaN(cupos) && cupos > 0) {
+      this.tournamentServ.restarCupos(this.id, cupos).subscribe({
+        next: (res: any) => {
+          localStorage.setItem('cuposUpdated', res.message);
+          window.location.href = `admin/tournaments/${this.id}`;
+        },
+        error: (err: any) => {
+          this.notifyService.error(err.error.message);
+        },
+      });
+    } else {
+      this.notifyService.error('El valor de los cupos es inválido');
+    }
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
