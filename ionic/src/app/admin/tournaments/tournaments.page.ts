@@ -100,6 +100,46 @@ export class TournamentsPage implements OnInit {
     console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
+  public alertButtonCupo = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: (data: any) => {  // 'data' contiene los valores de los inputs
+        const cupos = Number(data.cupos); // Convertimos el valor a número
+  
+        // Verificamos que cupos tenga un valor válido
+        if (!isNaN(cupos) && cupos > 0) {
+          // Enviamos el valor de los cupos al backend
+          this.tournamentServ.editCupos(this.id, cupos).subscribe({
+            next: (res: any) => {
+              localStorage.setItem('cuposUpdated', res.message);
+              window.location.href = `admin/tournaments/${this.id}`
+            },
+            error: (err: any) => {
+              this.notifyService.error(err.error.message);
+            }
+          });
+        } else {
+          this.notifyService.error("El valor de los cupos es inválido")
+        }
+      },
+    },
+  ];
+  public alertInputs = [
+    { name: 'cupos',
+      type: 'number',
+      placeholder: 'Insertar Cupos',
+    },
+  
+  ];
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id']
@@ -108,7 +148,15 @@ export class TournamentsPage implements OnInit {
     this.getCategories()
     this.getFormats()
     this.getCampeonatos()
-    this.getEdades()
+    this.getEdades();
+    const message = localStorage.getItem('cuposUpdated');
+    if (message) {
+      // Muestra el mensaje usando el servicio de notificaciones
+      this.notifyService.success(message);
+  
+      // Limpia el mensaje del localStorage para evitar que se muestre nuevamente
+      localStorage.removeItem('cuposUpdated');
+    }
   }
 
   isModalOpen = false;
@@ -213,7 +261,6 @@ export class TournamentsPage implements OnInit {
       tournamentNotes: form.tournamentNotes.value,
       tarifaInscripcion: form.tarifaInscripcion.value,
       tarifaPartido: form.tarifaPartido.value,
-      cupos: form.cupos.value
     };
     console.log(formulario)
     this.tournamentServ.editTournament(id, formulario).subscribe({
