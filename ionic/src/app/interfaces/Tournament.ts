@@ -56,6 +56,7 @@ export interface Tournament {
     tarifaInscripcion: number,
     tarifaPartido: number,
     cupos: number,
+    aAnotar?: number,
     pagos?: Array <{
         _id?: string,
         monto?: number,
