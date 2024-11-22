@@ -75,4 +75,6 @@ drop(event: CdkDragDrop<string[]>): void {
   });
 }
 
+//Lo que me costo esto
+
 }
