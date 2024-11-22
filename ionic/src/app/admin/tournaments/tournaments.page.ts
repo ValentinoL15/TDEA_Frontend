@@ -75,6 +75,8 @@ export class TournamentsPage implements OnInit {
     tarifaPartido: 0,
     cupos: 0,
   }
+  tempCupos: number = 0; // Variable temporal para cupos
+  tempAAnotar: number = 0; // Variable temporal para aAnotar
   currentYear = new Date().getFullYear();
   ageRange: { from: number; to: number } = { from: 0, to: 0 };
 
@@ -82,7 +84,7 @@ export class TournamentsPage implements OnInit {
 
   ids: string = '';
 
-  async presentAddCuposAlert() {
+  /*async presentAddCuposAlert() {
     const alert = await this.alertController.create({
       header: 'Agregar Cupos',
       inputs: [
@@ -162,7 +164,7 @@ export class TournamentsPage implements OnInit {
     } else {
       this.notifyService.error('El valor de los cupos es inválido');
     }
-  }
+  }*/
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -255,6 +257,8 @@ export class TournamentsPage implements OnInit {
         this.tournament = res.tournamentFound
         this.ageRange = res.years; 
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
+        this.tempCupos = this.tournament.cupos; // Inicializar tempCupos con el valor actual
+        this.tempAAnotar = this.tournament.aAnotar ?? 0; // Usa 0 si es undefined
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -285,6 +289,8 @@ export class TournamentsPage implements OnInit {
       tournamentNotes: form.tournamentNotes.value,
       tarifaInscripcion: form.tarifaInscripcion.value,
       tarifaPartido: form.tarifaPartido.value,
+      cupos: this.tempCupos, // Enviar los cupos temporales
+      aAnotar: this.tempAAnotar // Enviar los cupos temporales para aAnotar
     };
     console.log(formulario)
     this.tournamentServ.editTournament(id, formulario).subscribe({
@@ -297,7 +303,21 @@ export class TournamentsPage implements OnInit {
         this.notifyService.error(err.error.message)
       }
     })
-    
+  }
+
+  updateCupos(change: number) {
+    // Si la operación es de suma, aumentamos los cupos y aAnotar
+    if (change > 0) {
+      this.tempCupos += change;
+      this.tempAAnotar += change;
+    }
+    // Si la operación es de resta, solo restamos si los cupos son mayores que 1
+    else if (change < 0) {
+      if (this.tempCupos > 1) {  // No restar si los cupos son 1 o menos
+        this.tempCupos += change;
+        this.tempAAnotar += change;
+      }
+    }
   }
 
   async deleteTorneo(id: any) {
