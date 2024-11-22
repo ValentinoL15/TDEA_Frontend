@@ -41,6 +41,7 @@ export class TournamentService {
     return this.http.put(`${this.API_URL}/categories/order`, { categories });
   }
 
+
   /*************************************FORMATOS***********************************************/
 
   createFormat(form : Format){
@@ -271,6 +272,14 @@ deleteStadium(id : any){
 
   getTotals(){
     return this.http.get(`${this.API_URL}/get-totals`)
+  }
+
+  updateTournamentOrder(torneo: string[]): Observable<any> {
+    return this.http.put(`${this.API_URL}/torneos/order`, { torneo });
+  }
+
+  getMyTournaments(){
+    return this.http.get(`${this.API_URL}/obtener-mis-torneos/`)
   }
 
 /****************************************************DAYS*****************************************************/ 

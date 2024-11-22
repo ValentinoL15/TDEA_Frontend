@@ -6,6 +6,7 @@ import { TournamentService } from '../services/tournament.service';
 import { AlertController } from '@ionic/angular';
 import { List } from '../interfaces/List';
 import { Tournament } from '../interfaces/Tournament';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tournaments',
@@ -56,6 +57,22 @@ getLists(){
       console.log(err.error.message);
     }
   })
+}
+
+drop(event: CdkDragDrop<string[]>): void {
+  // Reorganiza las categorías en memoria
+  moveItemInArray(this.torneos, event.previousIndex, event.currentIndex);
+
+  // Enviar el nuevo orden al backend
+  this.tournamentServ.updateCategoryOrder(this.torneos.map(c => c._id)).subscribe({
+    next: (res: any) => {
+      console.log(res)
+    },
+    error: (err) => {
+      this.notifyService.error('Error al actualizar el orden');
+      console.error(err);
+    }
+  });
 }
 
 }
