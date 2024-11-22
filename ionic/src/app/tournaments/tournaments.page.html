@@ -9,8 +9,8 @@
 
 <ion-content [fullscreen]="true" color="light">
 
-  <div *ngIf="lists">
-    <ion-card *ngFor="let torneo of torneos">
+  <div *ngIf="lists" cdkDropList (cdkDropListDropped)="drop($event)">
+    <ion-card *ngFor="let torneo of torneos" cdkDrag>
       <ion-card-header>
         <ion-card-title>{{torneo.nameFantasy}}</ion-card-title>
         <ion-card-subtitle>Torneo</ion-card-subtitle>

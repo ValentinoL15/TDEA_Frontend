@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomeTournamentPageRoutingModule } from './home-tournament-routing.module';
 
 import { HomeTournamentPage } from './home-tournament.page';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { HomeTournamentPage } from './home-tournament.page';
     FormsModule,
     IonicModule,
     HomeTournamentPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule,
   ],
   declarations: [HomeTournamentPage]
 })

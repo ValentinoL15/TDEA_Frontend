@@ -8,7 +8,7 @@ import { CreateCategoryPageRoutingModule } from './create-category-routing.modul
 
 import { CreateCategoryPage } from './create-category.page';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { Tabs2PageModule } from '../tabs2/tabs2.module';
+
 
 
 @NgModule({

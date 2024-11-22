@@ -10,6 +10,7 @@ import { Stadium } from 'src/app/interfaces/Stadium';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -279,15 +280,34 @@ createTournament(){
 }
 
 getTournaments(){
-  this.tournamentServ.getTournaments().subscribe({
+  this.tournamentServ.getMyTournaments().subscribe({
     next: (res : any) => {
       this.tournaments = res.tournaments
+      this.tournaments = res.tournaments.sort((a:any, b:any) => a.order - b.order);
     },
     error: (err) => {
       this.notifyService.error(err.error.message)
     }
   })
 }
+
+
+drop(event: CdkDragDrop<any[]>): void {
+  // Cambiar el orden en la lista local
+  moveItemInArray(this.tournaments, event.previousIndex, event.currentIndex);
+
+  // Confirmar el cambio en el servidor
+  this.tournamentServ.updateTournamentOrder(this.tournaments.map(t => t._id)).subscribe({
+    next: (res: any) => {
+      console.log('Orden actualizado:', res);
+    },
+    error: (err) => {
+      this.notifyService.error('Error al actualizar el orden');
+      console.error('Error:', err);
+    }
+  });
+}
+
 
 goTournament(id:any){
   this.router.navigate([`/admin/tournaments/${id}`])
