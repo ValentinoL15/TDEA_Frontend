@@ -40,6 +40,7 @@ getTournaments(){
   this.tournamentServ.getTournaments().subscribe({
     next: (res : any) => {
       this.torneos = res.tournaments
+      this.torneos = res.tournaments.sort((a:any, b:any) => a.order - b.order);
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)
@@ -74,7 +75,5 @@ drop(event: CdkDragDrop<string[]>): void {
     }
   });
 }
-
-//Lo que me costo esto
 
 }
