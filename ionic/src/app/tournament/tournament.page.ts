@@ -110,7 +110,7 @@ export class TournamentPage implements OnInit {
       next: (res : any) => {
         this.tournament = res.tournamentFound
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
-        console.log(this.tournament)
+        console.log("Este es mi torneo:" ,this.tournament)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
