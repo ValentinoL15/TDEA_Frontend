@@ -88,7 +88,7 @@ export class HomeTournamentPage implements OnInit {
     "20:00", "20:15", "20:30", "20:45", 
     "21:00", "21:15", "21:30", "21:45", 
     "22:00", "22:15", "22:30", "22:45", 
-    "23:00", "23:15", "23:30", "23:45"
+    "23:00", "23:15", "23:30", "23:45", "A definir"
   ];
 
 
@@ -230,21 +230,19 @@ removeDayTournament(index: number) {
 }
 
 
-createTournament(){
-  if(this.form.get('rangeAgeUntil')?.value < this.form.get('rangeAgeSince')?.value){
-    return this.notifyService.error('EL rango de edad debe ser válido')
+createTournament() {
+  if (this.form.get('rangeAgeUntil')?.value < this.form.get('rangeAgeSince')?.value) {
+    return this.notifyService.error('El rango de edad debe ser válido');
   }
+
+  // Asegúrate de que 'stadium' siempre tenga un valor, si no, asignar 'A definir'
   const daysTournament = this.form.value.daysTournament.map((dayTournament: any) => ({
     day: dayTournament.day,
-    stadium: dayTournament.stadium,
+    stadium: dayTournament.estadioSeleccionado || 'A definir', // Asignar 'A definir' si el estadio está vacío
     time: dayTournament.time // Suponiendo que "time" ya es un array de strings
   }));
-  const hasValidStadium = this.form.value.daysTournament.some((dayTournament: any) => 
-    dayTournament.estadioSeleccionado === 'A definir' || 
-    (dayTournament.estadioSeleccionado !== '' && dayTournament.estadioSeleccionado !== null)
-  );
 
-  const formulario : Tournament = {
+  const formulario: Tournament = {
     nameFantasy: this.form.value.nameFantasy,
     ano: this.form.value.ano,
     rangeAgeSince: this.form.value.rangeAgeSince,
@@ -261,22 +259,23 @@ createTournament(){
     tarifaInscripcion: this.form.value.tarifaInscripcion,
     tarifaPartido: this.form.value.tarifaPartido,
     cupos: this.form.value.cupos,
-    daysTournament : this.form.value.daysTournament.map((dayTournament: any) => ({
+    daysTournament: this.form.value.daysTournament.map((dayTournament: any) => ({
       day: dayTournament.day,
-      sede: dayTournament.sedeSeleccionada,
-      stadium: dayTournament.estadioSeleccionado, // Asegúrate de que el campo es correcto
+      sede: dayTournament.sedeSeleccionada || 'A definir', // Asignar 'A definir' si no hay sede
+      stadium: dayTournament.estadioSeleccionado || 'A definir', // Asegurarse de que no esté vacío
       time: dayTournament.time // Asegúrate de que "time" es un array
     }))
-  }
+  };
+
   this.tournamentServ.createTournament(formulario).subscribe({
-    next: (res : any) => {
+    next: (res: any) => {
       localStorage.setItem('torneoCreated', res.message);
-      window.location.href = '/admin/home-tournament'
+      window.location.href = '/admin/home-tournament';
     },
     error: (err) => {
-      this.notifyService.error(err.error.message)
+      this.notifyService.error(err.error.message);
     }
-  })
+  });
 }
 
 getTournaments(){
