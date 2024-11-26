@@ -19,12 +19,14 @@
             <ion-select-option value="Viernes">Viernes</ion-select-option>
             <ion-select-option value="Sabado">Sabado</ion-select-option>
             <ion-select-option value="Domingo">Domingo</ion-select-option>
+            <ion-select-option value="A definir">A definir</ion-select-option>
           </ion-select>
         </ion-item>
 
       <ion-item>
         <ion-select label="Sede" labelPlacement="stacked" interface="popover" placeholder="Seleccionar sede" formControlName="sede" (ionChange)="onVenueChange($event)" [value]="tournamentDay?.sede">
           <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{sede.name}}</ion-select-option>
+          <ion-select-option value="A definir">A definir</ion-select-option>
         </ion-select>
       </ion-item>
       
