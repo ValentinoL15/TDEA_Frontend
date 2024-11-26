@@ -125,7 +125,7 @@ export class DayPage implements OnInit {
     "20:00", "20:15", "20:30", "20:45", 
     "21:00", "21:15", "21:30", "21:45", 
     "22:00", "22:15", "22:30", "22:45", 
-    "23:00", "23:15", "23:30", "23:45"
+    "23:00", "23:15", "23:30", "23:45", "A definir"
   ];
 
 
@@ -208,7 +208,7 @@ export class DayPage implements OnInit {
   onVenueChange(event: any) {
     const selectedVenueId = event.detail.value;
     console.log('Sede seleccionada:', selectedVenueId); // Verifica que el valor sea correcto
-    this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === selectedVenueId);
+    this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === selectedVenueId || selectedVenueId === "A definir");
     this.dayForm.get('stadium')?.setValue(null); // Opcional: limpiar la selección de estadio
   }
 
