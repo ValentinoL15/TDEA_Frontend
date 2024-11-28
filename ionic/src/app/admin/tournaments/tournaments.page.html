@@ -16,7 +16,7 @@
     <ion-list [inset]="true">
 
       <ion-item>
-        <ion-select label="Actividad" [value]="tournament.isTournamentActive" [placeholder]="tournament.isTournamentActive ? 'Activo' : 'No Activo'" name="isTournamentActive">
+        <ion-select label="Actividad" interface="popover" [value]="tournament.isTournamentActive" [placeholder]="tournament.isTournamentActive ? 'Activo' : 'No Activo'" name="isTournamentActive">
           <ion-select-option value="true">Activo</ion-select-option>
           <ion-select-option value="false">No Activo</ion-select-option>
         </ion-select>
@@ -31,19 +31,19 @@
       </ion-item>
 
       <ion-item>
-        <ion-select label="Campeonato" [value]="tournament.campeonato._id" name="campeonato">
+        <ion-select label="Campeonato" interface="popover" [value]="tournament.campeonato._id" name="campeonato">
           <ion-select-option *ngFor="let champ of campeonatos" [value]="champ._id">{{champ.type}}</ion-select-option>
         </ion-select>
       </ion-item> 
 
       <ion-item>
-        <ion-select label="Formato" placeholder="Formato" name="format" [value]="tournament.format._id" [placeholder]="tournament.format.formatName">
+        <ion-select label="Formato" interface="popover" placeholder="Formato" name="format" [value]="tournament.format._id" [placeholder]="tournament.format.formatName">
           <ion-select-option *ngFor="let format of formats" [value]="format._id">{{format.formatName}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
-        <ion-select label="Edad" name="edad" [value]="tournament.edad._id">
+        <ion-select interface="popover" label="Edad" name="edad" [value]="tournament.edad._id">
           <ion-select-option *ngFor="let edad of edades" [value]="edad._id">{{edad.type}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -57,14 +57,14 @@
       </ion-item>
 
       <ion-item>
-        <ion-select label="Sexo" name="isTournamentMasculine" [value]="tournament.isTournamentMasculine" [placeholder]="tournament.isTournamentMasculine ? 'Masculino' : 'Femenino'">
+        <ion-select label="Sexo" interface="popover" name="isTournamentMasculine" [value]="tournament.isTournamentMasculine" [placeholder]="tournament.isTournamentMasculine ? 'Masculino' : 'Femenino'">
           <ion-select-option value="true">Masculino</ion-select-option>
           <ion-select-option value="false">Femenino</ion-select-option>
         </ion-select>
       </ion-item>
       
       <ion-item>
-        <ion-select label="Categoria" placeholder="Categoria" name="category" [value]="tournament.category._id" [placeholder]="tournament.category.categoryName">
+        <ion-select label="Categoria" interface="popover" placeholder="Categoria" name="category" [value]="tournament.category._id" [placeholder]="tournament.category.categoryName">
           <ion-select-option *ngFor="let category of categories" [value]="category._id">{{category.categoryName}}</ion-select-option>
         </ion-select>
       </ion-item>
