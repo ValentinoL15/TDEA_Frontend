@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotifyService } from '../services/notify.service';
 import { Player } from '../interfaces/Player';
 import { date, format } from "@formkit/tempo"
+import { Team } from '../interfaces/Team';
 
 @Component({
   selector: 'app-players',
@@ -91,6 +92,26 @@ export class PlayersPage implements OnInit {
     shirtNumber: 0,
     picturePlayer: ""
   }
+  team: Team = {
+    _id: "",
+    teamName: "",
+    teamNotes: "",
+    socialMedia: "",
+    teamImage:"",
+    active: false,
+    deudas: [{
+      _id: "",
+      belongTournament: {
+        _id: "",
+        nameFantasy: ""
+      },
+      belongToList: {
+        _id: "",
+        nameList: ""
+      },
+      amount: 0
+    }]
+  }
   players: Player[] = []
   selectedFile: File | null = null;
 
@@ -115,6 +136,18 @@ export class PlayersPage implements OnInit {
 
   ngOnInit() {
   this.getPlayers()
+  this.userService.getDeuda().subscribe({
+    next: (res : any) => {
+      if (res.team && res.team.active) {
+        this.team = res.team  // Acceder a las deudas solo si el equipo está activo
+      } else {
+        console.log('No hay un equipo activo.');
+      }
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.message)
+    }
+  })
   }
 
 

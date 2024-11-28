@@ -41,7 +41,7 @@
     </div>
   
     <div class="container-button">
-      <div class="button">
+      <div class="button" *ngIf="team.active">
         <ion-button shape="round" (click)="setOpen(true)">
           <ion-icon slot="icon-only" name="add-outline"></ion-icon>
         </ion-button>
@@ -50,11 +50,11 @@
   </div>
 
   <div class="addPlayers" *ngIf="players.length === 0">
-    <h1>Agrega jugadores a tu Equipo!</h1>
+    <p>Por favor, crea o elegí un equipo</p>
   </div>
 
   <div class="players" *ngIf="!players">
-    <h1>Por favor crea o elige un equipo para agregar jugadores</h1>
+    <p>Por favor, crea o elegí un equipo</p>
   </div>
   
 
