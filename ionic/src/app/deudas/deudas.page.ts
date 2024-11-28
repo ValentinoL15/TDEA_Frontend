@@ -38,8 +38,11 @@ export class DeudasPage implements OnInit {
   ngOnInit() {
     this.userService.getDeuda().subscribe({
       next: (res : any) => {
-        this.team = res.team
-        console.log(this.team)
+        if (res.team && res.team.active) {
+          this.team = res.team  // Acceder a las deudas solo si el equipo está activo
+        } else {
+          console.log('No hay un equipo activo.');
+        }
       },
       error: (err : any) => {
         this.notifyService.error(err.message)

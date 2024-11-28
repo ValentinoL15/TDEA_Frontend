@@ -9,7 +9,7 @@
     <h2 style="font-weight: bold;">Mis Deudas</h2>
   </div>
   
-  <ion-list [inset]="true">
+  <ion-list [inset]="true" *ngIf="team.active">
     <ion-item *ngFor="let deuda of team.deudas" detail="true" (click)="confirmInscription(deuda._id, deuda.belongToList._id, deuda.belongTournament?._id, deuda.belongToList.nameList)">
       <ion-input readonly="true" [label]="deuda.belongTournament?.nameFantasy + ' - '  + deuda.belongToList.nameList" labelPlacement="stacked" [value]="'Deuda: $ ' + deuda.amount">
       </ion-input>

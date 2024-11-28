@@ -11,16 +11,16 @@ export interface Team {
     teamImage?:String,
     players?: Player[]
     active: boolean,
-    deudas?: [{
-        _id?: string,
+    deudas?: Array<{
+        _id?: string;
         belongTournament?: {
-            _id?: string,
-            nameFantasy?: string,
-        },
+          _id?: string;
+          nameFantasy?: string;
+        };
         belongToList: {
-            _id?: string,
-            nameList?: string
-        }
-        amount: Number,
-}]
+          _id?: string;
+          nameList?: string;
+        };
+        amount: number;
+      }> | []; // Permitir que sea undefine
 }
