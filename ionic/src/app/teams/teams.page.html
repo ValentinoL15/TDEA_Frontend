@@ -5,35 +5,55 @@
     </ion-buttons>
     <ion-title>{{equipo.teamName}}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="setOpen(true)">Editar</ion-button>
+      <ion-button (click)="editTeam(equipo._id, miForm)">Editar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="light">
-  <div class="contenedor">
+<ion-content class="ion-padding">
+  <form #miForm>
+    <ion-list [inset]="true">
+      <div class="imagen">
+        <img [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo">
+        <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+        <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+        <input type="file" (change)="onFileSelected($event)" hidden id="file-input" />
+      </div>
 
-  <ion-list [inset]="true">
+      <ion-item>
+        <ion-input label="Equipo" label-placement="fixed" [value]="equipo.teamName" name="teamName"></ion-input>
+      </ion-item>
 
-    <div class="image">
-      <img class="img-alumno" [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo"/>
+      <ion-item>
+        <ion-input label="Instagram" label-placement="fixed" [value]="equipo.socialMedia" name="socialMedia"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-textarea type="text" label="Descripción" labelPlacement="floating" rows="5" [value]="equipo.teamNotes" name="teamNotes"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    
+    <div class="container"> 
+        <ion-button expand="block" color="danger" id="present-alert" (click)="deleteTeam(equipo._id)" style="font-weight: bold;">
+          Eliminar Equipo
+        </ion-button>
     </div>
-
-    <ion-item>
-      <ion-input readonly="true" label="Equipo" label-placement="fixed" placeholder="Nombre de equipo" [value]="equipo.teamName"></ion-input>
-    </ion-item>
+  </form>
   
-    <ion-item>
-      <ion-input readonly="true" label="Instagram" label-placement="fixed" placeholder="Instagram" [value]="equipo.socialMedia"></ion-input>
-    </ion-item>
+</ion-content>
 
-    <ion-item>
-      <ion-textarea readonly="true" label="Descripcion" label-placement="fixed" [value]="equipo.teamNotes"></ion-textarea>
-    </ion-item>
-  </ion-list>
-  </div>
 
-  <ion-modal [isOpen]="isModalOpen">
+<ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+
+  <!--<ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -94,12 +114,5 @@
   (didDismiss)="setResults($event)"
 ></ion-alert>
 
-<ion-alert
-  trigger="present-alert"
-  header="Alert!"
-  [buttons]="alertButtons"
-  (didDismiss)="setResult($event)"
-></ion-alert>
-
-
+-->
 
