@@ -174,7 +174,6 @@ export class PlayersPage implements OnInit {
     formData.append('lastName', this.form.get('lastName')?.value);
     formData.append('dni', this.form.get('dni')?.value);
     formData.append('nacimiento', this.form.get('nacimiento')?.value);
-    formData.append('shirtNumber', this.form.get('shirtNumber')?.value);
     formData.append('image', this.selectedFile as Blob);
     this.userService.crearJugador(formData).subscribe({
       next: (res : any) => {
