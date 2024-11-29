@@ -110,9 +110,10 @@ export class TeamsPage implements OnInit {
     }
     this.userService.editTeam(id,formulario).subscribe({
       next: (res : any) => {
-        this.notifyService.success(res.message)
-        this.getTeam(id)
-        this.setOpen(false)
+        setTimeout(() => {
+          this.notifyService.success(res.message)
+        }, 1000)
+        window.location.href = 'user/home'
       },
       error: (err : any) => {
         this.notifyService.error(err.error.message)
