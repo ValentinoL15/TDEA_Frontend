@@ -25,14 +25,8 @@
           <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
         </ion-item>
       </div>
-  
-      <div class="element-3">
-        <ion-item>
-          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Numero de Camiseta" [value]="player.shirtNumber "></ion-input>
-        </ion-item>
-      </div>
 
-      <div class="element-4">
+      <div class="element-3">
         <ion-item>
           <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
         </ion-item>
@@ -88,10 +82,6 @@
 
             <ion-item>
               <ion-input label="DNI" labelPlacement="stacked" type="number" placeholder="Ingrese DNI" formControlName="dni"></ion-input>
-            </ion-item>
-
-            <ion-item>
-              <ion-input label="Número de camiseta" labelPlacement="stacked" type="number" placeholder="Ej: 7" formControlName="shirtNumber"></ion-input>
             </ion-item>
 
             <ion-item>
