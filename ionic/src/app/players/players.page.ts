@@ -88,6 +88,7 @@ export class PlayersPage implements OnInit {
     firstName: "",
     lastName: "",
     nacimiento: "yyyy-mm-dd",
+    pictureAccept: false,
     dni: 0,
     shirtNumber: 0,
     picturePlayer: ""
@@ -98,6 +99,7 @@ export class PlayersPage implements OnInit {
     teamNotes: "",
     socialMedia: "",
     teamImage:"",
+    pictureAccept: false,
     active: false,
     deudas: [{
       _id: "",

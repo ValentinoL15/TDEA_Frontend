@@ -60,6 +60,10 @@ goUsers(){
   this.router.navigate(['/admin/my-users'])
 }
 
+goImg(){
+  this.router.navigate(['/admin/img-approved'])
+}
+
 cerrarSesion(){
   localStorage.removeItem('token');
   window.location.href = `/login`;

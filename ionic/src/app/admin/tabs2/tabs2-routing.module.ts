@@ -129,6 +129,11 @@ const routes: Routes = [
         path: 'sede-horarios/:id',
         loadChildren: () => import('../sede-horarios/sede-horarios.module').then( m => m.SedeHorariosPageModule)
       },
+      {
+        path: 'img-approved',
+        loadChildren: () => import('../img-approved/img-approved.module').then( m => m.ImgApprovedPageModule)
+      }
+    
     ]
   }
 ];

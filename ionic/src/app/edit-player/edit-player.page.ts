@@ -21,6 +21,7 @@ player: Player = {
   lastName: "",
   dni:0,
   shirtNumber: 0,
+  pictureAccept: false,
   nacimiento: "yyyy-mm-dd",
   ownerList: "",
   picturePlayer: ""
@@ -108,7 +109,7 @@ players: Player[] = []
         console.log('Jugador cargado:', this.player);
   
         // Limpia manualmente el input de archivo
-        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+        const fileInput = document.getElementById('file-input') as HTMLInputElement;
         if (fileInput) {
           fileInput.value = '';
         }
@@ -121,6 +122,12 @@ players: Player[] = []
     });
   }
   
+  selectImage() {
+    const fileInput = document.getElementById('file-input') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
 
   getPlayers(id:any){
     this.userService.getPlayers(id).subscribe({
@@ -168,7 +175,7 @@ players: Player[] = []
     this.userService.deletPlayer(id).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message)
-        window.location.href = `/players/${this.player.ownerList}`
+        window.location.href = `user/players`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -191,19 +198,20 @@ players: Player[] = []
     });
   }
   
-
   onFileSelectedImage(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedImage = file;
       console.log('Archivo seleccionado:', file);
+      this.editImage(); // Llama a la función para subir la imagen
     } else {
       console.log('No se seleccionó ningún archivo.');
     }
   
-    // Reinicia el input para permitir volver a seleccionar el archivo
-    event.target.value = null;
+    // Reinicia el valor del input para permitir volver a seleccionar el mismo archivo
+    event.target.value = '';
   }
+  
   
 
 }

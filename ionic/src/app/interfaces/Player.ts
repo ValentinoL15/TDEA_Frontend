@@ -7,4 +7,5 @@ export interface Player {
     nacimiento?: string,
     ownerList?: String,
     picturePlayer?: string
+    pictureAccept?: boolean
 }

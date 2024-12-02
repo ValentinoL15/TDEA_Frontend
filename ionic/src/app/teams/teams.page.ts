@@ -16,6 +16,7 @@ export class TeamsPage implements OnInit {
   equipo: Team = {
     teamName: "",
     teamNotes: "",
+    pictureAccept: false,
     socialMedia: "",
     active: false,
     

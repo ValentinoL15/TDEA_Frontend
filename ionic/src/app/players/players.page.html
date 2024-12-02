@@ -11,7 +11,8 @@
     <div *ngFor="let player of players" class="contenedor">
 
       <div class="image" (click)="goPlayer(player._id)">
-        <img [src]="player.picturePlayer" alt=""/>
+        <img *ngIf="player.pictureAccept === true" [src]="player.picturePlayer" alt=""/>
+        <img *ngIf="player.pictureAccept === false" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="">
       </div>
   
       <div class="element-1">
