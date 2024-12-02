@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Aprobar Imágenes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <h6 style="text-align: center;">Imágenes de Equipo</h6>
+  <ng-container *ngIf="teamImages.length > 0; else noImagesTeam">
+    <ion-list>
+      <div *ngFor="let item of teamImages" style="width: 100%; display: flex;">
+        <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
+          <img [src]="item.img" alt="imagen" width="180px" height="180px">
+          <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
+            <ion-button (click)="aprobar(item._id)" color="primary">Aprobar</ion-button>
+            <ion-button (click)="eliminarTeamPicture(item._id)" color="danger">Eliminar</ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ng-container>
+  <ng-template #noImagesTeam>
+    <p style="text-align: center; color: red;">No hay imágenes para mostrar de equipos</p>
+  </ng-template>
+
+  <h6 style="text-align: center;">Imágenes de Listas</h6>
+  <ng-container *ngIf="listImages.length > 0; else noImagesLists">
+    <ion-list>
+      <div *ngFor="let item of listImages" style="width: 100%; display: flex;">
+        <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
+          <img [src]="item.img" alt="imagen" width="180px" height="180px">
+          <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
+            <ion-button (click)="aprobarList(item._id)" color="primary">Aprobar</ion-button>
+            <ion-button (click)="eliminarPictureList(item._id)" color="danger">Eliminar</ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ng-container>
+  <ng-template #noImagesLists>
+    <p style="text-align: center; color: red;">No hay imágenes para mostrar de listas</p>
+  </ng-template>
+
+  <h6 style="text-align: center;">Imágenes de Jugadores</h6>
+  <ng-container *ngIf="playerImages.length > 0; else noImagesPlayers">
+    <ion-list>
+      <div *ngFor="let item of playerImages" style="width: 100%; display: flex;">
+        <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
+          <img [src]="item.img" alt="imagen" width="180px" height="180px">
+          <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
+            <ion-button (click)="aprobarPlayer(item._id)" color="primary">Aprobar</ion-button>
+            <ion-button (click)="eliminarPlayerPicture(item._id)" color="danger">Eliminar</ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ng-container>
+  <ng-template #noImagesPlayers>
+    <p style="text-align: center; color: red;">No hay imágenes para mostrar de jugadores</p>
+  </ng-template>
+</ion-content>
+

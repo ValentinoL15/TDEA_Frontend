@@ -38,6 +38,34 @@ updateUsersOrder(users: any[]): Observable<any> {
   return this.http.put(`${this.API_URL}/users/order`, { users });
 }
 
+getImages(){
+  return this.http.get(`${this.API_URL}/obtener-imagenes`)
+}
+
+approvedPicture(id : any){
+  return this.http.put(`${this.API_URL}/picture-approved/${id}`, {})
+}
+
+rejectPicture(id : any){
+  return this.http.delete(`${this.API_URL}/picture-team-rejected/${id}`)
+}
+
+approvedPictureList(id : any){
+  return this.http.put(`${this.API_URL}/list-approved/${id}`, {})
+}
+
+rejectPictureList(id : any){
+  return this.http.delete(`${this.API_URL}/list-rejected/${id}`)
+}
+
+playerApproved(id:any){
+  return this.http.put(`${this.API_URL}/picture-players-approved/${id}`, {})
+}
+
+rejectPlayerPicture(id : any){
+  return this.http.delete(`${this.API_URL}/picture-player-rejected/${id}`)
+}
+
 /*************************************************TEAM*****************************************************/
   createTeam(form : any){
     return this.http.post(`${this.API_URL}/crear-equipo`, form)

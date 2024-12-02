@@ -134,6 +134,10 @@ const routes: Routes = [
     path: 'sede-horarios/:id',
     loadChildren: () => import('./admin/sede-horarios/sede-horarios.module').then( m => m.SedeHorariosPageModule)
   },
+  {
+    path: 'img-approved',
+    loadChildren: () => import('./admin/img-approved/img-approved.module').then( m => m.ImgApprovedPageModule)
+  },
   /////////////////////////////////ADMIN/////////////////////////////////////////////
   {
     path: 'create-team',

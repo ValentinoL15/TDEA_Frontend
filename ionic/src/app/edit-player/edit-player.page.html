@@ -12,8 +12,26 @@
 
 <ion-content [fullscreen]="true" color="light">
   <div class="image">
-    <img [src]="player.picturePlayer" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
+    <img
+      *ngIf="player.pictureAccept"
+      [src]="player.picturePlayer"
+      alt="Imagen del jugador"
+      width="200px"
+      height="200px"
+      id="imagen-jugador"
+      name="image"
+      (click)="selectImage()"
+    />
+    <img
+      *ngIf="!player.pictureAccept"
+      src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"
+      width="200px"
+      height="200px"
+      alt="Imagen por defecto"
+      (click)="selectImage()"
+    />
   </div>
+  <input id="file-input" type="file" (change)="onFileSelectedImage($event)" style="display: none;" />
   <ion-list [inset]="true">
     <form #miForm>
       <ion-item>
@@ -61,3 +79,4 @@
   (change)="onFileSelectedImage($event)"
   (didDismiss)="setResults($event)"
 ></ion-alert>
+<input id="file-input" type="file" style="display: none;" />

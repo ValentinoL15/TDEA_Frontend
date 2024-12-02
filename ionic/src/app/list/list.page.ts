@@ -64,6 +64,7 @@ export class ListPage implements OnInit {
     },
     typeAlineacion: 0,
     teamPicture: "",
+    pictureAccept: false,
     shirtColor: "",
     alineacion: {
       _id: "",

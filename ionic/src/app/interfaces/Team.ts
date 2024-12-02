@@ -9,7 +9,8 @@ export interface Team {
     socialMedia: String,
     teamList?: List,
     teamImage?:String,
-    players?: Player[]
+    players?: Player[],
+    pictureAccept?: boolean,
     active: boolean,
     deudas?: Array<{
         _id?: string;

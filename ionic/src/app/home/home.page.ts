@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
     teamName: "",
     teamNotes: "",
     socialMedia: "",
+    pictureAccept: false,
     teamImage:"",
     active: false
   }

@@ -41,6 +41,7 @@ export interface List {
     belongToTournament?: any,
     players?: Player[]
     nameList: string,
+    pictureAccept?: boolean,
     teamPicture: string,
     monto?: number,
     pagoFinal?: number
