@@ -22,14 +22,18 @@
       name="image"
       (click)="selectImage()"
     />
-    <img
+    <div class="noAccept" *ngIf="player.pictureAccept === false">
+      <img 
       *ngIf="!player.pictureAccept"
-      src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"
+      [src]="player.picturePlayer"
       width="200px"
       height="200px"
       alt="Imagen por defecto"
       (click)="selectImage()"
     />
+    <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+    </div>
+    
   </div>
   <input id="file-input" type="file" (change)="onFileSelectedImage($event)" style="display: none;" />
   <ion-list [inset]="true">

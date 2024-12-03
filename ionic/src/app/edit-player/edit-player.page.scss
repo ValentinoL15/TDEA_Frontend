@@ -5,3 +5,16 @@
     justify-content: center;
     margin-top: 20px;
   }
+
+  .noAccept{ 
+    display: flex;
+    position: relative;
+    flex-direction: column;
+  }
+  
+  .icon-timer{
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  

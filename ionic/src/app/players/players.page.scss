@@ -29,11 +29,30 @@
   .contenedor {
     display: grid;
     width: 100%;
-    height: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr 1fr ;/* Todas las filas tendrán la misma altura */
+    grid-template-rows: repeat(3, 1fr); /* Cada fila tiene el mismo tamaño */
     margin: 10px 0;
+    height: 100%;
   }
+
+  ion-item {
+    --min-height: 100%; /* Asegura que el ion-item ocupe toda la altura */
+    height: 100%; /* Fija la altura de cada ion-item */
+    align-items: center; /* Opcional: centra verticalmente el contenido */
+  }
+  
+  
+  ion-input {
+    height: 100%; /* Opcional, si el ion-item tiene contenido extra */
+  }
+  
+  .contenedor > div {
+    display: flex; /* Para controlar alineación del contenido interno */
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    height: 100%; /* Ocupa toda la altura de la celda */
+  }
+  
 
   .element-1{
     grid-column: 2;
@@ -46,13 +65,10 @@
   }
 
   .element-3{
+    width: 100%;
+    height: 100%;
     grid-column: 2;
     grid-row: 3
-  }
-
-  .element-4{
-    grid-column: 2;
-    grid-row: 4
   }
 
   .image{
@@ -61,12 +77,25 @@
     display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
     justify-content: center;
     align-items: center;
+    height: 100%;
   }
 
   .image img {
-    width: 100%; /* Hace que la imagen ocupe todo el espacio disponible */
-    height: 100%; /* Asegura que la imagen se estire para ocupar las filas */
+    width: 100%;
+    height: 100%; /* Ajusta la altura automáticamente según el ancho */
     object-fit: cover; /* Asegura que la imagen no se deforme */
     margin: 0; /* Elimina cualquier margen sobrante */
     padding: 0; /* Elimina cualquier padding sobrante */
   }
+
+  .noAccept{ 
+    display: flex;
+    position: relative;
+  }
+  
+  .icon-timer{
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
