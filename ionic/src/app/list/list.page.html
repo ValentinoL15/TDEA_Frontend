@@ -15,8 +15,13 @@
     <ion-list [inset]="true">
 
       <div class="image">
-        <img *ngIf="list.pictureAccept === true" class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
-        <img *ngIf="list.pictureAccept === false" class="img-alumno" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="" width="200px" height="200px" name="image"/>
+        <img *ngIf="list.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" width="200px" height="200px" [src]="list.teamPicture" alt="">
+        <img *ngIf="list.pictureAccept === true && list.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
+        <div class="noAccept" *ngIf="list.pictureAccept === false && list.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+          <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
+          <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+        </div>
+        
         <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
         <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
         <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />

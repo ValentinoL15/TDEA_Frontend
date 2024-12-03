@@ -113,3 +113,15 @@ ion-header {
   height: 150px;
 }
 
+.noAccept{ 
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+.icon-timer{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
