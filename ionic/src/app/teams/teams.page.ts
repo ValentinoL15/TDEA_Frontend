@@ -20,7 +20,6 @@ export class TeamsPage implements OnInit {
     status: "",
     socialMedia: "",
     active: false,
-    
   }
   selectedFile: File | null = null;
 
