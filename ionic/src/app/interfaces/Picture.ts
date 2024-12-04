@@ -4,5 +4,6 @@ export interface Picture {
     img: string
     playerPicture?: boolean,
     teamPicture?: boolean,
-    listPicture?: boolean
+    listPicture?: boolean,
+    selected?: boolean; // Añadí un campo "selected" para manejar la selección
 }

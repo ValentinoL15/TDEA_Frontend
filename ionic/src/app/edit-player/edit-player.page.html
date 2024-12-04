@@ -13,7 +13,7 @@
 <ion-content [fullscreen]="true" color="light">
   <div class="image">
     <img
-      *ngIf="player.pictureAccept"
+      *ngIf="player.pictureAccept && player.status === 'approved'"
       [src]="player.picturePlayer"
       alt="Imagen del jugador"
       width="200px"
@@ -22,9 +22,8 @@
       name="image"
       (click)="selectImage()"
     />
-    <div class="noAccept" *ngIf="player.pictureAccept === false">
+    <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
       <img 
-      *ngIf="!player.pictureAccept"
       [src]="player.picturePlayer"
       width="200px"
       height="200px"
@@ -32,6 +31,17 @@
       (click)="selectImage()"
     />
     <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+    </div>
+    <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
+      <img 
+      src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"
+      width="200px"
+      height="200px"
+      alt="Imagen por defecto"
+      (click)="selectImage()"
+    />
+    <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
+     <p style="color: red; font-weight: bold;" class="overlay-text">Imagen no aprobada</p>
     </div>
     
   </div>

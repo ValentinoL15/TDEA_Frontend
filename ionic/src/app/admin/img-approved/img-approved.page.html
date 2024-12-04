@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <h6 style="text-align: center;">Imágenes de Equipo</h6>
+  <h6 style="text-align: center;">Escudos</h6>
   <ng-container *ngIf="teamImages.length > 0; else noImagesTeam">
     <ion-list>
       <div *ngFor="let item of teamImages" style="width: 100%; display: flex;">
@@ -23,7 +23,7 @@
     <p style="text-align: center; color: red;">No hay imágenes para mostrar de equipos</p>
   </ng-template>
 
-  <h6 style="text-align: center;">Imágenes de Listas</h6>
+  <h6 style="text-align: center;">Formaciones</h6>
   <ng-container *ngIf="listImages.length > 0; else noImagesLists">
     <ion-list>
       <div *ngFor="let item of listImages" style="width: 100%; display: flex;">
@@ -41,7 +41,7 @@
     <p style="text-align: center; color: red;">No hay imágenes para mostrar de listas</p>
   </ng-template>
 
-  <h6 style="text-align: center;">Imágenes de Jugadores</h6>
+  <h6 style="text-align: center;">Jugadores</h6>
   <ng-container *ngIf="playerImages.length > 0; else noImagesPlayers">
     <ion-list>
       <div *ngFor="let item of playerImages" style="width: 100%; display: flex;">

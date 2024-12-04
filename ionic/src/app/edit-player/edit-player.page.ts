@@ -22,6 +22,7 @@ player: Player = {
   dni:0,
   shirtNumber: 0,
   pictureAccept: false,
+  status: "",
   nacimiento: "yyyy-mm-dd",
   ownerList: "",
   picturePlayer: ""

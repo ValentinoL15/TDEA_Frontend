@@ -89,6 +89,7 @@ export class PlayersPage implements OnInit {
     lastName: "",
     nacimiento: "yyyy-mm-dd",
     pictureAccept: false,
+    status: "",
     dni: 0,
     shirtNumber: 0,
     picturePlayer: ""

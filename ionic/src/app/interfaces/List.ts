@@ -42,6 +42,7 @@ export interface List {
     players?: Player[]
     nameList: string,
     pictureAccept?: boolean,
+    status?: string,
     teamPicture: string,
     monto?: number,
     pagoFinal?: number

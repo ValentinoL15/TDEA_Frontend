@@ -19,7 +19,7 @@
           <img [src]="equipo.teamImage" width="200px" height="200px">
           <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
         </div>
-        <div class="noAccept" *ngIf="equipo.pictureAccept === false && equipo.status === 'pending'">
+        <div class="noAccept" *ngIf="equipo.pictureAccept === false && equipo.status === 'pending' && equipo.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
           <img [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo">
           <ion-icon class="icon-timer"  name="hourglass-outline" size="large" color="warning"></ion-icon>
         </div>
