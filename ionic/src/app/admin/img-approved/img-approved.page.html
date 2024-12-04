@@ -10,14 +10,15 @@
     <ion-list>
       <div *ngFor="let item of teamImages" style="width: 100%; display: flex;">
         <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
+          <ion-checkbox [(ngModel)]="item.selected"></ion-checkbox>
           <img [src]="item.img" alt="imagen" width="180px" height="180px">
-          <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
-            <ion-button (click)="aprobar(item._id)" color="primary">Aprobar</ion-button>
+          <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
             <ion-button (click)="eliminarTeamPicture(item._id)" color="danger">Eliminar</ion-button>
           </div>
         </div>
       </div>
     </ion-list>
+    <ion-button style="width: 100%; display: flex; justify-content: center;" (click)="aprobarSeleccionados('team')" color="success">Aprobar Escudos Seleccionados</ion-button>
   </ng-container>
   <ng-template #noImagesTeam>
     <p style="text-align: center; color: red;">No hay imágenes para mostrar de equipos</p>
@@ -28,14 +29,15 @@
     <ion-list>
       <div *ngFor="let item of listImages" style="width: 100%; display: flex;">
         <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
+          <ion-checkbox [(ngModel)]="item.selected"></ion-checkbox>
           <img [src]="item.img" alt="imagen" width="180px" height="180px">
-          <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
-            <ion-button (click)="aprobarList(item._id)" color="primary">Aprobar</ion-button>
+          <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
             <ion-button (click)="eliminarPictureList(item._id)" color="danger">Eliminar</ion-button>
           </div>
         </div>
       </div>
     </ion-list>
+    <ion-button style="width: 100%; display: flex; justify-content: center;" (click)="aprobarSeleccionados('list')" color="success">Aprobar Formaciones Seleccionadas</ion-button>
   </ng-container>
   <ng-template #noImagesLists>
     <p style="text-align: center; color: red;">No hay imágenes para mostrar de listas</p>
@@ -46,14 +48,15 @@
     <ion-list>
       <div *ngFor="let item of playerImages" style="width: 100%; display: flex;">
         <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
+          <ion-checkbox [(ngModel)]="item.selected"></ion-checkbox>
           <img [src]="item.img" alt="imagen" width="180px" height="180px">
-          <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
-            <ion-button (click)="aprobarPlayer(item._id)" color="primary">Aprobar</ion-button>
+          <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
             <ion-button (click)="eliminarPlayerPicture(item._id)" color="danger">Eliminar</ion-button>
           </div>
         </div>
       </div>
     </ion-list>
+    <ion-button style="width: 100%; display: flex; justify-content: center;" (click)="aprobarSeleccionados('player')" color="success">Aprobar Jugadores Seleccionados</ion-button>
   </ng-container>
   <ng-template #noImagesPlayers>
     <p style="text-align: center; color: red;">No hay imágenes para mostrar de jugadores</p>

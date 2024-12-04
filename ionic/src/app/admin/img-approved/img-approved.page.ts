@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { Picture } from 'src/app/interfaces/Picture';
 import { NotifyService } from 'src/app/services/notify.service';
 import { UserService } from 'src/app/services/user.service';
@@ -108,6 +109,45 @@ export class ImgApprovedPage implements OnInit {
         this.notifyService.error(err.error.message);
       }
     })
+  }
+
+  aprobarSeleccionados(tipo: 'team' | 'list' | 'player') {
+    let imagenes: Picture[];
+    let aprobarFn: (id: any) => any;
+
+    switch(tipo) {
+      case 'team':
+        imagenes = this.teamImages;
+        aprobarFn = this.userService.approvedPicture.bind(this.userService);
+        break;
+      case 'list':
+        imagenes = this.listImages;
+        aprobarFn = this.userService.approvedPictureList.bind(this.userService);
+        break;
+      case 'player':
+        imagenes = this.playerImages;
+        aprobarFn = this.userService.playerApproved.bind(this.userService);
+        break;
+    }
+
+    const seleccionados = imagenes.filter(img => img.selected);
+
+    if (seleccionados.length === 0) {
+      this.notifyService.error('No se han seleccionado imágenes para aprobar');
+      return;
+    }
+
+    const observables = seleccionados.map(img => aprobarFn(img._id));
+
+    forkJoin(observables).subscribe({
+      next: (results) => {
+        this.notifyService.success(`Se han aprobado ${results.length} imágenes`);
+        this.getImagenes(); // Refrescar imágenes
+      },
+      error: (err) => {
+        this.notifyService.error('Hubo un error al aprobar las imágenes');
+      }
+    });
   }
 
 }
