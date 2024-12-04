@@ -16,16 +16,20 @@
       </ion-select>
       <ng-container>
         <img 
-          *ngIf="team && team.pictureAccept === true && team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" 
+          *ngIf="team && team.pictureAccept === true && team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && team.status === 'approved'" 
           style="border-radius: 50%;" 
           [src]="team.teamImage" 
           width="35px" 
           height="30px" 
           alt="Team Image">
 
-          <div *ngIf="team && team.pictureAccept === false && team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" >
+          <div *ngIf="team && team.pictureAccept === false && team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && team.status === 'pending'">
             <img [src]="team.teamImage"  width="35px" height="30px" style="border-radius: 50%;" alt="imagen" >
             <ion-icon class="icon-timer" color="warning" size="small" name="hourglass-outline"></ion-icon>
+          </div>
+
+          <div *ngIf="team && team.pictureAccept === false && team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && team.status === 'rejected'">
+          <ion-icon name="close-outline" size="small" color="danger"></ion-icon>
           </div>
           
           <ion-icon style="width: 20px; height: 20px;"
@@ -44,17 +48,21 @@
       </ng-container>
       <ng-template #showImage>
         <img *ngIf="team.pictureAccept === true" [src]="team.teamImage" width="250px" height="200px" />
-        <div class="noAccept" *ngIf="team.pictureAccept === false">
+        <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'pending'">
           <img [src]="team.teamImage" style="width: 250px; height: 250px;" />
           <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
           <p style="display: flex; justify-content: center; width: 100%;">(Pendiente de aprobación)</p>
+        </div>
+        <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'rejected'">
+          <ion-icon class="icon" name="shield-outline"></ion-icon>
+          <ion-icon class="icon-timer" name="close-outline" size="large" color="danger"></ion-icon>
+          <p style="display: flex; justify-content: center; width: 100%; color: red;">Imagen no aprobada</p>
         </div>
       </ng-template>
     </div>
     <div class="title">
       <h1>{{team.teamName}}</h1>
       <h3>{{team.socialMedia}}</h3>
-      
     </div>
 
     <div class="descripcion">

@@ -14,12 +14,19 @@
   <form #miForm>
     <ion-list [inset]="true">
       <div class="imagen">
-        <img *ngIf="equipo.pictureAccept === true" [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo">
-        <div class="noAccept" *ngIf="equipo.pictureAccept === false && equipo.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+        <img *ngIf="equipo.pictureAccept === true && equipo.status === 'approved'" [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo">
+        <div class="noAccept" *ngIf="equipo.pictureAccept === false && equipo.teamImage === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
           <img [src]="equipo.teamImage" width="200px" height="200px">
           <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
         </div>
-        <img *ngIf="equipo.pictureAccept === false && equipo.teamImage === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="" width="200px" height="200px" name="photo">
+        <div class="noAccept" *ngIf="equipo.pictureAccept === false && equipo.status === 'pending'">
+          <img [src]="equipo.teamImage" alt="" width="200px" height="200px" name="photo">
+          <ion-icon class="icon-timer"  name="hourglass-outline" size="large" color="warning"></ion-icon>
+        </div>
+        <div *ngIf="equipo.pictureAccept === false && equipo.status === 'rejected'">
+          <img src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="" width="200px" height="200px" name="photo">
+          <p style="display: flex; justify-content: center; width: 100%; color: red;">Imagen no aprobada</p>
+        </div>
         <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
         <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
         <input type="file" (change)="onFileSelected($event)" hidden id="file-input" />
