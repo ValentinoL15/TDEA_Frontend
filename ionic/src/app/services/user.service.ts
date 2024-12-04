@@ -66,6 +66,9 @@ rejectPlayerPicture(id : any){
   return this.http.delete(`${this.API_URL}/picture-player-rejected/${id}`)
 }
 
+aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
+  return this.http.post(`${this.API_URL}/aprobar-multiples`, { ids, tipo });
+}
 /*************************************************TEAM*****************************************************/
   createTeam(form : any){
     return this.http.post(`${this.API_URL}/crear-equipo`, form)
