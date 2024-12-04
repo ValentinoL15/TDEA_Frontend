@@ -11,6 +11,7 @@ export interface Team {
     teamImage?:String,
     players?: Player[],
     pictureAccept?: boolean,
+    status?: string,
     active: boolean,
     deudas?: Array<{
         _id?: string;
