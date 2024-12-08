@@ -32,6 +32,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr); /* Cada fila tiene el mismo tamaño */
     margin: 10px 0;
+    height: 100%;
   }
 
   ion-item {
@@ -71,18 +72,18 @@
 
   .image img {
     width: 100%;
-    height: 100%; /* Ajusta la altura automáticamente según el ancho */
+    max-height: 300px; /* Ajusta la altura automáticamente según el ancho */
     object-fit: cover; /* Asegura que la imagen no se deforme */
   }
 
   .noAccept{ 
     position: relative;
     grid-column: 1 / span 1;
-    grid-row: 1 / span 3; /* Hace que la imagen ocupe las 4 filas */
+    grid-row: 1 / span 4; /* Hace que la imagen ocupe las 4 filas */
     display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
     justify-content: center;
     align-items: center;
-    height: 100%;
+    max-height: 100%;
     width: 100%;
   }
   
@@ -102,5 +103,10 @@
     width: 100%;
     height: 100%;
     align-items: center;
+  }
+
+  .imagen{ 
+    width: 250px;
+    max-height: 250px;
   }
   

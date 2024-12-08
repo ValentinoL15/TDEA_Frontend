@@ -16,8 +16,7 @@
       *ngIf="player.pictureAccept && player.status === 'approved'"
       [src]="player.picturePlayer"
       alt="Imagen del jugador"
-      width="200px"
-      height="200px"
+      class="imagen"
       id="imagen-jugador"
       name="image"
       (click)="selectImage()"
@@ -25,8 +24,7 @@
     <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
       <img 
       [src]="player.picturePlayer"
-      width="200px"
-      height="200px"
+      class="imagen"
       alt="Imagen por defecto"
       (click)="selectImage()"
     />
@@ -35,8 +33,7 @@
     <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
       <img 
       src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"
-      width="200px"
-      height="200px"
+      class="imagen"
       alt="Imagen por defecto"
       (click)="selectImage()"
     />
