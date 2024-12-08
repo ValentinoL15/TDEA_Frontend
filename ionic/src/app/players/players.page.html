@@ -11,7 +11,7 @@
     <div *ngFor="let player of players" class="contenedor">
 
       <div class="image" (click)="goPlayer(player._id)">
-        <img *ngIf="player.pictureAccept === true" [src]="player.picturePlayer" alt=""/>
+        <img *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt=""/>
         <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
           <img [src]="player.picturePlayer">
           <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
