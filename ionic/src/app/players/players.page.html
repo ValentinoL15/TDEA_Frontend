@@ -10,18 +10,19 @@
   <div *ngIf="players">
     <div *ngFor="let player of players" class="contenedor">
 
-      <div class="image" (click)="goPlayer(player._id)">
-        <img *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt=""/>
-        <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
-          <img [src]="player.picturePlayer">
+      <!--<div class="image" (click)="goPlayer(player._id)">-->
+        <img *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt="" (click)="goPlayer(player._id)"/>
+        <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'" (click)="goPlayer(player._id)">
+          <img [src]="player.picturePlayer" width="200px"
+          height="200px">
           <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
         </div>
-        <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
+        <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'" (click)="goPlayer(player._id)">
           <img src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp">
           <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
           <p style="color: red; font-weight: bold;" class="overlay-text">Imagen no aprobada</p>
         </div>
-      </div>
+      <!--</div>-->
   
       <div class="element-1">
         <ion-item>
@@ -40,7 +41,6 @@
           <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
         </ion-item>
       </div>
-  
     </div>
   
     <div class="container-button">
@@ -57,7 +57,7 @@
   </div>
 
   <div class="players" *ngIf="!players">
-    <p>Por favor, crea o elegí un equipo</p>
+    <p>Agrega jugadores a tu equipo</p>
   </div>
   
 

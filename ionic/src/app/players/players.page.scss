@@ -32,7 +32,6 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr); /* Cada fila tiene el mismo tamaño */
     margin: 10px 0;
-    height: 100%;
   }
 
   ion-item {
@@ -44,13 +43,6 @@
   
   ion-input {
     height: 100%; /* Opcional, si el ion-item tiene contenido extra */
-  }
-  
-  .contenedor > div {
-    display: flex; /* Para controlar alineación del contenido interno */
-    flex-direction: column;
-    justify-content: center; /* Centra el contenido verticalmente */
-    height: 100%; /* Ocupa toda la altura de la celda */
   }
   
 
@@ -73,30 +65,25 @@
 
   .image{
     grid-column: 1 / span 1;
-    grid-row: 1 / span 4; /* Hace que la imagen ocupe las 4 filas */
-    display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    grid-row: 1 / span 3; /* Hace que la imagen ocupe las 4 filas */
+    width: 100%;
   }
 
   .image img {
     width: 100%;
     height: 100%; /* Ajusta la altura automáticamente según el ancho */
     object-fit: cover; /* Asegura que la imagen no se deforme */
-    margin: 0; /* Elimina cualquier margen sobrante */
-    padding: 0; /* Elimina cualquier padding sobrante */
   }
 
   .noAccept{ 
-    display: flex;
     position: relative;
     grid-column: 1 / span 1;
-    grid-row: 1 / span 4; /* Hace que la imagen ocupe las 4 filas */
+    grid-row: 1 / span 3; /* Hace que la imagen ocupe las 4 filas */
     display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
     justify-content: center;
     align-items: center;
     height: 100%;
+    width: 100%;
   }
   
   .icon-timer{
