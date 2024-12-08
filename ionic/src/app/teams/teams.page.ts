@@ -184,7 +184,7 @@ export class TeamsPage implements OnInit {
   }
   
   onSelectImage() {
-    const fileInput = document.getElementById('file-input') as HTMLInputElement;
+    const fileInput = document.getElementById('file-input-team') as HTMLInputElement;
     fileInput.click(); // Simula el clic en el input de archivo oculto
   }
 
