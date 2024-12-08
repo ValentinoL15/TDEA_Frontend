@@ -11,7 +11,7 @@
     <div *ngFor="let player of players" class="contenedor">
 
       <!--<div class="image" (click)="goPlayer(player._id)">-->
-        <img *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt="" (click)="goPlayer(player._id)"/>
+        <img class="noAccept" *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt="" (click)="goPlayer(player._id)"/>
         <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'" (click)="goPlayer(player._id)">
           <img [src]="player.picturePlayer" width="200px"
           height="200px">
