@@ -51,17 +51,33 @@
         </ion-item>-->
 
         <ion-item>
+          <ion-select label="Tiene remera titular" label-placement="floating" formControlName="hasShirtTitular" interface="popover">
+            <ion-select-option [value]="true">Si</ion-select-option>
+            <ion-select-option [value]="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        
+      
+        <!-- Solo mostrar si tiene remera titular -->
+        <ion-item *ngIf="form.get('hasShirtTitular')?.value">
           <ion-label>Remera Titular</ion-label>
           <input class="custom" type="color" formControlName="shirtColor" />
         </ion-item>
       
         <ion-item>
+          <ion-select label="Tiene remera suplente" label-placement="floating" formControlName="hasShirtSuplente" interface="popover">
+            <ion-select-option [value]="true">Si</ion-select-option>
+            <ion-select-option [value]="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <!-- Solo mostrar si tiene remera suplente -->
+        <ion-item *ngIf="form.get('hasShirtSuplente')?.value">
           <ion-label>Remera Suplente</ion-label>
           <input class="custom" type="color" formControlName="alternativeShirtColor" />
         </ion-item>
-
         <ion-item>
-          <ion-select label="Formato de equipo" label-placement="floating" placeholder="Elige formato de equipo" formControlName="typeAlineacion">
+          <ion-select label="Formato de equipo" label-placement="floating" placeholder="Elige formato de equipo" formControlName="typeAlineacion" interface="popover">
             <ion-select-option value="5">Futbol 5</ion-select-option>
             <ion-select-option value="6">Futbol 6</ion-select-option>
             <ion-select-option value="7">Futbol 7</ion-select-option>

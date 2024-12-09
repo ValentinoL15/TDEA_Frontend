@@ -8,7 +8,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { TournamentService } from '../services/tournament.service';
 import { Division } from '../interfaces/Division';
 import { FilterPipe } from '../filter.pipe';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Team } from '../interfaces/Team';
 import { AlertController } from '@ionic/angular';
@@ -50,10 +50,20 @@ export class ListPage implements OnInit {
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
+  form: FormGroup;
 
-  constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService, private alertController: AlertController) { }
+  constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService, private alertController: AlertController, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      hasShirtTitular: [null], // o false si es booleano
+      hasShirtSuplente: [null],
+      shirtColor: [null],
+      alternativeShirtColor: ["#FFFFFF"],
+      typeAlineacion: [null]
+    });
+   }
   @ViewChild(IonModal) modal!: IonModal;
   id:any
+  
   campeonatos: Campeonato[] = []
   list: List = {
     ownerUser: { firstName: "",
@@ -64,6 +74,8 @@ export class ListPage implements OnInit {
     },
     typeAlineacion: 0,
     teamPicture: "",
+    hasShirtTitular: false,
+    hasShirtSuplente: false,
     pictureAccept: false,
     status: "",
     shirtColor: "",
@@ -198,6 +210,13 @@ export class ListPage implements OnInit {
         this.name = `${this.list.ownerUser?.firstName} ${this.list.ownerUser?.lastName}`;
         this.idOwnerTeam = `${this.list.ownerTeam?._id}`
         console.log(this.list)
+        this.form.patchValue({
+          hasShirtTitular: this.list.hasShirtTitular,
+          hasShirtSuplente: this.list.hasShirtSuplente,
+          shirtColor: this.list.shirtColor,
+          alternativeShirtColor: this.list.alternativeShirtColor,
+          typeAlineacion: this.list.typeAlineacion
+        });
       },
       error: (err: any) => {
         console.log(err.error.message)
@@ -205,11 +224,13 @@ export class ListPage implements OnInit {
     })
   }
 
-  editLista(form : any){
+  editLista(){
     const formulario = {
-      shirtColor: form.shirtColor.value,
-      alternativeShirtColor: form.alternativeShirtColor.value,
-      typeAlineacion: form.typeAlineacion.value,
+      hasShirtTitular: this.form.value.hasShirtTitular,
+      hasShirtSuplente: this.form.value.hasShirtSuplente,
+      shirtColor: this.form.value.shirtColor,
+      alternativeShirtColor: this.form.value.alternativeShirtColor,
+      typeAlineacion: this.form.value.typeAlineacion
     }
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {

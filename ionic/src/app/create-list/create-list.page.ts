@@ -87,8 +87,10 @@ export class CreateListPage implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
     this.form = this.formBuilder.group({
       nameList: ['', Validators.required],
-      shirtColor: ['#FFFFFF', Validators.required], // Valor predeterminado
-      alternativeShirtColor: ['#FFFFFF', Validators.required],
+      hasShirtTitular: [null, Validators.required],
+      hasShirtSuplente: [null, Validators.required],
+      shirtColor: ['', Validators.required], // Valor predeterminado
+      alternativeShirtColor: ['', Validators.required],
       typeAlineacion: ['', Validators.required]
     });
   }
@@ -163,11 +165,24 @@ export class CreateListPage implements OnInit {
 
   createList(){
     const formData = new FormData();
+    const hasShirtTitular = this.form.get('hasShirtTitular')?.value;
+    const hasShirtSuplente = this.form.get('hasShirtSuplente')?.value;
+    if (hasShirtTitular === null ) {
+      this.notifyService.error('Por favor, selecciona si tiene remera titular.');
+      return; // Detener la ejecución si hay campos vacíos
+    }
+    if (hasShirtSuplente === null) {
+      this.notifyService.error('Por favor, selecciona si tiene remera suplente.');
+      return; // Detener la ejecución si hay campos vacíos
+    }
     formData.append('nameList', this.form.get('nameList')?.value);
+    formData.append('hasShirtTitular', this.form.get('hasShirtTitular')?.value);
+    formData.append('hasShirtSuplente', this.form.get('hasShirtSuplente')?.value);
     formData.append('shirtColor', this.form.get('shirtColor')?.value);
     formData.append('alternativeShirtColor', this.form.get('alternativeShirtColor')?.value);
     formData.append('typeAlineacion', this.form.get('typeAlineacion')?.value);
     formData.append('image', this.selectedFile as Blob);
+    
     this.userService.createList(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
