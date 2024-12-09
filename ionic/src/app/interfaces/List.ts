@@ -44,6 +44,8 @@ export interface List {
     pictureAccept?: boolean,
     status?: string,
     teamPicture: string,
+    hasShirtTitular?: boolean,
+    hasShirtSuplente?: boolean,
     monto?: number,
     pagoFinal?: number
 

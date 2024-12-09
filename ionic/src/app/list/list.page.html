@@ -5,13 +5,13 @@
     </ion-buttons>
     <ion-title>Lista</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="editLista(miForm)">Confirm</ion-button>
+        <ion-button (click)="editLista()">Confirm</ion-button>
       </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light" class="ion-padding">
-  <form #miForm>
+  <form [formGroup]="form">
     <ion-list [inset]="true">
 
       <div class="image">
@@ -33,18 +33,34 @@
         <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
       </div>
 
-      <ion-item>
+      <!-- Solo mostrar si tiene remera titular -->
+      <ion-item >
+        <ion-select label="Remera Titular" label-placement="stacked" formControlName="hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'">
+          <ion-select-option [value]="true">Si</ion-select-option>
+          <ion-select-option [value]="false">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item *ngIf="form.get('hasShirtTitular')?.value">
         <ion-label>Remera Titular</ion-label>
-        <ion-input type="color" style="width: 30px; padding: 5px;" name="shirtColor" [value]="list.shirtColor"></ion-input>
+        <ion-input type="color" style="width: 30px; padding: 5px;" formControlName="shirtColor" [value]="list.shirtColor"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item >
+        <ion-select label="Remera Suplente" label-placement="stacked" formControlName="hasShirtSuplente" [value]="list.hasShirtSuplente" >
+          <ion-select-option [value]="true">Si</ion-select-option>
+          <ion-select-option [value]="false">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    
+
+      <ion-item *ngIf="form.get('hasShirtSuplente')?.value">
         <ion-label>Remera Suplente</ion-label>
-        <ion-input type="color" style="width: 30px; padding: 5px;" name="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
+        <ion-input type="color" style="width: 30px; padding: 5px;" formControlName="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
       </ion-item>
 
       <ion-item>
-      <ion-select label="Formato de equipo" label-placement="stacked" name="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion">
+      <ion-select label="Formato de equipo" label-placement="stacked" formControlName="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion">
         <ion-select-option value="5">Futbol 5</ion-select-option>
         <ion-select-option value="6">Futbol 6</ion-select-option>
         <ion-select-option value="7">Futbol 7</ion-select-option>
