@@ -18,7 +18,7 @@
   .icon-timer{
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
   }
 
   .overlay-text{
@@ -40,7 +40,13 @@
 
   .edit-button-trash {
     position: absolute; 
-    left: 0; /* Ajusta la distancia desde el lado derecho de la imagen */
+    right: 42px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+  }
+
+  .edit-button {
+    position: absolute;
+    right: 0; /* Ajusta la distancia desde el lado derecho de la imagen */
     z-index: 10; /* Asegura que el botón esté por encima de la imagen */
   }
   
