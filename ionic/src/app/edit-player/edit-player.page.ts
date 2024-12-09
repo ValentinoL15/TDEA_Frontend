@@ -130,6 +130,18 @@ players: Player[] = []
     }
   }
 
+  deletePhoto(){
+    this.userService.eliminarPhotoPlayer(this.id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        window.location.href = `/user/players`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
   getPlayers(id:any){
     this.userService.getPlayers(id).subscribe({
       next: (res: any) => {

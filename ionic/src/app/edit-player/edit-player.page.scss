@@ -4,12 +4,15 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    max-height: 100%;
   }
 
   .noAccept{ 
     display: flex;
     position: relative;
     flex-direction: column;
+    width: 250px;
+    height: 100%;
   }
   
   .icon-timer{
@@ -30,7 +33,14 @@
   }
 
   .imagen {
-    width: 100%;
-    max-height: 250px;
+    max-width: 300px;
+    max-height: 300px;
+    position: relative;
+  }
+
+  .edit-button-trash {
+    position: absolute; 
+    left: 0; /* Ajusta la distancia desde el lado derecho de la imagen */
+    z-index: 10; /* Asegura que el botón esté por encima de la imagen */
   }
   

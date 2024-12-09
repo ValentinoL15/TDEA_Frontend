@@ -221,8 +221,10 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     const body = { position }; // Solo necesitas enviar la posición
     return this.http.put(`${this.API_URL}/enviar-suplente/${id}`, body);
 }
-  
-  
+
+  eliminarPhotoPlayer(id:any){
+    return this.http.put(`${this.API_URL}/eliminar-imagen-jugador/${id}`, {})
+  }
 
   /*********************************************INGRESAR-TORNEO***********************************************/ 
   ingresarTorneo(id: any, teamListId: any): Observable<any> {

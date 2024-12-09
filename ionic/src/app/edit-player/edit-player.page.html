@@ -12,16 +12,26 @@
 
 <ion-content [fullscreen]="true" color="light">
   <div class="image">
-    <img
-      *ngIf="player.pictureAccept && player.status === 'approved'"
+    <div class="imagen">
+      <img
+      *ngIf="player.pictureAccept === true && player.status === 'approved'"
       [src]="player.picturePlayer"
       alt="Imagen del jugador"
-      class="imagen"
       id="imagen-jugador"
       name="image"
       (click)="selectImage()"
     />
-    <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
+    <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+    </div>
+    <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+      <img 
+      [src]="player.picturePlayer"
+      class="imagen"
+      alt="Imagen por defecto"
+      (click)="selectImage()"
+    />
+    </div>
+    <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
       <img 
       [src]="player.picturePlayer"
       class="imagen"
@@ -29,6 +39,7 @@
       (click)="selectImage()"
     />
     <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+    <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
     </div>
     <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
       <img 
@@ -37,8 +48,9 @@
       alt="Imagen por defecto"
       (click)="selectImage()"
     />
+    <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
     <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
-     <p style="color: red; font-weight: bold;" class="overlay-text">Imagen no aprobada</p>
+      <p style="color: red; font-weight: bold;" class="overlay-text">Imagen no aprobada</p>
     </div>
     
   </div>
