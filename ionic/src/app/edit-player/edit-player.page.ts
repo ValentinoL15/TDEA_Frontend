@@ -28,39 +28,56 @@ player: Player = {
   picturePlayer: ""
 }
 players: Player[] = []
+selectedFile: File | null = null;
 
-    //BUTTON
-    public alertImagen = [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Alert canceled');
-        },
-      },
-      {
-        text: 'OK',
-        role: 'confirm',
-        handler: () => {
-          this.editImage()
-        },
-      },
-    ];
-    setResults(ev : any) {
-      console.log(`Dismissed with role: ${ev.detail.role}`);
-    }
-  
-    //INPUTS
-    public alertInputImage = [
-      {
-        placeholder: 'Elige una foto',
-        name: 'photo',
-        type: 'file'
-      },
-    ];
-  
-    selectedImage: File | null = null
+public alertButtons = [
+  {
+    text: 'Cancel',
+    role: 'cancel',
+    handler: () => {
+      console.log('Alert canceled');
+    },
+  },
+  {
+    text: 'OK',
+    role: 'confirm',
+    handler: () => {
+      console.log('Alert confirmed');
+    },
+  },
+];
+setResult(ev : any) {
+  console.log(`Dismissed with role: ${ev.detail.role}`);
+}
 
+public alertImagen = [
+  {
+    text: 'Cancel',
+    role: 'cancel',
+    handler: () => {
+      console.log('Alert canceled');
+    },
+  },
+  {
+    text: 'OK',
+    role: 'confirm',
+    handler: () => {
+      this.editImage()
+    },
+  },
+];
+setResults(ev : any) {
+  console.log(`Dismissed with role: ${ev.detail.role}`);
+}
+
+//INPUTS
+public alertInputImage = [
+  {
+    placeholder: 'Elige una foto',
+    name: 'image',
+    type: 'file'
+  },
+];
 
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService, private alertController : AlertController) { }
 
@@ -85,7 +102,7 @@ players: Player[] = []
           role: 'cancel',
           handler: () => {
             console.log('Edición cancelada');
-            this.selectedImage = null; // Reinicia la imagen seleccionada
+            this.selectedFile = null; // Reinicia la imagen seleccionada
           }
         },
         {
@@ -106,29 +123,30 @@ players: Player[] = []
     this.userService.getPlayer(id).subscribe({
       next: (res: any) => {
         this.player = res.player;
-        this.selectedImage = null; // Reinicia la imagen seleccionada
         console.log('Jugador cargado:', this.player);
-  
-        // Limpia manualmente el input de archivo
-        const fileInput = document.getElementById('file-input') as HTMLInputElement;
-        if (fileInput) {
-          fileInput.value = '';
-        }
-  
-        // Si tienes un formulario reactivo, reinicia sus valores aquí
+
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
       }
     });
   }
-  
-  selectImage() {
-    const fileInput = document.getElementById('file-input') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.click();
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+    console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.presentAlertImagen()
     }
   }
+
+  onSelectImage() {
+    const fileInput = document.getElementById('file-input-player') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
+  }
+
 
   deletePhoto(){
     this.userService.eliminarPhotoPlayer(this.id).subscribe({
@@ -198,7 +216,7 @@ players: Player[] = []
 
   editImage() {
     const form = new FormData();
-    form.append('image', this.selectedImage as Blob);
+    form.append('image', this.selectedFile as Blob);
   
     this.userService.editPhotoPlayer(this.id, form).subscribe({
       next: (res: any) => {
@@ -211,7 +229,7 @@ players: Player[] = []
     });
   }
   
-  onFileSelectedImage(event: any) {
+  /*onFileSelectedImage(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedImage = file;
@@ -223,7 +241,7 @@ players: Player[] = []
   
     // Reinicia el valor del input para permitir volver a seleccionar el mismo archivo
     event.target.value = '';
-  }
+  }*/
   
   
 
