@@ -25,7 +25,7 @@ export class AuthService {
   getToken(){
     return localStorage.getItem(this.tokenKey)
   }
-  getUserRole() : { rol: string }| null{
+  getUserRole() : { rol: string , isPlayer: boolean }| null{
     const token = this.getToken();
     console.log(token)
     if (token) {

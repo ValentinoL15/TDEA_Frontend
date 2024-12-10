@@ -43,6 +43,7 @@ export class LoginPage implements OnInit {
       confirmPassword: ['', Validators.required],
       birthday: ['', Validators.required],
       phone: ['+54', [Validators.required]],
+      isPlayer: ['', [Validators.required]]
     })
   }
 
@@ -73,13 +74,15 @@ export class LoginPage implements OnInit {
       next: (res : any) => {
         localStorage.setItem("st_1892@121", res.token);
         const role = this.auth.getUserRole();
-        console.log(role?.rol);  // Verificar los roles obtenidos
-        
+        console.log("Mi role ",role)
         // Verificar si el array de roles incluye "USER"
-        if (role?.rol.includes("USER")) {
+        if (role?.rol.includes("USER") && role?.isPlayer === false) {
           this.router.navigate(['/user/home']);
           this.notifyService.success(res.message);
-        } else {
+        }else if (role?.rol.includes("USER") && role?.isPlayer === true){
+          this.router.navigate(['/home-jugador']);
+          this.notifyService.success(res.message);
+        }else {
           this.router.navigate(['/admin/admin-home']); // Redirige a la página de admin
           this.notifyService.success(res.message);
         }
@@ -143,19 +146,9 @@ export class LoginPage implements OnInit {
       formData.append('phone', this.register.get('phone')?.value)
       formData.append('birthday', this.register.get('birthday')?.value)
       formData.append('email', this.register.get('email')?.value)
+      formData.append('isPlayer', this.register.get('isPlayer')?.value)
       formData.append('password', this.register.get('password')?.value)
       formData.append('image', this.selectedFile as Blob);
-
-      /*const form: Login = {
-        firstName: this.register.value.firstName,
-        lastName: this.register.value.lastName,
-        docNumber: this.register.value.docNumber,
-        gender: this.register.value.gender,
-        phone: this.register.value.phone,
-        birthday: this.register.value.birthday,
-        email: this.register.value.email,
-        password: this.register.value.password,
-      }*/
       
       this.auth.register(formData).subscribe({
         next: (res : any) => {
