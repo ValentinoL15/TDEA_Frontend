@@ -18,7 +18,7 @@
       </ion-item>
       <ion-item>
 
-        <ion-select label="Tipo de cancha" name="type" class="select" [placeholder]="stadium.type" [value]="stadium.type">
+        <ion-select label="Tipo de cancha" name="type" class="select" [placeholder]="stadium.type" [value]="stadium.type" interface="popover">
           <ion-select-option value="5">5</ion-select-option>
           <ion-select-option value="6">6</ion-select-option>
           <ion-select-option value="7">7</ion-select-option>
@@ -26,6 +26,7 @@
           <ion-select-option value="9">9</ion-select-option>
           <ion-select-option value="10">10</ion-select-option>
           <ion-select-option value="11">11</ion-select-option>
+          <ion-select-option value="Sin definir">Sin definir</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
@@ -35,20 +36,21 @@
         <ion-input type="number" label="Ancho (Metros)" label-placement="floating" placeholder="Ancho" [value]="stadium.width" name="width" ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-select label="Techado" name="roof" [value]="stadium.roof" [placeholder]="stadium.roof">
+        <ion-select label="Techado" name="roof" [value]="stadium.roof" [placeholder]="stadium.roof" interface="popover">
           <ion-select-option value="Techada">Techada</ion-select-option>
           <ion-select-option value="Destechada">Destechada</ion-select-option>
+          <ion-select-option value="Sin definir">Sin definir</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-select label="Cesped" name="grass" [value]="stadium.grass" [placeholder]="stadium.grass">
+        <ion-select label="Cesped" name="grass" [value]="stadium.grass" [placeholder]="stadium.grass" interface="popover">
           <ion-select-option value="Cesped">Pasto</ion-select-option>
           <ion-select-option value="Sintetico">Sintetico</ion-select-option>
-          <ion-select-option value="SinDefinir">Sin Definir</ion-select-option>
+          <ion-select-option value="Sin definir">Sin Definir</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-select label="Puntuacion" name="punctuaction" [value]="stadium.punctuaction" [placeholder]="stadium.punctuaction">
+        <ion-select label="Puntuacion" name="punctuaction" [value]="stadium.punctuaction" [placeholder]="stadium.punctuaction" interface="popover">
           <ion-select-option value="1">1</ion-select-option>
           <ion-select-option value="2">2</ion-select-option>
           <ion-select-option value="3">3</ion-select-option>
@@ -59,6 +61,7 @@
           <ion-select-option value="8">8</ion-select-option>
           <ion-select-option value="9">9</ion-select-option>
           <ion-select-option value="10">10</ion-select-option>
+          <ion-select-option value="Sin definir">Sin definir</ion-select-option>
         </ion-select>
       </ion-item>
     </form>
