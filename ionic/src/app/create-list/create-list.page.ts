@@ -136,10 +136,11 @@ export class CreateListPage implements OnInit {
     this.getLists()
     this.getCampeonatos()
   }
-  
-  goList(id:any, alineacion: any){
-    this.router.navigate([`/alineaciones/${id}/${alineacion}`])
+
+  goList(id:any){
+    this.router.navigate([`/user/list/${id}`])
   }
+
   getLists(){
     this.userService.getAllLists().subscribe({
       next: (res : any) => {
