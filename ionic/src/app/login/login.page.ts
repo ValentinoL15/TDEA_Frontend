@@ -153,9 +153,13 @@ export class LoginPage implements OnInit {
       this.auth.register(formData).subscribe({
         next: (res : any) => {
           this.notifyService.success(res.message);
+          console.log("Mi console log: ", res)
           const modal = document.querySelector('ion-modal');
           modal?.dismiss(this.name, 'confirm');
-          this.router.navigate(['/confirm-code/' + res.id])
+          setTimeout(() => {
+            this.router.navigate(['/confirm-code/' + res.verificationId])
+          }, 6000)
+          
         },
         error: err => {
           this.notifyService.error(err.error.message)
