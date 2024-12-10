@@ -156,10 +156,7 @@ export class LoginPage implements OnInit {
           console.log("Mi console log: ", res)
           const modal = document.querySelector('ion-modal');
           modal?.dismiss(this.name, 'confirm');
-          setTimeout(() => {
-            this.router.navigate(['/confirm-code/' + res.verificationId])
-          }, 6000)
-          
+          this.router.navigate(['/confirm-code/' + res.verificationId])
         },
         error: err => {
           this.notifyService.error(err.error.message)
