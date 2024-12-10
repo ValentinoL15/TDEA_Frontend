@@ -35,7 +35,7 @@
 
       <!-- Solo mostrar si tiene remera titular -->
       <ion-item >
-        <ion-select label="Remera Titular" label-placement="stacked" formControlName="hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'">
+        <ion-select label="Remera Titular" label-placement="stacked" interface="popover" formControlName="hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'">
           <ion-select-option [value]="true">Si</ion-select-option>
           <ion-select-option [value]="false">No</ion-select-option>
         </ion-select>
@@ -47,7 +47,7 @@
       </ion-item>
 
       <ion-item >
-        <ion-select label="Remera Suplente" label-placement="stacked" formControlName="hasShirtSuplente" [value]="list.hasShirtSuplente" >
+        <ion-select label="Remera Suplente" label-placement="stacked" interface="popover" formControlName="hasShirtSuplente" [value]="list.hasShirtSuplente" >
           <ion-select-option [value]="true">Si</ion-select-option>
           <ion-select-option [value]="false">No</ion-select-option>
         </ion-select>
@@ -60,7 +60,7 @@
       </ion-item>
 
       <ion-item>
-      <ion-select label="Formato de equipo" label-placement="stacked" formControlName="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion">
+      <ion-select label="Formato de equipo" label-placement="stacked" formControlName="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion" interface="popover">
         <ion-select-option value="5">Futbol 5</ion-select-option>
         <ion-select-option value="6">Futbol 6</ion-select-option>
         <ion-select-option value="7">Futbol 7</ion-select-option>

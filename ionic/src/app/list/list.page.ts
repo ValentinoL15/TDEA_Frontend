@@ -309,7 +309,7 @@ export class ListPage implements OnInit {
     console.log('Archivo seleccionado:', file);
 
     if (file) {
-      this.presentAlertImagen();
+      this.editImage(); // Llama a la función para editar la imagen
     }
   }
 
