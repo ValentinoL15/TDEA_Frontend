@@ -16,12 +16,12 @@ export class StadiumPage implements OnInit {
   stadium: Stadium = {
     _id: "",
     code: "",
-    type: 0,
+    type: "",
     length: 0,
     width:0,
     roof: "",
     grass: "",
-    punctuaction: 0
+    punctuaction: ""
   }
 
   public alertButtons = [
