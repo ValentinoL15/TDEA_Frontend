@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-jugador',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeJugadorPage implements OnInit {
 
-  constructor() { }
+constructor(private router:Router) { }
 
-  ngOnInit() {
-  }
+ngOnInit() {
+}
+
+logOut() {
+  localStorage.removeItem('st_1892@121');  // Elimina el token del localStorage
+  this.router.navigate(['/login'] , { replaceUrl: true });     
+}
 
 }
