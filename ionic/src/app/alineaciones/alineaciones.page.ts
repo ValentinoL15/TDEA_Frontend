@@ -167,7 +167,7 @@ ngOnInit() {
 }
 
 volver(){
-  window.location.href = `/user/create-list`
+  window.location.href = `/user/list/${this.list._id}`
 }
 
 /*addPLayers() {

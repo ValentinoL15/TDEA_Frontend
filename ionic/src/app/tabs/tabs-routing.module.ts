@@ -39,6 +39,10 @@ const routes: Routes = [
       {
         path: 'deudas',
         loadChildren: () => import('../deudas/deudas.module').then( m => m.DeudasPageModule)
+      },
+      {
+        path: 'list/:id',
+        loadChildren: () => import('../list/list.module').then( m => m.ListPageModule)
       }
     ]
   },

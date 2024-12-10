@@ -200,7 +200,7 @@ export class ListPage implements OnInit {
   }
 
   volver(){
-    this.router.navigate([`/alineaciones/${this.id}/${this.list.alineacion?._id}`])
+    this.router.navigate([`/user/create-list`])
   }
 
   getLista(id:any) {
@@ -222,6 +222,10 @@ export class ListPage implements OnInit {
         console.log(err.error.message)
       }
     })
+  }
+
+  goList(id:any, alineacion: any){
+    this.router.navigate([`/alineaciones/${id}/${alineacion}`])
   }
 
   editLista(){
@@ -342,7 +346,7 @@ export class ListPage implements OnInit {
     this.userService.deletePhotoLista(this.id).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
-        window.location.href = `/list/${this.id}`
+        window.location.href = `/user/list/${this.id}`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);

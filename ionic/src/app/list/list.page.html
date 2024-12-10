@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="volver()">Cancel</ion-button>
+      <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
     <ion-title>Lista</ion-title>
       <ion-buttons slot="end">
@@ -71,6 +71,9 @@
       </ion-select>
       </ion-item>
 
+      <ion-item detail="true" (click)="goList(list._id, list.alineacion?._id)">
+        <ion-label>Alineación</ion-label>
+      </ion-item>
     </ion-list>
   </form>
 
