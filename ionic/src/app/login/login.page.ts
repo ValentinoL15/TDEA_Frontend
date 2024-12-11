@@ -76,13 +76,10 @@ export class LoginPage implements OnInit {
         const role = this.auth.getUserRole();
         console.log("Mi role ",role)
         // Verificar si el array de roles incluye "USER"
-        if (role?.rol.includes("USER") && role?.isPlayer === false) {
+        if (role?.rol.includes("USER")) {
           this.router.navigate(['/user/home']);
           this.notifyService.success(res.message);
-        }else if (role?.rol.includes("USER") && role?.isPlayer === true){
-          this.router.navigate(['/home-jugador']);
-          this.notifyService.success(res.message);
-        }else {
+        } else {
           this.router.navigate(['/admin/admin-home']); // Redirige a la página de admin
           this.notifyService.success(res.message);
         }

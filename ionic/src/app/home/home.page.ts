@@ -6,6 +6,8 @@ import { IonModal } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 import { Team } from '../interfaces/Team';
 import { NotifyService } from '../services/notify.service';
+import { jwtDecode } from 'jwt-decode';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -36,6 +38,10 @@ export class HomePage implements OnInit {
     teamImage:"",
     active: false
   }
+  user = {
+    _id: "",
+    completedFormMarket: false
+  }
   emptyUser: any = {}
 
 
@@ -45,19 +51,26 @@ export class HomePage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  constructor( private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService) { }
+  constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService) { }
   @ViewChild(IonModal) modal!: IonModal ;
 
   ngOnInit() {
     this.getTeams()
     this.getTeamActive()
     this.getUserEmpty()
+    this.userActive()
   }
 
   customActionSheetOptions = {
     header: 'Colors',
     subHeader: 'Select your favorite color',
   };
+
+  userActive(){
+    this.user = this.AuthService.getUserRole()
+    console.log(this.user)
+    
+  }
 
   onEquipoChange(equipoId: any) {
     this.equipoSeleccionado = this.equipos.find(e => e._id === equipoId) || null;
@@ -71,7 +84,7 @@ export class HomePage implements OnInit {
   getTeams(){
     this.userService.getTeams().subscribe({
       next: (res : any) => {
-        this.equipos = res.teams
+        this.equipos = res.teams 
       },
       error: (err) => {
         console.log(err)
@@ -114,6 +127,14 @@ export class HomePage implements OnInit {
 
   ir() {
     this.router.navigate(['/create-team']);
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal.dismiss(null, 'confirm');
   }
 
 }

@@ -12,5 +12,7 @@ export interface User {
     notes?: string,
     email: string,
     password:string,
+    mercado?: boolean,
+    completedFormMarket?: boolean,
     rol?: string[]
 }

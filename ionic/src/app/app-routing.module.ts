@@ -140,18 +140,6 @@ const routes: Routes = [
   },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
 
-////////////////////////////////////////////JUGADORES////////////////////////////////////////////////
-  {
-    path: 'home-jugador',
-    loadChildren: () => import('./admin-Jugador/home-jugador/home-jugador.module').then( m => m.HomeJugadorPageModule)
-  },
-  {
-    path: 'tabs3',
-    loadChildren: () => import('./admin-Jugador/tabs3/tabs3.module').then( m => m.Tabs3PageModule)
-  },
-
-/////////////////////////////////////////////JUGADORES////////////////////////////////////////////////////
-
   {
     path: 'create-team',
     loadChildren: () => import('./create-team/create-team.module').then( m => m.CreateTeamPageModule)
