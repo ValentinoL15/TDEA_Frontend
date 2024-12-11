@@ -8,6 +8,7 @@ import { Team } from '../interfaces/Team';
 import { NotifyService } from '../services/notify.service';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -50,8 +51,18 @@ export class HomePage implements OnInit {
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
+  form: FormGroup
 
-  constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService) { }
+  constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['+54', Validators.required],
+      instagram: ['', Validators.required],
+      
+    })
+   }
   @ViewChild(IonModal) modal!: IonModal ;
 
   ngOnInit() {
