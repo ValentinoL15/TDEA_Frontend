@@ -70,12 +70,12 @@
     </div>
   </div>
 
-  <div class="passMarket" *ngIf="user.completedFormMarket === false">
-    <p style="text-decoration: underline;" id="open-modal-passMarket" expand="block">Completar formulario para el Mercado de Pases</p>
-  </div>
-
   <div class="userEmpty" *ngIf="!team">
     <p>Por favor, crea o elegí un equipo</p>
+  </div>
+
+  <div class="passMarket" *ngIf="user.completedFormMarket === false">
+    <p style="text-decoration: underline;" id="open-modal-passMarket" expand="block">Completar formulario para el Mercado de Pases</p>
   </div>
 
   <div class="container-button">
