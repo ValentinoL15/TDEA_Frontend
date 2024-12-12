@@ -101,53 +101,85 @@
 
         <form [formGroup]="form">
           <ion-item>
+            <ion-select label="Dias y Horarios para jugar" labelPlacement="floating"  multiple="true" formControlName="horarios">
+              <ion-select-option value="LunesNoche">Lunes a la noche</ion-select-option>
+              <ion-select-option value="MartesNoche">Martes a la noche</ion-select-option>
+              <ion-select-option value="MiercolesNoche">Miercoles a la noche</ion-select-option>
+              <ion-select-option value="JuevesNoche">Jueves a la noche</ion-select-option>
+              <ion-select-option value="ViernesNoche">Viernes a la noche</ion-select-option>
+              <ion-select-option value="SabadoMañana">Sabado a la mañana</ion-select-option>
+              <ion-select-option value="SabadoTarde">Sabado a la tarde</ion-select-option>
+              <ion-select-option value="SabadoNoche">Sabado a la noche</ion-select-option>
+              <ion-select-option value="DomingoMañana">Domingo a la mañana</ion-select-option>
+              <ion-select-option value="DomingoTarde">Domingo a la tarde</ion-select-option>
+              <ion-select-option value="DomingoNoche">Domingo a la noche</ion-select-option>
+            </ion-select>
+          </ion-item>
+        
+          <ion-item>
+            <ion-select label="Posición" labelPlacement="floating" multiple="true" formControlName="position">
+              <ion-select-option value="Arquero">Arquero</ion-select-option>
+              <ion-select-option value="Defensor">Defensor</ion-select-option>
+              <ion-select-option value="DefensorCD">Defensor (Central por derecha)</ion-select-option>
+              <ion-select-option value="DefensorCI">Defensor (Central por izquierda)</ion-select-option>
+              <ion-select-option value="DefensorLD">Defensor (Lateral por derecha)</ion-select-option>
+              <ion-select-option value="DefensorLI">Defensor (Lateral por izquierda)</ion-select-option>
+              <ion-select-option value="Mediocampista">Mediocampista</ion-select-option>
+              <ion-select-option value="MediocampistaMC">Mediocampista (Volante central)</ion-select-option>
+              <ion-select-option value="MediocampistaMCI">Mediocampista (Interior)</ion-select-option>
+              <ion-select-option value="MediocampistaMD">Mediocampista (Volante por derecha)</ion-select-option>
+              <ion-select-option value="MediocampistaMI">Mediocampista (Volante por izquierda)</ion-select-option>
+              <ion-select-option value="Delantero">Delantero</ion-select-option>
+              <ion-select-option value="DelanteroC">Delantero (Centro delantero)</ion-select-option>
+              <ion-select-option value="DelanteroED">Delantero (Extremo por derecha)</ion-select-option>
+              <ion-select-option value="DelanteroEI">Delantero (Extremo por izquierda)</ion-select-option>
+              <ion-select-option value="DelanteroSP">Delantero (Segunda punta)</ion-select-option>
+            </ion-select>
+          </ion-item>
+  
+          <ion-item>
+            <ion-select label="Pie Hábil" labelPlacement="floating" formControlName="pieHabil" interface="popover">
+              <ion-select-option value="Derecho">Derecho</ion-select-option>
+              <ion-select-option value="Zurdo">Zurdo</ion-select-option>
+              <ion-select-option value="Ambos">Ambos</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
             <ion-input
-              label="Nombre"
+              label="Peso"
+              labelPlacement="floating"
+              type="number"
+              formControlName="peso"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Altura"
               labelPlacement="floating"
               type="text"
-              formControlName="nombre"
+              placeholder="1.80"
+              formControlName="altura"
+              (keypress)="validateInput($event)"
             ></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input
-              label="Apellido"
+            <ion-textarea
+              label="Trayectoria Futbolísitica"
               labelPlacement="floating"
+              placeholder="Describe tu trayectoria como futbolista..."
               type="text"
-              formControlName="apellido"
-            ></ion-input>
+              formControlName="trayectoria"
+            ></ion-textarea>
           </ion-item>
           <ion-item>
-            <ion-input
-              label="Telefono"
-              labelPlacement="stacked"
-              type="tel"
-              (ionInput)="onPhoneInputChange($event)"
-              formControlName="phone"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input
-              label="Instagram"
-              labelPlacement="floating"
-              type="text"
-              formControlName="instagram"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input
-              label="Correo Electrónico"
-              labelPlacement="floating"
-              type="text"
-              formControlName="email"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input
-              label="Fecha de nacimiento"
-              labelPlacement="floating"
-              type="date"
-              formControlName="nacimiento"
-            ></ion-input>
+            <ion-select label="Zona de preferencia para jugar" labelPlacement="floating" formControlName="zona" interface="popover">
+              <ion-select-option value="CABA">CABA</ion-select-option>
+              <ion-select-option value="GBANorte">GBA Norte</ion-select-option>
+              <ion-select-option value="GBAOeste">GBA Oeste</ion-select-option>
+              <ion-select-option value="GBASur">GBA Sur</ion-select-option>
+            </ion-select>
           </ion-item>
         </form>
         <div style="width: 100%; display: flex;justify-content: center; margin-top: 10px;">

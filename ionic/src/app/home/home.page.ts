@@ -57,12 +57,13 @@ export class HomePage implements OnInit {
 
   constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder) {
     this.form = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      email: ['', [Validators.required], [this.validateEmailAsync]],
-      phone: ['+54', Validators.required],
-      instagram: ['', Validators.required],
-      nacimiento: ['', Validators.required]
+      horarios: ['', Validators.required],
+      position: ['', Validators.required],
+      pieHabil: ['', [Validators.required]],
+      altura: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
+      peso: ['', Validators.required],
+      trayectoria: ['', Validators.required],
+      zona: ['', Validators.required]
     })
   }
   @ViewChild(IonModal) modal!: IonModal;
@@ -75,15 +76,12 @@ export class HomePage implements OnInit {
     this.getUser()
   }
 
-  validateEmailAsync: AsyncValidatorFn = (control: AbstractControl): Promise<ValidationErrors | null> => {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      const valid = emailRegex.test(control.value);
-      return new Promise(resolve => {
-        setTimeout(() => { // Simular una solicitud asíncrona (puedes omitir esto si tu validación no requiere un retraso)
-          resolve(valid ? null : { invalidEmail: true });
-        }, 1000); // Tiempo de espera simulado de 1 segundo
-      });
-    };
+  validateInput(event: KeyboardEvent) {
+    const allowedChars = /^[0-9.]$/;
+    if (!allowedChars.test(event.key)) {
+      event.preventDefault();
+    }
+  }
 
   customActionSheetOptions = {
     header: 'Colors',
@@ -175,38 +173,15 @@ export class HomePage implements OnInit {
   }
 
   ingresarMarket(){
-    if (this.form.invalid) {
-      console.log('Formulario inválido:', this.form.errors);
-      this.notifyService.error('Por favor, completa todos los campos requeridos.');
-      return;
-    }
-    if(this.form.valid){
-          const phoneNumberValue = this.form.value.phone;
-    
-          let phoneNumber;
-          try {
-            phoneNumber = parsePhoneNumber(phoneNumberValue, 'AR'); // 'AR' es el código de país para Argentina
-            
-            if (phoneNumber && phoneNumber.isValid()) {
-              console.log('Número de teléfono válido:', phoneNumber.number); // Número formateado
-            } else {
-              console.error('Número de teléfono inválido');
-              this.notifyService.error('Número de teléfono inválido, el número debe ser con formato: +54-1111-123456');
-              return; // Salir de la función si el número no es válido
-            }
-          } catch (error) {
-            console.error('Error al parsear el número de teléfono:', error);
-            this.notifyService.error('Error al validar el número de teléfono');
-            return; // Salir de la función si ocurre un error
-          }
 
     const formulario = {
-      nombre : this.form.value.nombre,
-      email : this.form.value.email,
-      apellido: this.form.value.apellido,
-      instagram: this.form.value.instagram,
-      phone: this.form.value.phone,
-      nacimiento: this.form.value.nacimiento
+      horarios : this.form.value.horarios,
+      peso : this.form.value.peso,
+      altura: this.form.value.altura,
+      position: this.form.value.position,
+      pieHabil: this.form.value.pieHabil,
+      trayectoria: this.form.value.trayectoria,
+      zona: this.form.value.zona,
     }
     this.userService.ingresarMercado(formulario).subscribe({
       next: (res : any) => {
@@ -219,7 +194,6 @@ export class HomePage implements OnInit {
         this.form.reset()
       }
     })
-  }
 }
 
   ir() {
