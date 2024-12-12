@@ -260,4 +260,11 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
   resetearPosiciones(id:any){
     return this.http.put(`${this.API_URL}/reset-alineacion/${id}`, {})
   }
+
+/*************************************************PASS-MARKET****************************************************/ 
+
+ingresarMercado(form : any){
+  return this.http.post(`${this.API_URL}/ingresar-mercado`, form)
+}
+
 }

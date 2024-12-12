@@ -70,13 +70,14 @@
     </div>
   </div>
 
+  <div class="passMarket" *ngIf="user.completedFormMarket === false">
+    <p style="text-decoration: underline;" id="open-modal-passMarket" expand="block">Completar formulario para el Mercado de Pases</p>
+  </div>
+
   <div class="userEmpty" *ngIf="!team">
     <p>Por favor, crea o elegí un equipo</p>
   </div>
 
-  <div class="passMarket" *ngIf="user.completedFormMarket === false">
-    <p style="text-decoration: underline;" id="open-modal-passMarket" expand="block">Completar formulario para el Mercado de Pases</p>
-  </div>
 
   <div class="container-button">
     <div class="button">
@@ -93,34 +94,67 @@
           <ion-buttons slot="start">
             <ion-button (click)="cancel()">Cancel</ion-button>
           </ion-buttons>
-          <ion-title>Welcome</ion-title>
-          <ion-buttons slot="end">
-            <ion-button     [strong]="true">Confirm</ion-button>
-          </ion-buttons>
+          <ion-title>Mercado de Pases</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <ion-item>
-          <ion-input
-            label="Nombre"
-            labelPlacement="stacked"
-            type="text"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            label="Apellido"
-            labelPlacement="stacked"
-            type="text"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            label="Telefono"
-            labelPlacement="stacked"
-            type="text"
-          ></ion-input>
-        </ion-item>
+
+        <form [formGroup]="form">
+          <ion-item>
+            <ion-input
+              label="Nombre"
+              labelPlacement="floating"
+              type="text"
+              formControlName="nombre"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Apellido"
+              labelPlacement="floating"
+              type="text"
+              formControlName="apellido"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Telefono"
+              labelPlacement="stacked"
+              type="tel"
+              (ionInput)="onPhoneInputChange($event)"
+              formControlName="phone"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Instagram"
+              labelPlacement="floating"
+              type="text"
+              formControlName="instagram"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Correo Electrónico"
+              labelPlacement="floating"
+              type="text"
+              formControlName="email"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Fecha de nacimiento"
+              labelPlacement="floating"
+              type="date"
+              formControlName="nacimiento"
+            ></ion-input>
+          </ion-item>
+        </form>
+        <div style="width: 100%; display: flex;justify-content: center; margin-top: 10px;">
+          <button class="boton" (click)="ingresarMarket()">
+            Enviar
+          </button>
+        </div>
       </ion-content>
     </ng-template>
   </ion-modal>
