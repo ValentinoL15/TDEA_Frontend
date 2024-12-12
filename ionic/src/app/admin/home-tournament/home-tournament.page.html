@@ -110,7 +110,7 @@
     <ion-button (click)="addDayTournament()">Agregar Día</ion-button>
   </ion-item>
 
-  <ng-container formArrayName="daysTournament">
+  <ng-container formArrayName="horarios" style="margin: 10px 0">
     <ng-container *ngFor="let day of daysTournament.controls; let i = index" [formGroupName]="i">
       <ion-item lines="full">
         <ion-label>Día</ion-label>
