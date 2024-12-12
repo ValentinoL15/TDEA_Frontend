@@ -95,7 +95,7 @@ export class HomePage implements OnInit {
       position: ['', Validators.required],
       pieHabil: ['', [Validators.required]],
       altura: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
-      peso: ['', Validators.required],
+      peso: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
       trayectoria: ['', Validators.required],
       zona: ['', Validators.required]
     })
