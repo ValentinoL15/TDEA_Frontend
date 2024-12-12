@@ -94,7 +94,7 @@ export class HomePage implements OnInit {
       horarios: this.fb.array([]),
       position: ['', Validators.required],
       pieHabil: ['', [Validators.required]],
-      altura: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
+      altura: ['', [Validators.required, Validators.pattern('^[1-9]\\.[0-9]{2}$')]],
       peso: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
       trayectoria: ['', Validators.required],
       zona: ['', Validators.required]
@@ -109,6 +109,28 @@ export class HomePage implements OnInit {
     this.userActive()
     this.getUser()
   }
+
+  validateInputAltura(event: any): void {
+    let input = event.target.value;
+  
+    // Agregar un punto si el usuario escribe un solo dígito
+    if (input.length === 1 && !input.includes('.')) {
+      input = input + '.';
+    }
+  
+    // Restringir a dos decimales después del punto
+    const regex = /^[1-9]\d*(\.\d{0,2})?$/; // Permite máximo dos dígitos después del punto
+    if (!regex.test(input)) {
+      input = input.substring(0, input.indexOf('.') + 3); // Recortar después de dos decimales
+    }
+  
+    // Actualizar el valor en el FormControl
+    this.form.get('altura')?.setValue(input, { emitEvent: false });
+  
+    // Actualizar el valor del DOM para reflejar cambios inmediatos
+    event.target.value = input;
+  }
+  
 
   validateInput(event: KeyboardEvent) {
     const allowedChars = /^[0-9.]$/;
