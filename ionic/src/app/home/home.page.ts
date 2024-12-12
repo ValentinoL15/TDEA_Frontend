@@ -109,27 +109,44 @@ export class HomePage implements OnInit {
     this.userActive()
     this.getUser()
   }
-
   validateInputAltura(event: any): void {
     let input = event.target.value;
   
-    // Agregar un punto si el usuario escribe un solo dígito
-    if (input.length === 1 && !input.includes('.')) {
-      input = input + '.';
+    // Eliminar cualquier carácter que no sea número o punto
+    input = input.replace(/[^0-9.]/g, '');
+  
+    // Si solo tiene un número, automáticamente agregar el punto
+    if (input.length === 1) {
+      input += '.';
     }
   
-    // Restringir a dos decimales después del punto
-    const regex = /^[1-9]\d*(\.\d{0,2})?$/; // Permite máximo dos dígitos después del punto
+    // Validar la estructura para tener solo hasta dos números después del punto
+    const regex = /^\d(\.\d{0,2})?$/;
+  
     if (!regex.test(input)) {
-      input = input.substring(0, input.indexOf('.') + 3); // Recortar después de dos decimales
+      // Si no pasa la validación, corregir el texto para ajustarse a la estructura X.XX
+      const parts = input.split('.');
+      if (parts[1]) {
+        input = `${parts[0]}.${parts[1].substring(0, 2)}`;
+      } else {
+        input = parts[0];
+      }
     }
   
-    // Actualizar el valor en el FormControl
+    // Evitar más de 3 números total (1 antes del punto, 2 después)
+    const splitValues = input.split('.');
+    if (splitValues[0].length > 1) {
+      splitValues[0] = splitValues[0].substring(0, 1);
+      input = splitValues.join('.');
+    }
+  
+    // Actualizar el FormControl para la vista
     this.form.get('altura')?.setValue(input, { emitEvent: false });
   
-    // Actualizar el valor del DOM para reflejar cambios inmediatos
+    // Asegurar que el DOM refleje los cambios
     event.target.value = input;
   }
+  
   
 
   validateInput(event: KeyboardEvent) {
