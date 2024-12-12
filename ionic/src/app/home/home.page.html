@@ -137,23 +137,11 @@
           </ion-list>
         
           <ion-item>
-            <ion-select label="Posición" labelPlacement="floating" multiple="true" formControlName="position">
+            <ion-select label="Posición" labelPlacement="floating" formControlName="position" interface="popover">
               <ion-select-option value="Arquero">Arquero</ion-select-option>
               <ion-select-option value="Defensor">Defensor</ion-select-option>
-              <ion-select-option value="DefensorCD">Defensor (Central por derecha)</ion-select-option>
-              <ion-select-option value="DefensorCI">Defensor (Central por izquierda)</ion-select-option>
-              <ion-select-option value="DefensorLD">Defensor (Lateral por derecha)</ion-select-option>
-              <ion-select-option value="DefensorLI">Defensor (Lateral por izquierda)</ion-select-option>
               <ion-select-option value="Mediocampista">Mediocampista</ion-select-option>
-              <ion-select-option value="MediocampistaMC">Mediocampista (Volante central)</ion-select-option>
-              <ion-select-option value="MediocampistaMCI">Mediocampista (Interior)</ion-select-option>
-              <ion-select-option value="MediocampistaMD">Mediocampista (Volante por derecha)</ion-select-option>
-              <ion-select-option value="MediocampistaMI">Mediocampista (Volante por izquierda)</ion-select-option>
               <ion-select-option value="Delantero">Delantero</ion-select-option>
-              <ion-select-option value="DelanteroC">Delantero (Centro delantero)</ion-select-option>
-              <ion-select-option value="DelanteroED">Delantero (Extremo por derecha)</ion-select-option>
-              <ion-select-option value="DelanteroEI">Delantero (Extremo por izquierda)</ion-select-option>
-              <ion-select-option value="DelanteroSP">Delantero (Segunda punta)</ion-select-option>
             </ion-select>
           </ion-item>
   
@@ -171,6 +159,7 @@
               labelPlacement="floating"
               type="number"
               formControlName="peso"
+              (keypress)="validateInput($event)"
             ></ion-input>
           </ion-item>
 
