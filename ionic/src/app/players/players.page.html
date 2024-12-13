@@ -1,11 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-  
-    <ion-title>Jugadores</ion-title>
+    <ion-segment [value]="selectedSegment" (ionChange)="onSegmentChange($event)">
+      <ion-segment-button value="players">
+        <ion-label>Jugadores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="market">
+        <ion-label>Mercado de Pases</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="light" class="ion-padding">
+<ion-content [fullscreen]="true" color="light" class="ion-padding" *ngIf="selectedSegment === 'players'">
 
   <div *ngIf="players">
     <div *ngFor="let player of players" class="contenedor">
@@ -108,4 +114,104 @@
     </ng-template>
   </ion-modal>
 
+</ion-content>
+
+<ion-content [fullscreen]="true" color="light" class="ion-padding" *ngIf="selectedSegment === 'market'">
+  <form [formGroup]="form2" *ngIf="user.completedFormMarket === false">
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-label>¿Que dias podes jugar?</ion-label>
+        <button class="boton-dia" (click)="addDayTournament()">Agregar Día</button>
+      </ion-item>
+
+      <ng-container formArrayName="horarios" *ngIf="horarios">
+        <ng-container *ngFor="let day of horarios.controls; let i = index" [formGroupName]="i" style="margin-top: 20px;">
+          <ion-item lines="full">
+            <ion-select formControlName="dia" placeholder="Selecciona un día" interface="popover" label="Dia">
+              <ion-select-option value="Lunes">Lunes</ion-select-option>
+              <ion-select-option value="Martes">Martes</ion-select-option>
+              <ion-select-option value="Miercoles">Miércoles</ion-select-option>
+              <ion-select-option value="Jueves">Jueves</ion-select-option>
+              <ion-select-option value="Viernes">Viernes</ion-select-option>
+              <ion-select-option value="Sabado">Sábado</ion-select-option>
+              <ion-select-option value="Domingo">Domingo</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Hora</ion-label>
+            <div style="overflow-x: auto; white-space: nowrap;">
+              <ion-select formControlName="hora" placeholder="Selecciona una hora" multiple="true">
+                <ion-select-option *ngFor="let timeOption of times" [value]="timeOption">{{timeOption}}</ion-select-option>
+              </ion-select>
+            </div>
+          </ion-item>
+          <div style="width: 100px;">
+            <ion-button (click)="removeDayTournament(i)" color="danger">Eliminar</ion-button>
+          </div>
+        </ng-container>
+      </ng-container>
+
+    </ion-list>
+  
+    <ion-item>
+      <ion-select label="Posición" labelPlacement="floating" formControlName="position" interface="popover">
+        <ion-select-option value="Arquero">Arquero</ion-select-option>
+        <ion-select-option value="Defensor">Defensor</ion-select-option>
+        <ion-select-option value="Mediocampista">Mediocampista</ion-select-option>
+        <ion-select-option value="Delantero">Delantero</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Pie Hábil" labelPlacement="floating" formControlName="pieHabil" interface="popover">
+        <ion-select-option value="Derecho">Derecho</ion-select-option>
+        <ion-select-option value="Zurdo">Zurdo</ion-select-option>
+        <ion-select-option value="Ambos">Ambos</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Peso"
+        labelPlacement="floating"
+        type="number"
+        formControlName="peso"
+        (keypress)="validateInput($event)"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Altura"
+        labelPlacement="floating"
+        type="text"
+        placeholder="1.80"
+        formControlName="altura"
+        (ionInput)="validateInputAltura($event)" 
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea
+        label="Trayectoria Futbolísitica"
+        labelPlacement="floating"
+        placeholder="Describe tu trayectoria como futbolista..."
+        type="text"
+        formControlName="trayectoria"
+      ></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Zona de preferencia para jugar" labelPlacement="floating" formControlName="zona" interface="popover">
+        <ion-select-option value="CABA">CABA</ion-select-option>
+        <ion-select-option value="GBANorte">GBA Norte</ion-select-option>
+        <ion-select-option value="GBAOeste">GBA Oeste</ion-select-option>
+        <ion-select-option value="GBASur">GBA Sur</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div style="width: 100%; display: flex;justify-content: center; margin-top: 10px;">
+      <button class="boton" (click)="ingresarMarket()">
+        Enviar
+      </button>
+    </div>
+  </form>
 </ion-content>
