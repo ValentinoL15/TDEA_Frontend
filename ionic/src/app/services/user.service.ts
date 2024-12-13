@@ -267,4 +267,8 @@ ingresarMercado(form : any){
   return this.http.post(`${this.API_URL}/ingresar-mercado`, form)
 }
 
+getMarket(){
+  return this.http.get(`${this.API_URL}/obtener-mercado`)
+}
+
 }
