@@ -154,11 +154,17 @@ export class PlayersPage implements OnInit {
   form2: FormGroup
   mercado: PassMarket = {
       _id: "",
+      playerImage: "",
+      nombre: "",
+      apellido: "",
+      position: "",
+      nacimiento: "",
       horarios: [{
         dia: "",
         hora: "",
       }]
-    }
+  }
+  playersMarket: PassMarket[] = []
 
 
 
@@ -191,6 +197,7 @@ export class PlayersPage implements OnInit {
   ngOnInit() {
     this.getPlayers()
     this.getUser()
+    this.getMarket()
     this.userService.getDeuda().subscribe({
       next: (res: any) => {
         if (res.team && res.team.active) {
@@ -234,7 +241,17 @@ export class PlayersPage implements OnInit {
     })
   }
 
-
+  getMarket(){
+    this.userService.getMarket().subscribe({
+      next: (res: any) => {
+        this.playersMarket = res.playersMarket
+        console.log(this.playersMarket)
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
   crearJugador(form: any) {
     const formData = new FormData();
     formData.append('firstName', this.form.get('firstName')?.value);
@@ -334,12 +351,17 @@ export class PlayersPage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.getUser()
+        this.getMarket()
         this.modal.dismiss(null, 'cancel');
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
       }
     })
+}
+
+cancel() {
+  this.modal.dismiss(null, 'cancel');
 }
 
   validateInput(event: KeyboardEvent) {

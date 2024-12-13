@@ -5,12 +5,13 @@ export interface PassMarket {
     phone?: string,
     email?: string,
     instagram?: string,
+    playerImage?: string,
     nacimiento?: string,
     horarios?: [{
         dia?: string,
         hora?: string,
     }],
-    position?: Array<string>
+    position?: string,
     pieHabil?: string,
     peso?: number,
     altura?: string,
