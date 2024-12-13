@@ -107,7 +107,6 @@ export class HomePage implements OnInit {
     this.getTeamActive()
     this.getUserEmpty()
     this.userActive()
-    this.getUser()
   }
   validateInputAltura(event: any): void {
     let input = event.target.value;
@@ -164,15 +163,6 @@ export class HomePage implements OnInit {
   userActive(){
     this.user = this.AuthService.getUserRole()
     console.log(this.user)
-  }
-
-  getUser(){
-    this.AuthService.getUser().subscribe({
-      next: (res : any) => {
-        this.user = res.user
-        console.log(this.user)
-      }
-    })
   }
 
   onEquipoChange(equipoId: any) {
@@ -279,7 +269,6 @@ export class HomePage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.modal.dismiss(null, 'cancel');
-        this.getUser()
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
