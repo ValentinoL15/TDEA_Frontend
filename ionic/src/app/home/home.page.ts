@@ -48,10 +48,7 @@ export class HomePage implements OnInit {
   emptyUser: any = {}
   mercado: PassMarket = {
     _id: "",
-    horarios: [{
-      dia: "",
-      hora: [],
-    }]
+    horarios: []
   }
   times = [
     "00:00", "00:15", "00:30", "00:45", 
