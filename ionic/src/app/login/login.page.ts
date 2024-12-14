@@ -115,7 +115,7 @@ export class LoginPage implements OnInit {
 
 
   registerFormSubmit(){
-    if(this.register.valid){
+    /*if(this.register.valid){
       const phoneNumberValue = this.register.value.phone;
 
       let phoneNumber;
@@ -133,7 +133,7 @@ export class LoginPage implements OnInit {
         console.error('Error al parsear el número de teléfono:', error);
         this.notifyService.error('Error al validar el número de teléfono');
         return; // Salir de la función si ocurre un error
-      }
+      }*/
   
       const formData = new FormData();
       formData.append('firstName', this.register.get('firstName')?.value)
@@ -159,7 +159,7 @@ export class LoginPage implements OnInit {
           this.notifyService.error(err.error.message)
         }
       })
-    }
+    /*}*/
     }
 
     onFileSelected(event: any) {

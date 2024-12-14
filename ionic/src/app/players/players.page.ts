@@ -153,7 +153,6 @@ export class PlayersPage implements OnInit {
   ];
   form2: FormGroup;
   form3: FormGroup;
-  form4: FormGroup
   mercado: PassMarket = {
       _id: "",
       playerImage: "",
@@ -161,10 +160,7 @@ export class PlayersPage implements OnInit {
       apellido: "",
       position: "",
       nacimiento: "",
-      horarios: [{
-        dia: "",
-        hora: [],
-      }]
+      horarios: []
   }
   playersMarket: PassMarket[] = []
   myPlayer: PassMarket = {
@@ -174,14 +170,33 @@ export class PlayersPage implements OnInit {
     apellido: "",
     position: "",
     nacimiento: "",
-    horarios: [{
-      _id: "",
-      dia: "",
-      hora: [],
-    }]
+    horarios: []
   }
   diasSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
   dia: string[] = []
+  horarioOptions = [
+    { value: 'LunesMañana', label: 'Lunes a la Mañana' },
+    { value: 'LunesTarde', label: 'Lunes a la Tarde' },
+    { value: 'LunesNoche', label: 'Lunes a la Noche' },
+    { value: 'MartesMañana', label: 'Martes a la Mañana' },
+    { value: 'MartesTarde', label: 'Martes a la Tarde' },
+    { value: 'MartesNoche', label: 'Martes a la Noche' },
+    { value: 'MiercolesMañana', label: 'Miércoles a la Mañana' },
+    { value: 'MiercolesTarde', label: 'Miércoles a la Tarde' },
+    { value: 'MiercolesNoche', label: 'Miércoles a la Noche' },
+    { value: 'JuevesMañana', label: 'Jueves a la Mañana' },
+    { value: 'JuevesTarde', label: 'Jueves a la Tarde' },
+    { value: 'JuevesNoche', label: 'Jueves a la Noche' },
+    { value: 'ViernesMañana', label: 'Viernes a la Mañana' },
+    { value: 'ViernesTarde', label: 'Viernes a la Tarde' },
+    { value: 'ViernesNoche', label: 'Viernes a la Noche' },
+    { value: 'SabadoMañana', label: 'Sábado a la Mañana' },
+    { value: 'SabadoTarde', label: 'Sábado a la Tarde' },
+    { value: 'SabadoNoche', label: 'Sábado a la Noche' },
+    { value: 'DomingoMañana', label: 'Domingo a la Mañana' },
+    { value: 'DomingoTarde', label: 'Domingo a la Tarde' },
+    { value: 'DomingoNoche', label: 'Domingo a la Noche' }
+  ];
 
 
 
@@ -194,13 +209,13 @@ export class PlayersPage implements OnInit {
       shirtNumber: ['', Validators.required]
     })
     this.form2 = this.fb.group({
-      horarios: this.fb.array([]),
       position: ['', Validators.required],
       pieHabil: ['', [Validators.required]],
       altura: ['', [Validators.required, Validators.pattern('^[1-9]\\.[0-9]{2}$')]],
       peso: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
       trayectoria: ['', Validators.required],
-      zona: ['', Validators.required]
+      zona: ['', Validators.required],
+      horarios: [[]],
     })
     this.form3 = this.fb.group({
       position: ['', Validators.required],
@@ -209,10 +224,9 @@ export class PlayersPage implements OnInit {
       peso: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
       trayectoria: ['', Validators.required],
       zona: ['', Validators.required],
+      horarios: [[]],
     })
-    this.form4 = this.fb.group({
-      horarios: this.fb.array([]),
-    })
+    
   }
 
   isModalOpen = false;
@@ -277,7 +291,8 @@ export class PlayersPage implements OnInit {
           altura: this.myPlayer.altura || '',
           peso: this.myPlayer.peso || '',
           trayectoria: this.myPlayer.trayectoria || '',
-          zona: this.myPlayer.zona || ''
+          zona: this.myPlayer.zona || '',
+          horarios: this.myPlayer.horarios || ''
         });
         
       },
@@ -287,14 +302,19 @@ export class PlayersPage implements OnInit {
     })
   }
 
-  agregarHorario(id : any, form : any){
+  editMyPlayer(){
     const formulario = {
-      dia : form.dia.value,
-      hora: form.hora.value
+      position: this.form3.get('position')?.value,
+      pieHabil: this.form3.get('pieHabil')?.value,
+      altura: this.form3.get('altura')?.value,
+      peso: this.form3.get('peso')?.value,
+      trayectoria: this.form3.get('trayectoria')?.value,
+      zona: this.form3.get('zona')?.value,
+      horarios: this.form3.get('horarios')?.value
     }
-    this.userService.agregarHorario(id, formulario).subscribe({
+    this.userService.editMyPlayer(formulario).subscribe({
       next: (res: any) => {
-        this.notifyService.success(res.message)
+        this.notifyService.success('Jugador actualizado')
         this.getMyPlayer()
       },
       error: (err: any) => {
@@ -303,25 +323,6 @@ export class PlayersPage implements OnInit {
     })
   }
 
-  editMyHorario(id:any, form : any){
-    const formulario = {
-      dia: form.dia.value, // Asegúrate de que estás accediendo correctamente a estos valores
-      hora: form.hora.value
-    };
-  
-    console.log('Formulario enviado:', formulario);
-    this.userService.editMyHorario(id, formulario).subscribe({
-      next: (res: any) => {
-        this.notifyService.success('Horario editado con éxito')
-        this.getMyPlayer()
-        this.getPlayers()
-        this.cdr.markForCheck(); // Fuerza la actualización de los inputs
-      },
-      error: (err: any) => {
-        this.notifyService.error(err.message)
-      }
-    })
-  }
 
   deleteMyHorario(id : any){
     this.userService.deleteHorario(id).subscribe({
@@ -334,25 +335,6 @@ export class PlayersPage implements OnInit {
         this.notifyService.error(err.message)
       }
     })
-  }
-
-  updateMyPlayer() {
-    if (this.form3.valid) {
-      const updatedPlayer = {
-        ...this.form3.value,
-      };
-      this.userService.editMyPlayer(updatedPlayer).subscribe({
-        next: (res: any) => {
-          this.notifyService.success('Player updated successfully');
-          this.getMyPlayer();
-        },
-        error: (err: any) => {
-          this.notifyService.error(err.error.message);
-        }
-      });
-    } else {
-      this.notifyService.error('Please fill all required fields correctly');
-    }
   }
 
   getPlayers() {
@@ -451,21 +433,9 @@ export class PlayersPage implements OnInit {
     return this.form2.get('horarios') as FormArray;
   }
 
-  addDayTournament() {
-    const dayGroup = new FormGroup({
-      dia: new FormControl(''),
-      hora: new FormControl('')
-    });
-
-    this.horarios.push(dayGroup); // Agrega el nuevo FormGroup al FormArray
-  }
-
   ingresarMarket(){
     const formulario = {
-      horarios: this.form2.value.horarios.map((horario: any) => ({
-        dia: horario.dia,
-        hora: horario.hora
-      })),
+      horarios: this.form2.value.horarios,
       peso : this.form2.value.peso,
       altura: this.form2.value.altura,
       position: this.form2.value.position,

@@ -7,11 +7,7 @@ export interface PassMarket {
     instagram?: string,
     playerImage?: string,
     nacimiento?: string,
-    horarios?: [{
-        _id?: string,
-        dia?: string,
-        hora?: string[],
-    }],
+    horarios?: Array<string>
     position?: string,
     pieHabil?: string,
     peso?: number,
