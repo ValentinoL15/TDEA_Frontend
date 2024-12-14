@@ -287,4 +287,8 @@ deleteHorario(id : any){
   return this.http.put(`${this.API_URL}/delete-myHorarios/${id}`, {})
 }
 
+agregarHorario(id:any,form : any){
+  return this.http.post(`${this.API_URL}/agregar-horario/${id}`, form)
+}
+
 }
