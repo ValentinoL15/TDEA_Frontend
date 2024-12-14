@@ -334,16 +334,50 @@
               </ion-select>
             </ion-item>
             <div style="width: 100%; display: flex; justify-content: space-between;">
-              <ion-item>
-                <ion-button (click)="deleteMyHorario(horarios._id)" color="danger">Eliminar</ion-button>
-              </ion-item>
-              <ion-item>
-                <ion-button (click)="editMyHorario(horarios._id, miForm)" color="primary">Editar</ion-button>
-              </ion-item>
+              <ion-button (click)="editMyHorario(horarios._id, miForm)" color="primary">Editar</ion-button>
+              <ion-button (click)="deleteMyHorario(horarios._id)" color="danger">Eliminar</ion-button>
             </div>
             
           </ng-container>
           
+        </form>
+
+        <form [formGroup]="form4" >
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-label>Aagregar Dias</ion-label>
+              <button class="boton-dia" (click)="addDayTournament()">Agregar Día</button>
+            </ion-item>
+
+            <ng-container formArrayName="horarios" *ngIf="horarios">
+              <ng-container *ngFor="let day of horarios.controls; let i = index" [formGroupName]="i" style="margin-top: 20px;">
+                <ion-item lines="full">
+                  <ion-select formControlName="dia" placeholder="Selecciona un día" interface="popover" label="Dia">
+                    <ion-select-option value="Lunes">Lunes</ion-select-option>
+                    <ion-select-option value="Martes">Martes</ion-select-option>
+                    <ion-select-option value="Miercoles">Miércoles</ion-select-option>
+                    <ion-select-option value="Jueves">Jueves</ion-select-option>
+                    <ion-select-option value="Viernes">Viernes</ion-select-option>
+                    <ion-select-option value="Sabado">Sábado</ion-select-option>
+                    <ion-select-option value="Domingo">Domingo</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Hora</ion-label>
+                  <div style="overflow-x: auto; white-space: nowrap;">
+                    <ion-select formControlName="hora" placeholder="Selecciona una hora" multiple="true">
+                      <ion-select-option *ngFor="let timeOption of times" [value]="timeOption">{{timeOption}}</ion-select-option>
+                    </ion-select>
+                  </div>
+                </ion-item>
+                <div style="width: 100px;">
+                  <ion-button (click)="removeDayTournament(i)" color="danger">Eliminar</ion-button>
+                </div>
+              </ng-container>
+            </ng-container>
+
+          </ion-list>
         </form>
 
         <form [formGroup]="form3">

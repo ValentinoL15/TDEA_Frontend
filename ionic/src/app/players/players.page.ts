@@ -153,6 +153,7 @@ export class PlayersPage implements OnInit {
   ];
   form2: FormGroup;
   form3: FormGroup;
+  form4: FormGroup
   mercado: PassMarket = {
       _id: "",
       playerImage: "",
@@ -208,6 +209,9 @@ export class PlayersPage implements OnInit {
       peso: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
       trayectoria: ['', Validators.required],
       zona: ['', Validators.required],
+    })
+    this.form4 = this.fb.group({
+      horarios: this.fb.array([]),
     })
   }
 
@@ -276,6 +280,22 @@ export class PlayersPage implements OnInit {
           zona: this.myPlayer.zona || ''
         });
         
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.message)
+      }
+    })
+  }
+
+  agregarHorario(id : any, form : any){
+    const formulario = {
+      dia : form.dia.value,
+      hora: form.hora.value
+    }
+    this.userService.agregarHorario(id, formulario).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message)
+        this.getMyPlayer()
       },
       error: (err: any) => {
         this.notifyService.error(err.message)
