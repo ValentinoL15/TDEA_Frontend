@@ -327,7 +327,7 @@
               </ion-select>
             </ion-item>
             <ion-item>
-              <ion-select name="hora" placeholder="Selecciona una hora" multiple="true" label="Hora" [placeholder]="horarios.hora" [value]="horarios.hora">
+              <ion-select name="hora" placeholder="Selecciona una hora" multiple="true" label="Hora" [placeholder]="horarios.hora" [value]="dia">
                 <ion-select-option *ngFor="let timeOption of times" [value]="timeOption">
                   {{ timeOption }}
                 </ion-select-option>
