@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
     _id: "",
     horarios: [{
       dia: "",
-      hora: "",
+      hora: [],
     }]
   }
   times = [

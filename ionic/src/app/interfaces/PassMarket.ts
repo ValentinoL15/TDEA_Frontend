@@ -8,8 +8,9 @@ export interface PassMarket {
     playerImage?: string,
     nacimiento?: string,
     horarios?: [{
+        _id?: string,
         dia?: string,
-        hora?: string,
+        hora?: string[],
     }],
     position?: string,
     pieHabil?: string,

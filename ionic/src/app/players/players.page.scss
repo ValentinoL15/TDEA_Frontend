@@ -50,7 +50,6 @@
     align-items: center; /* Opcional: centra verticalmente el contenido */
   }
   
-  
   ion-input {
     height: 100%; /* Opcional, si el ion-item tiene contenido extra */
   }
@@ -81,6 +80,14 @@
     grid-column: 1 / span 1;
     grid-row: 1 / span 4; /* Hace que la imagen ocupe las 4 filas */
     width: 100%;
+  }
+
+  .image2{
+    display: grid;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 4; /* Hace que la imagen ocupe las 4 filas */
+    width: 100%;
+    height: 100%;
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { List } from '../interfaces/List';
@@ -151,7 +151,8 @@ export class PlayersPage implements OnInit {
     "22:00", "22:15", "22:30", "22:45",
     "23:00", "23:15", "23:30", "23:45",
   ];
-  form2: FormGroup
+  form2: FormGroup;
+  form3: FormGroup;
   mercado: PassMarket = {
       _id: "",
       playerImage: "",
@@ -161,14 +162,28 @@ export class PlayersPage implements OnInit {
       nacimiento: "",
       horarios: [{
         dia: "",
-        hora: "",
+        hora: [],
       }]
   }
   playersMarket: PassMarket[] = []
+  myPlayer: PassMarket = {
+    _id: "",
+    playerImage: "",
+    nombre: "",
+    apellido: "",
+    position: "",
+    nacimiento: "",
+    horarios: [{
+      _id: "",
+      dia: "",
+      hora: [],
+    }]
+  }
+  diasSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
 
 
 
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder) {
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder, private cdr: ChangeDetectorRef) {   
     this.form = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required]],
@@ -185,12 +200,25 @@ export class PlayersPage implements OnInit {
       trayectoria: ['', Validators.required],
       zona: ['', Validators.required]
     })
+    this.form3 = this.fb.group({
+      position: ['', Validators.required],
+      pieHabil: ['', [Validators.required]],
+      altura: ['', [Validators.required, Validators.pattern('^[1-9]\\.[0-9]{2}$')]],
+      peso: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
+      trayectoria: ['', Validators.required],
+      zona: ['', Validators.required],
+    })
   }
 
   isModalOpen = false;
+  isModalOpen2 = false
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+  }
+
+  setOpen2(isOpen: boolean) {
+    this.isModalOpen2 = isOpen;
   }
 
 
@@ -198,6 +226,7 @@ export class PlayersPage implements OnInit {
     this.getPlayers()
     this.getUser()
     this.getMarket()
+    this.getMyPlayer()
     this.userService.getDeuda().subscribe({
       next: (res: any) => {
         if (res.team && res.team.active) {
@@ -211,6 +240,7 @@ export class PlayersPage implements OnInit {
       }
     })
   }
+  
 
   onSegmentChange(event: any) {
     this.selectedSegment = event.detail.value; // Actualiza el valor según la selección
@@ -224,9 +254,89 @@ export class PlayersPage implements OnInit {
     this.AuthService.getUser().subscribe({
       next: (res: any) => {
         this.user = res.user
-        console.log(this.user)
+      },
+      error: (err: any) => {
+        console.log(err)
       }
     })
+  }
+
+  getMyPlayer(){
+    this.userService.getMyPlayer().subscribe({
+      next: (res: any) => {
+        this.myPlayer = res.passMarket
+        console.log('Jugador actualizado:', this.myPlayer); // Asegúrate de 
+        
+        this.form3.patchValue({
+          position: this.myPlayer.position || '',
+          pieHabil: this.myPlayer.pieHabil || '',
+          altura: this.myPlayer.altura || '',
+          peso: this.myPlayer.peso || '',
+          trayectoria: this.myPlayer.trayectoria || '',
+          zona: this.myPlayer.zona || ''
+        });
+        
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.message)
+      }
+    })
+  }
+
+  editMyHorario(id:any, form : any){
+    const formulario = {
+      dia: form.dia.value, // Asegúrate de que estás accediendo correctamente a estos valores
+      hora: form.hora.value
+    };
+  
+    console.log('Formulario enviado:', formulario);
+    this.userService.editMyHorario(id, formulario).subscribe({
+      next: (res: any) => {
+        this.notifyService.success('Horario editado con éxito')
+        this.getMyPlayer()
+        this.getPlayers()
+        this.cdr.markForCheck(); // Fuerza la actualización de los inputs
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.message)
+      }
+    })
+  }
+
+  deleteMyHorario(id : any){
+    this.userService.deleteHorario(id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success('Horario eliminado con éxito')
+        this.getMyPlayer()
+        this.getPlayers()
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.message)
+      }
+    })
+  }
+
+  updateMyPlayer() {
+    if (this.form3.valid) {
+      const updatedPlayer = {
+        ...this.form3.value,
+        horarios: this.form3.value.horarios.map((horario: any) => ({
+          dia: horario.dia,
+          hora: horario.hora
+        }))
+      };
+      this.userService.editMyPlayer(updatedPlayer).subscribe({
+        next: (res: any) => {
+          this.notifyService.success('Player updated successfully');
+          this.getMyPlayer();
+        },
+        error: (err: any) => {
+          this.notifyService.error(err.error.message);
+        }
+      });
+    } else {
+      this.notifyService.error('Please fill all required fields correctly');
+    }
   }
 
   getPlayers() {
@@ -352,6 +462,7 @@ export class PlayersPage implements OnInit {
         this.notifyService.success(res.message)
         this.getUser()
         this.getMarket()
+        this.getMyPlayer()
         this.modal.dismiss(null, 'cancel');
       },
       error: (err) => {
@@ -361,6 +472,10 @@ export class PlayersPage implements OnInit {
 }
 
 cancel() {
+  this.modal.dismiss(null, 'cancel');
+}
+
+cancel2(){
   this.modal.dismiss(null, 'cancel');
 }
 

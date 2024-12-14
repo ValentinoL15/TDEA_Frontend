@@ -271,4 +271,20 @@ getMarket(){
   return this.http.get(`${this.API_URL}/obtener-mercado`)
 }
 
+getMyPlayer(){
+  return this.http.get(`${this.API_URL}/obtener-myPlayer`)
+}
+
+editMyPlayer(form : any){
+  return this.http.put(`${this.API_URL}/editar-myPlayer`, form)
+}
+
+editMyHorario(id : any, form : any){
+  return this.http.put(`${this.API_URL}/edit-myHorarios/${id}`, form)
+}
+
+deleteHorario(id : any){
+  return this.http.put(`${this.API_URL}/delete-myHorarios/${id}`, {})
+}
+
 }
