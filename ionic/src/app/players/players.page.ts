@@ -180,6 +180,7 @@ export class PlayersPage implements OnInit {
     }]
   }
   diasSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+  dia: string[] = []
 
 
 
@@ -266,7 +267,6 @@ export class PlayersPage implements OnInit {
       next: (res: any) => {
         this.myPlayer = res.passMarket
         console.log('Jugador actualizado:', this.myPlayer); // Asegúrate de 
-        
         this.form3.patchValue({
           position: this.myPlayer.position || '',
           pieHabil: this.myPlayer.pieHabil || '',
