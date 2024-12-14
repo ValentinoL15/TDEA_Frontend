@@ -117,10 +117,43 @@
 </ion-content>
 
 <ion-content [fullscreen]="true" color="light" class="ion-padding" *ngIf="selectedSegment === 'market'">
+
+  <div *ngIf="myPlayer">
+    <div style="width: 100%; display: flex; justify-content: end;">
+      <ion-button (click)="setOpen2(true)">Editar</ion-button>
+    </div>
+    <div class="contenedor2">
+      <img class="image2 imagen" [src]="myPlayer.playerImage"/>
+      <div class="element-1">
+        <ion-item>
+          <ion-input  readonly="true" labelPlacement="stacked" label="Nombre" [value]="myPlayer.nombre + ' ' + myPlayer.apellido"></ion-input>
+        </ion-item>
+      </div>
+  
+      <div class="element-2">
+        <ion-item>
+          <ion-input  readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="myPlayer.nacimiento | date: 'dd-MM-yy'"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="element-3">
+        <ion-item>
+          <ion-input  readonly="true" labelPlacement="stacked" label="Posicion" [value]="myPlayer.position"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="element-4">
+        <ion-item>
+          <ion-input  readonly="true" labelPlacement="stacked" label="Pie habil" [value]="myPlayer.pieHabil"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+    <hr>
+  </div>
   
   <div>
     <div *ngFor="let player of playersMarket" class="contenedor2">
-        <img class="image imagen" [src]="player.playerImage"/>
+        <img class="image2 imagen" [src]="player.playerImage"/>
       <div class="element-1">
         <ion-item>
           <ion-input  readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.nombre + ' ' + player.apellido"></ion-input>
@@ -268,5 +301,107 @@
     </ng-template>
   </ion-modal>
 
+  <ion-modal [isOpen]="isModalOpen2">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Editar mi Jugador</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen2(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
 
+        <form #miForm>
+          <ng-container *ngFor="let horarios of myPlayer.horarios">
+            <ion-item>
+              <ion-select name="dia" interface="popover" label="Dia" [value]="horarios.dia">
+                <ion-select-option value="Lunes">Lunes</ion-select-option>
+                <ion-select-option value="Martes">Martes</ion-select-option>
+                <ion-select-option value="Miercoles">Miércoles</ion-select-option>
+                <ion-select-option value="Jueves">Jueves</ion-select-option>
+                <ion-select-option value="Viernes">Viernes</ion-select-option>
+                <ion-select-option value="Sabado">Sábado</ion-select-option>
+                <ion-select-option value="Domingo">Domingo</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-select name="hora" placeholder="Selecciona una hora" multiple="true" label="Hora" [placeholder]="horarios.hora" [value]="horarios.hora">
+                <ion-select-option *ngFor="let timeOption of times" [value]="timeOption">
+                  {{ timeOption }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div style="width: 100%; display: flex; justify-content: space-between;">
+              <ion-item>
+                <ion-button (click)="deleteMyHorario(horarios._id)" color="danger">Eliminar</ion-button>
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="editMyHorario(horarios._id, miForm)" color="primary">Editar</ion-button>
+              </ion-item>
+            </div>
+            
+          </ng-container>
+          
+        </form>
+
+        <form [formGroup]="form3">
+          <ion-item>
+            <ion-select label="Posición" labelPlacement="floating" formControlName="position" interface="popover">
+              <ion-select-option value="Arquero">Arquero</ion-select-option>
+              <ion-select-option value="Defensor">Defensor</ion-select-option>
+              <ion-select-option value="Mediocampista">Mediocampista</ion-select-option>
+              <ion-select-option value="Delantero">Delantero</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Pie Hábil" labelPlacement="floating" formControlName="pieHabil" interface="popover">
+              <ion-select-option value="Derecho">Derecho</ion-select-option>
+              <ion-select-option value="Zurdo">Zurdo</ion-select-option>
+              <ion-select-option value="Ambos">Ambos</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Peso"
+              labelPlacement="floating"
+              type="number"
+              formControlName="peso"
+              (keypress)="validateInput($event)"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Altura"
+              labelPlacement="floating"
+              type="text"
+              placeholder="1.80"
+              formControlName="altura"
+              (ionInput)="validateInputAltura($event)" 
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-textarea
+              label="Trayectoria Futbolísitica"
+              labelPlacement="floating"
+              placeholder="Describe tu trayectoria como futbolista..."
+              type="text"
+              formControlName="trayectoria"
+            ></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Zona de preferencia para jugar" labelPlacement="floating" formControlName="zona" interface="popover">
+              <ion-select-option value="CABA">CABA</ion-select-option>
+              <ion-select-option value="GBANorte">GBA Norte</ion-select-option>
+              <ion-select-option value="GBAOeste">GBA Oeste</ion-select-option>
+              <ion-select-option value="GBASur">GBA Sur</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
