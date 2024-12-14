@@ -305,9 +305,12 @@
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Editar mi Jugador</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="setOpen2(false)">Close</ion-button>
+            <ion-button (click)="updateMyPlayer()">Guardar</ion-button>
+          </ion-buttons>
+          <ion-title>Editar mi Jugador</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen2(false)">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>

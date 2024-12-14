@@ -340,10 +340,6 @@ export class PlayersPage implements OnInit {
     if (this.form3.valid) {
       const updatedPlayer = {
         ...this.form3.value,
-        horarios: this.form3.value.horarios.map((horario: any) => ({
-          dia: horario.dia,
-          hora: horario.hora
-        }))
       };
       this.userService.editMyPlayer(updatedPlayer).subscribe({
         next: (res: any) => {
