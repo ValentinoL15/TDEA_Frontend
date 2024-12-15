@@ -118,15 +118,12 @@
 
 <ion-content [fullscreen]="true" color="light" class="ion-padding" *ngIf="selectedSegment === 'market'">
 
-  <div *ngIf="myPlayer">
-    <div style="width: 100%; display: flex; justify-content: end;">
-      <ion-button (click)="setOpen2(true)">Editar</ion-button>
-    </div>
-    <div class="contenedor2">
+  <div *ngIf="myPlayer" class="main-contain">
+    <div class="contenedor2" (click)="setOpen2(true)">
       <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-      <div class="element-1">
+      <div class="element-1" >
         <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Nombre" [value]="myPlayer.nombre + ' ' + myPlayer.apellido"></ion-input>
+          <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="myPlayer.nombre + ' ' + myPlayer.apellido"></ion-input>
         </ion-item>
       </div>
   
@@ -138,7 +135,7 @@
 
       <div class="element-3">
         <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Posicion" [value]="myPlayer.position"></ion-input>
+          <ion-input readonly="true" labelPlacement="stacked" label="Posicion" [value]="myPlayer.position"></ion-input>
         </ion-item>
       </div>
 
@@ -152,7 +149,7 @@
   </div>
   
   <div>
-    <div *ngFor="let player of playersMarket" class="contenedor2">
+    <div *ngFor="let player of playersMarket" class="contenedor3">
         <img class="image2 imagen" [src]="player.playerImage"/>
       <div class="element-1">
         <ion-item>
