@@ -40,6 +40,17 @@
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr); /* Cada fila tiene el mismo tamaño */
+    padding: 15px;
+    height: 100%;
+    background-color: orange;
+    border-radius: 20px;
+  }
+
+  .contenedor3 {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr); /* Cada fila tiene el mismo tamaño */
     margin: 10px 0;
     height: 100%;
   }
@@ -49,8 +60,10 @@
     height: 100%; /* Fija la altura de cada ion-item */
     align-items: center; /* Opcional: centra verticalmente el contenido */
   }
+
   
   ion-input {
+    width: 100%;
     height: 100%; /* Opcional, si el ion-item tiene contenido extra */
   }
   
@@ -142,5 +155,4 @@
     padding: 5px;
     background-color: black;
   }
-
   
