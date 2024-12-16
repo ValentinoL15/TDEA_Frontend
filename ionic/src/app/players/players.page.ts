@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { List } from '../interfaces/List';
-import { IonModal } from '@ionic/angular';
+import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotifyService } from '../services/notify.service';
@@ -211,9 +211,59 @@ export class PlayersPage implements OnInit {
     { value: 'DomingoNoche', label: 'Domingo a la Noche' }
   ];
 
+  public alertImagen = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        this.editImage()
+      },
+    },
+  ];
+  setResults(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
+  public alertInputImage = [
+    {
+      placeholder: 'Elige una foto',
+      name: 'image',
+      type: 'file'
+    },
+  ];
+
+  selectedFile2: File | null = null
+
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+  setResult(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
 
 
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder, private cdr: ChangeDetectorRef) {   
+
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private alertController: AlertController) {   
     this.form = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required]],
@@ -446,6 +496,11 @@ export class PlayersPage implements OnInit {
     return this.form2.get('horarios') as FormArray;
   }
 
+  onSelectImage() {
+    const fileInput = document.getElementById('file-input-myPlayer') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
+  }
+
   ingresarMarket(){
     const formulario = {
       horarios: this.form2.value.horarios,
@@ -501,6 +556,70 @@ cancel2(){
   restartPlayers() {
     window.location.href = '/user/players'
   }
+
+  onFileSelected2(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile2 = file;
+    console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.editImage();
+    }
+  }
+
+  editImage(){
+    const form = new FormData();
+    form.append('image', this.selectedFile2 as Blob);
+    console.log("Este es mi form: " ,form)
+    this.AuthService.editPhotoProfile(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        window.location.href = 'user/players'
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  async presentAlertImagen() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImage(); // Llama a la función para editar la imagen
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  deletePhoto(){
+    const form = new FormData();
+    form.append('image', this.selectedFile as Blob);
+    this.AuthService.deletePhotoProfile(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        window.location.href = `/user/players`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
 
 
 }
