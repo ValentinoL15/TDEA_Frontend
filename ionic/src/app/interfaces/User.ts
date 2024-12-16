@@ -8,6 +8,8 @@ export interface User {
     birthday?: string,
     birthdayFormatted?: string;
     profileImg?: string,
+    pictureAccept?: boolean,
+    status?: string,
     instagram?: string,
     notes?: string,
     email: string,

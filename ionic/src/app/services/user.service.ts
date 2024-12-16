@@ -58,6 +58,14 @@ rejectPictureList(id : any){
   return this.http.delete(`${this.API_URL}/list-rejected/${id}`)
 }
 
+approvedPictureUser(id : any){
+  return this.http.put(`${this.API_URL}/picture-user-approved/${id}`, {})
+}
+
+rejectedPictureUser(id : any){
+  return this.http.delete(`${this.API_URL}/picture-user-rejected/${id}`)
+}
+
 playerApproved(id:any){
   return this.http.put(`${this.API_URL}/picture-players-approved/${id}`, {})
 }
