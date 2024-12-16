@@ -14,6 +14,7 @@ export class ImgApprovedPage implements OnInit {
   teamImages: Picture[] = [];
   playerImages: Picture[] = [];
   listImages: Picture[] = [];
+  userImages: Picture[] = []
 
   constructor(private userService: UserService, private notifyService: NotifyService) {}
 
@@ -29,6 +30,7 @@ export class ImgApprovedPage implements OnInit {
         this.teamImages = this.images.filter(img => img.teamPicture);
         this.playerImages = this.images.filter(img => img.playerPicture);
         this.listImages = this.images.filter(img => img.listPicture);
+        this.userImages = this.images.filter(img => img.userPicture)
         console.log('Imágenes de equipo:', this.teamImages);
     console.log('Imágenes de jugador:', this.playerImages);
       },
@@ -111,7 +113,31 @@ export class ImgApprovedPage implements OnInit {
     })
   }
 
-  aprobarSeleccionados(tipo: 'team' | 'list' | 'player') {
+  aprobarUser(id : any){
+    this.userService.approvedPictureUser(id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getImagenes(); // Refrescar imágenes
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  eliminarUserPicture(id : any){
+    this.userService.rejectedPictureUser(id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getImagenes(); // Refrescar imágenes
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  aprobarSeleccionados(tipo: 'team' | 'list' | 'player' | 'user') {
     let imagenes: Picture[];
     let aprobarFn: (id: any) => any;
 
@@ -128,6 +154,10 @@ export class ImgApprovedPage implements OnInit {
         imagenes = this.playerImages;
         aprobarFn = this.userService.playerApproved.bind(this.userService);
         break;
+        case 'user':
+          imagenes = this.userImages;
+          aprobarFn = this.userService.approvedPictureUser.bind(this.userService);
+          break;
     }
 
     const seleccionados = imagenes.filter(img => img.selected);
