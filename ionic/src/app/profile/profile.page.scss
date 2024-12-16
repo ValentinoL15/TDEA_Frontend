@@ -11,16 +11,28 @@ p {
 
 .edit-button {
     position: absolute;
-    top: 75px;  /* Ajusta la distancia desde la parte superior de la imagen */
-    right: 128px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    top: 0;  /* Ajusta la distancia desde la parte superior de la imagen */
+    right: 0; /* Ajusta la distancia desde el lado derecho de la imagen */
     z-index: 10; /* Asegura que el botón esté por encima de la imagen */
   }
 
   .edit-button-trash {
     position: absolute;
-    top: 75px;  /* Ajusta la distancia desde la parte superior de la imagen */
-    right: 88px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    top: 0;  /* Ajusta la distancia desde la parte superior de la imagen */
+    right: 41px; /* Ajusta la distancia desde el lado derecho de la imagen */
     z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+  }
+
+  .icon-timer{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .icon-delete{
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .image{

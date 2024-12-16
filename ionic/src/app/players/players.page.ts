@@ -11,6 +11,7 @@ import { date, format } from "@formkit/tempo"
 import { Team } from '../interfaces/Team';
 import { AuthService } from '../services/auth.service';
 import { PassMarket } from '../interfaces/PassMarket';
+import { User } from '../interfaces/User';
 
 @Component({
   selector: 'app-players',
@@ -118,9 +119,21 @@ export class PlayersPage implements OnInit {
       amount: 0
     }]
   }
-  user = {
+  user: User = {
     _id: "",
-    completedFormMarket: false
+    completedFormMarket: false,
+    firstName: "",
+    lastName: "",
+    docNumber: 0,
+    gender: "",
+    phone:0,
+    birthday: "",
+    birthdayFormatted: "",
+    profileImg: "",
+    password: "",
+    pictureAccept: false,
+    status: "",
+    email: "",
   }
   players: Player[] = []
   selectedFile: File | null = null;

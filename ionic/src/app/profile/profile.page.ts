@@ -71,6 +71,8 @@ export class ProfilePage implements OnInit {
       birthday: "yyyy-mm-dd",
       birthdayFormatted: "",
       profileImg: "",
+      pictureAccept: false,
+      status: "",
       instagram: "",
       notes: "",
       email: "",

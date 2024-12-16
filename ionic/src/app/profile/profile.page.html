@@ -95,11 +95,32 @@
       <ion-label style="width: 100%; display: flex; justify-content: center;">Mis Datos</ion-label>
     </ion-list-header>
     <form #miForm>
-      <div class="image">
-        <img [src]="usuario.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
-        <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-        <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+      <div class="image" *ngIf="usuario.pictureAccept === true && usuario.status === 'approved'">
+        <div style="position: relative;">
+          <img [src]="usuario.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
+          <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+          <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
+        </div>
+      </div>
+      <div class="image" *ngIf="usuario.pictureAccept === false && usuario.status === 'pending'">
+        <div style="position: relative;">
+          <img [src]="usuario.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
+          <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <ng-container *ngIf="usuario.profileImg !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+            <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+            <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+          </ng-container>
         <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
+        </div>
+      </div>
+      <div class="image" *ngIf="usuario.pictureAccept === false && usuario.status === 'rejected'">
+        <div style="position: relative;">
+          <img [src]="usuario.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
+          <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <ion-icon class="icon-delete" color="danger" size="large" name="close-outline"></ion-icon>
+        <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
+        </div>
       </div>
     <ion-item>
       <ion-input label="Nombre" labelPlacement="stacked" name="firstName" [value]="usuario.firstName"></ion-input>
