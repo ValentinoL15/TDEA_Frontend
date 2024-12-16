@@ -63,7 +63,7 @@
   </ng-template>
 
   <h6 style="text-align: center;">Usuarios</h6>
-  <ng-container *ngIf="playerImages.length > 0; else noImagesUsers">
+  <ng-container *ngIf="userImages.length > 0; else noImagesUsers">
     <ion-list>
       <div *ngFor="let item of userImages" style="width: 100%; display: flex;">
         <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
@@ -75,7 +75,7 @@
         </div>
       </div>
     </ion-list>
-    <ion-button style="width: 100%; display: flex; justify-content: center;" (click)="aprobarSeleccionados('player')" color="success">Aprobar Jugadores Seleccionados</ion-button>
+    <ion-button style="width: 100%; display: flex; justify-content: center;" (click)="aprobarSeleccionados('user')" color="success">Aprobar Usuarios Seleccionados</ion-button>
   </ng-container>
   <ng-template #noImagesUsers>
     <p style="text-align: center; color: red;">No hay imágenes para mostrar de usuarios</p>

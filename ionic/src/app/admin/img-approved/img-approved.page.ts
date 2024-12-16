@@ -31,8 +31,7 @@ export class ImgApprovedPage implements OnInit {
         this.playerImages = this.images.filter(img => img.playerPicture);
         this.listImages = this.images.filter(img => img.listPicture);
         this.userImages = this.images.filter(img => img.userPicture)
-        console.log('Imágenes de equipo:', this.teamImages);
-    console.log('Imágenes de jugador:', this.playerImages);
+        console.log("asdasdasd:", this.userImages)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);

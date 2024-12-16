@@ -43,7 +43,7 @@
     padding: 5px;
     height: 100%;
     background-color: orange;
-    
+    position: relative;
   }
 
   .contenedor3 {
@@ -156,4 +156,12 @@
     padding: 5px;
     background-color: black;
   }
+
+  .icon-timer{
+    position: absolute;
+    top: 3px;
+    left: 0;
+    z-index: 10000;
+  }
+
   
