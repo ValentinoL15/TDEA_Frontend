@@ -137,6 +137,7 @@ export class PlayersPage implements OnInit {
   }
   players: Player[] = []
   selectedFile: File | null = null;
+  selectedFile3: File | null = null;
   selectedSegment: string = 'players'; // Valor inicial del segmento
   times = [
     "00:00", "00:15", "00:30", "00:45",
@@ -231,10 +232,38 @@ export class PlayersPage implements OnInit {
     console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
+  public alertImagen2 = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        this.editImage2()
+      },
+    },
+  ];
+  setResults2(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
   public alertInputImage = [
     {
       placeholder: 'Elige una foto',
       name: 'image',
+      type: 'file'
+    },
+  ];
+
+  public alertInputImage2 = [
+    {
+      placeholder: 'Elige una foto para el Mercado de Pases',
+      name: 'image2',
       type: 'file'
     },
   ];
@@ -347,17 +376,17 @@ export class PlayersPage implements OnInit {
     this.userService.getMyPlayer().subscribe({
       next: (res: any) => {
         this.myPlayer = res.passMarket
-        console.log('Jugador actualizado:', this.myPlayer); // Asegúrate de 
-        this.form3.patchValue({
-          position: this.myPlayer.position || '',
-          pieHabil: this.myPlayer.pieHabil || '',
-          altura: this.myPlayer.altura || '',
-          peso: this.myPlayer.peso || '',
-          trayectoria: this.myPlayer.trayectoria || '',
-          zona: this.myPlayer.zona || '',
-          horarios: this.myPlayer.horarios || ''
-        });
-        
+        if (this.myPlayer) { // Solo ejecuta si myPlayer no es null
+          console.log('Jugador actualizado:', this.myPlayer);
+          this.form3.patchValue({
+            position: this.myPlayer.position || '',
+            pieHabil: this.myPlayer.pieHabil || '',
+            altura: this.myPlayer.altura || '',
+            peso: this.myPlayer.peso || '',
+            trayectoria: this.myPlayer.trayectoria || '',
+            zona: this.myPlayer.zona || '',
+            horarios: this.myPlayer.horarios || ''
+          })};
       },
       error: (err: any) => {
         this.notifyService.error(err.message)
@@ -404,7 +433,6 @@ export class PlayersPage implements OnInit {
     this.userService.getPlayersTeam().subscribe({
       next: (res: any) => {
         this.players = res.listOfPlayers;
-        console.log(this.players);
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -501,6 +529,11 @@ export class PlayersPage implements OnInit {
     fileInput.click(); // Simula el clic en el input de archivo oculto
   }
 
+  onSelectImage2() {
+    const fileInput = document.getElementById('file-input-edit') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
+  }
+
   ingresarMarket(){
     const formulario = {
       horarios: this.form2.value.horarios,
@@ -567,6 +600,16 @@ cancel2(){
     }
   }
 
+  onFileSelected3(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile3 = file;
+    console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.editImage2();
+    }
+  }
+
   editImage(){
     const form = new FormData();
     form.append('image', this.selectedFile2 as Blob);
@@ -575,6 +618,24 @@ cancel2(){
       next: (res: any) => {
         this.notifyService.success(res.message);
         window.location.href = 'user/players'
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  editImage2(){
+    const form = new FormData();
+    form.append('image', this.selectedFile3 as Blob);
+    this.AuthService.editPhotoProfile(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getMyPlayer()
+        this.getPlayers()
+        this.getUser()
+          // Actualiza el BehaviorSubject con la nueva URL de la imagen
+          this.AuthService.updateUser(res.user);
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
@@ -606,6 +667,30 @@ cancel2(){
     await alert.present();
   }
 
+  async presentAlertImagen2() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImage2(); // Llama a la función para editar la imagen
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
   deletePhoto(){
     const form = new FormData();
     form.append('image', this.selectedFile as Blob);
@@ -613,6 +698,22 @@ cancel2(){
       next: (res: any) => {
         this.notifyService.success(res.message);
         window.location.href = `/user/players`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  deletePhoto2(){
+    const form = new FormData();
+    form.append('image', this.selectedFile3 as Blob);
+    this.AuthService.deletePhotoProfile(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getMyPlayer()
+        this.getPlayers()
+        this.getUser()
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);

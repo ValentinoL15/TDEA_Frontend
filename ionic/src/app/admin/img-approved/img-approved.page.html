@@ -5,6 +5,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
+
+  <h6 style="text-align: center;">Usuarios</h6>
+  <ng-container *ngIf="userImages.length > 0; else noImagesUsers">
+    <ion-list>
+      <div *ngFor="let item of userImages" style="width: 100%; display: flex;">
+        <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
+          <ion-checkbox [(ngModel)]="item.selected"></ion-checkbox>
+          <img [src]="item.img" alt="imagen" width="180px" height="180px">
+          <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+            <ion-button (click)="eliminarUserPicture(item._id)" color="danger">Eliminar</ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+    <ion-button style="width: 100%; display: flex; justify-content: center;" (click)="aprobarSeleccionados('user')" color="success">Aprobar Usuarios Seleccionados</ion-button>
+  </ng-container>
+  <ng-template #noImagesUsers>
+    <p style="text-align: center; color: red;">No hay imágenes para mostrar de usuarios</p>
+  </ng-template>
+
   <h6 style="text-align: center;">Escudos</h6>
   <ng-container *ngIf="teamImages.length > 0; else noImagesTeam">
     <ion-list>
@@ -62,23 +82,5 @@
     <p style="text-align: center; color: red;">No hay imágenes para mostrar de jugadores</p>
   </ng-template>
 
-  <h6 style="text-align: center;">Usuarios</h6>
-  <ng-container *ngIf="userImages.length > 0; else noImagesUsers">
-    <ion-list>
-      <div *ngFor="let item of userImages" style="width: 100%; display: flex;">
-        <div style="display: flex; height: 100%; width: 100%; justify-content: space-around; align-items: center;">
-          <ion-checkbox [(ngModel)]="item.selected"></ion-checkbox>
-          <img [src]="item.img" alt="imagen" width="180px" height="180px">
-          <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-            <ion-button (click)="eliminarUserPicture(item._id)" color="danger">Eliminar</ion-button>
-          </div>
-        </div>
-      </div>
-    </ion-list>
-    <ion-button style="width: 100%; display: flex; justify-content: center;" (click)="aprobarSeleccionados('user')" color="success">Aprobar Usuarios Seleccionados</ion-button>
-  </ng-container>
-  <ng-template #noImagesUsers>
-    <p style="text-align: center; color: red;">No hay imágenes para mostrar de usuarios</p>
-  </ng-template>
 </ion-content>
 

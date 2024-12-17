@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Sesion } from '../interfaces/Sesion';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class AuthService {
   //API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http: HttpClient) { }
+
+  private userSubject = new BehaviorSubject<User | null>(null); // Acepta null
+  user$ = this.userSubject.asObservable();
+
 
   /************************************TOKEN**********************************/ 
   setToken(token : string): void {
@@ -82,11 +87,31 @@ export class AuthService {
   editUser(form : any){
     return this.http.put(`${this.API_URL}/edit-user`, form)
   }
-  
-  editPhotoProfile(image : any){
-    return this.http.put(`${this.API_URL}/editar-imagen-profile`, image)
+  editPhotoProfile(image: any) {
+    return this.http.put<{ user: User }>(
+      `${this.API_URL}/editar-imagen-profile`,
+      image
+    ).pipe(
+      tap(response => {
+        console.log('Respuesta backend:', response.user); 
+        this.updateUser(response.user); // Propagar los datos siempre
+      })
+    );
   }
 
+  get imageProfile(){
+    return this.userSubject.asObservable()
+  }
+
+  updateUser(user: User) {
+    console.log('Actualizando el BehaviorSubject con:', user);
+    this.userSubject.next(user); 
+  }
+
+  set User(initialUser: User) {
+    this.userSubject.next(initialUser);
+  }
+  
   deletePhotoProfile(image : any){
     return this.http.put(`${this.API_URL}/eliminar-foto-profile`, image)
   }
