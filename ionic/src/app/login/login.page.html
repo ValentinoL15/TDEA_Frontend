@@ -61,12 +61,16 @@
           <ion-input label="Nacimiento" labelPlacement="stacked" formControlName="birthday" type="date" id="start" />
         </ion-item>
 
-        <ion-item>
-          <div class="foto">
-            <label>Foto de Perfil</label>
-          </div>
-          <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
-        </ion-item>
+     <ion-item>
+  <div class="foto">
+    <label>Foto de Perfil</label>
+    <!-- Vista previa de la imagen -->
+    <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
+    <img *ngIf="imagePreview" width="30px" height="30px" [src]="imagePreview" class="preview-img" />
+  </div>
+  <!-- Input de tipo archivo -->
+  
+</ion-item>
 
         <ion-item class="item">
           <ion-input formControlName="email" label="Email" labelPlacement="floating" placeholder="Example123@hotmail.com"></ion-input>
