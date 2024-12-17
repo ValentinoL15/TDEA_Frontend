@@ -166,6 +166,7 @@ export class LoginPage implements OnInit {
     onFileSelected(event: Event) {
       const file = (event.target as HTMLInputElement)?.files?.[0];
       if (file) {
+        this.selectedFile = file;
         const reader = new FileReader();
         reader.onload = (e) => {
           // Asegurar que `e?.target?.result` sea un string válido
