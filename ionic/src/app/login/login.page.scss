@@ -100,13 +100,17 @@ ion-modal{
     width: 100%;
     height: 25px;
 }
-
 .foto {
-    width: 100%;
     display: flex;
-    justify-content: start;
-}
-
+    align-items: center;
+    gap: 10px; /* Espacio entre la imagen y el texto */
+  }
+  
+  .preview-img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+  }
 
 
 

@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   name: string = "";
+  imagePreview: string | ArrayBuffer | null = null;
 
 
   phoneNumber: any
@@ -162,10 +163,18 @@ export class LoginPage implements OnInit {
     /*}*/
     }
 
-    onFileSelected(event: any) {
-      const file: File = event.target.files[0];
-      this.selectedFile = file;
-      console.log('Archivo seleccionado:', file);
+    onFileSelected(event: Event) {
+      const file = (event.target as HTMLInputElement)?.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          // Asegurar que `e?.target?.result` sea un string válido
+          this.imagePreview = e?.target?.result as string;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.imagePreview = null; // Limpiar la vista previa si no se selecciona ningún archivo
+      }
     }
 
     onWillDismiss(event: Event) {
