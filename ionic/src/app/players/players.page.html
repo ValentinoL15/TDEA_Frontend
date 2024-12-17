@@ -179,7 +179,7 @@
 
       <div class="element-3">
         <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Posicion" [value]="player.position"></ion-input>
+          <ion-input  readonly="true" labelPlacement="stacked" label="Posicion" [value]="player?.position"></ion-input>
         </ion-item>
       </div>
 
@@ -215,6 +215,37 @@
       <ion-content class="ion-padding">
 
         <form [formGroup]="form2" *ngIf="user.completedFormMarket === false">
+
+          <div class="image5" *ngIf="user.pictureAccept === true && user.status === 'approved'">
+            <div style="position: relative;">
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2"/>
+              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
+            </div>
+          </div>
+          <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'pending'">
+            <div style="position: relative;">
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2"/>
+              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ng-container *ngIf="user.profileImg !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+                <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+                <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              </ng-container>
+            <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
+            </div>
+          </div>
+          <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'rejected'">
+            <div style="position: relative;">
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2"/>
+              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-icon class="icon-delete" color="danger" size="large" name="close-outline"></ion-icon>
+            <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
+            </div>
+          </div>
+
+
+
           <ion-item>
             <ion-select
             label="Horarios"
@@ -409,6 +440,16 @@
   (change)="onFileSelected($event)"
   (didDismiss)="setResults($event)"
 ></ion-alert>
+
+<ion-alert
+  trigger="imagen-alert2"
+  header="Editar Imagen Mercado"
+  [buttons]="alertImagen2"
+  [inputs]="alertInputImage2"
+  (change)="onFileSelected3($event)"
+  (didDismiss)="setResults2($event)"
+></ion-alert>
+
 
 <ion-alert
   trigger="present-alert"
