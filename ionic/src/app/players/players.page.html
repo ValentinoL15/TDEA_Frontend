@@ -161,9 +161,47 @@
     </div>
     <hr>
   </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Filtrar Jugadores</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="aplicarFiltros()">
+        <ion-item>
+          <ion-select label="Zona" labelPlacement="floating" [(ngModel)]="filtros.zona" name="zona">
+            <ion-select-option *ngFor="let zona of zonas" [value]="zona">{{ zona }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item>
+          
+          <ion-select label="Posición" labelPlacement="floating" [(ngModel)]="filtros.position" name="position">
+            <ion-select-option *ngFor="let posicion of posiciones" [value]="posicion">{{ posicion }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input 
+          label="Edad"
+          labelPlacement="floating"
+            [(ngModel)]="filtros.edad" 
+            name="edad" 
+            [min]="15" 
+            [max]="40" 
+           type="number"
+          >
+          </ion-input>
+        </ion-item>
+      
+        <ion-button expand="block" type="submit">Aplicar Filtros</ion-button>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
   
   <div>
-    <div *ngFor="let player of playersMarket" class="contenedor3">
+    <div *ngFor="let player of playersFiltered" class="contenedor3">
         <img class="image2 imagen" [src]="player.playerImage"/>
       <div class="element-1">
         <ion-item>
@@ -244,19 +282,31 @@
             </div>
           </div>
 
-
+          <ion-item>
+            <ion-input
+              label="Nombre"
+              labelPlacement="floating"
+              type="text"
+              formControlName="nombre"
+            ></ion-input>
+          </ion-item>
 
           <ion-item>
-            <ion-select
-            label="Horarios"
-            labelPlacement="floating"
-            formControlName="horarios"
-            multiple="true"
-            placeholder="Selecciona horarios">
-            <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
-              {{ horario.label }}
-            </ion-select-option>
-            </ion-select>
+            <ion-input
+              label="Apellido"
+              labelPlacement="floating"
+              type="text"
+              formControlName="apellido"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Fecha de Nacimiento"
+              labelPlacement="floating"
+              type="date"
+              formControlName="nacimiento"
+            ></ion-input>
           </ion-item>
 
           <ion-item>
@@ -313,6 +363,20 @@
               <ion-select-option value="GBASur">GBA Sur</ion-select-option>
             </ion-select>
           </ion-item>
+
+          <ion-item>
+            <ion-select
+            label="Horarios"
+            labelPlacement="floating"
+            formControlName="horarios"
+            multiple="true"
+            placeholder="Selecciona horarios">
+            <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
+              {{ horario.label }}
+            </ion-select-option>
+            </ion-select>
+          </ion-item>
+
         </form>
       </ion-content>
     </ng-template>
@@ -361,17 +425,32 @@
             <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-myPlayer" />
             </div>
           </div>
+          
           <ion-item>
-            <ion-select
-            label="Horarios"
-            labelPlacement="floating"
-            formControlName="horarios"
-            multiple="true"
-            placeholder="Selecciona horarios">
-            <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
-              {{ horario.label }}
-            </ion-select-option>
-            </ion-select>
+            <ion-input
+              label="Nombre"
+              labelPlacement="floating"
+              type="text"
+              formControlName="nombre"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Apellido"
+              labelPlacement="floating"
+              type="text"
+              formControlName="apellido"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Nacimiento"
+              labelPlacement="floating"
+              type="date"
+              formControlName="nacimiento"
+            ></ion-input>
           </ion-item>
 
           <ion-item>
@@ -425,6 +504,18 @@
               <ion-select-option value="GBANorte">GBA Norte</ion-select-option>
               <ion-select-option value="GBAOeste">GBA Oeste</ion-select-option>
               <ion-select-option value="GBASur">GBA Sur</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-select
+            label="Horarios"
+            labelPlacement="floating"
+            formControlName="horarios"
+            multiple="true"
+            placeholder="Selecciona horarios">
+            <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
+              {{ horario.label }}
+            </ion-select-option>
             </ion-select>
           </ion-item>
         </form>

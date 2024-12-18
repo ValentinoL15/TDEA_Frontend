@@ -1,5 +1,5 @@
 export interface PassMarket {
-    _id: "",
+    _id: string,
     nombre?: string,
     apellido?: string,
     phone?: string,
