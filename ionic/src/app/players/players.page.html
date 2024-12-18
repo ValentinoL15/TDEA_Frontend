@@ -285,27 +285,29 @@
           <ion-item>
             <ion-input
               label="Nombre"
-              labelPlacement="floating"
+              labelPlacement="stacked"
               type="text"
-              formControlName="nombre"
+              [placeholder]="user.firstName"
+              readonly="true" 
             ></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-input
               label="Apellido"
-              labelPlacement="floating"
+              labelPlacement="stacked"
               type="text"
-              formControlName="apellido"
+              [placeholder]="user.lastName"
+              readonly="true"
             ></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-input
               label="Fecha de Nacimiento"
-              labelPlacement="floating"
-              type="date"
-              formControlName="nacimiento"
+              labelPlacement="stacked"
+              [placeholder]="user.birthday"
+              readonly="true"
             ></ion-input>
           </ion-item>
 
