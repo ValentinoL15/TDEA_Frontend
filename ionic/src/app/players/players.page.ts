@@ -305,9 +305,6 @@ export class PlayersPage implements OnInit {
       shirtNumber: ['', Validators.required]
     })
     this.form2 = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      nacimiento: ['', Validators.required],
       position: ['', Validators.required],
       pieHabil: ['', [Validators.required]],
       altura: ['', [Validators.required, Validators.pattern('^[1-9]\\.[0-9]{2}$')]],
@@ -412,6 +409,12 @@ export class PlayersPage implements OnInit {
     this.AuthService.getUser().subscribe({
       next: (res: any) => {
         this.user = res.user
+        this.form2.patchValue({
+          nombre: this.user.firstName || '',
+          apellido: this.user.lastName || '',
+          nacimiento: this.user.birthday || ''
+        })
+        console.log("sdasdio haspdfhasd;",this.form2.value)
       },
       error: (err: any) => {
         console.log(err)
@@ -424,7 +427,6 @@ export class PlayersPage implements OnInit {
       next: (res: any) => {
         this.myPlayer = res.passMarket
         if (this.myPlayer) { // Solo ejecuta si myPlayer no es null
-          console.log('Jugador actualizado:', this.myPlayer);
           this.form3.patchValue({
             nombre: this.myPlayer.nombre || '',
             apellido: this.myPlayer.apellido || '',
@@ -437,6 +439,7 @@ export class PlayersPage implements OnInit {
             zona: this.myPlayer.zona || '',
             horarios: this.myPlayer.horarios || ''
           })};
+          console.log('Jugador actualizado:', this.form2.value);
           this.cargarJugadores({});
       },
       error: (err: any) => {
@@ -461,7 +464,7 @@ export class PlayersPage implements OnInit {
     this.userService.editMyPlayer(formulario).subscribe({
       next: (res: any) => {
         this.notifyService.success('Jugador actualizado')
-        this.getMyPlayer()
+        window.location.href = '/user/players'
       },
       error: (err: any) => {
         this.notifyService.error(err.message)
@@ -590,9 +593,9 @@ export class PlayersPage implements OnInit {
 
   ingresarMarket(){
     const formulario = {
-      nombre: this.form2.value.nombre,
-      apellido: this.form2.value.apellido,
-      nacimiento: this.form2.value.nacimiento,
+      nombre: this.form2.get('nombre')?.value,
+      apellido: this.form2.get('apellido')?.value,
+      nacimiento: this.form2.get('nacimiento')?.value,
       horarios: this.form2.value.horarios,
       peso : this.form2.value.peso,
       altura: this.form2.value.altura,
