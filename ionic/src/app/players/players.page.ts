@@ -139,6 +139,7 @@ export class PlayersPage implements OnInit {
   selectedFile: File | null = null;
   selectedFile3: File | null = null;
   selectedSegment: string = 'players'; // Valor inicial del segmento
+  playersFiltered: any[] = []; // Jugadores filtrados
   times = [
     "00:00", "00:15", "00:30", "00:45",
     "01:00", "01:15", "01:30", "01:45",
@@ -177,6 +178,7 @@ export class PlayersPage implements OnInit {
       horarios: []
   }
   playersMarket: PassMarket[] = []
+  filtros: any = {}; // Objeto para los filtros seleccionados
   myPlayer: PassMarket = {
     _id: "",
     playerImage: "",
@@ -187,6 +189,8 @@ export class PlayersPage implements OnInit {
     horarios: []
   }
   diasSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+  zonas: string[] = ['CABA', 'GBANorte', 'GBAOeste', 'GBASur'];
+  posiciones: string[] = ['Delantero', 'Defensor', 'Arquero', 'Mediocampista'];
   dia: string[] = []
   horarioOptions = [
     { value: 'LunesMañana', label: 'Lunes a la Mañana' },
@@ -301,6 +305,9 @@ export class PlayersPage implements OnInit {
       shirtNumber: ['', Validators.required]
     })
     this.form2 = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      nacimiento: ['', Validators.required],
       position: ['', Validators.required],
       pieHabil: ['', [Validators.required]],
       altura: ['', [Validators.required, Validators.pattern('^[1-9]\\.[0-9]{2}$')]],
@@ -310,6 +317,9 @@ export class PlayersPage implements OnInit {
       horarios: [[]],
     })
     this.form3 = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      nacimiento: ['', Validators.required],
       position: ['', Validators.required],
       pieHabil: ['', [Validators.required]],
       altura: ['', [Validators.required, Validators.pattern('^[1-9]\\.[0-9]{2}$')]],
@@ -338,6 +348,7 @@ export class PlayersPage implements OnInit {
     this.getUser()
     this.getMarket()
     this.getMyPlayer()
+    this.cargarJugadores({});
     this.userService.getDeuda().subscribe({
       next: (res: any) => {
         if (res.team && res.team.active) {
@@ -350,6 +361,42 @@ export class PlayersPage implements OnInit {
         this.notifyService.error(err.message)
       }
     })
+  }
+
+  cargarJugadores(filtros: any) {
+    this.userService.buscarJugadoresMarket(filtros).subscribe({
+      next: (res: any) => {
+        // Asignamos los jugadores de mercado
+        this.playersMarket = res.jugadores || [];
+        
+        // Nos aseguramos de excluir `myPlayer` solo si está definido
+        if (this.myPlayer?._id) {
+          this.playersFiltered = this.playersMarket.filter(player => player._id !== this.myPlayer._id);
+        } else {
+          this.playersFiltered = this.playersMarket; // Si no tenemos myPlayer, mostramos todos los jugadores
+        }
+  
+        console.log("Jugadores después de filtrar:", this.playersFiltered);
+      },
+      error: (err: any) => {
+        console.error('Error al cargar jugadores:', err);
+      }
+    });
+  }
+  
+  calcularEdad(fechaNacimiento : any) {
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    if (hoy.getMonth() < nacimiento.getMonth() || 
+        (hoy.getMonth() === nacimiento.getMonth() && hoy.getDate() < nacimiento.getDate())) {
+      edad--;
+    }
+    return edad;
+  }
+
+  aplicarFiltros() {
+    this.cargarJugadores(this.filtros); // Usar los filtros seleccionados
   }
   
 
@@ -379,6 +426,9 @@ export class PlayersPage implements OnInit {
         if (this.myPlayer) { // Solo ejecuta si myPlayer no es null
           console.log('Jugador actualizado:', this.myPlayer);
           this.form3.patchValue({
+            nombre: this.myPlayer.nombre || '',
+            apellido: this.myPlayer.apellido || '',
+            nacimiento: this.myPlayer.nacimiento || '',
             position: this.myPlayer.position || '',
             pieHabil: this.myPlayer.pieHabil || '',
             altura: this.myPlayer.altura || '',
@@ -387,6 +437,7 @@ export class PlayersPage implements OnInit {
             zona: this.myPlayer.zona || '',
             horarios: this.myPlayer.horarios || ''
           })};
+          this.cargarJugadores({});
       },
       error: (err: any) => {
         this.notifyService.error(err.message)
@@ -396,6 +447,9 @@ export class PlayersPage implements OnInit {
 
   editMyPlayer(){
     const formulario = {
+      nombre: this.form3.get('nombre')?.value,
+      apellido: this.form3.get('apellido')?.value,
+      nacimiento: this.form3.get('nacimiento')?.value,
       position: this.form3.get('position')?.value,
       pieHabil: this.form3.get('pieHabil')?.value,
       altura: this.form3.get('altura')?.value,
@@ -536,6 +590,9 @@ export class PlayersPage implements OnInit {
 
   ingresarMarket(){
     const formulario = {
+      nombre: this.form2.value.nombre,
+      apellido: this.form2.value.apellido,
+      nacimiento: this.form2.value.nacimiento,
       horarios: this.form2.value.horarios,
       peso : this.form2.value.peso,
       altura: this.form2.value.altura,
