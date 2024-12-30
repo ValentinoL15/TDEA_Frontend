@@ -393,7 +393,15 @@ export class PlayersPage implements OnInit {
   }
 
   aplicarFiltros() {
-    this.cargarJugadores(this.filtros); // Usar los filtros seleccionados
+    this.userService.buscarJugadoresMarket(this.filtros).subscribe({
+      next: (res: any) => {
+        this.playersFiltered = res.jugadores;
+      },
+      error: (err: any) => {
+        console.error('Error al aplicar filtros:', err);
+      }
+    }
+    );
   }
 
   desaplicarFiltros(){

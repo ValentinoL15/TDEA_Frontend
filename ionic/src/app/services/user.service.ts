@@ -303,26 +303,14 @@ buscarJugadoresMarket(filtros: any) {
   const params: any = {};
 
   // Agregar filtros solo si están presentes
-  if (filtros.zona) {
-    params.zona = filtros.zona;
-  }
-  if (filtros.position) {
-    params.position = filtros.position;
-  }
-  if (filtros.pieHabil) {
-    params.pieHabil = filtros.pieHabil;
-  }
-  if (filtros.skip) {
-    params.skip = filtros.skip;
-  }
-  if (filtros.limit) {
-    params.limit = filtros.limit;
-  }
-  if (filtros.edad) {
-    params.edad = filtros.edad; 
-  }
+  if (filtros.zona) params.zona = filtros.zona;
+  if (filtros.position) params.position = filtros.position;
+  if (filtros.pieHabil) params.pieHabil = filtros.pieHabil;
+  if (filtros.skip) params.skip = filtros.skip;
+  if (filtros.limit) params.limit = filtros.limit;
+  if (filtros.edadDesde) params.edadDesde = filtros.edadDesde;
+  if (filtros.edadHasta) params.edadHasta = filtros.edadHasta;
 
-  // Realizar la solicitud HTTP GET con los parámetros
   return this.http.get(`${this.API_URL}/buscar-jugadores-market`, { params });
 }
 
