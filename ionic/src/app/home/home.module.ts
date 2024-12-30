@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
+import { JoyrideModule } from 'ngx-joyride';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JoyrideModule.forChild()
   ],
   declarations: [HomePage]
 })

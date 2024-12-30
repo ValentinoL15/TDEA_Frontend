@@ -74,6 +74,10 @@ export class AuthService {
     return this.http.put(`${this.API_URL}/reset-password/${id}`, {password})
   }
 
+  reenviarCode(id : any){
+    return this.http.post(`${this.API_URL}/reenviar-codigo/${id}`, {})
+  }
+
   /****************************************USER*************************************/ 
 
   changePhone(phone: string): Observable<any[]> {
