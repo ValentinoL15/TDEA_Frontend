@@ -166,14 +166,14 @@
     <ion-card-content>
       <form>
         <ion-item>
-          <ion-select label="Zona" labelPlacement="floating" [(ngModel)]="filtros.zona" name="zona">
+          <ion-select label="Zona" labelPlacement="floating" interface="popover" [(ngModel)]="filtros.zona" name="zona">
             <ion-select-option *ngFor="let zona of zonas" [value]="zona">{{ zona }}</ion-select-option>
           </ion-select>
         </ion-item>
       
         <ion-item>
           
-          <ion-select label="Posición" labelPlacement="floating" [(ngModel)]="filtros.position" name="position">
+          <ion-select label="Posición" labelPlacement="floating" interface="popover" [(ngModel)]="filtros.position" name="position">
             <ion-select-option *ngFor="let posicion of posiciones" [value]="posicion">{{ posicion }}</ion-select-option>
           </ion-select>
         </ion-item>
