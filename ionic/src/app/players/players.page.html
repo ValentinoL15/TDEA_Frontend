@@ -167,7 +167,7 @@
       <ion-card-title>Filtrar Jugadores</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form (ngSubmit)="aplicarFiltros()">
+      <form>
         <ion-item>
           <ion-select label="Zona" labelPlacement="floating" [(ngModel)]="filtros.zona" name="zona">
             <ion-select-option *ngFor="let zona of zonas" [value]="zona">{{ zona }}</ion-select-option>
@@ -194,7 +194,8 @@
           </ion-input>
         </ion-item>
       
-        <ion-button expand="block" type="submit">Aplicar Filtros</ion-button>
+        <ion-button expand="block" type="submit" (click)="aplicarFiltros()">Aplicar Filtros</ion-button>
+        <ion-button expand="block" type="submit" color="danger" (click)="desaplicarFiltros()">Resetear</ion-button>
       </form>
       
     </ion-card-content>
