@@ -72,4 +72,15 @@ export class ConfirmCodePage implements OnInit {
     })
   }
 
+  reenviarCodigo(){
+    this.authService.reenviarCode(this.parametroLargo).subscribe({
+      next: (res: any) => {
+        this.notifyfService.success(res.message);
+      },
+      error: (err: any) => {
+        this.notifyfService.error(err.error.message);
+      }
+    })
+  }
+
 }

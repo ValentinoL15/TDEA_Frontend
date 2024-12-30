@@ -74,18 +74,19 @@
     <p style="text-decoration: underline;" id="open-modal-passMarket" expand="block">Completar formulario para el Mercado de Pases</p>
   </div>-->
 
-  <div class="userEmpty" *ngIf="!team">
+  <div class="userEmpty" *ngIf="!team" style="display: flex; flex-direction: column;">
     <p>Por favor, crea o elegí un equipo</p>
+    <p style="font-size: 15px;" (click)="onClick()">¿Como crear un equipo?</p>
   </div>
 
-
-  <div class="container-button">
+  <div class="container-button" >
     <div class="button">
-      <ion-button shape="round" (click)="ir()">
+      <ion-button shape="round" (click)="ir()" joyrideStep="firstStep" title="Crear Equipo" text="Clickea en el + y completa el formulario para crear tu propio equipo!">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </div>
   </div>
+
 
   <!--<ion-modal trigger="open-modal-passMarket" >
     <ng-template>

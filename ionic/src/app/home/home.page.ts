@@ -11,6 +11,8 @@ import { AuthService } from '../services/auth.service';
 import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import { PassMarket } from '../interfaces/PassMarket';
+import { JoyrideService } from 'ngx-joyride';
+import { JoyrideOptions } from 'ngx-joyride/lib/models/joyride-options.class';
 
 
 @Component({
@@ -86,7 +88,7 @@ export class HomePage implements OnInit {
   form: FormGroup
   phoneNumber: any
 
-  constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder) {
+  constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder, private readonly joyrideService: JoyrideService) {
     this.form = this.fb.group({
       horarios: this.fb.array([]),
       position: ['', Validators.required],
@@ -98,6 +100,14 @@ export class HomePage implements OnInit {
     })
   }
   @ViewChild(IonModal) modal!: IonModal;
+  
+
+  onClick() {
+  const options : JoyrideOptions = {
+    steps: ['firstStep']
+  }
+  this.joyrideService.startTour(options)
+}
 
   ngOnInit() {
     this.getTeams()

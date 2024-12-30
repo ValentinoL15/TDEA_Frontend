@@ -155,6 +155,7 @@ export class LoginPage implements OnInit {
           const modal = document.querySelector('ion-modal');
           modal?.dismiss(this.name, 'confirm');
           this.router.navigate(['/confirm-code/' + res.verificationId])
+          localStorage.setItem('isFirstTime', 'true');
         },
         error: err => {
           this.notifyService.error(err.error.message)
