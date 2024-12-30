@@ -183,16 +183,27 @@
 
         <ion-item>
           <ion-input 
-          label="Edad"
-          labelPlacement="floating"
-            [(ngModel)]="filtros.edad" 
-            name="edad" 
+            label="Edad Desde"
+            labelPlacement="floating"
+            [(ngModel)]="filtros.edadDesde" 
+            name="edadDesde" 
             [min]="15" 
             [max]="40" 
-           type="number"
-          >
+            type="number">
           </ion-input>
         </ion-item>
+        <ion-item>
+          <ion-input 
+            label="Edad Hasta"
+            labelPlacement="floating"
+            [(ngModel)]="filtros.edadHasta" 
+            name="edadHasta" 
+            [min]="15" 
+            [max]="40" 
+            type="number">
+          </ion-input>
+        </ion-item>
+        
       
         <ion-button expand="block" type="submit" (click)="aplicarFiltros()">Aplicar Filtros</ion-button>
         <ion-button expand="block" type="submit" color="danger" (click)="desaplicarFiltros()">Resetear</ion-button>
