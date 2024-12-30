@@ -395,6 +395,11 @@ export class PlayersPage implements OnInit {
   aplicarFiltros() {
     this.cargarJugadores(this.filtros); // Usar los filtros seleccionados
   }
+
+  desaplicarFiltros(){
+    this.cargarJugadores({}); // Usar los filtros vacíos
+    this.filtros = {}
+  }
   
 
   onSegmentChange(event: any) {
