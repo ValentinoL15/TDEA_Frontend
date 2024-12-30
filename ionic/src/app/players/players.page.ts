@@ -396,6 +396,7 @@ export class PlayersPage implements OnInit {
     this.userService.buscarJugadoresMarket(this.filtros).subscribe({
       next: (res: any) => {
         this.playersFiltered = res.jugadores;
+        this.cargarJugadores(this.filtros); // Usar los filtros seleccionados
       },
       error: (err: any) => {
         console.error('Error al aplicar filtros:', err);
