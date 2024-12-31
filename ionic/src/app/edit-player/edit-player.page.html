@@ -53,12 +53,12 @@
   <ion-list [inset]="true">
     <form #miForm>
       <ion-item>
-        <ion-input type="text" label="Nombre" placeholder="Nombre" [(ngModel)]="player.firstName" name="firstName">
+        <ion-input type="text" label="Nombre" placeholder="Nombre" [value]="player.firstName" name="firstName">
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="text" label="Apellido" placeholder="Apellido" [(ngModel)]="player.lastName" name="lastName">
+        <ion-input type="text" label="Apellido" placeholder="Apellido" [value]="player.lastName" name="lastName">
         </ion-input>
       </ion-item>
 
