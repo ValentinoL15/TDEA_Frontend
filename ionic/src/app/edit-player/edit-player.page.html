@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Editar Jugador</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="editPlayer(player._id, miForm)" >Confirmar</ion-button>
+      <ion-button (click)="editPlayer(player._id, miForm)">Confirmar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,46 +13,39 @@
 <ion-content [fullscreen]="true" color="light">
   <div class="image">
     <div class="imagen" *ngIf="player.pictureAccept === true && player.status === 'approved'">
-      <img
-      [src]="player.picturePlayer"
-      alt="Imagen del jugador"
-      id="imagen-jugador"
-      name="image"
-    />
-    <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
-    <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-    <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
+      <img [src]="player.picturePlayer" alt="Imagen del jugador" id="imagen-jugador" name="image" />
+      <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon
+          name="trash-outline"></ion-icon></ion-button>
+      <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon
+          name="pencil-outline"></ion-icon></ion-button>
+      <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
     </div>
-    <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
-      <img 
-      [src]="player.picturePlayer"
-      class="imagen"
-      alt="Imagen por defecto"
-    />
-    <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-    <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
+    <div class="noAccept"
+      *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+      <img [src]="player.picturePlayer" class="imagen" alt="Imagen por defecto" />
+      <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon
+          name="pencil-outline"></ion-icon></ion-button>
+      <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
     </div>
-    <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
-      <img 
-      [src]="player.picturePlayer"
-      class="imagen"
-      alt="Imagen por defecto"
-    />
-    <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
-    <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
-    <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-    <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
+    <div class="noAccept"
+      *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+      <img [src]="player.picturePlayer" class="imagen" alt="Imagen por defecto" />
+      <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+      <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon
+          name="trash-outline"></ion-icon></ion-button>
+      <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon
+          name="pencil-outline"></ion-icon></ion-button>
+      <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
     </div>
     <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
-      <img 
-      src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"
-      class="imagen"
-      alt="Imagen por defecto"
-    />
-    <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
-    <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-    <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
-    <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
+      <img src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" class="imagen"
+        alt="Imagen por defecto" />
+      <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon
+          name="trash-outline"></ion-icon></ion-button>
+      <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon
+          name="pencil-outline"></ion-icon></ion-button>
+      <input type="file" (change)="onFileSelected($event)" hidden id="file-input-player" />
+      <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
       <p style="color: red; font-weight: bold;" class="overlay-text">Imagen no aprobada</p>
     </div>
   </div>
@@ -60,11 +53,13 @@
   <ion-list [inset]="true">
     <form #miForm>
       <ion-item>
-        <ion-input name="firstName" label="Nombre" [value]="player?.firstName || ''"></ion-input>
+        <ion-input type="text" placeholder="Nombre" [(ngModel)]="player.firstName" name="firstName">
+        </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input name="lastName" label="Apellido" [value]="player?.lastName || ''" autocorrect="off" spellcheck="false"></ion-input>
+        <ion-input type="text" placeholder="Apellido" [(ngModel)]="player.lastName" name="lastName">
+        </ion-input>
       </ion-item>
 
       <ion-item (click)="editEdad()">
@@ -90,9 +85,5 @@
 </ion-content>
 
 
-<ion-alert
-  trigger="present-alert"
-  header="Alert!"
-  [buttons]="alertButtons"
-  (didDismiss)="setResult($event)"
-></ion-alert>
+<ion-alert trigger="present-alert" header="Alert!" [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"></ion-alert>
