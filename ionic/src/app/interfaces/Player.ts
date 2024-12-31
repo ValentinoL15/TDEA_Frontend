@@ -1,7 +1,7 @@
 export interface Player {
     _id?: String,
-    firstName: String,
-    lastName?: String,
+    firstName: string,
+    lastName?: string,
     dni?: number,
     shirtNumber?: number,
     nacimiento?: string,

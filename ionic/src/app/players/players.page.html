@@ -14,7 +14,7 @@
 <ion-content [fullscreen]="true" color="light" class="ion-padding" *ngIf="selectedSegment === 'players'">
 
   <div *ngIf="players">
-    <div *ngFor="let player of players" class="contenedor">
+    <div *ngFor="let player of players" class="contenedor" (click)="goPlayer(player._id)">
 
       <!--<div class="image" (click)="goPlayer(player._id)">-->
         <img class="imagen" *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt="" (click)="goPlayer(player._id)"/>
@@ -34,19 +34,19 @@
   
       <div class="element-1">
         <ion-item>
-          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
+          <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
         </ion-item>
       </div>
   
       <div class="element-2">
         <ion-item>
-          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
+          <ion-input readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
         </ion-item>
       </div>
 
       <div class="element-3">
         <ion-item>
-          <ion-input (click)="goPlayer(player._id)" readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
+          <ion-input readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
         </ion-item>
       </div>
     </div>
