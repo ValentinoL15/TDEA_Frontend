@@ -60,11 +60,11 @@
   <ion-list [inset]="true">
     <form #miForm>
       <ion-item>
-        <ion-input readonly="true" name="firstName" label="Nombre" [value]="player.firstName"></ion-input>
+        <ion-input name="firstName" label="Nombre" [value]="player.firstName" autocorrect="off" spellcheck="false"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input readonly="true" name="lastName" label="Apellido" [value]="player.lastName"></ion-input>
+        <ion-input name="lastName" label="Apellido" [value]="player.lastName" autocorrect="off" spellcheck="false"></ion-input>
       </ion-item>
 
       <ion-item (click)="editEdad()">
