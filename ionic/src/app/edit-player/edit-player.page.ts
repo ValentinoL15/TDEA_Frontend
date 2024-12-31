@@ -180,7 +180,7 @@ public alertInputImage = [
     this.userService.editPlayer(id, formulario).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
-        this.getPlayer(id); // Refresca la información del jugador actualizado
+        window.location.href = '/user/players'
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
