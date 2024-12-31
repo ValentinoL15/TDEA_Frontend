@@ -60,28 +60,21 @@
   <ion-list [inset]="true">
     <form #miForm>
       <ion-item>
-        <ion-item>
-          <ion-input name="firstName" label="Nombre" [(ngModel)]="player.firstName"></ion-input>
-        </ion-item>
+        <ion-input name="firstName" label="Nombre" [value]="player.firstName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-item>
-          <ion-input name="lastName" label="Apellido" [(ngModel)]="player.lastName"></ion-input>
-        </ion-item>
+        <ion-input name="lastName" label="Apellido" [value]="player.lastName"></ion-input>
       </ion-item>
 
       <ion-item (click)="editEdad()">
-        <ion-item>
-          <ion-input readonly="true" label="Fecha de Nacimiento" [value]="player.nacimiento"></ion-input>
-        </ion-item>
+        <ion-input readonly="true" label="Fecha de Nacimiento" [value]="player.nacimiento"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-item (click)="editDni()">
-          <ion-input readonly="true" name="dni" label="DNI" [value]="player.dni"></ion-input>
-        </ion-item>
+      <ion-item (click)="editDni()">
+        <ion-input readonly="true" name="dni" label="DNI" [value]="player.dni"></ion-input>
       </ion-item>
+
 
     </form>
 
