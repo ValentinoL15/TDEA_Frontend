@@ -478,7 +478,7 @@ export class PlayersPage implements OnInit {
     this.userService.editMyPlayer(formulario).subscribe({
       next: (res: any) => {
         this.notifyService.success('Jugador actualizado')
-        window.location.href = '/user/players'
+        this.getMyPlayer()
       },
       error: (err: any) => {
         this.notifyService.error(err.message)
