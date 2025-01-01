@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import { NotifyService } from '../services/notify.service';
 import { FormBuilder } from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ export class ProfilePage implements OnInit {
 
 
 
-    constructor(private userService: AuthService, private notifyService: NotifyService, private router: Router, private fb: FormBuilder, private alertController: AlertController) { 
+    constructor(private userService: AuthService, private notifyService: NotifyService, private router: Router, private fb: FormBuilder, private alertController: AlertController, private UserService : UserService) { 
     }
   
     usuario: User = {
@@ -90,7 +91,9 @@ export class ProfilePage implements OnInit {
   
     ngOnInit() {
       this.getUser()
-
+      this.UserService.getMyPlayerUpdatedListener().subscribe(() => {
+        this.getUser(); // O cualquier acción que necesites hacer
+      });
     }
   
     getUser(){
