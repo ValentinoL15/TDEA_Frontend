@@ -8,8 +8,8 @@ import { Observable, Subject, tap } from 'rxjs';
 })
 export class UserService {
 
-  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  API_URL= 'http://localhost:3000/api/futbol'
+  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  //API_URL= 'http://localhost:3000/api/futbol'
   constructor(private http: HttpClient) { }
 
 /*************************************************ADMIN**********************************************/ 
@@ -292,7 +292,9 @@ editMyPlayer(form: any) {
   );
 }
 
-
+getMyPlayerUpdatedListener() {
+  return this.myPlayerUpdated.asObservable();
+}
 
 editMyHorario(id : any, form : any){
   return this.http.put(`${this.API_URL}/edit-myHorarios/${id}`, form)
