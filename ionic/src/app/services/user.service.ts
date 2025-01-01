@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Team } from '../interfaces/Team';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
   constructor(private http: HttpClient) { }
 
 /*************************************************ADMIN**********************************************/ 
@@ -283,9 +283,16 @@ getMyPlayer(){
   return this.http.get(`${this.API_URL}/obtener-myPlayer`)
 }
 
-editMyPlayer(form : any){
-  return this.http.put(`${this.API_URL}/editar-myPlayer`, form)
+private myPlayerUpdated = new Subject<void>();
+
+editMyPlayer(form: any) {
+  return this.http.put(`${this.API_URL}/editar-myPlayer`, form).pipe(
+    // Emitir evento después de actualizar myPlayer
+    tap(() => this.myPlayerUpdated.next())
+  );
 }
+
+
 
 editMyHorario(id : any, form : any){
   return this.http.put(`${this.API_URL}/edit-myHorarios/${id}`, form)
