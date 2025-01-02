@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { SharedService } from '../services/shared.service';
 import { IonModal } from '@ionic/angular';
 import { UserService } from '../services/user.service';
@@ -8,7 +8,7 @@ import { Team } from '../interfaces/Team';
 import { NotifyService } from '../services/notify.service';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../services/auth.service';
-import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import { PassMarket } from '../interfaces/PassMarket';
 import { JoyrideService } from 'ngx-joyride';
@@ -78,6 +78,7 @@ export class HomePage implements OnInit {
     "22:00", "22:15", "22:30", "22:45", 
     "23:00", "23:15", "23:30", "23:45",
   ];
+  selectedFile: File | null = null;
 
 
   isModalOpen = false;
@@ -88,7 +89,56 @@ export class HomePage implements OnInit {
   form: FormGroup
   phoneNumber: any
 
-  constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder, private readonly joyrideService: JoyrideService) {
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+  setResult(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
+  public alertImagen = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        this.editImagen()
+      },
+    },
+  ];
+  setResults(ev : any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
+  //INPUTS
+  public alertInputImage = [
+    {
+      placeholder: 'Elige una foto',
+      name: 'image',
+      type: 'file'
+    },
+  ];
+
+  constructor(private router:Router, private userService : UserService, private route: ActivatedRoute, private notifyService: NotifyService, private AuthService: AuthService, private fb: FormBuilder, private readonly joyrideService: JoyrideService, private alertController: AlertController) {
     this.form = this.fb.group({
       horarios: this.fb.array([]),
       position: ['', Validators.required],
@@ -257,6 +307,132 @@ export class HomePage implements OnInit {
 
   removeDayTournament(index: number) {
     this.horarios.removeAt(index);
+  }
+
+  editTeam(form: NgForm){
+    if (!form.dirty) {
+      this.notifyService.error("No hay cambios para guardar.");
+      return;
+    }
+    const formulario = {
+      teamName: this.team.teamName,
+      teamNotes: this.team.teamNotes,
+      socialMedia: this.team.socialMedia,
+    }
+    this.userService.editTeam(formulario).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getTeams()
+        this.getTeamActive()
+        form.resetForm(this.team); // Resetea el formulario al estado inicial
+      },
+      error: (err : any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+    console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.presentAlertImagen();
+    }
+  }
+
+  async presentAlertImagen() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImagen(); // Llama a la función para editar la imagen
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+
+  editImagen(){
+    const form = new FormData();
+      form.append('image', this.selectedFile as Blob);
+    this.userService.editPhoto(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getTeams()
+        this.getTeamActive()
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  async deleteTeam(id: any) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que quieres borrar este equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // El usuario ha cancelado, no hacer nada
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            // El usuario ha confirmado, proceder con la eliminación
+            this.userService.eliminarTeam(this.team._id).subscribe({
+              next: (res: any) => {
+                this.notifyService.success(res.message);
+                setTimeout(() => {
+                  window.location.href = `/user/home`;
+                }, 500); 
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message);
+              }
+            });
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  deletePhoto(){
+    this.userService.deletePhotoTeam(this.team._id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getTeamActive()
+        this.getTeams()
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+  
+  onSelectImage() {
+    const fileInput = document.getElementById('file-input-team') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
   }
 
   ingresarMarket(){

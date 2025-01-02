@@ -90,12 +90,12 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.get(`${this.API_URL}/obtener-equipo/${id}`)
   }
 
-  editTeam(id:any , form:any){
-    return this.http.put(`${this.API_URL}/editar-equipo/${id}`, form)
+  editTeam(form:any){
+    return this.http.put(`${this.API_URL}/editar-equipo`, form)
   }
 
-  editPhoto(id : any, image : any){
-    return this.http.patch(`${this.API_URL}/editar-imagen-equipo/${id}`, image)
+  editPhoto(image : any){
+    return this.http.patch(`${this.API_URL}/editar-imagen-equipo`, image)
   }
 
   eliminarTeam(id:any){
