@@ -60,7 +60,6 @@
             <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'pending'">
               <img [src]="team.teamImage"/>
               <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
-              <p style="display: flex; justify-content: center; width: 100%;">(Pendiente de aprobación)</p>
               <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
               <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
