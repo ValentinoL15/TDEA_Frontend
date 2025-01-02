@@ -69,7 +69,6 @@
               </div>
             </div>
             <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'rejected'">
-             
               <div style="width: 150px; height: 150px; position: relative;">
                 <ion-icon class="icon" name="shield-outline"></ion-icon>
                 <ion-icon class="icon-timer" name="close-outline" size="large" color="danger"></ion-icon>
@@ -78,7 +77,6 @@
                 <!--<ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>-->
                 <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
               </div>
-            
             </div>
           </ng-template>
         </div>
