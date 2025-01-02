@@ -42,7 +42,9 @@ ion-header {
 .image {
   display: flex;
   width: 100%;
+  height: 100%;
   justify-content: center;
+  position: relative;
 }
 
 .card {
@@ -108,12 +110,15 @@ ion-header {
 }
 
 .noAccept{ 
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
+  display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
+  justify-content: center;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
+
 
 .icon-timer{
   position: absolute;
@@ -153,7 +158,6 @@ ion-header {
 
 .image {
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,13 +194,6 @@ height: 150px;
   z-index: 10; /* Asegura que el botón esté por encima de la imagen */
 }
 
-.noAccept{ 
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  margin-top: 10px;
-}
-
 .icon-timer{
   position: absolute;
   top: 0;
@@ -209,4 +206,45 @@ height: 150px;
   right: 10px;
   width: 15px;
 }
+
+.contenedor {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  
+}
+
+.elements {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+ion-item {
+  --min-height: 100%; /* Asegura que el ion-item ocupe toda la altura */
+  height: 100%; /* Fija la altura de cada ion-item */
+  align-items: center; /* Opcional: centra verticalmente el contenido */
+}
+
+
+ion-input {
+  width: 100%;
+  height: 100%; /* Opcional, si el ion-item tiene contenido extra */
+}
+
+.element-1{
+ height: 100%;
+}
+
+.element-2{
+  height: 100%;
+ }
+
+ .element-3{
+  height: 100%;
+ }
+
+
 
