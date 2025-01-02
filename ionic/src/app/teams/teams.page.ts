@@ -103,13 +103,13 @@ export class TeamsPage implements OnInit {
     })
   }
 
-  editTeam(id:any, form:any){
+  editTeam(form:any){
     const formulario = {
       teamName: form.teamName.value,
       teamNotes: form.teamNotes.value,
       socialMedia: form.socialMedia.value,
     }
-    this.userService.editTeam(id,formulario).subscribe({
+    this.userService.editTeam(formulario).subscribe({
       next: (res : any) => {
         setTimeout(() => {
           this.notifyService.success(res.message)
@@ -171,7 +171,7 @@ export class TeamsPage implements OnInit {
   editImagen(){
     const form = new FormData();
       form.append('image', this.selectedFile as Blob);
-    this.userService.editPhoto(this.id, form).subscribe({
+    this.userService.editPhoto(form).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getTeam(this.id)

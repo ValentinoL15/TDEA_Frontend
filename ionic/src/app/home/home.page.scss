@@ -68,6 +68,11 @@ ion-header {
   z-index: 1;
 }
 
+.container{
+  display: flex;
+  width: 100%;
+}
+
 .image{
   width: 100%;
   display: flex;
@@ -81,13 +86,7 @@ ion-header {
   margin-right: 17px;
 }
 
-.principal{
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .title{
   margin-top: 10px;
@@ -106,11 +105,6 @@ ion-header {
   font-weight: bold;
   font-size: 25px;
   height: 100%;
-}
-
-.icon {
-  width: 150px;
-  height: 150px;
 }
 
 .noAccept{ 
@@ -151,3 +145,68 @@ ion-header {
   padding: 5px;
   background-color: black;
 }
+
+
+.select {
+  margin-left: 75px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+width: 150px;
+height: 150px;
+}
+
+
+.imagen {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 10px;
+}
+
+.edit-button {
+  width: 40px;
+  position: absolute;
+  top: -10px;  /* Ajusta la distancia desde la parte superior de la imagen */
+  right: 0; /* Ajusta la distancia desde el lado derecho de la imagen */
+  z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+}
+
+.edit-button-trash {
+  position: absolute;
+  width: 40px;
+  top: -10px;  /* Ajusta la distancia desde la parte superior de la imagen */
+  right: 40px; /* Ajusta la distancia desde el lado derecho de la imagen */
+  z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+}
+
+.noAccept{ 
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.icon-timer{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.icon-timer2{
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 15px;
+}
+

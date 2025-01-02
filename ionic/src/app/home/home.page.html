@@ -25,7 +25,7 @@
 
           <div *ngIf="team && team.pictureAccept === false && team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && team.status === 'pending'">
             <img [src]="team.teamImage"  width="35px" height="30px" style="border-radius: 50%;" alt="imagen" >
-            <ion-icon class="icon-timer" color="warning" size="small" name="hourglass-outline"></ion-icon>
+            <ion-icon class="icon-timer2" color="warning" size="small" name="hourglass-outline"></ion-icon>
           </div>
 
           <div *ngIf="team && team.pictureAccept === false && team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && team.status === 'rejected'">
@@ -41,8 +41,8 @@
     </div>
   </div>
 
-  <div class="principal" *ngIf="team" (click)="goTeam(team._id)">
-    <div class="image">
+  <div class="principal" *ngIf="team">
+    <!--<div class="image">
       <ng-container *ngIf="team.teamImage === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'; else showImage">
         <ion-icon class="icon" name="shield-outline"></ion-icon>
       </ng-container>
@@ -67,8 +67,78 @@
 
     <div class="descripcion">
       {{team.teamNotes}}
-    </div>
+    </div>-->
+
+    <form #miForm="ngForm">
+      <ion-list [inset]="true">
+        <div class="image">
+          <ng-container *ngIf="team.teamImage === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'; else showImage">
+            <ion-icon class="icon" name="shield-outline"></ion-icon>
+            <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+          </ng-container>
+          <ng-template #showImage>
+            <div class="noAccept" *ngIf="team.pictureAccept === true">
+              <img [src]="team.teamImage" width="250px" height="200px" />
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+            </div>
+            <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'pending'">
+              <img [src]="team.teamImage" style="width: 250px; height: 250px;" />
+              <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+              <p style="display: flex; justify-content: center; width: 100%;">(Pendiente de aprobación)</p>
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+            </div>
+            <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'rejected'">
+              <ion-icon class="icon" name="shield-outline"></ion-icon>
+              <ion-icon class="icon-timer" name="close-outline" size="large" color="danger"></ion-icon>
+              <p style="display: flex; justify-content: center; width: 100%; color: red;">Imagen no aprobada</p>
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+            </div>
+          </ng-template>
+        </div>
+  
+        <ion-item>
+          <ion-input label="Equipo" label-placement="fixed" [(ngModel)]="team.teamName"  name="teamName"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-input label="Instagram" label-placement="fixed" [(ngModel)]="team.socialMedia" name="socialMedia"></ion-input>
+        </ion-item>
+  
+      </ion-list>
+  
+      <ion-list [inset]="true">
+        <ion-item>
+          <ion-textarea type="text" label="Descripción" labelPlacement="floating" rows="5" [(ngModel)]="team.teamNotes" name="teamNotes"></ion-textarea>
+        </ion-item>
+      </ion-list>
+      
+      <div class="container"> 
+        <ion-button expand="block" color="primary" (click)="editTeam(miForm)" [disabled]="miForm.pristine" >
+          Editar Equipo
+        </ion-button>
+          <ion-button expand="block" color="danger" id="present-alert" (click)="deleteTeam(team._id)" style="font-weight: bold;">
+            Eliminar Equipo
+          </ion-button>
+      </div>
+    </form>
+    
   </div>
+
+  
+<ion-alert
+trigger="present-alert"
+header="Alert!"
+[buttons]="alertButtons"
+(didDismiss)="setResult($event)"
+></ion-alert>
 
   <!--<div class="passMarket" *ngIf="user.completedFormMarket === false">
     <p style="text-decoration: underline;" id="open-modal-passMarket" expand="block">Completar formulario para el Mercado de Pases</p>
