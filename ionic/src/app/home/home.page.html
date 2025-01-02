@@ -50,27 +50,35 @@
               <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
           </ng-container>
-          <ng-template #showImage style="height: 100%;">
+          <ng-template #showImage>
             <div class="noAccept" *ngIf="team.pictureAccept === true">
-              <img [src]="team.teamImage"/>
-              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
-              <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+              <div style="width: 150px; height: 150px; position: relative;">
+                <img [src]="team.teamImage" width="150px" height="150px"/>
+                <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+                <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+              </div>
             </div>
             <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'pending'">
-              <img [src]="team.teamImage"/>
-              <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+              <div style="width: 150px; height: 150px; position: relative;">
+                <img [src]="team.teamImage" width="150px" height="150px"/>
+                <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
               <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
               <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+              </div>
             </div>
             <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'rejected'">
-              <ion-icon class="icon" name="shield-outline"></ion-icon>
-              <ion-icon class="icon-timer" name="close-outline" size="large" color="danger"></ion-icon>
-              <p style="display: flex; justify-content: center; width: 100%; color: red;">Imagen no aprobada</p>
-              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
-              <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+             
+              <div style="width: 150px; height: 150px; position: relative;">
+                <ion-icon class="icon" name="shield-outline"></ion-icon>
+                <ion-icon class="icon-timer" name="close-outline" size="large" color="danger"></ion-icon>
+                <p style="display: flex; justify-content: center; width: 100%; color: red; font-size: 15px;">Imagen no aprobada</p>
+                <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+                <!--<ion-button *ngIf="team.teamImage !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>-->
+                <input type="file" (change)="onFileSelected($event)" hidden id="file-input-team" />
+              </div>
+            
             </div>
           </ng-template>
         </div>
@@ -78,13 +86,13 @@
         <div class="elements">
           <div class="element-1">
             <ion-item>
-              <ion-input label="Equipo" label-placement="fixed" [(ngModel)]="team.teamName"  name="teamName"></ion-input>
+              <ion-input label="Equipo" label-placement="floating" [(ngModel)]="team.teamName"  name="teamName"></ion-input>
             </ion-item>
           </div>
   
           <div class="element-2">
             <ion-item>
-              <ion-input label="Instagram" label-placement="fixed" [(ngModel)]="team.socialMedia" name="socialMedia"></ion-input>
+              <ion-input label="Instagram" label-placement="floating" [(ngModel)]="team.socialMedia" name="socialMedia"></ion-input>
             </ion-item>
           </div>
     
