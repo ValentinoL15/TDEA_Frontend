@@ -153,10 +153,6 @@ const routes: Routes = [
     loadChildren: () => import('./confirm-code/confirm-code.module').then( m => m.ConfirmCodePageModule)
   },
   {
-    path: 'team/:id',
-    loadChildren: () => import('./teams/teams.module').then( m => m.TeamsPageModule)
-  },
-  {
     path: 'list/:id',
     loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
   },
