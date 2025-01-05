@@ -36,8 +36,8 @@ export interface List {
         firstName?: string
     }]
     typeAlineacion: number,
-    shirtColor: String,
-    alternativeShirtColor: String,
+    shirtColor?: string | null;
+    alternativeShirtColor?: string | null;
     belongToTournament?: any,
     players?: Player[]
     nameList: string,

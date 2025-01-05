@@ -13,6 +13,8 @@ import { parsePhoneNumber } from 'libphonenumber-js';
 import { PassMarket } from '../interfaces/PassMarket';
 import { JoyrideService } from 'ngx-joyride';
 import { JoyrideOptions } from 'ngx-joyride/lib/models/joyride-options.class';
+import { List } from '../interfaces/List';
+import { NgxPaginationModule } from 'ngx-pagination'
 
 
 @Component({
@@ -43,6 +45,8 @@ export class HomePage implements OnInit {
     teamImage:"",
     active: false
   }
+  lists: List[] = []
+  page: number = 1;
   user = {
     _id: "",
     completedFormMarket: false
@@ -87,7 +91,9 @@ export class HomePage implements OnInit {
     this.isModalOpen = isOpen;
   }
   form: FormGroup
+  form2: FormGroup;
   phoneNumber: any
+  selectedFile2: File | null = null
 
   public alertButtons = [
     {
@@ -148,6 +154,13 @@ export class HomePage implements OnInit {
       trayectoria: ['', Validators.required],
       zona: ['', Validators.required]
     })
+    this.form2 = this.fb.group({
+      hasShirtTitular: [null], // o false si es booleano
+      hasShirtSuplente: [null],
+      shirtColor: [null],
+      alternativeShirtColor: ["#FFFFFF"],
+      typeAlineacion: [null]
+    })
   }
   @ViewChild(IonModal) modal!: IonModal;
   
@@ -164,6 +177,7 @@ export class HomePage implements OnInit {
     this.getTeamActive()
     this.getUserEmpty()
     this.userActive()
+    this.getLists()
   }
   validateInputAltura(event: any): void {
     let input = event.target.value;
@@ -471,4 +485,118 @@ export class HomePage implements OnInit {
     this.modal.dismiss(null, 'confirm');
   }
 
+/*****************************LISTAS***********************************/
+
+  getLists(){
+    this.userService.getAllLists().subscribe({
+      next: (res : any) => {
+        this.lists = res.listsOwner
+        console.log(this.lists)
+      },
+      error: (err) => {
+        console.log(err.error.message);
+      }
+    })
+  }
+
+  editLista(form: any){
+    const formulario = {
+      hasShirtTitular: form.hasShirtTitular?.value,
+      hasShirtSuplente: form.hasShirtSuplente?.value,
+      shirtColor: form.shirtColor?.value,
+      alternativeShirtColor: form.alternativeShirtColor?.value,
+      typeAlineacion: form.typeAlineacion.value
+    }
+    this.userService.editList(formulario).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getLists()
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  onShirtTitularChange(list: any) {
+    if (!list.hasShirtTitular) {
+      list.shirtColor = null; // Limpia el color si no tiene remera titular
+    }
+  }
+
+  onShirtSuplenteChange(list: any) {
+    if (!list.hasShirtSuplente) {
+      list.alternativeShirtColor = null; // Limpia el color si no tiene remera suplente
+    }
+  }
+  
+
+  goList(id:any, alineacion: any){
+    this.router.navigate([`/alineaciones/${id}/${alineacion}`])
+  }
+
+  onSelectImage2() {
+    const fileInput = document.getElementById('file-inputs') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
+  }
+
+  onFileSelected2(event : any){
+    const file : File = event.target.files[0]
+    this.selectedFile2 = file
+    console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.editImage(); // Llama a la función para editar la imagen
+    }
+  }
+
+  editImage(){
+    const form = new FormData();
+    form.append('image',  this.selectedFile2 as Blob);
+    this.userService.editPhotoList(this.id, form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getLists()
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  async presentAlertImagen2() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImage(); // Llama a la función para editar la imagen
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  deletePhoto2(){
+    this.userService.deletePhotoLista(this.id).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        window.location.href = `/user/list/${this.id}`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
 }

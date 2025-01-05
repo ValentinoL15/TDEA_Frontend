@@ -236,7 +236,7 @@ export class ListPage implements OnInit {
       alternativeShirtColor: this.form.value.alternativeShirtColor,
       typeAlineacion: this.form.value.typeAlineacion
     }
-    this.userService.editList(this.id,formulario).subscribe({
+    this.userService.editList(formulario).subscribe({
       next: (res : any) => {
         window.location.href = `/alineaciones/${this.id}/${this.list.alineacion?._id}`
       },

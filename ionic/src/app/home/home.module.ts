@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
-
+import { NgxPaginationModule } from 'ngx-pagination'
 import { HomePage } from './home.page';
 import { JoyrideModule } from 'ngx-joyride';
 
@@ -16,7 +16,8 @@ import { JoyrideModule } from 'ngx-joyride';
     IonicModule,
     HomePageRoutingModule,
     ReactiveFormsModule,
-    JoyrideModule.forChild()
+    JoyrideModule.forChild(),
+    NgxPaginationModule
   ],
   declarations: [HomePage]
 })

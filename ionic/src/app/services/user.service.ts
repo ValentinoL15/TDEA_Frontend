@@ -143,8 +143,8 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.get(`${this.API_URL}/obtener-lista/${id}`)
   }
 
-  editList(id: any, form : any){
-    return this.http.put(`${this.API_URL}/editar-lista/${id}`, form)
+  editList(form : any){
+    return this.http.put(`${this.API_URL}/editar-lista`, form)
   }
 
   editPhotoList(id: any, image : any){
