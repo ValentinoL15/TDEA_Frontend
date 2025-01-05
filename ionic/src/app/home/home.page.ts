@@ -501,10 +501,11 @@ export class HomePage implements OnInit {
 
   editLista(form: any){
     const formulario = {
-      hasShirtTitular: form.hasShirtTitular?.value,
-      hasShirtSuplente: form.hasShirtSuplente?.value,
-      shirtColor: form.shirtColor?.value,
-      alternativeShirtColor: form.alternativeShirtColor?.value,
+      _id : form._id.value,
+      hasShirtTitular: form.hasShirtTitular.value,
+      hasShirtSuplente: form.hasShirtSuplente.value,
+      shirtColor: form.shirtColor?.value || '#FFFFFF', // Asignar valor por defecto si no existe
+      alternativeShirtColor: form.alternativeShirtColor?.value || '#080807',
       typeAlineacion: form.typeAlineacion.value
     }
     this.userService.editList(formulario).subscribe({

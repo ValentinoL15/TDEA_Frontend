@@ -144,7 +144,7 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
   }
 
   editList(form : any){
-    return this.http.put(`${this.API_URL}/editar-lista`, form)
+    return this.http.put(`${this.API_URL}/editar-lista`, form )
   }
 
   editPhotoList(id: any, image : any){

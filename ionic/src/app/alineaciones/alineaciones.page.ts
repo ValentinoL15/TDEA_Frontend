@@ -167,7 +167,7 @@ ngOnInit() {
 }
 
 volver(){
-  window.location.href = `/user/list/${this.list._id}`
+  this.router.navigate(['/user/home'])
 }
 
 /*addPLayers() {

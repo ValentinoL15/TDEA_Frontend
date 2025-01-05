@@ -135,10 +135,14 @@
                 <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
                 <input type="file" (change)="onFileSelected2($event)" hidden id="file-inputs" />
               </div>
+
+              <ion-item>
+                <ion-input label="Lista" label-placement="stacked" [value]="list.nameList"></ion-input>
+              </ion-item>
         
               <!-- Solo mostrar si tiene remera titular -->
               <ion-item >
-                <ion-select label="Remera Titular" label-placement="stacked" interface="popover" name="hasShirtTitular"  [(ngModel)]="list.hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'" (ionChange)="onShirtTitularChange(list)">
+                <ion-select label="Remera Titular" label-placement="stacked" interface="popover" name="hasShirtTitular" [(ngModel)]="list.hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'" (ionChange)="onShirtTitularChange(list)">
                   <ion-select-option [value]="true">Si</ion-select-option>
                   <ion-select-option [value]="false">No</ion-select-option>
                 </ion-select>
@@ -190,10 +194,11 @@
               </ion-select>
               </ion-item>
         
-              <ion-item detail="true" (click)="goList(list._id, list.alineacion?._id)">
+              <ion-item detail="true" (click)="goList(list._id, list.alineacion)">
                 <ion-label>Alineación</ion-label>
               </ion-item>
             </ion-list>
+            <ion-input type="hidden" [value]="list._id" name="_id"></ion-input>
           </form>
           <ion-button (click)="editLista(miForm)">Confirm</ion-button>
         </div>
