@@ -110,6 +110,98 @@
           Eliminar Equipo
         </ion-button>
     </div>
+
+    <div>
+      <ul class="meal-list">
+        <div *ngFor="let list of lists | paginate: { itemsPerPage: 1, currentPage: page }">
+          <form #miForm>
+            <ion-list [inset]="true">
+        
+              <div class="image">
+                <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'pending' && list.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+                  <img class="img-alumno" width="200px" height="200px" [src]="list.teamPicture" alt="">
+                </div>
+                <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'pending' && list.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+                  <img class="img-alumno" width="200px" height="200px" [src]="list.teamPicture" alt="">
+                  <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+                </div>
+                <img *ngIf="list.pictureAccept === true && list.status === 'approved'" class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
+                <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'rejected'">
+                  <img class="img-alumno" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="" width="200px" height="200px" name="image"/>
+                  <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
+                </div>
+                
+                <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+                <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                <input type="file" (change)="onFileSelected2($event)" hidden id="file-inputs" />
+              </div>
+        
+              <!-- Solo mostrar si tiene remera titular -->
+              <ion-item >
+                <ion-select label="Remera Titular" label-placement="stacked" interface="popover" name="hasShirtTitular"  [(ngModel)]="list.hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'" (ionChange)="onShirtTitularChange(list)">
+                  <ion-select-option [value]="true">Si</ion-select-option>
+                  <ion-select-option [value]="false">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+              
+              <ion-item *ngIf="list.hasShirtTitular">
+                <ion-label>Remera Titular</ion-label>
+                <ion-input
+                  type="color"
+                  style="width: 30px; padding: 5px;"
+                  name="shirtColor"
+                  [(ngModel)]="list.shirtColor"
+                ></ion-input>
+              </ion-item>
+        
+              <ion-item>
+                <ion-select
+                  label="Remera Suplente"
+                  label-placement="stacked"
+                  interface="popover"
+                  name="hasShirtSuplente"
+                  [(ngModel)]="list.hasShirtSuplente"
+                  (ionChange)="onShirtSuplenteChange(list)">
+                  <ion-select-option [value]="true">Si</ion-select-option>
+                  <ion-select-option [value]="false">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            
+        
+              <ion-item *ngIf="list.hasShirtSuplente">
+                <ion-label>Color Remera Suplente</ion-label>
+                <ion-input
+                  type="color"
+                  name="alternativeShirtColor"
+                  style="width: 30px; padding: 5px;"
+                  [(ngModel)]="list.alternativeShirtColor">
+                </ion-input>
+              </ion-item>
+        
+              <ion-item>
+              <ion-select label="Formato de equipo" label-placement="stacked" name="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion" interface="popover">
+                <ion-select-option value="5">Futbol 5</ion-select-option>
+                <ion-select-option value="6">Futbol 6</ion-select-option>
+                <ion-select-option value="7">Futbol 7</ion-select-option>
+                <ion-select-option value="8">Futbol 8</ion-select-option>
+                <ion-select-option value="9">Futbol 9</ion-select-option>
+                <ion-select-option value="10">Futbol 10</ion-select-option>
+                <ion-select-option value="11">Futbol 11</ion-select-option>
+              </ion-select>
+              </ion-item>
+        
+              <ion-item detail="true" (click)="goList(list._id, list.alineacion?._id)">
+                <ion-label>Alineación</ion-label>
+              </ion-item>
+            </ion-list>
+          </form>
+          <ion-button (click)="editLista(miForm)">Confirm</ion-button>
+        </div>
+    </ul>
+    <div class="has-text-centered">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+    </div>
     
   </div>
 

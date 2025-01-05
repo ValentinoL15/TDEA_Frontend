@@ -13,7 +13,6 @@ import { FilterPipe } from './filter.pipe';
 import { SpinnerComponent } from './spinner/spinner.component';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { JoyrideModule } from 'ngx-joyride'
-
 import { registerLocaleData } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { Tabs2PageModule } from "./admin/tabs2/tabs2.module";
