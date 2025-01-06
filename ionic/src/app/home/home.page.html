@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true" class="fondo" >
 
   <div class="select-contain">
-    <div class="select">
+    <div class="select1">
       <ion-select toggleIcon="none" interface="popover" [placeholder]="team ? team.teamName : 'Selecciona un equipo'"  (ionChange)="onEquipoChange($event.detail.value)">
         <ion-list>
           <ion-item>
@@ -36,6 +36,45 @@
           *ngIf="!team || team.teamImage === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" 
           name="shield-outline">
         </ion-icon>
+      </ng-container>
+      
+    </div>
+
+    <div class="select2">
+      <ion-select toggleIcon="none" interface="popover"  [placeholder]="myListActive?.nameList || 'Selecciona un equipo'"  (ionChange)="onListChange($event.detail.value)">
+        <ion-list>
+          <ion-item>
+            <ion-select-option *ngFor="let list of myLists" [value]="list._id">
+              <div class="selected">
+                <img [src]="list.teamPicture" alt="">
+                {{ list.nameList }}
+              </div>
+            </ion-select-option>
+          </ion-item>
+        </ion-list>
+      </ion-select>
+      <ng-container *ngFor="let list of lists">
+        <img 
+          *ngIf="myListActive && myListActive.pictureAccept === true && myListActive.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && myListActive.status === 'approved'" 
+          style="border-radius: 50%;" 
+          [src]="myListActive.teamPicture" 
+          width="35px" 
+          height="30px" 
+          alt="Team Image">
+
+          <div *ngIf="myListActive && myListActive.pictureAccept === false && myListActive.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && myListActive.status === 'pending'">
+            <img [src]="myListActive.teamPicture"  width="35px" height="30px" style="border-radius: 50%;" alt="imagen" >
+            <ion-icon class="icon-timer2" color="warning" size="small" name="hourglass-outline"></ion-icon>
+          </div>
+
+          <div *ngIf="myListActive && myListActive.pictureAccept === false && myListActive.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && myListActive.status === 'rejected'">
+          <ion-icon name="close-outline" size="small" color="danger"></ion-icon>
+          </div>
+          
+          <img style="width: 20px; height: 20px;" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"
+          *ngIf="!myListActive || myListActive.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" 
+          name="shield-outline">
+        
       </ng-container>
       
     </div>
@@ -96,7 +135,7 @@
     
         <div class="element-3">
         <ion-item>
-          <ion-input type="text" label="Descripción" labelPlacement="floating" rows="5" [(ngModel)]="team.teamNotes" name="teamNotes"  maxlength="50"></ion-input>
+          <ion-input type="text" label="Descripción" labelPlacement="floating" rows="5" [(ngModel)]="team.teamNotes" name="teamNotes" maxlength="50"></ion-input>
         </ion-item>
         </div>
         </div>
@@ -112,11 +151,10 @@
     </div>
 
     <div>
-      <ul class="meal-list">
-        <div *ngFor="let list of lists | paginate: { itemsPerPage: 1, currentPage: page }">
+    
+        <div *ngFor="let list of lists">
           <form #miForm>
             <ion-list [inset]="true">
-        
               <div class="image">
                 <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'pending' && list.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
                   <img class="img-alumno" width="200px" height="200px" [src]="list.teamPicture" alt="">
@@ -142,7 +180,7 @@
         
               <!-- Solo mostrar si tiene remera titular -->
               <ion-item >
-                <ion-select label="Remera Titular" label-placement="stacked" interface="popover" name="hasShirtTitular" [(ngModel)]="list.hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'" (ionChange)="onShirtTitularChange(list)">
+                <ion-select label="Remera Titular" label-placement="stacked" interface="popover" name="hasShirtTitular" [(ngModel)]="list.hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'" (ionChange)="onShirtTitularChange(list)" (ngModelChange)="onFormChange()">
                   <ion-select-option [value]="true">Si</ion-select-option>
                   <ion-select-option [value]="false">No</ion-select-option>
                 </ion-select>
@@ -155,6 +193,7 @@
                   style="width: 30px; padding: 5px;"
                   name="shirtColor"
                   [(ngModel)]="list.shirtColor"
+                  (ngModelChange)="onFormChange()"
                 ></ion-input>
               </ion-item>
         
@@ -165,7 +204,8 @@
                   interface="popover"
                   name="hasShirtSuplente"
                   [(ngModel)]="list.hasShirtSuplente"
-                  (ionChange)="onShirtSuplenteChange(list)">
+                  (ionChange)="onShirtSuplenteChange(list)"
+                  (ngModelChange)="onFormChange()">
                   <ion-select-option [value]="true">Si</ion-select-option>
                   <ion-select-option [value]="false">No</ion-select-option>
                 </ion-select>
@@ -178,12 +218,13 @@
                   type="color"
                   name="alternativeShirtColor"
                   style="width: 30px; padding: 5px;"
-                  [(ngModel)]="list.alternativeShirtColor">
+                  [(ngModel)]="list.alternativeShirtColor"
+                  (ngModelChange)="onFormChange()">
                 </ion-input>
               </ion-item>
         
               <ion-item>
-              <ion-select label="Formato de equipo" label-placement="stacked" name="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion" interface="popover">
+              <ion-select label="Formato de equipo" label-placement="stacked" name="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion" interface="popover" (ngModelChange)="onFormChange()">
                 <ion-select-option value="5">Futbol 5</ion-select-option>
                 <ion-select-option value="6">Futbol 6</ion-select-option>
                 <ion-select-option value="7">Futbol 7</ion-select-option>
@@ -198,14 +239,95 @@
                 <ion-label>Alineación</ion-label>
               </ion-item>
             </ion-list>
-            <ion-input type="hidden" [value]="list._id" name="_id"></ion-input>
+            <input type="hidden" [value]="list._id" name="_id">
           </form>
-          <ion-button (click)="editLista(miForm)">Confirm</ion-button>
+          <div class="container">
+            <ion-button color="secondary" (click)="editLista(miForm)" *ngIf="isFormEdited">Editar</ion-button>
+            <ion-button expand="block" color="danger" id="present-alert" (click)="deleteList(list._id)">
+              Eliminar Lista
+            </ion-button>
+          </div>
+          
+          
         </div>
-    </ul>
-    <div class="has-text-centered">
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+
+        <ion-modal [isOpen]="isModalOpen2">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-button (click)="setOpen2(false)">Cancel</ion-button>
+                </ion-buttons>
+                <ion-title>Crear Lista</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="createList()" [strong]="true">Confirm</ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <form [formGroup]="form2">
+                <ion-item>
+                  <ion-input label="Nombre de la lista" label-placement="floating" placeholder="Nombre de Lista" formControlName="nameList"></ion-input>
+                </ion-item>
+      
+      
+              <!--<ion-item (click)="toggleColorDropdown()">
+              <ion-input label="Remera Titular" label-placement="floating" placeholder="Remera Titular" formControlName="shirtColor"></ion-input>
+          
+                  <ion-label>Remera Titular</ion-label>
+                  <div class="selected-color" [style.background]="form.get('shirtColor')?.value || '#FFFFFF'"></div>
+              </ion-item>-->
+      
+              <ion-item>
+                <ion-select label="Tiene remera titular" label-placement="floating" formControlName="hasShirtTitular" interface="popover">
+                  <ion-select-option [value]="true">Si</ion-select-option>
+                  <ion-select-option [value]="false">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+              
+            
+              <!-- Solo mostrar si tiene remera titular -->
+              <ion-item *ngIf="form2.get('hasShirtTitular')?.value">
+                <ion-label>Remera Titular</ion-label>
+                <input class="custom" type="color" formControlName="shirtColor" />
+              </ion-item>
+            
+              <ion-item>
+                <ion-select label="Tiene remera suplente" label-placement="floating" formControlName="hasShirtSuplente" interface="popover">
+                  <ion-select-option [value]="true">Si</ion-select-option>
+                  <ion-select-option [value]="false">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            
+              <!-- Solo mostrar si tiene remera suplente -->
+              <ion-item *ngIf="form2.get('hasShirtSuplente')?.value">
+                <ion-label>Remera Suplente</ion-label>
+                <input class="custom" type="color" formControlName="alternativeShirtColor" />
+              </ion-item>
+              <ion-item>
+                <ion-select label="Formato de equipo" label-placement="floating" placeholder="Elige formato de equipo" formControlName="typeAlineacion" interface="popover">
+                  <ion-select-option value="5">Futbol 5</ion-select-option>
+                  <ion-select-option value="6">Futbol 6</ion-select-option>
+                  <ion-select-option value="7">Futbol 7</ion-select-option>
+                  <ion-select-option value="8">Futbol 8</ion-select-option>
+                  <ion-select-option value="9">Futbol 9</ion-select-option>
+                  <ion-select-option value="10">Futbol 10</ion-select-option>
+                  <ion-select-option value="11">Futbol 11</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <div class="foto">
+                  <label>Foto de la Formación</label>
+                </div>
+                <ion-input type="file" (change)="onFileSelected3($event)"></ion-input>
+              </ion-item>
+              </form>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
     </div>
+    <div class="container">
+      <ion-button (click)="setOpen2(true)">Crear Nueva Lista</ion-button>
     </div>
     
   </div>

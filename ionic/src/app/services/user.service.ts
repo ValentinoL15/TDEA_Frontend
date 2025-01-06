@@ -155,8 +155,20 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.delete(`${this.API_URL}/eliminar-lista/${id}`)
   }
 
-  getAllLists(){
+  getMyList(){
+    return this.http.get(`${this.API_URL}/obtener-mi-lista`)
+  }
+
+  getMyLists(){
     return this.http.get(`${this.API_URL}/obtener-mis-listas`)
+  }
+
+  getMyListActive(){
+    return this.http.get(`${this.API_URL}/obtener-lista-activa`)
+  }
+
+  cambiarListActive(listId : any){
+    return this.http.put(`${this.API_URL}/cambiar-lista-activa`, { listActive: listId })
   }
 
   addPlayerList(id : any, jugadorId: any){

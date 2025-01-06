@@ -48,5 +48,6 @@ export interface List {
     hasShirtSuplente?: boolean,
     monto?: number,
     pagoFinal?: number
+    listActive?: boolean
 
 }

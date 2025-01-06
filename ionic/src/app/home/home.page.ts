@@ -46,6 +46,14 @@ export class HomePage implements OnInit {
     active: false
   }
   lists: List[] = []
+  myLists: List[] = []
+  myListActive: List | null = {
+    nameList: "",
+    typeAlineacion: 0,
+    teamPicture: "",
+    listActive: false
+  }
+  listaSeleccionada: List | null = null; 
   page: number = 1;
   user = {
     _id: "",
@@ -83,6 +91,8 @@ export class HomePage implements OnInit {
     "23:00", "23:15", "23:30", "23:45",
   ];
   selectedFile: File | null = null;
+  isFormEdited: boolean = false;
+  selectedFile3: File | null = null;
 
 
   isModalOpen = false;
@@ -155,11 +165,12 @@ export class HomePage implements OnInit {
       zona: ['', Validators.required]
     })
     this.form2 = this.fb.group({
-      hasShirtTitular: [null], // o false si es booleano
-      hasShirtSuplente: [null],
-      shirtColor: [null],
-      alternativeShirtColor: ["#FFFFFF"],
-      typeAlineacion: [null]
+      nameList: ['', Validators.required],
+      hasShirtTitular: [null, Validators.required],
+      hasShirtSuplente: [null, Validators.required],
+      shirtColor: ['', Validators.required], // Valor predeterminado
+      alternativeShirtColor: ['', Validators.required],
+      typeAlineacion: ['', Validators.required]
     })
   }
   @ViewChild(IonModal) modal!: IonModal;
@@ -178,6 +189,8 @@ export class HomePage implements OnInit {
     this.getUserEmpty()
     this.userActive()
     this.getLists()
+    this.getMyLists()
+    this.getMyListActive()
   }
   validateInputAltura(event: any): void {
     let input = event.target.value;
@@ -487,8 +500,19 @@ export class HomePage implements OnInit {
 
 /*****************************LISTAS***********************************/
 
+  getMyLists(){
+    this.userService.getMyLists().subscribe({
+      next: (res: any) => {
+        this.myLists = res.lists;
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
   getLists(){
-    this.userService.getAllLists().subscribe({
+    this.userService.getMyList().subscribe({
       next: (res : any) => {
         this.lists = res.listsOwner
         console.log(this.lists)
@@ -497,6 +521,37 @@ export class HomePage implements OnInit {
         console.log(err.error.message);
       }
     })
+  }
+
+  getMyListActive(){
+    this.userService.getMyListActive().subscribe({
+      next: (res : any) => {
+        this.myListActive = res.list
+        console.log("ACITVEAD",this.myListActive)
+      },
+      error: (err) => {
+        console.log(err.error.message);
+      }
+    })
+  }
+
+  cambiarListActive(listId : any){
+    this.userService.cambiarListActive(listId).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getLists()
+        this.getMyListActive()
+        this.getMyLists()
+    },
+      error: (err) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  onListChange(listId: any) {
+    this.listaSeleccionada = this.myLists.find(e => e._id === listId) || null;
+    this.cambiarListActive(listId)
   }
 
   editLista(form: any){
@@ -512,11 +567,97 @@ export class HomePage implements OnInit {
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.getLists()
+        this.isFormEdited = false;
       },
       error: (err) => {
         this.notifyService.error(err.error.message);
       }
     })
+  }
+
+  isModalOpen2 = false;
+
+  setOpen2(isOpen: boolean) {
+    this.isModalOpen2 = isOpen;
+  }
+
+  createList(){
+    const formData = new FormData();
+    const hasShirtTitular = this.form2.get('hasShirtTitular')?.value;
+    const hasShirtSuplente = this.form2.get('hasShirtSuplente')?.value;
+    if (hasShirtTitular === null ) {
+      this.notifyService.error('Por favor, selecciona si tiene remera titular.');
+      return; // Detener la ejecución si hay campos vacíos
+    }
+    if (hasShirtSuplente === null) {
+      this.notifyService.error('Por favor, selecciona si tiene remera suplente.');
+      return; // Detener la ejecución si hay campos vacíos
+    }
+    formData.append('nameList', this.form2.get('nameList')?.value);
+    formData.append('hasShirtTitular', this.form2.get('hasShirtTitular')?.value);
+    formData.append('hasShirtSuplente', this.form2.get('hasShirtSuplente')?.value);
+    formData.append('shirtColor', this.form2.get('shirtColor')?.value);
+    formData.append('alternativeShirtColor', this.form2.get('alternativeShirtColor')?.value);
+    formData.append('typeAlineacion', this.form2.get('typeAlineacion')?.value);
+    formData.append('image', this.selectedFile3 as Blob);
+    
+    this.userService.createList(formData).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getLists()
+        this.getMyListActive()
+        this.getMyLists()
+        this.setOpen2(false)
+        this.form2.reset()
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  async deleteList(id: any) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que quieres borrar esta lista?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // El usuario ha cancelado, no hacer nada
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            // El usuario ha confirmado, proceder con la eliminación
+            this.userService.eliminarLista(id).subscribe({
+              next: (res: any) => {
+                this.notifyService.success(res.message);
+                 if (this.myListActive && this.myListActive._id === id) {
+                this.myListActive = null;
+              }
+                this.getLists()
+                this.getMyListActive()
+                this.getMyLists()
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message);
+              }
+            });
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  onFileSelected3(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile3 = file;
+    console.log('Archivo seleccionado:', file);
   }
 
   onShirtTitularChange(list: any) {
@@ -563,6 +704,10 @@ export class HomePage implements OnInit {
         this.notifyService.error(err.error.message);
       }
     })
+  }
+
+  onFormChange() {
+    this.isFormEdited = true;
   }
 
   async presentAlertImagen2() {
