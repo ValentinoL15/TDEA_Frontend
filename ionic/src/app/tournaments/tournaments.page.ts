@@ -49,7 +49,7 @@ getTournaments(){
 }
 
 getLists(){
-  this.userService.getAllLists().subscribe({
+  this.userService.getMyList().subscribe({
     next: (res : any) => {
       this.lists = res.listsOwner
       console.log(this.lists)
