@@ -147,8 +147,8 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.put(`${this.API_URL}/editar-lista`, form )
   }
 
-  editPhotoList(id: any, image : any){
-    return this.http.patch(`${this.API_URL}/editar-imagen-lista/${id}`, image)
+  editPhotoList(image : any){
+    return this.http.patch(`${this.API_URL}/editar-imagen-lista`, image)
   }
 
   eliminarLista(id:any){
@@ -175,8 +175,8 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.put(`${this.API_URL}/agregar-jugador-lista/${id}`, {jugadorId})
   }
 
-  deletePhotoLista(id : any){
-    return this.http.put(`${this.API_URL}/eliminar-foto-lista/${id}`, {})
+  deletePhotoLista(){
+    return this.http.put(`${this.API_URL}/eliminar-foto-lista`, {})
   }
 
   editFormacion(id : any, form : any){
