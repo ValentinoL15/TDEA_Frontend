@@ -556,17 +556,19 @@ export class HomePage implements OnInit {
 
   editLista(form: any){
     const formulario = {
+      nameList: form.nameList.value,
       _id : form._id.value,
       hasShirtTitular: form.hasShirtTitular.value,
       hasShirtSuplente: form.hasShirtSuplente.value,
       shirtColor: form.shirtColor?.value || '#FFFFFF', // Asignar valor por defecto si no existe
       alternativeShirtColor: form.alternativeShirtColor?.value || '#080807',
-      typeAlineacion: form.typeAlineacion.value
     }
     this.userService.editList(formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.getLists()
+        this.getMyListActive()
+        this.getMyLists()
         this.isFormEdited = false;
       },
       error: (err) => {
@@ -598,7 +600,6 @@ export class HomePage implements OnInit {
     formData.append('hasShirtSuplente', this.form2.get('hasShirtSuplente')?.value);
     formData.append('shirtColor', this.form2.get('shirtColor')?.value);
     formData.append('alternativeShirtColor', this.form2.get('alternativeShirtColor')?.value);
-    formData.append('typeAlineacion', this.form2.get('typeAlineacion')?.value);
     formData.append('image', this.selectedFile3 as Blob);
     
     this.userService.createList(formData).subscribe({
@@ -635,7 +636,7 @@ export class HomePage implements OnInit {
             this.userService.eliminarLista(id).subscribe({
               next: (res: any) => {
                 this.notifyService.success(res.message);
-                 if (this.myListActive && this.myListActive._id === id) {
+                if (this.myListActive && this.myListActive._id === id) {
                 this.myListActive = null;
               }
                 this.getLists()
@@ -695,7 +696,7 @@ export class HomePage implements OnInit {
   editImage(){
     const form = new FormData();
     form.append('image',  this.selectedFile2 as Blob);
-    this.userService.editPhotoList(this.id, form).subscribe({
+    this.userService.editPhotoList(form).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getLists()
@@ -735,7 +736,7 @@ export class HomePage implements OnInit {
   }
 
   deletePhoto2(){
-    this.userService.deletePhotoLista(this.id).subscribe({
+    this.userService.deletePhotoLista().subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
         window.location.href = `/user/list/${this.id}`

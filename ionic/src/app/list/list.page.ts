@@ -292,7 +292,7 @@ export class ListPage implements OnInit {
   editImage(){
     const form = new FormData();
     form.append('image',  this.selectedFile as Blob);
-    this.userService.editPhotoList(this.id, form).subscribe({
+    this.userService.editPhotoList(form).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getLista(this.id)
@@ -343,7 +343,7 @@ export class ListPage implements OnInit {
   }
 
   deletePhoto(){
-    this.userService.deletePhotoLista(this.id).subscribe({
+    this.userService.deletePhotoLista().subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
         window.location.href = `/user/list/${this.id}`
