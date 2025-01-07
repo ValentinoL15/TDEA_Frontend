@@ -188,6 +188,7 @@ export class PlayersPage implements OnInit {
     nacimiento: "",
     horarios: []
   }
+  playersList: Player[] = []
   diasSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
   zonas: string[] = ['CABA', 'GBANorte', 'GBAOeste', 'GBASur'];
   posiciones: string[] = ['Delantero', 'Defensor', 'Arquero', 'Mediocampista'];
@@ -341,11 +342,15 @@ export class PlayersPage implements OnInit {
 
 
   ngOnInit() {
-    this.getPlayers()
+    //this.getPlayers()
     this.getUser()
     this.getMarket()
     this.getMyPlayer()
+    this.getPlayersList()
     this.cargarJugadores({});
+    this.userService.getMyListUpdatedListener().subscribe(() => {
+      this.getPlayersList()
+    })
     this.userService.getDeuda().subscribe({
       next: (res: any) => {
         if (res.team && res.team.active) {
@@ -492,7 +497,7 @@ export class PlayersPage implements OnInit {
       next: (res: any) => {
         this.notifyService.success('Horario eliminado con éxito')
         this.getMyPlayer()
-        this.getPlayers()
+        //this.getPlayers()
       },
       error: (err: any) => {
         this.notifyService.error(err.message)
@@ -500,10 +505,22 @@ export class PlayersPage implements OnInit {
     })
   }
 
-  getPlayers() {
+  /*getPlayers() {
     this.userService.getPlayersTeam().subscribe({
       next: (res: any) => {
         this.players = res.listOfPlayers;
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }*/
+
+  getPlayersList(){
+    this.userService.getPlayersList().subscribe({
+      next: (res: any) => {
+        this.playersList = res.listOfPlayers;
+        console.log(this.playersList)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -532,7 +549,7 @@ export class PlayersPage implements OnInit {
     this.userService.crearJugador(formData).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message)
-        this.getPlayers()
+        //this.getPlayers()
         this.form.reset()
         this.selectedFile = null;
 
@@ -706,7 +723,7 @@ cancel2(){
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getMyPlayer()
-        this.getPlayers()
+        //this.getPlayers()
         this.getUser()
           // Actualiza el BehaviorSubject con la nueva URL de la imagen
           this.AuthService.updateUser(res.user);
@@ -786,7 +803,7 @@ cancel2(){
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getMyPlayer()
-        this.getPlayers()
+        //this.getPlayers()
         this.getUser()
       },
       error: (err: any) => {

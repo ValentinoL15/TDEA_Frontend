@@ -123,26 +123,26 @@
         <div class="elements">
           <div class="element-1">
             <ion-item>
-              <ion-input label="Equipo" label-placement="floating" [(ngModel)]="team.teamName"  name="teamName"></ion-input>
+              <ion-input label="Equipo" label-placement="floating" [(ngModel)]="team.teamName" name="teamName" (ngModelChange)="onTeamChange()"></ion-input>
             </ion-item>
           </div>
   
           <div class="element-2">
             <ion-item>
-              <ion-input label="Instagram" label-placement="floating" [(ngModel)]="team.socialMedia" name="socialMedia"></ion-input>
+              <ion-input label="Instagram" label-placement="floating" [(ngModel)]="team.socialMedia" name="socialMedia" (ngModelChange)="onTeamChange()"></ion-input>
             </ion-item>
           </div>
     
         <div class="element-3">
         <ion-item>
-          <ion-input type="text" label="Descripción" labelPlacement="floating" rows="5" [(ngModel)]="team.teamNotes" name="teamNotes" maxlength="50"></ion-input>
+          <ion-input type="text" label="Descripción" labelPlacement="floating" rows="5" [(ngModel)]="team.teamNotes" name="teamNotes" maxlength="50" (ngModelChange)="onTeamChange()"></ion-input>
         </ion-item>
         </div>
         </div>
         
     </form>
     <div class="container"> 
-      <ion-button expand="block" color="primary" (click)="editTeam(miForm)" [disabled]="miForm.pristine" >
+      <ion-button expand="block" color="primary" (click)="editTeam(miForm)" *ngIf="isTeamEdited" >
         Editar Equipo
       </ion-button>
         <ion-button expand="block" color="danger" id="present-alert" (click)="deleteTeam(team._id)" style="font-weight: bold;">
@@ -199,7 +199,7 @@
               <div class="elements">
                 <div class="element-1">
                   <ion-item>
-                    <ion-input label="Lista" label-placement="stacked" [(ngModel)]="list.nameList" name="nameList" (ngModelChange)="onFormChange()"></ion-input>
+                    <ion-input label="Lista" label-placement="stacked" [(ngModel)]="list.nameList" name="nameList" [value]="list.nameList" (ngModelChange)="onFormChange()"></ion-input>
                   </ion-item>
                 </div>
 
