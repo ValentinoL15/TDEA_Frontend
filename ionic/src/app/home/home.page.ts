@@ -92,6 +92,7 @@ export class HomePage implements OnInit {
   ];
   selectedFile: File | null = null;
   isFormEdited: boolean = false;
+  isTeamEdited: boolean = false;
   selectedFile3: File | null = null;
 
 
@@ -337,10 +338,6 @@ export class HomePage implements OnInit {
   }
 
   editTeam(form: NgForm){
-    if (!form.dirty) {
-      this.notifyService.error("No hay cambios para guardar.");
-      return;
-    }
     const formulario = {
       teamName: this.team.teamName,
       teamNotes: this.team.teamNotes,
@@ -352,6 +349,7 @@ export class HomePage implements OnInit {
         this.getTeams()
         this.getTeamActive()
         form.resetForm(this.team); // Resetea el formulario al estado inicial
+        this.isTeamEdited = false
       },
       error: (err : any) => {
         this.notifyService.error(err.error.message)
@@ -709,6 +707,10 @@ export class HomePage implements OnInit {
 
   onFormChange() {
     this.isFormEdited = true;
+  }
+
+  onTeamChange() {
+    this.isTeamEdited = true;
   }
 
   async presentAlertImagen2() {

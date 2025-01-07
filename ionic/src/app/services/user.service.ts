@@ -163,12 +163,24 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.get(`${this.API_URL}/obtener-mis-listas`)
   }
 
+  getPlayersList(){
+    return this.http.get(`${this.API_URL}/obtener-jugadores-lista`)
+  }
+
   getMyListActive(){
     return this.http.get(`${this.API_URL}/obtener-lista-activa`)
   }
 
+private myListUpdated = new Subject<void>();
+
   cambiarListActive(listId : any){
-    return this.http.put(`${this.API_URL}/cambiar-lista-activa`, { listActive: listId })
+    return this.http.put(`${this.API_URL}/cambiar-lista-activa`, { listActive: listId }).pipe(
+      tap(() => this.myListUpdated.next())
+    )
+  }
+
+  getMyListUpdatedListener() {
+    return this.myListUpdated.asObservable();
   }
 
   addPlayerList(id : any, jugadorId: any){

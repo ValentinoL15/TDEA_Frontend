@@ -14,7 +14,7 @@
 <ion-content [fullscreen]="true" color="light" class="ion-padding" *ngIf="selectedSegment === 'players'">
 
   <div *ngIf="players">
-    <div *ngFor="let player of players" class="contenedor" (click)="goPlayer(player._id)">
+    <div *ngFor="let player of playersList" class="contenedor" (click)="goPlayer(player._id)">
 
       <!--<div class="image" (click)="goPlayer(player._id)">-->
         <img class="imagen" *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt="" (click)="goPlayer(player._id)"/>
