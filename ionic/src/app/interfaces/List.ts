@@ -44,6 +44,18 @@ export interface List {
     pictureAccept?: boolean,
     status?: string,
     teamPicture: string,
+    deudas?: Array<{
+        _id?: string;
+        belongTournament?: {
+        _id?: string;
+        nameFantasy?: string;
+        };
+        belongToList: {
+        _id?: string;
+        nameList?: string;
+        };
+        amount: number;
+      }> | []; // Permitir que sea undefine
     hasShirtTitular?: boolean,
     hasShirtSuplente?: boolean,
     monto?: number,
