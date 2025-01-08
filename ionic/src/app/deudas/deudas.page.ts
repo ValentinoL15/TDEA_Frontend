@@ -33,16 +33,32 @@ export class DeudasPage implements OnInit {
       amount: 0
     }]
   }
+
+  list : List = {
+    _id: "",
+    nameList: "",
+    typeAlineacion: 0,
+    teamPicture: "",
+    deudas: [{
+      _id: "",
+      belongTournament: {
+        _id: "",
+        nameFantasy: ""
+      },
+      belongToList: {
+        _id: "",
+        nameList: ""
+      },
+      amount: 0
+    }]
+  }
   constructor(private userService: UserService, private notifyService: NotifyService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.userService.getDeuda().subscribe({
       next: (res : any) => {
-        if (res.team && res.team.active) {
-          this.team = res.team  // Acceder a las deudas solo si el equipo está activo
-        } else {
-          console.log('No hay un equipo activo.');
-        }
+          this.list = res.list  // Acceder a las deudas solo si el equipo está activo
+          console.log(this.list)
       },
       error: (err : any) => {
         this.notifyService.error(err.message)
@@ -50,11 +66,10 @@ export class DeudasPage implements OnInit {
     })
   }
 
-    async confirmInscription(deudaId: any, teamListId: any, tournamentId: any, nameList: any) {
-      console.log(deudaId, teamListId, tournamentId)
+    async confirmInscription(deudaId: any, teamListId: any, tournamentId: any) {
     const alert = await this.alertController.create({
       header: 'Confirmar Inscripción',
-      message: `¿Estás seguro de inscribir la lista: '${nameList}' en este torneo?`,
+      message: `¿Estás seguro de inscribir la lista: ' en este torneo?`,
       inputs: [
         {
           name: 'userPrice',
