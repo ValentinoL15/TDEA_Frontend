@@ -142,12 +142,18 @@
         
     </form>
     <div class="container"> 
-      <ion-button expand="block" color="primary" (click)="editTeam(miForm)" *ngIf="isTeamEdited" >
-        Editar Equipo
-      </ion-button>
-        <ion-button expand="block" color="danger" id="present-alert" (click)="deleteTeam(team._id)" style="font-weight: bold;">
+      <span style="z-index: 1000;position: absolute; left: 20px ;border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: #08aaeb;" *ngIf="isTeamEdited">
+        <ion-icon expand="block" name="pencil-outline" color="black" (click)="editTeam(miForm)" *ngIf="isTeamEdited" >
+          Editar Equipo
+        </ion-icon>
+      </span> 
+      
+      <span style="z-index: 1000;border-radius: 50%; right: 10px; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: red; margin-left: 150px;">
+        <ion-icon name="trash-outline" color="black" id="present-alert" (click)="deleteTeam(team._id)" style="font-weight: bold;">
           Eliminar Equipo
-        </ion-button>
+        </ion-icon>
+      </span> 
+        
     </div>
     
         <ng-container *ngFor="let list of lists">
@@ -257,10 +263,13 @@
             <input type="hidden" [value]="list._id" name="_id">
           </form>
           <div class="container" style="margin-top:10px ;">
-            <ion-button color="secondary" (click)="editLista(miForm)" *ngIf="isFormEdited">Editar</ion-button>
-            <ion-button expand="block" color="danger" id="present-alert" (click)="deleteList(list._id)">
-              Eliminar Lista
-            </ion-button>
+            <span style="z-index: 1000;position: absolute; left: 20px ;border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: #08aaeb;" *ngIf="isFormEdited">
+            <ion-icon expand="block" name="pencil-outline" color="black" (click)="editLista(miForm)" *ngIf="isFormEdited"></ion-icon>
+            </span>
+            <span style="z-index: 1000;position: absolute; left: 160px ;border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: red;">
+            <ion-icon expand="block" color="black" id="present-alert" (click)="deleteList(list._id)" name="trash-outline">
+            </ion-icon>
+            </span>
           </div>
         </ng-container>
 
@@ -327,8 +336,13 @@
             </ion-content>
           </ng-template>
         </ion-modal>
-    <div class="container">
-      <ion-button (click)="setOpen2(true)">Crear Nueva Lista</ion-button>
+    <div class="container-button2" (click)="setOpen2(true)">
+      <div class="button" >
+        <ion-button shape="round">
+          <ion-icon slot="icon-only" name="newspaper-outline"></ion-icon>
+        </ion-button>
+        </div>
+
     </div>
     
   </div>
