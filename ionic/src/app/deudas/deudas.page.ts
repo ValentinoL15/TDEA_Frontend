@@ -13,6 +13,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class DeudasPage implements OnInit {
   id:any
+  nameList: string = ""
   totalDeudas: number = 0
   team: Team = {
     _id: "",
@@ -57,10 +58,16 @@ export class DeudasPage implements OnInit {
 
   ngOnInit() {
     this.getDeudaEquipo()
+    this.userService.getMyListUpdatedListener().subscribe(() => {
+      this.getDeuda()
+    })
+  }
+
+  getDeuda(){
     this.userService.getDeuda().subscribe({
       next: (res : any) => {
           this.list = res.list  // Acceder a las deudas solo si el equipo está activo
-          console.log(this.list)
+          this.nameList = this.list.nameList
       },
       error: (err : any) => {
         this.notifyService.error(err.message)
