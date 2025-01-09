@@ -13,6 +13,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class DeudasPage implements OnInit {
   id:any
+  totalDeudas: number = 0
   team: Team = {
     _id: "",
     teamName: "",
@@ -71,7 +72,7 @@ export class DeudasPage implements OnInit {
     this.userService.getDeudaEquipo().subscribe({
       next: (res : any) => {
         this.team = res.team
-        console.log("Mis deudas equipoooo:", this.team)
+        this.totalDeudas = res.total
       },
       error: (err : any) => {
         this.notifyService.error(err.error.message)
