@@ -6,11 +6,22 @@
 
 <ion-content [fullscreen]="true" color="light">
   <div style="display: flex; width: 100%; justify-content: center;">
-    <h2 style="font-weight: bold;">Mis Deudas</h2>
+    <h2 style="font-weight: bold;">Deudas de la Lista</h2>
   </div>
   
   <ion-list [inset]="true">
     <ion-item *ngFor="let deuda of list.deudas" detail="true" (click)="confirmInscription(deuda._id, list ._id, deuda.belongTournament?._id)">
+      <ion-input readonly="true" [label]="deuda.belongToList.nameList + ' - ' + deuda.belongTournament?.nameFantasy" labelPlacement="stacked" [value]="'Deuda: $ ' + deuda.amount">
+      </ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div style="display: flex; width: 100%; justify-content: center;">
+    <h2>Deudas del Equipo</h2>
+  </div>
+
+  <ion-list [inset]="true">
+    <ion-item *ngFor="let deuda of team.deudas" detail="true">
       <ion-input readonly="true" [label]="deuda.belongToList.nameList + ' - ' + deuda.belongTournament?.nameFantasy" labelPlacement="stacked" [value]="'Deuda: $ ' + deuda.amount">
       </ion-input>
     </ion-item>

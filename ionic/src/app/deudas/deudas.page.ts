@@ -55,6 +55,7 @@ export class DeudasPage implements OnInit {
   constructor(private userService: UserService, private notifyService: NotifyService, private alertController: AlertController) { }
 
   ngOnInit() {
+    this.getDeudaEquipo()
     this.userService.getDeuda().subscribe({
       next: (res : any) => {
           this.list = res.list  // Acceder a las deudas solo si el equipo está activo
@@ -62,6 +63,18 @@ export class DeudasPage implements OnInit {
       },
       error: (err : any) => {
         this.notifyService.error(err.message)
+      }
+    })
+  }
+
+  getDeudaEquipo(){
+    this.userService.getDeudaEquipo().subscribe({
+      next: (res : any) => {
+        this.team = res.team
+        console.log("Mis deudas equipoooo:", this.team)
+      },
+      error: (err : any) => {
+        this.notifyService.error(err.error.message)
       }
     })
   }

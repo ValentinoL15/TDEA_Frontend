@@ -123,8 +123,13 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
   }
 
   getDeuda(){
-    return this.http.get(`${this.API_URL}/obtener-deuda`)
+    return this.http.get(`${this.API_URL}/obtener-deuda-lista`)
   }
+
+  getDeudaEquipo(){
+    return this.http.get(`${this.API_URL}/obtener-deudas-equipo`)
+  }
+
 
   getDeudas(deudaId: any){
     return this.http.get(`${this.API_URL}/obtener-deudas/${deudaId}`)
