@@ -142,17 +142,13 @@
         
     </form>
     <div class="container"> 
-      <span style="z-index: 1000;position: absolute; left: 20px ;border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: #08aaeb;" *ngIf="isTeamEdited">
-        <ion-icon expand="block" name="pencil-outline" color="black" (click)="editTeam(miForm)" *ngIf="isTeamEdited" >
-          Editar Equipo
-        </ion-icon>
-      </span> 
-      
-      <span style="z-index: 1000;border-radius: 50%; right: 10px; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: red; margin-left: 150px;">
-        <ion-icon name="trash-outline" color="black" id="present-alert" (click)="deleteTeam(team._id)" style="font-weight: bold;">
-          Eliminar Equipo
-        </ion-icon>
-      </span> 
+      <ion-button expand="block" color="primary" (click)="editTeam(miForm)" *ngIf="isTeamEdited" >
+        Editar Equipo
+      </ion-button>
+
+      <ion-button expand="block" color="danger" id="present-alert" (click)="deleteTeam(team._id)" style="font-weight: bold;">
+        Eliminar Equipo
+      </ion-button>
         
     </div>
     
@@ -263,13 +259,10 @@
             <input type="hidden" [value]="list._id" name="_id">
           </form>
           <div class="container" style="margin-top:10px ;">
-            <span style="z-index: 1000;position: absolute; left: 20px ;border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: #08aaeb;" *ngIf="isFormEdited">
-            <ion-icon expand="block" name="pencil-outline" color="black" (click)="editLista(miForm)" *ngIf="isFormEdited"></ion-icon>
-            </span>
-            <span style="z-index: 1000;position: absolute; left: 160px ;border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 4px ;background-color: red;">
-            <ion-icon expand="block" color="black" id="present-alert" (click)="deleteList(list._id)" name="trash-outline">
-            </ion-icon>
-            </span>
+            <ion-button color="secondary" (click)="editLista(miForm)" *ngIf="isFormEdited">Editar</ion-button>
+            <ion-button expand="block" color="danger" id="present-alert" (click)="deleteList(list._id)">
+              Eliminar Lista
+            </ion-button>
           </div>
         </ng-container>
 
