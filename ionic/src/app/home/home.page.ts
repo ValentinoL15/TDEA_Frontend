@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
   }
   lists: List[] = []
   myLists: List[] = []
-  myListActive: List | null = {
+  myListActive : List | null = {
     nameList: "",
     typeAlineacion: 0,
     teamPicture: "",

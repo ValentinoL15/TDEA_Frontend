@@ -3,10 +3,11 @@ import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifyService } from '../services/notify.service';
 import { List } from '../interfaces/List';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TournamentService } from '../services/tournament.service';
 import { Division } from '../interfaces/Division';
 import { Campeonato } from '../interfaces/Campeonato';
+import { AlertController } from '@ionic/angular';
 
 
 
@@ -74,6 +75,9 @@ export class CreateListPage implements OnInit {
     nameList: "",
     teamPicture: ""
   }
+  isFormEdited: boolean = false
+  isTeamEdited: boolean = false
+  selectedFile2: File | null = null;
   form: FormGroup
   campeonatos: Campeonato[] = []
   selectedFile: File | null = null;
@@ -83,8 +87,18 @@ export class CreateListPage implements OnInit {
   showAlternativeColorDropdown = false;
   selectedAlternativeColor: string | null = null;
   color: string = '#127bdc'
+  form2: FormGroup
+  myLists: List[] = []
+  myListActive : List | null = {
+    nameList: "",
+    typeAlineacion: 0,
+    teamPicture: "",
+    listActive: false
+  }
+  listaSeleccionada: List | null = null; 
+  selectedFile3: File | null = null;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService) { 
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService, private alertController: AlertController) { 
     this.form = this.formBuilder.group({
       nameList: ['', Validators.required],
       hasShirtTitular: [null, Validators.required],
@@ -93,6 +107,14 @@ export class CreateListPage implements OnInit {
       alternativeShirtColor: ['', Validators.required],
       typeAlineacion: ['', Validators.required]
     });
+    this.form2 = this.formBuilder.group({
+      nameList: ['', Validators.required],
+      hasShirtTitular: [null, Validators.required],
+      hasShirtSuplente: [null, Validators.required],
+      shirtColor: ['', Validators.required], // Valor predeterminado
+      alternativeShirtColor: ['', Validators.required],
+      typeAlineacion: ['', Validators.required]
+    })
   }
 
   isModalOpen = false;
@@ -135,10 +157,31 @@ export class CreateListPage implements OnInit {
     })
     this.getLists()
     this.getCampeonatos()
+    this.getLists()
+    this.getMyLists()
+    this.getMyListActive()
   }
 
-  goList(id:any){
-    this.router.navigate([`/user/list/${id}`])
+  getCampeonatos(){
+    this.tournamentServ.getCampeonatos().subscribe({
+      next: (res : any) => {
+        this.campeonatos = res.campeonatos
+      },
+      error: (err) => {
+        console.log(err.error.message);
+      }
+    })
+  }
+
+  getMyLists(){
+    this.userService.getMyLists().subscribe({
+      next: (res: any) => {
+        this.myLists = res.lists;
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
   }
 
   getLists(){
@@ -153,10 +196,11 @@ export class CreateListPage implements OnInit {
     })
   }
 
-  getCampeonatos(){
-    this.tournamentServ.getCampeonatos().subscribe({
+  getMyListActive(){
+    this.userService.getMyListActive().subscribe({
       next: (res : any) => {
-        this.campeonatos = res.campeonatos
+        this.myListActive = res.list
+        console.log("ACITVEAD",this.myListActive)
       },
       error: (err) => {
         console.log(err.error.message);
@@ -164,10 +208,58 @@ export class CreateListPage implements OnInit {
     })
   }
 
+  cambiarListActive(listId : any){
+    this.userService.cambiarListActive(listId).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getLists()
+        this.getMyListActive()
+        this.getMyLists()
+    },
+      error: (err) => {
+        this.notifyService.error(err.error.message)
+      }
+    })
+  }
+
+  onListChange(listId: any) {
+    this.listaSeleccionada = this.myLists.find(e => e._id === listId) || null;
+    this.cambiarListActive(listId)
+  }
+
+  editLista(form: any){
+    const formulario = {
+      nameList: form.nameList.value,
+      _id : form._id.value,
+      hasShirtTitular: form.hasShirtTitular.value,
+      hasShirtSuplente: form.hasShirtSuplente.value,
+      shirtColor: form.shirtColor?.value || '#FFFFFF', // Asignar valor por defecto si no existe
+      alternativeShirtColor: form.alternativeShirtColor?.value || '#080807',
+    }
+    this.userService.editList(formulario).subscribe({
+      next: (res : any) => {
+        this.notifyService.success(res.message)
+        this.getLists()
+        this.getMyListActive()
+        this.getMyLists()
+        this.isFormEdited = false;
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  isModalOpen2 = false;
+
+  setOpen2(isOpen: boolean) {
+    this.isModalOpen2 = isOpen;
+  }
+
   createList(){
     const formData = new FormData();
-    const hasShirtTitular = this.form.get('hasShirtTitular')?.value;
-    const hasShirtSuplente = this.form.get('hasShirtSuplente')?.value;
+    const hasShirtTitular = this.form2.get('hasShirtTitular')?.value;
+    const hasShirtSuplente = this.form2.get('hasShirtSuplente')?.value;
     if (hasShirtTitular === null ) {
       this.notifyService.error('Por favor, selecciona si tiene remera titular.');
       return; // Detener la ejecución si hay campos vacíos
@@ -176,18 +268,21 @@ export class CreateListPage implements OnInit {
       this.notifyService.error('Por favor, selecciona si tiene remera suplente.');
       return; // Detener la ejecución si hay campos vacíos
     }
-    formData.append('nameList', this.form.get('nameList')?.value);
-    formData.append('hasShirtTitular', this.form.get('hasShirtTitular')?.value);
-    formData.append('hasShirtSuplente', this.form.get('hasShirtSuplente')?.value);
-    formData.append('shirtColor', this.form.get('shirtColor')?.value);
-    formData.append('alternativeShirtColor', this.form.get('alternativeShirtColor')?.value);
-    formData.append('typeAlineacion', this.form.get('typeAlineacion')?.value);
-    formData.append('image', this.selectedFile as Blob);
+    formData.append('nameList', this.form2.get('nameList')?.value);
+    formData.append('hasShirtTitular', this.form2.get('hasShirtTitular')?.value);
+    formData.append('hasShirtSuplente', this.form2.get('hasShirtSuplente')?.value);
+    formData.append('shirtColor', this.form2.get('shirtColor')?.value);
+    formData.append('alternativeShirtColor', this.form2.get('alternativeShirtColor')?.value);
+    formData.append('image', this.selectedFile3 as Blob);
     
     this.userService.createList(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        window.location.href = `user/create-list/`
+        this.getLists()
+        this.getMyListActive()
+        this.getMyLists()
+        this.setOpen2(false)
+        this.form2.reset()
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -195,11 +290,138 @@ export class CreateListPage implements OnInit {
     })
   }
 
-  onFileSelected(event: any) {
+  async deleteList(id: any) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que quieres borrar esta lista?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // El usuario ha cancelado, no hacer nada
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            // El usuario ha confirmado, proceder con la eliminación
+            this.userService.eliminarLista(id).subscribe({
+              next: (res: any) => {
+                this.notifyService.success(res.message);
+                if (this.myListActive && this.myListActive._id === id) {
+                this.myListActive = null;
+              }
+                this.getLists()
+                this.getMyListActive()
+                this.getMyLists()
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message);
+              }
+            });
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  onFileSelected3(event: any) {
     const file: File = event.target.files[0];
-    this.selectedFile = file;
+    this.selectedFile3 = file;
     console.log('Archivo seleccionado:', file);
   }
 
+  onShirtTitularChange(list: any) {
+    if (!list.hasShirtTitular) {
+      list.shirtColor = null; // Limpia el color si no tiene remera titular
+    }
+  }
+
+  onShirtSuplenteChange(list: any) {
+    if (!list.hasShirtSuplente) {
+      list.alternativeShirtColor = null; // Limpia el color si no tiene remera suplente
+    }
+  }
+  
+
+  goList(id:any, alineacion: any){
+    this.router.navigate([`/alineaciones/${id}/${alineacion}`])
+  }
+
+  onSelectImage2() {
+    const fileInput = document.getElementById('file-inputs') as HTMLInputElement;
+    fileInput.click(); // Simula el clic en el input de archivo oculto
+  }
+
+  onFileSelected2(event : any){
+    const file : File = event.target.files[0]
+    this.selectedFile2 = file
+    console.log('Archivo seleccionado:', file);
+
+    if (file) {
+      this.editImage(); // Llama a la función para editar la imagen
+    }
+  }
+
+  editImage(){
+    const form = new FormData();
+    form.append('image',  this.selectedFile2 as Blob);
+    this.userService.editPhotoList(form).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getLists()
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  onFormChange() {
+    this.isFormEdited = true;
+  }
+
+  onTeamChange() {
+    this.isTeamEdited = true;
+  }
+
+  async presentAlertImagen2() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres cambiar la imagen del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Edición cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.editImage(); // Llama a la función para editar la imagen
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  deletePhoto2(){
+    this.userService.deletePhotoLista().subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        window.location.href = `/user/list/${this.id}`
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
 
 }

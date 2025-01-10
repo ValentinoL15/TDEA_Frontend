@@ -81,4 +81,167 @@
     }
   }
 
+  .container-button2 {
+    position: fixed;
+    bottom: 20px; /* Ajusta según el espacio que desees del fondo de la pantalla */
+    left: 20px; /* Ajusta según el espacio que desees del borde derecho */
+    z-index: 1;
+  }
+
+  .container{
+    position: relative;
+    display: flex;
+    width: 100%;
+  }
+
+  .elements {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-right: 20px;
+    padding: 20px;
+  }
   
+  ion-item {
+    --min-height: 100%; /* Asegura que el ion-item ocupe toda la altura */
+    height: 100%; /* Fija la altura de cada ion-item */
+    align-items: center; /* Opcional: centra verticalmente el contenido */
+  }
+  
+  
+  ion-input {
+    width: 100%;
+    height: 100%; /* Opcional, si el ion-item tiene contenido extra */
+  }
+  
+  .element-1{
+   height: 100%;
+  }
+  
+  .element-2{
+    height: 100%;
+   }
+  
+   .element-3{
+    height: 100%;
+   }
+
+   .noAccept{ 
+    position: relative;
+    display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 10px;
+  }
+  
+  
+  .icon-timer{
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  /*.passMarket {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: absolute;
+    bottom: 180px;
+  }*/
+  
+  .fondo{
+     position: relative;
+  }
+  
+  .boton {
+    padding: 10px;
+    background-color: orange;
+    font-weight: bold;
+  }
+  
+  .boton-dia{
+    padding: 5px;
+    background-color: black;
+  }
+  
+  
+  .select {
+    margin-left: 75px;
+  }
+  
+  .image {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon {
+  width: 150px;
+  height: 150px;
+  }
+  
+  
+  .imagen {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 10px;
+  }
+  
+  .edit-button {
+    width: 40px;
+    position: absolute;
+    top: -5px;  /* Ajusta la distancia desde la parte superior de la imagen */
+    right: -2px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+  }
+  
+  .edit-button-trash {
+    position: absolute;
+    width: 40px;
+    top: -5px;  /* Ajusta la distancia desde la parte superior de la imagen */
+    right: 38px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+  }
+  
+  .icon-timer{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .foto {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+  }
+  
+  .icon-timer2{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: 15px;
+  }
+
+  .select-contain {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+  }
+
+  .select2{
+    display: flex;
+    align-items: center;
+    margin-right: 17px;
+  }
