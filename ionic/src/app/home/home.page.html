@@ -266,7 +266,7 @@
           </div>
         </ng-container>
 
-        <ion-modal [isOpen]="isModalOpen2">
+        <!--<ion-modal [isOpen]="isModalOpen2">
           <ng-template>
             <ion-header>
               <ion-toolbar>
@@ -285,12 +285,7 @@
                   <ion-input label="Nombre de la lista" label-placement="floating" placeholder="Nombre de Lista" formControlName="nameList"></ion-input>
                 </ion-item>
       
-              <!--<ion-item (click)="toggleColorDropdown()">
-              <ion-input label="Remera Titular" label-placement="floating" placeholder="Remera Titular" formControlName="shirtColor"></ion-input>
-          
-                  <ion-label>Remera Titular</ion-label>
-                  <div class="selected-color" [style.background]="form.get('shirtColor')?.value || '#FFFFFF'"></div>
-              </ion-item>-->
+             
       
               <ion-item>
                 <ion-select label="Tiene remera titular" label-placement="floating" formControlName="hasShirtTitular" interface="popover">
@@ -300,7 +295,7 @@
               </ion-item>
               
             
-              <!-- Solo mostrar si tiene remera titular -->
+          
               <ion-item *ngIf="form2.get('hasShirtTitular')?.value">
                 <ion-label>Remera Titular</ion-label>
                 <input class="custom" type="color" formControlName="shirtColor" />
@@ -313,7 +308,6 @@
                 </ion-select>
               </ion-item>
             
-              <!-- Solo mostrar si tiene remera suplente -->
               <ion-item *ngIf="form2.get('hasShirtSuplente')?.value">
                 <ion-label>Remera Suplente</ion-label>
                 <input class="custom" type="color" formControlName="alternativeShirtColor" />
@@ -328,15 +322,8 @@
               </form>
             </ion-content>
           </ng-template>
-        </ion-modal>
-    <div class="container-button2" (click)="setOpen2(true)">
-      <div class="button" >
-        <ion-button shape="round">
-          <ion-icon slot="icon-only" name="newspaper-outline"></ion-icon>
-        </ion-button>
-        </div>
-
-    </div>
+        </ion-modal>-->
+   
     
   </div>
 
