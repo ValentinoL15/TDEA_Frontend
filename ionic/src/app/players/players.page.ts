@@ -86,6 +86,7 @@ export class PlayersPage implements OnInit {
     shirtColor: "",
     alternativeShirtColor: "",
     nameList: "",
+    listActive : false
   }
   player: Player = {
     _id: "",
@@ -346,21 +347,20 @@ export class PlayersPage implements OnInit {
     this.getUser()
     this.getMarket()
     this.getMyPlayer()
-    this.getPlayersList()
+    this.getMyList()
     this.cargarJugadores({});
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getPlayersList()
     })
-    this.userService.getDeuda().subscribe({
-      next: (res: any) => {
-        if (res.team && res.team.active) {
-          this.team = res.team  // Acceder a las deudas solo si el equipo está activo
-        } else {
-          console.log('No hay un equipo activo.');
-        }
+  }
+
+  getMyList(){
+    this.userService.getMyListActive().subscribe({
+      next: (res : any) => {
+        this.list = res.list
       },
-      error: (err: any) => {
-        this.notifyService.error(err.message)
+      error: (err) => {
+        this.notifyService.error(err.error.message)
       }
     })
   }

@@ -89,7 +89,7 @@ export class CreateListPage implements OnInit {
   color: string = '#127bdc'
   form2: FormGroup
   myLists: List[] = []
-  myListActive : List | null = {
+  myListActive : List = {
     nameList: "",
     typeAlineacion: 0,
     teamPicture: "",
@@ -154,12 +154,13 @@ export class CreateListPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id']
+      this.getMyListActive()
     })
     this.getLists()
     this.getCampeonatos()
     this.getLists()
     this.getMyLists()
-    this.getMyListActive()
+    
   }
 
   getCampeonatos(){
@@ -174,9 +175,10 @@ export class CreateListPage implements OnInit {
   }
 
   getMyLists(){
-    this.userService.getMyLists().subscribe({
+    this.userService.getAllLists().subscribe({
       next: (res: any) => {
-        this.myLists = res.lists;
+        this.myLists = res.myLists;
+        console.log("mi listasss", this.myLists)
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
@@ -310,7 +312,7 @@ export class CreateListPage implements OnInit {
               next: (res: any) => {
                 this.notifyService.success(res.message);
                 if (this.myListActive && this.myListActive._id === id) {
-                this.myListActive = null;
+                
               }
                 this.getLists()
                 this.getMyListActive()

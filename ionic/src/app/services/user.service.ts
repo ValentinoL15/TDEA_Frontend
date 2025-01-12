@@ -168,6 +168,10 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.get(`${this.API_URL}/obtener-mis-listas`)
   }
 
+  getAllLists(){
+    return this.http.get(`${this.API_URL}/obtener-todas-listas`)
+  }
+
   getPlayersList(){
     return this.http.get(`${this.API_URL}/obtener-jugadores-lista`)
   }
