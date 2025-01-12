@@ -5,7 +5,7 @@
   <div class="select-contain">
 
     <div class="select2">
-      <ion-select toggleIcon="none" interface="popover" [placeholder]="myListActive?.nameList || 'Selecciona un equipo'"  (ionChange)="onListChange($event.detail.value)">
+      <ion-select toggleIcon="none" interface="popover" [placeholder]="myListActive.nameList || 'Selecciona una Lista'"  (ionChange)="onListChange($event.detail.value)">
         <ion-list>
           <ion-item>
             <ion-select-option *ngFor="let list of myLists" [value]="list._id">
@@ -44,45 +44,43 @@
     </div>
   </div>
 
-<div class="listaEmpty" *ngIf="!lists">
+<div class="listaEmpty" *ngIf="!myListActive">
   <p>Por favor, crea o elegí un equipo</p>
 </div>
 
-
-  <ng-container *ngFor="let list of lists">
     <form #miForm class="contenedor">
       
       <div class="image">
-        <ng-container *ngIf="list.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'; else showImage">
+        <ng-container *ngIf="myListActive?.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'; else showImage">
           <div class="noAccept">
             <div style="width: 150px; height: 150px; position: relative; margin-top: 20px;">
-              <img [src]="list.teamPicture" width="150px" height="150px"/>
+              <img [src]="myListActive.teamPicture" width="150px" height="150px"/>
               <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-                <ion-button *ngIf="list.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                <ion-button *ngIf="myListActive?.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
                 <input type="file" (change)="onFileSelected2($event)" hidden id="file-inputs" />
             </div>
           </div>
   
         </ng-container>
         <ng-template #showImage>
-          <div class="noAccept" *ngIf="list.pictureAccept === true">
+          <div class="noAccept" *ngIf="myListActive?.pictureAccept === true">
             <div style="width: 150px; height: 150px; position: relative; margin-top: 20px;">
-              <img [src]="list.teamPicture" width="150px" height="150px"/>
+              <img [src]="myListActive.teamPicture" width="150px" height="150px"/>
               <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ion-button *ngIf="list.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <ion-button *ngIf="myListActive?.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               <input type="file" (change)="onFileSelected2($event)" hidden id="file-inputs" />
             </div>
           </div>
-          <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'pending'">
+          <div class="noAccept" *ngIf="myListActive?.pictureAccept === false && myListActive?.status === 'pending'">
             <div style="width: 150px; height: 150px; position: relative;">
-              <img [src]="list.teamPicture" width="150px" height="150px"/>
+              <img [src]="myListActive.teamPicture" width="150px" height="150px"/>
               <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
             <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-            <ion-button *ngIf="list.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+            <ion-button *ngIf="myListActive?.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
             <input type="file" (change)="onFileSelected2($event)" hidden id="file-inputs" />
             </div>
           </div>
-          <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'rejected'">
+          <div class="noAccept" *ngIf="myListActive?.pictureAccept === false && myListActive?.status === 'rejected'">
             <div style="width: 150px; height: 150px; position: relative;">
               <ion-icon class="icon" name="shield-outline"></ion-icon>
               <ion-icon class="icon-timer" name="close-outline" size="large" color="danger"></ion-icon>
@@ -95,35 +93,29 @@
         </ng-template>
       </div>
   
-        
+        <ng-container *ngIf="myListActive.listActive">
           <ion-list [inset]="true" style="margin-top: 25px;">
             <ion-item>
-              <ion-input label="Lista" label-placement="stacked" [(ngModel)]="list.nameList" name="nameList" [value]="list.nameList" (ngModelChange)="onFormChange()"></ion-input>
+              <ion-input label="Lista" label-placement="stacked" [(ngModel)]="myListActive.nameList" name="nameList" [value]="myListActive.nameList" (ngModelChange)="onFormChange()"></ion-input>
             </ion-item>
           
-  
-        
             <ion-item >
-              <ion-select label="Remera Titular" label-placement="stacked" interface="popover" name="hasShirtTitular" [(ngModel)]="list.hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'" (ionChange)="onShirtTitularChange(list)" (ngModelChange)="onFormChange()">
+              <ion-select label="Remera Titular" label-placement="stacked" interface="popover" name="hasShirtTitular" [(ngModel)]="myListActive.hasShirtTitular" [value]="myListActive.hasShirtTitular" [placeholder]="myListActive.hasShirtTitular === true ? 'Si' : 'No'" (ionChange)="onShirtTitularChange(myListActive)" (ngModelChange)="onFormChange()">
                 <ion-select-option [value]="true">Si</ion-select-option>
                 <ion-select-option [value]="false">No</ion-select-option>
               </ion-select>
             </ion-item>
           
-  
-         
-            <ion-item *ngIf="list.hasShirtTitular">
+            <ion-item *ngIf="myListActive.hasShirtTitular">
               <ion-label>Remera Titular</ion-label>
               <ion-input
                 type="color"
                 style="width: 30px; padding: 5px;"
                 name="shirtColor"
-                [(ngModel)]="list.shirtColor"
+                [(ngModel)]="myListActive.shirtColor"
                 (ngModelChange)="onFormChange()"
               ></ion-input>
             </ion-item>
-          
-  
           
             <ion-item>
               <ion-select
@@ -131,39 +123,38 @@
                 label-placement="stacked"
                 interface="popover"
                 name="hasShirtSuplente"
-                [(ngModel)]="list.hasShirtSuplente"
-                (ionChange)="onShirtSuplenteChange(list)"
+                [(ngModel)]="myListActive.hasShirtSuplente"
+                (ionChange)="onShirtSuplenteChange(myListActive)"
                 (ngModelChange)="onFormChange()">
                 <ion-select-option [value]="true">Si</ion-select-option>
                 <ion-select-option [value]="false">No</ion-select-option>
               </ion-select>
             </ion-item>
-         
-  
         
-            <ion-item *ngIf="list.hasShirtSuplente">
+            <ion-item *ngIf="myListActive.hasShirtSuplente">
               <ion-label>Color Remera Suplente</ion-label>
               <ion-input
                 type="color"
                 name="alternativeShirtColor"
                 style="width: 30px; padding: 5px;"
-                [(ngModel)]="list.alternativeShirtColor"
+                [(ngModel)]="myListActive.alternativeShirtColor"
                 (ngModelChange)="onFormChange()">
               </ion-input>
             </ion-item>
-         
         
-      <input type="hidden" [value]="list._id" name="_id">
+      <input type="hidden" [value]="myListActive._id" name="_id">
           </ion-list>
-           
+          <div class="container" style="margin-top:10px ;" >
+            <ion-button style="width: 100%;" color="secondary" (click)="editLista(miForm)" *ngIf="isFormEdited">Editar</ion-button>
+            <ion-button style="width: 100%;" expand="block" color="danger" id="present-alert" (click)="deleteList(list._id)">
+              Eliminar Lista
+            </ion-button>
+          </div>
+        </ng-container>
+        
     </form>
-    <div class="container" style="margin-top:10px ;">
-      <ion-button style="width: 100%;" color="secondary" (click)="editLista(miForm)" *ngIf="isFormEdited">Editar</ion-button>
-      <ion-button style="width: 100%;" expand="block" color="danger" id="present-alert" (click)="deleteList(list._id)">
-        Eliminar Lista
-      </ion-button>
-    </div>
-  </ng-container>
+  
+  
 
 
 
