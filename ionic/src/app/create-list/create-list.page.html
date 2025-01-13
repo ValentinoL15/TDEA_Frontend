@@ -17,7 +17,7 @@
           </ion-item>
         </ion-list>
       </ion-select>
-      <ng-container *ngFor="let list of lists">
+
         <img 
           *ngIf="myListActive && myListActive.pictureAccept === true && myListActive.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && myListActive.status === 'approved'" 
           style="border-radius: 50%;" 
@@ -38,8 +38,6 @@
           <img style="width: 20px; height: 20px;" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"
           *ngIf="!myListActive || myListActive.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" 
           name="shield-outline">
-        
-      </ng-container>
       
     </div>
   </div>
