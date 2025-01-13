@@ -349,8 +349,10 @@ export class PlayersPage implements OnInit {
     this.getMyPlayer()
     this.getMyList()
     this.cargarJugadores({});
+    this.getPlayersList()
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getPlayersList()
+      this.getMyList()
     })
   }
 
@@ -520,7 +522,7 @@ export class PlayersPage implements OnInit {
     this.userService.getPlayersList().subscribe({
       next: (res: any) => {
         this.playersList = res.listOfPlayers;
-        console.log(this.playersList)
+        console.log("mis players",this.playersList)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)

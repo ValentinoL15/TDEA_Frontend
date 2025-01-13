@@ -264,7 +264,7 @@ export class ListPage implements OnInit {
           text: 'Eliminar',
           handler: () => {
             // El usuario ha confirmado, proceder con la eliminación
-            this.userService.eliminarLista(id).subscribe({
+            this.userService.eliminarLista().subscribe({
               next: (res: any) => {
                 this.notifyService.success(res.message);
                 setTimeout(() => {
