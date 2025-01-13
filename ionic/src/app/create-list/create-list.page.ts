@@ -156,11 +156,12 @@ export class CreateListPage implements OnInit {
       this.id = params['id']
       this.getMyListActive()
     })
-    this.getLists()
     this.getCampeonatos()
     this.getLists()
     this.getMyLists()
-    
+    this.userService.getMyListUpdatedListener().subscribe(() => {
+      this.getMyListActive()
+    })
   }
 
   getCampeonatos(){
@@ -308,7 +309,7 @@ export class CreateListPage implements OnInit {
           text: 'Eliminar',
           handler: () => {
             // El usuario ha confirmado, proceder con la eliminación
-            this.userService.eliminarLista(id).subscribe({
+            this.userService.eliminarLista().subscribe({
               next: (res: any) => {
                 this.notifyService.success(res.message);
                 if (this.myListActive && this.myListActive._id === id) {

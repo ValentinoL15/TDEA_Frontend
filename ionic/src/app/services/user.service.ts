@@ -156,8 +156,8 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.patch(`${this.API_URL}/editar-imagen-lista`, image)
   }
 
-  eliminarLista(id:any){
-    return this.http.delete(`${this.API_URL}/eliminar-lista/${id}`)
+  eliminarLista(){
+    return this.http.delete(`${this.API_URL}/eliminar-lista`)
   }
 
   getMyList(){
