@@ -154,8 +154,8 @@ export class CreateListPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id']
-      this.getMyListActive()
     })
+    this.getMyListActive()
     this.getCampeonatos()
     this.getLists()
     this.getMyLists()
@@ -376,6 +376,7 @@ export class CreateListPage implements OnInit {
       next: (res: any) => {
         this.notifyService.success(res.message);
         this.getLists()
+        this.getMyListActive()
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
