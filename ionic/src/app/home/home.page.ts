@@ -306,6 +306,7 @@ export class HomePage implements OnInit {
     })
   }
 
+
   cambiarActivo(equipoId : any){
     this.userService.actualizarEquipo(equipoId).subscribe({
       next: (res : any) => {
