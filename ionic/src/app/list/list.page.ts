@@ -54,6 +54,7 @@ export class ListPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private userService:UserService, private tournamentServ: TournamentService, private alertController: AlertController, private fb: FormBuilder) {
     this.form = this.fb.group({
+      nameList: [null],
       hasShirtTitular: [null], // o false si es booleano
       hasShirtSuplente: [null],
       shirtColor: [null],
@@ -211,6 +212,7 @@ export class ListPage implements OnInit {
         this.idOwnerTeam = `${this.list.ownerTeam?._id}`
         console.log(this.list)
         this.form.patchValue({
+          nameList: this.list.nameList,
           hasShirtTitular: this.list.hasShirtTitular,
           hasShirtSuplente: this.list.hasShirtSuplente,
           shirtColor: this.list.shirtColor,
@@ -230,15 +232,16 @@ export class ListPage implements OnInit {
 
   editLista(){
     const formulario = {
+      nameList: this.form.value.nameList,
       hasShirtTitular: this.form.value.hasShirtTitular,
       hasShirtSuplente: this.form.value.hasShirtSuplente,
       shirtColor: this.form.value.shirtColor,
       alternativeShirtColor: this.form.value.alternativeShirtColor,
       typeAlineacion: this.form.value.typeAlineacion
     }
-    this.userService.editList(formulario).subscribe({
+    this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {
-        window.location.href = `/alineaciones/${this.id}/${this.list.alineacion?._id}`
+        window.location.href = `/user/list/${this.id}`
       },
       error: (err) => {
         this.notifyService.error(err.error.message);

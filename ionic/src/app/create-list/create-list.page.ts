@@ -239,7 +239,7 @@ export class CreateListPage implements OnInit {
       shirtColor: form.shirtColor?.value || '#FFFFFF', // Asignar valor por defecto si no existe
       alternativeShirtColor: form.alternativeShirtColor?.value || '#080807',
     }
-    this.userService.editList(formulario).subscribe({
+    this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
         this.getLists()
@@ -350,7 +350,7 @@ export class CreateListPage implements OnInit {
   }
   
 
-  goList(id:any, alineacion: any){
+  goList2(id:any, alineacion: any){
     this.router.navigate([`/alineaciones/${id}/${alineacion}`])
   }
 
@@ -426,6 +426,10 @@ export class CreateListPage implements OnInit {
         this.notifyService.error(err.error.message);
       }
     })
+  }
+
+  goList(id : any){
+    this.router.navigate([`/user/list/${id}`])
   }
 
 }
