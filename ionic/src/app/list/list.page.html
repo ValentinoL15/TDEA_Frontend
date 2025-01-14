@@ -33,6 +33,10 @@
         <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
       </div>
 
+      <ion-item >
+        <ion-input label="Lista" label-placement="stacked" [value]="list.nameList" formControlName="nameList"></ion-input>
+      </ion-item>
+
       <!-- Solo mostrar si tiene remera titular -->
       <ion-item >
         <ion-select label="Remera Titular" label-placement="stacked" interface="popover" formControlName="hasShirtTitular" [value]="list.hasShirtTitular" [placeholder]="list.hasShirtTitular === true ? 'Si' : 'No'">
@@ -59,7 +63,7 @@
         <ion-input type="color" style="width: 30px; padding: 5px;" formControlName="alternativeShirtColor" [value]="list.alternativeShirtColor"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <!--<ion-item>
       <ion-select label="Formato de equipo" label-placement="stacked" formControlName="typeAlineacion" [placeholder]="list.typeAlineacion" [value]="list.typeAlineacion" interface="popover">
         <ion-select-option value="5">Futbol 5</ion-select-option>
         <ion-select-option value="6">Futbol 6</ion-select-option>
@@ -73,7 +77,7 @@
 
       <ion-item detail="true" (click)="goList(list._id, list.alineacion?._id)">
         <ion-label>Alineación</ion-label>
-      </ion-item>
+      </ion-item>-->
     </ion-list>
   </form>
 

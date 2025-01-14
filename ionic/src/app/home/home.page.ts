@@ -501,8 +501,4 @@ export class HomePage implements OnInit {
   onTeamChange() {
     this.isTeamEdited = true;
   }
-
-/*****************************LISTAS***********************************/
-
-  
 }
