@@ -1,0 +1,53 @@
+.image {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 35px;
+}
+
+.icon {
+    width: 150px;
+    height: 150px;
+}
+
+.edit-button {
+    width: 40px;
+    position: absolute;
+    top: -5px;  /* Ajusta la distancia desde la parte superior de la imagen */
+    right: 0; /* Ajusta la distancia desde el lado derecho de la imagen */
+    z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+}
+
+.edit-button-trash {
+    position: absolute;
+    width: 40px;
+    top: -5px;  /* Ajusta la distancia desde la parte superior de la imagen */
+    right: 40px; /* Ajusta la distancia desde el lado derecho de la imagen */
+    z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+}
+
+.noAccept{ 
+    position: relative;
+    display: flex; /* Usar flexbox para centrar la imagen dentro de su div */
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 10px;
+}
+
+.icon-timer{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.contenedor{
+    padding: 20px;
+}
+
+

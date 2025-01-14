@@ -139,7 +139,6 @@ const routes: Routes = [
     loadChildren: () => import('./admin/img-approved/img-approved.module').then( m => m.ImgApprovedPageModule)
   },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
-
   {
     path: 'create-team',
     loadChildren: () => import('./create-team/create-team.module').then( m => m.CreateTeamPageModule)
@@ -224,6 +223,11 @@ const routes: Routes = [
     path: 'deudas',
     loadChildren: () => import('./deudas/deudas.module').then( m => m.DeudasPageModule)
   },
+  {
+    path: 'team/:id',
+    loadChildren: () => import('./team/team.module').then( m => m.TeamPageModule)
+  },
+
 
 
 ];
