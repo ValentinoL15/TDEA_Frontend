@@ -377,6 +377,7 @@ export class CreateListPage implements OnInit {
         this.notifyService.success(res.message);
         this.getLists()
         this.getMyListActive()
+        this.getMyLists()
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
