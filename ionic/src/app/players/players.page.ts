@@ -354,6 +354,12 @@ export class PlayersPage implements OnInit {
       this.getPlayersList()
       this.getMyList()
     })
+    this.userService.getMyListEliminatedUpdate().subscribe(() => {
+      this.getMyPlayer()
+      this.getUser()
+      this.getMyList()
+      this.getPlayersList()
+    })
   }
 
   getMyList(){

@@ -162,6 +162,11 @@ export class CreateListPage implements OnInit {
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getMyListActive()
     })
+    this.userService.getMyListEliminatedUpdate().subscribe(() => {
+      this.getLists()
+      this.getMyLists()
+      this.getMyListActive()
+    })
   }
 
   getCampeonatos(){
@@ -291,44 +296,6 @@ export class CreateListPage implements OnInit {
         this.notifyService.error(err.error.message)
       }
     })
-  }
-
-  async deleteList(id: any) {
-    const alert = await this.alertController.create({
-      header: 'Confirmar eliminación',
-      message: '¿Estás seguro de que quieres borrar esta lista?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            // El usuario ha cancelado, no hacer nada
-          }
-        },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            // El usuario ha confirmado, proceder con la eliminación
-            this.userService.eliminarLista().subscribe({
-              next: (res: any) => {
-                this.notifyService.success(res.message);
-                if (this.myListActive && this.myListActive._id === id) {
-                
-              }
-                this.getLists()
-                this.getMyListActive()
-                this.getMyLists()
-              },
-              error: (err: any) => {
-                this.notifyService.error(err.error.message);
-              }
-            });
-          }
-        }
-      ]
-    });
-  
-    await alert.present();
   }
 
   onFileSelected3(event: any) {

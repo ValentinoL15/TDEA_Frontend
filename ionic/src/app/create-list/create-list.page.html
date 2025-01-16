@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true">
-  <!--<div class="select-contain">
+  <div class="select-contain">
 
    <div class="select2">
       <ion-select toggleIcon="none" interface="popover" [placeholder]="myListActive.nameList || 'Selecciona una Lista'"  (ionChange)="onListChange($event.detail.value)">
@@ -37,10 +37,10 @@
           name="shield-outline">
       
     </div>
-  </div>-->
+  </div>
 
   <div class="listaEmpty" *ngIf="!myListActive">
-    <p>Por favor, crea o elegí un equipo</p>
+    <p>No hay ninguna lista activa, por favor elige una para mostrar mas información.</p>
   </div>
 
   <div *ngFor="let list of myLists">

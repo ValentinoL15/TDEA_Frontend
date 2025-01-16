@@ -182,7 +182,6 @@ export class ListPage implements OnInit {
     })
     this.getLista(this.id)
     this.getCampeonatos()
-
   }
 
   goAlineacion(){
@@ -267,12 +266,10 @@ export class ListPage implements OnInit {
           text: 'Eliminar',
           handler: () => {
             // El usuario ha confirmado, proceder con la eliminación
-            this.userService.eliminarLista().subscribe({
+            this.userService.eliminarLista(this.id).subscribe({
               next: (res: any) => {
                 this.notifyService.success(res.message);
-                setTimeout(() => {
-                  window.location.href = `/user/create-list`;
-                }, 500); 
+                this.router.navigate(['/user/create-list'])
               },
               error: (err: any) => {
                 this.notifyService.error(err.error.message);
