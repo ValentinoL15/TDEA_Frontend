@@ -17,7 +17,11 @@ import { List } from '../interfaces/List';
 export class TournamentPage implements OnInit {
 
   days: Day[] = []
-  lists: List[] = []
+  list: List = {
+    typeAlineacion : 0,
+    nameList: "",
+    teamPicture: ""
+  }
 
   tournament: Tournament = {
     nameFantasy: "",
@@ -80,7 +84,9 @@ export class TournamentPage implements OnInit {
       this.getTournament(this.id)
     })
     this.getDays(this.id)
-    this.getLists()
+    this.userService.getMyListUpdatedListener().subscribe(() => {
+      this.getLists()
+    })
   }
 
   isModalOpen = false;
@@ -96,8 +102,8 @@ export class TournamentPage implements OnInit {
   getLists(){
     this.userService.getMyList().subscribe({
       next: (res : any) => {
-        this.lists = res.listsOwner
-        console.log(this.lists)
+        this.list = res.list
+        console.log(this.list)
       },
       error: (err: any) => {
         this.notifyService.error(err.error.messsage)
@@ -195,7 +201,7 @@ export class TournamentPage implements OnInit {
     async inscription(id: any, teamListId: string) {
       const alert = await this.alertController.create({
         header: 'Confirmar Inscripción',
-        message: `¿Estás seguro de inscribir la lista: ${teamListId} en este torneo?`,
+        message: `¿Estás seguro de inscribir la lista: ${this.list.nameList} en este torneo?`,
         buttons: [
           {
             text: 'Cancelar',
