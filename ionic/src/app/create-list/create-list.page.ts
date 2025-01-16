@@ -216,6 +216,14 @@ export class CreateListPage implements OnInit {
     })
   }
 
+  isMyListActiveEmpty(): boolean {
+    return (
+      !this.myListActive || // Comprueba si es null o undefined
+      Object.keys(this.myListActive).length === 0 || // Verifica si no tiene propiedades
+      !this.myListActive.listActive // Verifica si no está activo
+    );
+  }
+
   cambiarListActive(listId : any){
     this.userService.cambiarListActive(listId).subscribe({
       next: (res : any) => {
