@@ -43,12 +43,29 @@
     <p>No hay ninguna lista activa, por favor elige una para mostrar mas información.</p>
   </div>
 
-  <div *ngFor="let list of myLists">
-  <div class="contenedor" (click)="goList(list._id)">
+  <div>
+  <div class="contenedor" (click)="goList(myListActive._id)">
       <div class="image">
-        <ng-container>
+        <ng-container *ngIf="myListActive.status === 'pending' && myListActive.teamPicture === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
           <div style="width: 150px; height: 150px; position: relative;">
-            <img [src]="list?.teamPicture" width="150px" height="150px" />
+            <img [src]="myListActive.teamPicture" width="150px" height="150px" />
+          </div>
+        </ng-container>
+        <ng-container *ngIf="myListActive.status === 'pending' && myListActive.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+          <div style="width: 150px; height: 150px; position: relative;">
+            <img [src]="myListActive.teamPicture" width="150px" height="150px" />
+            <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="myListActive.status === 'accepted'">
+          <div style="width: 150px; height: 150px; position: relative;">
+            <img [src]="myListActive.teamPicture" width="150px" height="150px" />
+          </div>
+        </ng-container>
+        <ng-container *ngIf="myListActive.status === 'rejected'">
+          <div style="width: 150px; height: 150px; position: relative;">
+            <img [src]="myListActive.teamPicture" width="150px" height="150px" />
+            <ion-icon class="trash-outline" color="danger" size="large" name="hourglass-outline"></ion-icon>
           </div>
         </ng-container>
       </div>
@@ -56,33 +73,33 @@
       <div class="elements">
         <div class="element-1">
           <ion-item>
-            <ion-input readonly="true" label="Lista" label-placement="stacked" [value]="list.nameList"></ion-input>
+            <ion-input readonly="true" label="Lista" label-placement="stacked" [value]="myListActive.nameList"></ion-input>
           </ion-item>
         </div>
 
         <div class="element-2">
           <ion-item>
-            <ion-input readonly="true" label="Remera Titular" label-placement="stacked" [value]="list.hasShirtTitular === true ? 'Si' : 'No'" ></ion-input>
+            <ion-input readonly="true" label="Remera Titular" label-placement="stacked" [value]="myListActive.hasShirtTitular === true ? 'Si' : 'No'" ></ion-input>
           </ion-item>
         </div>
 
         <div class="element-3">
-          <ion-item *ngIf="list.hasShirtTitular">
+          <ion-item *ngIf="myListActive.hasShirtTitular">
             <ion-label>Color</ion-label>
-            <ion-input readonly="true" type="color" [value]="list.shirtColor" style="width: 30px; padding: 5px"></ion-input>
+            <ion-input readonly="true" type="color" [value]="myListActive.shirtColor" style="width: 30px; padding: 5px"></ion-input>
           </ion-item>
         </div>
 
         <div class="element-4">
           <ion-item>
-            <ion-input readonly="true" label="Remera Suplente" label-placement="stacked" [value]="list.hasShirtSuplente === true ? 'Si' : 'No'" ></ion-input>
+            <ion-input readonly="true" label="Remera Suplente" label-placement="stacked" [value]="myListActive.hasShirtSuplente === true ? 'Si' : 'No'" ></ion-input>
           </ion-item>
         </div>
 
         <div class="element-5">
-          <ion-item *ngIf="list.hasShirtSuplente">
+          <ion-item *ngIf="myListActive.hasShirtSuplente">
             <ion-label>Color</ion-label>
-            <ion-input readonly="true" type="color" [value]="list.alternativeShirtColor" style="width: 30px; padding: 5px">
+            <ion-input readonly="true" type="color" [value]="myListActive.alternativeShirtColor" style="width: 30px; padding: 5px">
             </ion-input>
           </ion-item>
         </div>
@@ -136,7 +153,7 @@
           </ion-item>
         </div>
       </div>-->
-      <input type="hidden" [value]="list._id" name="_id" />
+      <input type="hidden" [value]="myListActive._id" name="_id" />
 
     <!--<div class="container" style="margin-top: 10px">
       <ion-button style="width: 100%" color="secondary" (click)="editLista(miForm)"
