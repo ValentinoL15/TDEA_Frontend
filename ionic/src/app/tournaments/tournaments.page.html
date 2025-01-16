@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true" color="light">
 
-  <div *ngIf="lists" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div *ngIf="list" cdkDropList (cdkDropListDropped)="drop($event)">
     <ion-card *ngFor="let torneo of torneos">
       <ion-card-header>
         <ion-card-title>{{torneo.nameFantasy}}</ion-card-title>
@@ -26,8 +26,8 @@
     </ion-card>
   </div>
 
-  <div class="listEmpty" *ngIf="!lists">
-    <p>Por favor, crea o elegí un equipo</p>
+  <div class="listEmpty" *ngIf="!list">
+    <p>Por favor, crea o elegí una Lista</p>
   </div>
 
 
