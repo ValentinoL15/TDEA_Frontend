@@ -52,7 +52,7 @@
     </div>
   
     <div class="container-button">
-      <div class="button" *ngIf="list.listActive">
+      <div class="button" *ngIf="list?.listActive">
         <ion-button shape="round" (click)="setOpen(true)">
           <ion-icon slot="icon-only" name="add-outline"></ion-icon>
         </ion-button>

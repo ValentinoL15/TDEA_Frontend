@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngFor="let list of lists">
+  <ng-container *ngIf="list">
     <form #miForm>
       <ion-card>
         <ion-card-header>
