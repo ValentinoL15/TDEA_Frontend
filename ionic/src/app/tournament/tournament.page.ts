@@ -84,6 +84,7 @@ export class TournamentPage implements OnInit {
       this.getTournament(this.id)
     })
     this.getDays(this.id)
+    this.getLists()
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getLists()
     })

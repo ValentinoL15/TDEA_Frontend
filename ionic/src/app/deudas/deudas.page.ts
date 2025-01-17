@@ -58,6 +58,7 @@ export class DeudasPage implements OnInit {
 
   ngOnInit() {
     this.getDeudaEquipo()
+    this.getDeuda()
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getDeuda()
     })
