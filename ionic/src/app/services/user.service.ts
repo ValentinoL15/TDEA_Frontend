@@ -148,13 +148,29 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.get(`${this.API_URL}/obtener-lista/${id}`)
   }
 
+  private editListActualizada = new Subject<void>()
+
   editList( id : any , form : any){
-    return this.http.put(`${this.API_URL}/editar-lista/${id}`, form )
+    return this.http.put(`${this.API_URL}/editar-lista/${id}`, form ).pipe(
+      tap(() => this.editListActualizada.next())
+    )
   }
 
+getListActualizada(){
+  return this.editListActualizada.asObservable()
+}
+
+private editPhotoActualizada = new Subject<void>()
+
   editPhotoList(image : any){
-    return this.http.patch(`${this.API_URL}/editar-imagen-lista`, image)
+    return this.http.patch(`${this.API_URL}/editar-imagen-lista`, image).pipe(
+      tap(() => this.editPhotoActualizada.next())
+    )
   }
+
+getPhotoActualizada(){
+  return this.editPhotoActualizada.asObservable()
+}
 
   private myListEliminated = new Subject<void>()
 

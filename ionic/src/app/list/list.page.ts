@@ -240,7 +240,7 @@ export class ListPage implements OnInit {
     }
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {
-        window.location.href = `/user/list/${this.id}`
+        this.router.navigate(['/user/create-list'])
       },
       error: (err) => {
         this.notifyService.error(err.error.message);

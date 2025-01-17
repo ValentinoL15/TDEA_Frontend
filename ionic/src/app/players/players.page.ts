@@ -139,7 +139,7 @@ export class PlayersPage implements OnInit {
   players: Player[] = []
   selectedFile: File | null = null;
   selectedFile3: File | null = null;
-  selectedSegment: string = 'players'; // Valor inicial del segmento
+  selectedSegment: string = 'market'; // Valor inicial del segmento
   playersFiltered: any[] = []; // Jugadores filtrados
   times = [
     "00:00", "00:15", "00:30", "00:45",

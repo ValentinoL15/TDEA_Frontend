@@ -157,14 +157,18 @@ export class CreateListPage implements OnInit {
     })
     this.getMyListActive()
     this.getCampeonatos()
-    this.getLists()
     this.getMyLists()
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getMyListActive()
     })
     this.userService.getMyListEliminatedUpdate().subscribe(() => {
-      this.getLists()
       this.getMyLists()
+      this.getMyListActive()
+    })
+    this.userService.getPhotoActualizada().subscribe(() => {
+      this.getMyListActive()
+    })
+    this.userService.getListActualizada().subscribe(() => {
       this.getMyListActive()
     })
   }
@@ -184,22 +188,9 @@ export class CreateListPage implements OnInit {
     this.userService.getAllLists().subscribe({
       next: (res: any) => {
         this.myLists = res.myLists;
-        console.log("mi listasss", this.myLists)
       },
       error: (err) => {
         this.notifyService.error(err.error.message)
-      }
-    })
-  }
-
-  getLists(){
-    this.userService.getMyList().subscribe({
-      next: (res : any) => {
-        this.lists = res.listsOwner
-        console.log(this.lists)
-      },
-      error: (err) => {
-        console.log(err.error.message);
       }
     })
   }
@@ -208,7 +199,6 @@ export class CreateListPage implements OnInit {
     this.userService.getMyListActive().subscribe({
       next: (res : any) => {
         this.myListActive = res.list
-        console.log("ACITVEAD",this.myListActive)
       },
       error: (err) => {
         console.log(err.error.message);
@@ -228,7 +218,6 @@ export class CreateListPage implements OnInit {
     this.userService.cambiarListActive(listId).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.getLists()
         this.getMyListActive()
         this.getMyLists()
     },
@@ -255,7 +244,6 @@ export class CreateListPage implements OnInit {
     this.userService.editList(this.id,formulario).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.getLists()
         this.getMyListActive()
         this.getMyLists()
         this.isFormEdited = false;
@@ -294,7 +282,6 @@ export class CreateListPage implements OnInit {
     this.userService.createList(formData).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.getLists()
         this.getMyListActive()
         this.getMyLists()
         this.setOpen2(false)
@@ -350,7 +337,6 @@ export class CreateListPage implements OnInit {
     this.userService.editPhotoList(form).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message);
-        this.getLists()
         this.getMyListActive()
         this.getMyLists()
       },
