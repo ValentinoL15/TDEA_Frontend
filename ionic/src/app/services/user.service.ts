@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Team } from '../interfaces/Team';
-import { Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -90,12 +90,28 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.get(`${this.API_URL}/obtener-equipo/${id}`)
   }
 
+  private updateTeamUpdate = new Subject<void>()
+
   editTeam(form:any){
-    return this.http.put(`${this.API_URL}/editar-equipo`, form)
+    return this.http.put(`${this.API_URL}/editar-equipo`, form).pipe(
+      tap(() => this.updateTeamUpdate.next())
+    )
   }
 
+  getTeamUpdate(){
+    return this.updateTeamUpdate.asObservable()
+  }
+
+  private updatePhotoList = new Subject<void>()
+
   editPhoto(image : any){
-    return this.http.patch(`${this.API_URL}/editar-imagen-equipo`, image)
+    return this.http.patch(`${this.API_URL}/editar-imagen-equipo`, image).pipe(
+      tap(() => this.updatePhotoList.next())
+    )
+  }
+
+  getPhotoTeamUpdate(){
+    return this.updatePhotoList.asObservable()
   }
 
   eliminarTeam(id:any){

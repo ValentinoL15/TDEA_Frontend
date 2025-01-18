@@ -68,7 +68,8 @@ export class DeudasPage implements OnInit {
     this.userService.getDeuda().subscribe({
       next: (res : any) => {
           this.list = res.list  // Acceder a las deudas solo si el equipo está activo
-          this.nameList = this.list.nameList
+          this.nameList = this.list?.nameList
+          console.log(this.list)
       },
       error: (err : any) => {
         this.notifyService.error(err.message)

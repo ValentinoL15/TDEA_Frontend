@@ -189,6 +189,12 @@ export class HomePage implements OnInit {
     this.getTeamActive()
     this.getUserEmpty()
     this.userActive()
+    this.userService.getTeamUpdate().subscribe(() => {
+      this.getTeamActive()
+    })
+    this.userService.getPhotoTeamUpdate().subscribe(() => {
+      this.getTeamActive()
+    })
   }
   validateInputAltura(event: any): void {
     let input = event.target.value;

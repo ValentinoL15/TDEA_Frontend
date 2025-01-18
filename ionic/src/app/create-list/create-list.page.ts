@@ -8,6 +8,7 @@ import { TournamentService } from '../services/tournament.service';
 import { Division } from '../interfaces/Division';
 import { Campeonato } from '../interfaces/Campeonato';
 import { AlertController } from '@ionic/angular';
+import { Team } from '../interfaces/Team';
 
 
 
@@ -97,6 +98,14 @@ export class CreateListPage implements OnInit {
   }
   listaSeleccionada: List | null = null; 
   selectedFile3: File | null = null;
+   team: Team = {
+      _id: "",
+      teamName: "",
+      teamNotes: "",
+      socialMedia: "",
+      teamImage:"",
+      active: false
+    }
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private notifyService: NotifyService, private formBuilder: FormBuilder, private tournamentServ: TournamentService, private alertController: AlertController) { 
     this.form = this.formBuilder.group({
@@ -158,6 +167,7 @@ export class CreateListPage implements OnInit {
     this.getMyListActive()
     this.getCampeonatos()
     this.getMyLists()
+    this.getTeamActive()
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getMyListActive()
     })
@@ -170,6 +180,17 @@ export class CreateListPage implements OnInit {
     })
     this.userService.getListActualizada().subscribe(() => {
       this.getMyListActive()
+    })
+  }
+
+  getTeamActive(){
+    this.userService.getTeamActive().subscribe({
+      next: (res : any) => {
+        this.team = res.team
+      },
+      error: (err) => {
+        this.notifyService.error(err.error.message)
+      }
     })
   }
 

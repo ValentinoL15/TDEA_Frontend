@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-segment [value]="selectedSegment" (ionChange)="onSegmentChange($event)">
-      <ion-segment-button value="players" *ngIf="list.listActive === true" >
+      <ion-segment-button value="players" *ngIf="list?.listActive === true" >
         <ion-label>Jugadores</ion-label>
       </ion-segment-button>
       <ion-segment-button value="market">

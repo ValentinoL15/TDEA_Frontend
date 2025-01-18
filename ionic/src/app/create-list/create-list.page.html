@@ -2,13 +2,13 @@
   <div class="select-contain">
 
    <div class="select2">
-      <ion-select toggleIcon="none" interface="popover" [placeholder]="myListActive.nameList || 'Elegí lista'"  (ionChange)="onListChange($event.detail.value)">
+      <ion-select toggleIcon="none" interface="popover" [placeholder]="myListActive?.nameList || 'Elegí lista'"  (ionChange)="onListChange($event.detail.value)">
         <ion-list>
           <ion-item>
             <ion-select-option *ngFor="let list of myLists" [value]="list._id">
               <div class="selected">
                 <img [src]="list.teamPicture" alt="">
-                {{ list.nameList }}
+                {{ list?.nameList }}
               </div>
             </ion-select-option>
           </ion-item>
@@ -73,7 +73,7 @@
       <div class="elements">
         <div class="element-1">
           <ion-item>
-            <ion-input readonly="true" label="Lista" label-placement="stacked" [value]="myListActive.nameList"></ion-input>
+            <ion-input readonly="true" label="Lista" label-placement="stacked" [value]="myListActive?.nameList"></ion-input>
           </ion-item>
         </div>
 
@@ -251,7 +251,7 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-  <div class="container-button2" (click)="setOpen2(true)" *ngIf="myListActive?.listActive === true">
+  <div class="container-button2" (click)="setOpen2(true)" *ngIf="team?.active === true">
     <div class="button">
       <ion-button shape="round">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
