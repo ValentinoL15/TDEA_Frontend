@@ -62,6 +62,12 @@ export class DeudasPage implements OnInit {
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getDeuda()
     })
+    this.userService.getMyListEliminatedUpdate().subscribe(() => {
+      this.getDeuda()
+    })
+    this.userService.getListUpdate().subscribe(() => {
+      this.getDeuda()
+    })
   }
 
   getDeuda(){

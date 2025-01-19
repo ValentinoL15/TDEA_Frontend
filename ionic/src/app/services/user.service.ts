@@ -152,8 +152,16 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
   }
   /*************************************************LISTA***************************************************/ 
 
+  private updateList = new Subject<void>()
+
   createList(form: any){
-    return this.http.post(`${this.API_URL}/crear-lista`, form)
+    return this.http.post(`${this.API_URL}/crear-lista`, form).pipe(
+      tap(() => this.updateList.next())
+    )
+  }
+
+  getListUpdate(){
+    return this.updateList.asObservable()
   }
 
   getLists(id:any){

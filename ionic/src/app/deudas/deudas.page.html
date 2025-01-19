@@ -9,16 +9,21 @@
     <p style="font-weight: bold; text-decoration: underline;">Deudas de la Lista</p>
   </div>
   
-  <ion-list [inset]="true" *ngIf="team?.deudas?.length !== 0">
-    <ion-item *ngFor="let deuda of list?.deudas" detail="true" (click)="confirmInscription(deuda._id, list ._id, deuda.belongTournament?._id)">
-      <ion-input readonly="true" [label]="deuda.belongToList?.nameList + ' - ' + deuda.belongTournament?.nameFantasy" labelPlacement="stacked" [value]="'Deuda: $ ' + deuda.amount">
-      </ion-input>
-    </ion-item>
-  </ion-list>
-  
-  <div *ngIf="team?.deudas?.length === 0" style="width: 100%; display: flex; justify-content: center;">
-    <p style="color: green;">No tienes deudas pendientes en la lista {{nameList}}!</p>
-  </div>
+  <ng-container *ngIf="list?.listActive === true; else noList" >
+    <ion-list [inset]="true" *ngIf="list?.deudas?.length !== 0">
+      <ion-item *ngFor="let deuda of list?.deudas" detail="true" (click)="confirmInscription(deuda._id, list ._id, deuda.belongTournament?._id)">
+        <ion-input readonly="true" [label]="deuda.belongToList?.nameList + ' - ' + deuda.belongTournament?.nameFantasy" labelPlacement="stacked" [value]="'Deuda: $ ' + deuda.amount">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+    
+    <div *ngIf="list?.deudas?.length === 0" style="width: 100%; display: flex; justify-content: center;">
+      <p style="color: green; margin: 0">No tienes deudas pendientes en la lista {{nameList}}!</p>
+    </div>
+  </ng-container>
+  <ng-template #noList >
+    <p style="text-align: center;">Seleccione lista en alineación para ver las deudas de Lista!</p>
+  </ng-template>
 
   <div style="display: flex; width: 100%; justify-content: center;">
     <p style="font-weight: bold; text-decoration: underline;">Deudas del Equipo</p>
