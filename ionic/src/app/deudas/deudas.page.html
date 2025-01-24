@@ -29,15 +29,21 @@
     <p style="font-weight: bold; text-decoration: underline;">Deudas del Equipo</p>
   </div>
 
-  <ion-list [inset]="true">
-    <ion-item *ngFor="let deuda of team?.deudas" detail="true">
-      <ion-input readonly="true" [label]="deuda?.belongToList?.nameList + ' - ' + deuda?.belongTournament?.nameFantasy" labelPlacement="stacked" [value]="'Deuda: $ ' + deuda.amount">
-      </ion-input>
-    </ion-item>
-  </ion-list>
-
-  <div style="width: 100%; display: flex; justify-content: center;">
-    <p style="font-weight: bold;">Total deuda del Equipo: <span style="color: red;">{{totalDeudas | currency:'ARS':'symbol'}}</span></p>
-  </div>
+  <ng-container *ngIf="team.active === true; else noTeam">
+    <ion-list [inset]="true">
+      <ion-item *ngFor="let deuda of team?.deudas" detail="true">
+        <ion-input readonly="true" [label]="deuda?.belongToList?.nameList + ' - ' + deuda?.belongTournament?.nameFantasy" labelPlacement="stacked" [value]="'Deuda: $ ' + deuda.amount">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+  
+    <div style="width: 100%; display: flex; justify-content: center;">
+      <p style="font-weight: bold;">Total deuda del Equipo: <span style="color: red;">{{totalDeudas | currency:'ARS':'symbol'}}</span></p>
+    </div>
+  </ng-container>
+  <ng-template #noTeam>
+    <p style="text-align: center;">Seleccione un equipo para ver las deudas totales!</p>
+  </ng-template>
+  
   
 </ion-content>
