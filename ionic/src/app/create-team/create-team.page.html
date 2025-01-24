@@ -13,16 +13,23 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="container">
     <form [formGroup]="form">
-        <ion-input class="item" type="text" label="Equipo" label-placement="stacked" placeholder="Nombre del equipo" formControlName="teamName" ></ion-input>
-        <ion-input class="item" type="text" label="Instagram" label-placement="stacked" placeholder="Usuario123" formControlName="socialMedia" ></ion-input>
-        <ion-textarea class="item" label="Descripción de equipo" labelPlacement="stacked" placeholder="Equipo de trabajo, colegio" formControlName="teamNotes" ></ion-textarea>
-        <div class="foto">
-          <label>Foto de Escudo</label>
-        </div>
-        <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
+      <ion-list>
+        <ion-item>
+          <ion-input type="text" label="Equipo" label-placement="stacked" placeholder="Nombre del equipo" formControlName="teamName" ></ion-input>
+        </ion-item>
+          <ion-item>
+            <ion-input type="text" label="Instagram" label-placement="stacked" placeholder="Usuario123" formControlName="socialMedia" ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-textarea label="Descripción de equipo" labelPlacement="stacked" placeholder="Equipo de trabajo, colegio" formControlName="teamNotes" ></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Foto de Escudo" type="file" (change)="onFileSelected($event)"></ion-input>
+          </ion-item>
+      </ion-list>
+      
     </form>
-  </div>
+
 
 </ion-content>
