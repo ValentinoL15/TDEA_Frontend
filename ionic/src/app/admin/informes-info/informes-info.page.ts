@@ -40,10 +40,7 @@ export class InformesInfoPage implements OnInit {
     grass: "",
     punctuaction: "",
       },
-      time: {
-        _id: "",
-        type: [] // Aquí debes definir correctamente el array de strings según el tipo esperado
-      }
+      time: []
     }],
     category: {
       _id: "",

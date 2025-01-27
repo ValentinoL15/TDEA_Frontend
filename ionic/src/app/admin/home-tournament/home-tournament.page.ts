@@ -63,7 +63,7 @@ export class HomeTournamentPage implements OnInit {
   sedes: Sede[] = []
   sedeSeleccionada: string | null = null;
   estadioSeleccionado: number | null = null;
-  filteredStadiums: Stadium[] = [];
+  filteredStadiums: Stadium[][] = [];
   times = [
     "00:00", "00:15", "00:30", "00:45", 
     "01:00", "01:15", "01:30", "01:45", 
@@ -218,6 +218,7 @@ addDayTournament() {
   });
 
   this.daysTournament.push(dayGroup); // Agrega el nuevo FormGroup al FormArray
+  this.filteredStadiums.push([]); // Inicializa el arreglo de estadios filtrados para este día
 }
 
 // Getter para facilitar el acceso al FormArray
@@ -227,6 +228,7 @@ get daysTournament(): FormArray {
 
 removeDayTournament(index: number) {
   this.daysTournament.removeAt(index);
+  this.filteredStadiums.splice(index, 1); // Elimina el arreglo de estadios filtrados correspondiente
 }
 
 
@@ -321,28 +323,24 @@ limitLength(event: any) {
   }
 }
 
-onSedeChange() {
-  const selectedDays = this.daysTournament.controls;
+onSedeChange(index: number) {
+  const dayGroup = this.daysTournament.at(index) as FormGroup;
+  const sedeId = dayGroup.get('sedeSeleccionada')?.value;
 
-  selectedDays.forEach((control) => {
-    const dayGroup = control as FormGroup;
-    const sedeId = dayGroup.get('sedeSeleccionada')?.value;
+  // Filtrar los estadios según la sede seleccionada
+  this.filteredStadiums[index] = this.stadiums.filter(stadium => stadium.belongToSede === sedeId);
 
-    // Filtrar los estadios según la sede seleccionada
-    this.filteredStadiums = this.stadiums.filter(stadium => stadium.belongToSede === sedeId);
+  // Reiniciar el estadio seleccionado
+  dayGroup.get('estadioSeleccionado')?.setValue(null);
 
-    // Reiniciar el estadio seleccionado
-    dayGroup.get('estadioSeleccionado')?.setValue(null);
+  // Validación del control de estadio
+  if (this.filteredStadiums[index].length > 0) {
+    dayGroup.get('estadioSeleccionado')?.setValidators(Validators.required);
+  } else {
+    dayGroup.get('estadioSeleccionado')?.clearValidators();
+  }
 
-    // Validación del control de estadio
-    if (this.filteredStadiums.length > 0) {
-      dayGroup.get('estadioSeleccionado')?.setValidators(Validators.required);
-    } else {
-      dayGroup.get('estadioSeleccionado')?.clearValidators();
-    }
-
-    dayGroup.get('estadioSeleccionado')?.updateValueAndValidity();
-  });
+  dayGroup.get('estadioSeleccionado')?.updateValueAndValidity();
 }
 
 

@@ -57,10 +57,7 @@ export interface Tournament {
         
         stadium?: Stadium
         ,
-        time?: {
-            _id?: string,
-            type: string[]
-        }
+        time?: string[]
     }],
     tournamentDate: Date,
     tournamentNotes: String,

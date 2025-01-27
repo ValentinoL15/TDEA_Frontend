@@ -9,9 +9,8 @@
   <div *ngIf="list?.listActive === true" >
     <ion-card *ngFor="let torneo of torneos" mode="md">
       <ion-card-header>
-        <ion-card-title>{{torneo.nameFantasy}}</ion-card-title>
-        <ion-card-subtitle>{{torneo.campeonato.type}}</ion-card-subtitle>
-        <ion-card-subtitle> {{torneo.tournamentDate ? (torneo.tournamentDate | date:'yyyy-MM-dd') : 'A Definir' }}</ion-card-subtitle>
+        <ion-card-title>{{torneo.campeonato.type + " - " + torneo.ano }}</ion-card-title>
+        <ion-card-subtitle><p>Comienzo: {{torneo.tournamentDate ? (torneo.tournamentDate | date:'yyyy-MM-dd') : 'A Definir' }} </p></ion-card-subtitle>
       </ion-card-header>
     
       <ion-card-content>
@@ -20,13 +19,16 @@
         <p><ion-icon name="caret-forward-outline"></ion-icon><span style="text-decoration: underline;">Dias y Horarios</span><br></p>
         <ng-container *ngFor="let day of torneo.daysTournament">
           <p>
-            {{day.time ? (day.day + ': ' + day.time) : "Horarios disponibles: A definir"}}
+            {{day.time ? (day.day + ': ' + day.time[0] + " - " + day.time[day.time.length - 1]) : "Horarios disponibles: A definir"}}
           </p>
         </ng-container>
-        <p><ion-icon name="caret-forward-outline"></ion-icon> Estadios y sedes</p>
+        <p><ion-icon name="caret-forward-outline"></ion-icon>Sedes</p>
         <ng-container *ngFor="let day of torneo.daysTournament">
-          <p>
-            {{day.stadium ? ('Estadio: ' + day.sede) : "Estadio: A definir"}}
+          <p *ngIf="day.sede">
+            {{day.sede ? ('Sede: ' + day.sede.name) : "Sede: A definir"}}
+          </p>
+          <p *ngIf="!day.sede">
+            Sede: A definir
           </p>
         </ng-container>
       </ion-card-content>

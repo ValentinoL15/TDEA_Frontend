@@ -49,10 +49,7 @@ export class TournamentsPage implements OnInit {
         grass: "",
         punctuaction: "",
       },
-      time: {
-        _id: "",
-        type: []
-      }
+      time: []
     }],
     rangeAgeSince: 0,
     rangeAgeUntil: 0,

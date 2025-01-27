@@ -77,10 +77,7 @@ export class DayPage implements OnInit {
           end: "",
       }],
       },
-      time: {
-        _id: "",
-        type: []
-      }
+      time: []
     }],
     tournamentDate: new Date(),
     tournamentNotes: "",

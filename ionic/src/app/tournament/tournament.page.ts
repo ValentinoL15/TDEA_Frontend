@@ -66,10 +66,7 @@ export class TournamentPage implements OnInit {
         grass: "",
         punctuaction: "",
       },
-      time: {
-        _id: "",
-        type: [] // Aquí debes definir correctamente el array de strings según el tipo esperado
-      }
+      time: []
     }],
     cupos: 0,
   }

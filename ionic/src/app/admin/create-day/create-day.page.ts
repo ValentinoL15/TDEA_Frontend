@@ -61,10 +61,7 @@ export class CreateDayPage implements OnInit {
         grass: "",
         punctuaction: "",
       },
-      time: {
-        _id: "",
-        type: []
-      }
+      time: []
     }],
     tournamentDate: new Date(),
     tournamentNotes: "",
