@@ -15,7 +15,20 @@
       </ion-card-header>
     
       <ion-card-content>
-        {{torneo.tournamentNotes}}
+        <p><ion-icon name="caret-forward-outline"></ion-icon> {{"Futbol  " + torneo.format.formatName}}</p>
+        <p><ion-icon name="caret-forward-outline"></ion-icon> {{torneo.edad.type}}</p>
+        <p><ion-icon name="caret-forward-outline"></ion-icon><span style="text-decoration: underline;">Dias y Horarios</span><br></p>
+        <ng-container *ngFor="let day of torneo.daysTournament">
+          <p>
+            {{day.time ? (day.day + ': ' + day.time) : "Horarios disponibles: A definir"}}
+          </p>
+        </ng-container>
+        <p><ion-icon name="caret-forward-outline"></ion-icon> Estadios y sedes</p>
+        <ng-container *ngFor="let day of torneo.daysTournament">
+          <p>
+            {{day.stadium ? ('Estadio: ' + day.sede) : "Estadio: A definir"}}
+          </p>
+        </ng-container>
       </ion-card-content>
     
       <div class="contenedor-button">

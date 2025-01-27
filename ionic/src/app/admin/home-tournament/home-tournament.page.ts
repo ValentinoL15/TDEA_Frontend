@@ -238,7 +238,8 @@ createTournament() {
   // Asegúrate de que 'stadium' siempre tenga un valor, si no, asignar 'A definir'
   const daysTournament = this.form.value.daysTournament.map((dayTournament: any) => ({
     day: dayTournament.day,
-    stadium: dayTournament.estadioSeleccionado || 'A definir', // Asignar 'A definir' si el estadio está vacío
+    sede: dayTournament.sedeSeleccionada,
+    stadium: dayTournament.estadioSeleccionado, // Asignar 'A definir' si el estadio está vacío
     time: dayTournament.time // Suponiendo que "time" ya es un array de strings
   }));
 
@@ -261,8 +262,8 @@ createTournament() {
     cupos: this.form.value.cupos,
     daysTournament: this.form.value.daysTournament.map((dayTournament: any) => ({
       day: dayTournament.day,
-      sede: dayTournament.sedeSeleccionada || 'A definir', // Asignar 'A definir' si no hay sede
-      stadium: dayTournament.estadioSeleccionado || 'A definir', // Asegurarse de que no esté vacío
+      sede: dayTournament.sedeSeleccionada, // Asignar 'A definir' si no hay sede
+      stadium: dayTournament.estadioSeleccionado, // Asegurarse de que no esté vacío
       time: dayTournament.time // Asegúrate de que "time" es un array
     }))
   };
@@ -282,7 +283,8 @@ getTournaments(){
   this.tournamentServ.getMyTournaments().subscribe({
     next: (res : any) => {
       this.tournaments = res.tournaments
-      this.tournaments = res.tournaments.sort((a:any, b:any) => a.order - b.order);
+      //this.tournaments = res.tournaments.sort((a:any, b:any) => a.order - b.order);
+      console.log(this.tournaments.length);
     },
     error: (err) => {
       this.notifyService.error(err.error.message)

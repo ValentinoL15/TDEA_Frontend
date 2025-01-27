@@ -34,11 +34,28 @@ export interface Tournament {
             _id?: string,
             type: string
         },
-        sede?: 
-            Sede
+        sede?: {
+            _id?: string,
+            name?: string,
+            alias: string,
+            status: string,
+            phone: number,
+            celular: number,
+            adress: string,
+            barrio: string,
+            socialRed: string,
+            daysAttention: {
+                day: string;
+                start: string;
+                end: string;
+            }[];
+            images?: Array<string>,
+            encargado: string,
+            dueno: string,
+            stadiums?: Stadium[],
+        }
         
-        stadium?: 
-            Stadium
+        stadium?: Stadium
         ,
         time?: {
             _id?: string,

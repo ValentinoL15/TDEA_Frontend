@@ -110,7 +110,7 @@
     <ion-button (click)="addDayTournament()">Agregar Día</ion-button>
   </ion-item>
 
-  <ng-container formArrayName="horarios" style="margin: 10px 0">
+  <ng-container formArrayName="daysTournament" style="margin: 10px 0" >
     <ng-container *ngFor="let day of daysTournament.controls; let i = index" [formGroupName]="i">
       <ion-item lines="full">
         <ion-label>Día</ion-label>
@@ -128,14 +128,12 @@
 
       <ion-item>
         <ion-select formControlName="sedeSeleccionada" interface="popover" placeholder="Seleccionar Sede" (ionChange)="onSedeChange()" label="Sedes">
-          <ion-select-option value="A definir">A definir</ion-select-option>
           <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{ sede.name }}</ion-select-option>
         </ion-select>   
       </ion-item>
       
-      <ion-item *ngIf="filteredStadiums.length > 0">
+      <ion-item *ngIf="filteredStadiums.length >= 0">
         <ion-select formControlName="estadioSeleccionado" label="Estadios" interface="popover" placeholder="Seleccionar Estadio">
-          <ion-select-option value="A definir">A definir</ion-select-option>
           <ion-select-option *ngFor="let estadio of filteredStadiums" [value]="estadio._id">{{ estadio.code }}</ion-select-option>
         </ion-select>
       </ion-item>
