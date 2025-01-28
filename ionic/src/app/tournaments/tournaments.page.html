@@ -9,7 +9,20 @@
   <div *ngIf="list?.listActive === true" >
     <ion-card *ngFor="let torneo of torneos" mode="md">
       <ion-card-header>
-        <ion-card-title>{{torneo.campeonato.type + " - " + torneo.ano }}</ion-card-title>
+        <ion-card-title> 
+          <ng-container *ngFor="let day of torneo.daysTournament; let i = index">
+            <p style="display: inline;">
+              {{ day.day ? day.day : "A definir" }}
+              <span *ngIf="i < (torneo.daysTournament?.length || 0) - 1"> - </span>
+            </p>
+          </ng-container>
+          <p style="display: inline;">
+            {{"- Futbol " + torneo.format.formatName + "(" + torneo.edad.type + ")"}}
+          </p>
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{torneo.campeonato.type + " - " + torneo.ano }}
+      </ion-card-subtitle>
       </ion-card-header>
     
       <ion-card-content>
