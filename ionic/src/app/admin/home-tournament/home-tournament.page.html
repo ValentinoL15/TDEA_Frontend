@@ -98,7 +98,7 @@
         </ion-item>
         <ion-item lines="none" class="date-item"> 
         <label class="date-label">Comienzo Torneo</label>
-          <input type="date" formControlName="tournamentDate" class="date-input" />
+          <input type="month" formControlName="tournamentDate" class="date-input" />
         </ion-item>
       </ion-list>
 
@@ -126,9 +126,11 @@
         </ion-select>
       </ion-item>
 
-      <ion-select formControlName="sedeSeleccionada" interface="popover" placeholder="Seleccionar Sede" (ionChange)="onSedeChange(i)" label="Sedes">
-        <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{ sede.name }}</ion-select-option>
-      </ion-select>
+      <ion-item>
+        <ion-select formControlName="sedeSeleccionada" interface="popover" placeholder="Seleccionar Sede" (ionChange)="onSedeChange(i)" label="Sedes">
+          <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{ sede.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
       
       <ion-item *ngIf="filteredStadiums[i].length > 0">
         <ion-select formControlName="estadioSeleccionado" label="Estadios" interface="popover" placeholder="Seleccionar Estadio">
