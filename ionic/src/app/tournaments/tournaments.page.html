@@ -10,10 +10,11 @@
     <ion-card *ngFor="let torneo of torneos" mode="md">
       <ion-card-header>
         <ion-card-title>{{torneo.campeonato.type + " - " + torneo.ano }}</ion-card-title>
-        <ion-card-subtitle><p>Comienzo: {{torneo.tournamentDate ? (torneo.tournamentDate | date:'MMMM' | titlecase) : 'A Definir' }} </p></ion-card-subtitle>
       </ion-card-header>
     
       <ion-card-content>
+        <p style="text-decoration: underline;"><ion-icon name="caret-forward-outline"></ion-icon>Comienzo</p>
+        <p>{{torneo.tournamentDate ? (torneo.tournamentDate | date:'MMMM' | titlecase) : 'A Definir' }} </p>
         <p style="text-decoration: underline;"><ion-icon name="caret-forward-outline"></ion-icon>Formato</p>
         <p>{{"Futbol  " + torneo.format.formatName}}</p>
         <p style="text-decoration: underline;"><ion-icon name="caret-forward-outline"></ion-icon> Edad</p>
