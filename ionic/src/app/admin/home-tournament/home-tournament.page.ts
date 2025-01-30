@@ -282,7 +282,7 @@ createTournament() {
 }
 
 getTournaments(){
-  this.tournamentServ.getMyTournaments().subscribe({
+  this.tournamentServ.getTournaments().subscribe({
     next: (res : any) => {
       this.tournaments = res.tournaments
       //this.tournaments = res.tournaments.sort((a:any, b:any) => a.order - b.order);
