@@ -24,6 +24,7 @@ export class TournamentsPage implements OnInit {
   tournament: Tournament = {
     nameFantasy: "",
     ano: 0,
+    order: 0,
     campeonato:{
       _id: "",
       type: ""
@@ -32,7 +33,7 @@ export class TournamentsPage implements OnInit {
       _id: "",
       type: ""
     },
-     daysTournament: [{
+    daysTournament: [{
       _id: "",
       day: {
         _id: "",
@@ -287,7 +288,8 @@ export class TournamentsPage implements OnInit {
       tarifaInscripcion: form.tarifaInscripcion.value,
       tarifaPartido: form.tarifaPartido.value,
       cupos: this.tempCupos, // Enviar los cupos temporales
-      aAnotar: this.tempAAnotar // Enviar los cupos temporales para aAnotar
+      aAnotar: this.tempAAnotar, // Enviar los cupos temporales para aAnotar
+      order: form.order.value
     };
     console.log(formulario)
     this.tournamentServ.editTournament(id, formulario).subscribe({

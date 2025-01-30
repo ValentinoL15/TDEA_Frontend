@@ -232,8 +232,6 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-torneos`, { params });
   }
 
-
-
   editTournament(id:any, form:any){
     return this.http.put(`${this.API_URL}/editar-torneo/${id}`, form)
   }

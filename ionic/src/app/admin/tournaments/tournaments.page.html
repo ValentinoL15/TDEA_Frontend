@@ -88,6 +88,10 @@
         <ion-button color="danger" (click)="updateCupos(-1)">-</ion-button>
       </ion-item>
 
+      <ion-item>
+        <ion-input name="order" label="Orden" [value]="tournament.order"></ion-input>
+      </ion-item>
+
       <ion-item detail="true">
         <ion-input label="Equipos Suscriptos" (click)="goTeasmSubscribed()"></ion-input>
       </ion-item>

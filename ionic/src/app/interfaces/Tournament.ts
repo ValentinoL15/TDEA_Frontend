@@ -65,6 +65,7 @@ export interface Tournament {
     reservados?: Array<{
         _id?: string,
     }>,
+    order?: number,
     isTournamentMasculine: Boolean,
     isTournamentActive: Boolean,
     tarifaInscripcion: number,
