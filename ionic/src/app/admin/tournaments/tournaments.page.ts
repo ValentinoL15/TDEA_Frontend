@@ -296,7 +296,7 @@ export class TournamentsPage implements OnInit {
       next: (res: any) => {
         this.notifyService.success(res.message)
         this.getTournament(id)
-        window.location.href = `/admin/tournaments/${this.id}`
+        window.location.href = `/admin/home-tournament`
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
