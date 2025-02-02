@@ -289,14 +289,13 @@ export class TournamentsPage implements OnInit {
       tarifaPartido: form.tarifaPartido.value,
       cupos: this.tempCupos, // Enviar los cupos temporales
       aAnotar: this.tempAAnotar, // Enviar los cupos temporales para aAnotar
-      order: form.order.value
     };
     console.log(formulario)
     this.tournamentServ.editTournament(id, formulario).subscribe({
       next: (res: any) => {
         this.notifyService.success(res.message)
         this.getTournament(id)
-        window.location.href = `/admin/home-tournament`
+        this.router.navigate(['/admin/home-tournament'])
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
