@@ -14,7 +14,16 @@
           <ion-avatar aria-hidden="true" slot="start">
             <img alt="" src="../../../assets/icon/trofeo (1).png" width="10px" height="10px" />
           </ion-avatar>
-          <ion-label>{{torneo.nameFantasy}}</ion-label>
+          <ng-container *ngFor="let day of torneo.daysTournament; let i = index">
+            <div style="display: flex; align-items: center; justify-content: center;">
+              {{ day.day ? day.day : "A definir" }}
+              <span *ngIf="i < (torneo.daysTournament?.length || 0) - 1"> - </span>
+            </div>
+          </ng-container>
+          <div style="display: flex;">
+            {{"- Futbol " + torneo.format.formatName + "(" + torneo.edad.type + ")"}}
+          </div>
+          <!--<ion-label>{{torneo.nameFantasy}}</ion-label>-->
         </ion-item>
       </ion-item-sliding>  
     </ion-list>  
