@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../interfaces/Category';
 import { Format } from '../interfaces/Format';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -232,8 +232,16 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-torneos`, { params });
   }
 
+  private tournametUpdated = new Subject<void>()
+
   editTournament(id:any, form:any){
-    return this.http.put(`${this.API_URL}/editar-torneo/${id}`, form)
+    return this.http.put(`${this.API_URL}/editar-torneo/${id}`, form).pipe(
+      tap(() => this.tournametUpdated.next())
+    )
+  }
+
+  getTournamentUpdate() {
+    return this.tournametUpdated.asObservable()
   }
 
   editCupos(id : any, cupos : any) {

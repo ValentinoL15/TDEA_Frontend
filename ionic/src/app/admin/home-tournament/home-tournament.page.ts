@@ -118,21 +118,26 @@ export class HomeTournamentPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getCategories()
-    this.getFormats()
-    this.getTournaments()
-    this.getCampeonatos()
-    this.getEdades()
-    this.getStadiums()
-    this.getSedes()
+    this.getCategories();
+    this.getFormats();
+    this.getCampeonatos();
+    this.getEdades();
+    this.getStadiums();
+    this.getSedes();
+  
     const message = localStorage.getItem('torneoCreated');
     if (message) {
-      // Muestra el mensaje usando el servicio de notificaciones
       this.notifyService.success(message);
-  
-      // Limpia el mensaje del localStorage para evitar que se muestre nuevamente
       localStorage.removeItem('torneoCreated');
     }
+  
+    // Obtener torneos cuando el componente se carga o cuando se actualiza un torneo
+    this.tournamentServ.getTournamentUpdate().subscribe(() => {
+      this.getTournaments();
+    });
+  
+    // Llamar a getTournaments solo una vez al inicio
+    this.getTournaments();
   }
 
 isModalOpen = false;
