@@ -199,7 +199,8 @@ export class TournamentPage implements OnInit {
     async inscription(id: any, teamListId: string) {
       const alert = await this.alertController.create({
         header: 'Confirmar Inscripción',
-        message: `¿Estás seguro de inscribir la lista: ${this.list.nameList} en este torneo?`,
+        message: `¿Vas a inscribir la lista: ${this.list.nameList} en este torneo.
+        Si ya has leído el reglamento, presiona Inscribirme`,
         buttons: [
           {
             text: 'Cancelar',
