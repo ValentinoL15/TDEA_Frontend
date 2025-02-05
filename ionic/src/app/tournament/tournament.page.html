@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
-    <ion-title>{{tournament.nameFantasy}}</ion-title>
+      <div *ngFor="let tour of tournament.daysTournament" style="display: inline;">
+        <ion-title>{{tour.day + " - " + tournament.format.formatName + " - " + tournament.category.categoryName}}</ion-title>
+      </div>
+    
   </ion-toolbar>
 </ion-header>
 

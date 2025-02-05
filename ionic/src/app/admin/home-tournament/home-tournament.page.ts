@@ -90,6 +90,7 @@ export class HomeTournamentPage implements OnInit {
     "22:00", "22:15", "22:30", "22:45", 
     "23:00", "23:15", "23:30", "23:45", "A definir"
   ];
+  selectedFile: File | null = null;
 
 
   currentYear = new Date().getFullYear();
@@ -250,7 +251,28 @@ createTournament() {
     time: dayTournament.time // Suponiendo que "time" ya es un array de strings
   }));
 
-  const formulario: Tournament = {
+  const formData = new FormData();
+  formData.append('nameFantasy', this.form.get('nameFantasy')?.value || '');
+  formData.append('ano', this.form.get('ano')?.value || '');
+  formData.append('rangeAgeSince', this.form.get('rangeAgeSince')?.value || '');
+  formData.append('rangeAgeUntil', this.form.get('rangeAgeUntil')?.value || '');
+  formData.append('category', this.form.get('category')?.value || '');
+  formData.append('format', this.form.get('format')?.value || '');
+  formData.append('campeonato', this.form.get('campeonato')?.value || '');
+  formData.append('edad', this.form.get('edad')?.value || '');
+  formData.append('isTournamentActive', this.form.get('isTournamentActive')?.value || false);
+  formData.append('isTournamentMasculine', this.form.get('isTournamentMasculine')?.value || false);
+  formData.append('tournamentDate', this.form.get('tournamentDate')?.value || '');
+  formData.append('tournamentNotes', this.form.get('tournamentNotes')?.value || '');
+  formData.append('ageDescripcion', this.form.get('ageDescripcion')?.value || '');
+  formData.append('tarifaInscripcion', this.form.get('tarifaInscripcion')?.value || '');
+  formData.append('tarifaPartido', this.form.get('tarifaPartido')?.value || '');
+  formData.append('cupos', this.form.get('cupos')?.value || '');
+  formData.append('image', this.selectedFile as Blob);
+  // Agregar los días del torneo al FormData como un JSON string
+  formData.append('daysTournament', JSON.stringify(daysTournament));
+
+  /*const formulario: Tournament = {
     nameFantasy: this.form.value.nameFantasy,
     ano: this.form.value.ano,
     rangeAgeSince: this.form.value.rangeAgeSince,
@@ -269,13 +291,12 @@ createTournament() {
     cupos: this.form.value.cupos,
     daysTournament: this.form.value.daysTournament.map((dayTournament: any) => ({
       day: dayTournament.day,
-      sede: dayTournament.sedeSeleccionada, // Asignar 'A definir' si no hay sede
-      stadium: dayTournament.estadioSeleccionado, // Asegurarse de que no esté vacío
-      time: dayTournament.time // Asegúrate de que "time" es un array
+      sede: dayTournament.sedeSeleccionada, 
+      stadium: dayTournament.estadioSeleccionado, 
+      time: dayTournament.time 
     }))
-  };
-
-  this.tournamentServ.createTournament(formulario).subscribe({
+  };*/
+  this.tournamentServ.createTournament(formData).subscribe({
     next: (res: any) => {
       localStorage.setItem('torneoCreated', res.message);
       window.location.href = '/admin/home-tournament';
@@ -298,6 +319,13 @@ getTournaments(){
     }
   })
 }
+
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  this.selectedFile = file;
+  console.log('Archivo seleccionado:', file);
+}
+
 
 
 drop(event: CdkDragDrop<any[]>): void {

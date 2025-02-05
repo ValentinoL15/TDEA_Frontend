@@ -11,6 +11,7 @@ export interface Tournament {
     _id?: any,
     nameFantasy: String,
     ano: number,
+    formatImage?: string,
     campeonato: Campeonato,
     edad: {
         _id?: string,
