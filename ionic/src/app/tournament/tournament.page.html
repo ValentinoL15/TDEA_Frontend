@@ -10,51 +10,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" color="light">
   <ng-container *ngIf="list">
     <form #miForm>
       <ion-card>
         <ion-card-header>
           <ion-card-title>{{tournament.nameFantasy}}</ion-card-title>
-          <ion-card-subtitle>{{tournament.campeonato.type}}</ion-card-subtitle>
         </ion-card-header>
     
         <ion-card-content>
-    
-          <div class="comienzo">
-            <ion-icon name="time-outline" class="time"></ion-icon>
-            <h2> Fecha de comienzo: {{tournament.tournamentDate | date:'yyyy-MM-dd'}}</h2>
-          </div>
-    
-          <div class="sections"> 
-            <h2 style="text-decoration: underline;">Formato</h2>
-              <p>- Tipo: {{tournament.format.formatName}}</p>
-              <p>- Mínimo de Jugadores: {{tournament.format.minPlayers}}</p>
-              <p>- Máximo de Jugadores: {{tournament.format.maxPlayers}}</p>
-          </div>
-    
-          <div class="sections">
-            <h2 style="text-decoration: underline;">Rango de edad</h2>
-              <p>Categoria: {{tournament.rangeAgeSince}} - {{tournament.rangeAgeUntil}}</p>
-          </div>
-    
-          <div class="sections">
-            <h2 style="text-decoration: underline;">Division</h2>
-            <p>Division: {{tournament.category.categoryName}}</p>
-          </div>
-    
-          <div class="sections">
-            <h2>Dias y horarios</h2>
-            <div *ngFor="let item of tournament.daysTournament">
-              <p style="text-decoration: underline;">Dia: {{item.day}}</p>
-              <p *ngFor="let sede of tournament.daysTournament">Horarios: {{sede.time}} , Estadio: {{sede.stadium}}</p>
-            </div>
-          </div>
-    
-          <div class="sections">
-            <h2>Cupos Disponibles: {{tournament.aAnotar}}</h2>
-          </div>
-          <ion-input type="hidden" [value]="list._id"></ion-input>
+          <p>- Descripción del formato anual</p>
+          <img [src]="tournament.formatImage" alt="Imagen" (click)="setOpen(true)">
         </ion-card-content>
     
         <div class="contenedor-button">
@@ -65,37 +31,20 @@
     </form>
   </ng-container>
   
-  
-
-  <!--<ion-modal [isOpen]="isModalOpen">
+  <ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Ingresar</ion-title>
+          <ion-title>Formato Anual</ion-title>
           <ion-buttons slot="start">
-            <ion-button (click)="setOpen(false)">Close</ion-button>
+            <ion-button (click)="setOpen(false)">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding" color="light">
-        <div class="contenedor">
-          <ion-text color="warning"><ion-icon name="alert-circle"></ion-icon></ion-text>
-          <span style="font-weight: bold; text-align: center;">Elige una lista para ingresar al torneo</span>
-        </div>
-        
-        <ion-list inset="true">
-          <ion-item-group #miForm>
-            <ion-item-divider>
-              <ion-label> Mis Listas </ion-label>
-            </ion-item-divider>
-        
-            <ion-item *ngFor="let list of lists" (click)="inscription(list._id,list.nameList)">
-              <label class="full-width-label">{{ list.nameList }}</label>
-              <ion-input type="hidden" [value]="list._id"></ion-input>
-            </ion-item>
-          </ion-item-group>
-        </ion-list>
+      <ion-content class="ion-padding">
+        <img class="img-format" [src]="tournament.formatImage" alt="Imagen" >
       </ion-content>
     </ng-template>
-  </ion-modal>-->
+  </ion-modal>
+  
 </ion-content>

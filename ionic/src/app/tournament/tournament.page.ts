@@ -51,6 +51,7 @@ export class TournamentPage implements OnInit {
     isTournamentActive: false,
     tarifaInscripcion: 0,
     tarifaPartido: 0,
+    formatImage: "",
     daysTournament: [{
       day: {
         type: ""
@@ -70,6 +71,7 @@ export class TournamentPage implements OnInit {
     }],
     cupos: 0,
   }
+
   currentYear = new Date().getFullYear();
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private userService: UserService) { }
 
@@ -133,6 +135,8 @@ export class TournamentPage implements OnInit {
       }
     })
   }
+
+  
 
   adjustDate(date: Date): Date {
     // Ajuste para compensar el desfase de la zona horaria

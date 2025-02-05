@@ -35,8 +35,13 @@ p {
 .full-width-label {
     width: 100vw;
     text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.img-format {
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    object-fit: contain; /* Mantiene la proporción sin recortar */
   }
-  
 
 
 
