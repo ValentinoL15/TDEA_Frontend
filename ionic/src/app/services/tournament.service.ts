@@ -288,6 +288,10 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-mis-torneos/`)
   }
 
+  editFormatImage(id:any, form:any){
+    return this.http.put(`${this.API_URL}/editar-formatImage/${id}`, form)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

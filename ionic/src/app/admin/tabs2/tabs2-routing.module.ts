@@ -132,6 +132,10 @@ const routes: Routes = [
       {
         path: 'img-approved',
         loadChildren: () => import('../img-approved/img-approved.module').then( m => m.ImgApprovedPageModule)
+      },
+      {
+        path: 'formats-images/:id',
+        loadChildren: () => import('../formats-images/formats-images.module').then( m => m.FormatsImagesPageModule)
       }
     
     ]

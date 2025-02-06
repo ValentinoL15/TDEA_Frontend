@@ -1,0 +1,147 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Tournament } from 'src/app/interfaces/Tournament';
+import { NotifyService } from 'src/app/services/notify.service';
+import { TournamentService } from 'src/app/services/tournament.service';
+
+@Component({
+  selector: 'app-formats-images',
+  templateUrl: './formats-images.page.html',
+  styleUrls: ['./formats-images.page.scss'],
+})
+export class FormatsImagesPage implements OnInit {
+
+constructor(private route : ActivatedRoute, private router: Router, private tournamentServ: TournamentService, private notifyService: NotifyService) { }
+
+id:any
+tournament: Tournament = {
+    nameFantasy: "",
+    ano: 0,
+    order: 0,
+    campeonato:{
+      _id: "",
+      type: ""
+    },
+    edad: {
+      _id: "",
+      type: ""
+    },
+    daysTournament: [{
+      _id: "",
+      day: {
+        _id: "",
+        type: ""
+      },
+      stadium: {
+        _id: "",
+        belongToSede: "",
+        code: "",
+        type: "",
+        length: 0,
+        width: 0,
+        roof: "",
+        grass: "",
+        punctuaction: "",
+      },
+      time: []
+    }],
+    rangeAgeSince: 0,
+    rangeAgeUntil: 0,
+    ageDescripcion: "",
+    category: {
+      _id: "",
+      categoryName : "",
+    },
+    format: {
+      _id:"",
+    formatName: "",
+    minPlayers: 0,
+    maxPlayers: 0
+    },
+    tournamentDate: new Date(),
+    tournamentNotes: "",
+    isTournamentMasculine: false,
+    isTournamentActive: false,
+    tarifaInscripcion: 0,
+    tarifaPartido: 0,
+    cupos: 0,
+    formatImage: ""
+  }
+selectedFile: File | null = null;
+
+ngOnInit() {
+  this.route.params.subscribe(params => {
+    this.id = params['id'];
+  })
+  this.getTournament(this.id)
+}
+
+volver(){
+  this.router.navigate([`/admin/tournaments/${this.id}`]);
+}
+
+getTournament(id:any){
+  this.tournamentServ.getTournament(id).subscribe({
+    next: (res : any) => {
+      this.tournament = res.tournamentFound
+      console.log(this.tournament)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  this.selectedFile = file;
+  console.log('Archivo seleccionado:', file);
+
+  this.editImageFormat();
+}
+
+/*async presentAlertImagen() {
+  const alert = await this.alertController.create({
+    header: 'Confirmar',
+    message: '¿Quieres cambiar la imagen del equipo?',
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Edición cancelada');
+          this.selectedFile = null; // Reinicia la imagen seleccionada
+        }
+      },
+      {
+        text: 'OK',
+        handler: () => {
+          this.editImage(); // Llama a la función para editar la imagen
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}*/
+
+onSelectImage() {
+  const fileInput = document.getElementById('file-input-format') as HTMLInputElement;
+  fileInput.click(); // Simula el clic en el input de archivo oculto
+}
+
+editImageFormat(){
+  const form = new FormData();
+  form.append('image', this.selectedFile as Blob);
+
+  this.tournamentServ.editFormatImage(this.id, form).subscribe({
+    next: (res : any) => {
+      this.getTournament(this.id)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+}

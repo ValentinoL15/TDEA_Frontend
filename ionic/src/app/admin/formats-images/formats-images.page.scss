@@ -1,0 +1,20 @@
+.contenedor {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.imagen {
+  max-width: 300px;
+  max-height: 300px;
+  position: relative;
+}
+
+.edit-button {
+  position: absolute;
+  right: 0; /* Ajusta la distancia desde el lado derecho de la imagen */
+  z-index: 10; /* Asegura que el botón esté por encima de la imagen */
+}

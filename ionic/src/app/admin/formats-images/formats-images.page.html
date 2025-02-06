@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Imagenes de formato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <div class="contenedor">
+    <h6>Formato Anual</h6>
+    <div class="imagen">
+      <img [src]="tournament.formatImage" alt="">
+      <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+      <input type="file" (change)="onFileSelected($event)" hidden id="file-input-format" />
+    </div>
+  </div>  
+
+</ion-content>

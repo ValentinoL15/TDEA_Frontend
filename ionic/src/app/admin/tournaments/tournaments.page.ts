@@ -167,8 +167,8 @@ export class TournamentsPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id']
-      this.getTournament(this.id)
     })
+    this.getTournament(this.id)
     this.getCategories()
     this.getFormats()
     this.getCampeonatos()
@@ -195,6 +195,10 @@ export class TournamentsPage implements OnInit {
 
   goDay(){
     this.router.navigate([`/admin/create-day/${this.id}`])
+  }
+
+  goFormats(){
+    this.router.navigate([`/admin/formats-images/${this.id}`])
   }
 
   goStadiums(){

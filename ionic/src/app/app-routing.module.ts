@@ -138,6 +138,10 @@ const routes: Routes = [
     path: 'img-approved',
     loadChildren: () => import('./admin/img-approved/img-approved.module').then( m => m.ImgApprovedPageModule)
   },
+  {
+    path: 'formats-images/:id',
+    loadChildren: () => import('./admin/formats-images/formats-images.module').then( m => m.FormatsImagesPageModule)
+  },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
   {
     path: 'create-team',
