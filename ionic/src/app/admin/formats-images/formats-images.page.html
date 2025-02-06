@@ -16,5 +16,13 @@
       <input type="file" (change)="onFileSelected($event)" hidden id="file-input-format" />
     </div>
   </div>  
+  <div class="contenedor2">
+    <h6>Formato del Torneo</h6>
+    <div class="imagen-2">
+      <img [src]="tournament.torneoImage" alt="">
+      <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+      <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-torneo" />
+    </div>
+  </div>
 
 </ion-content>

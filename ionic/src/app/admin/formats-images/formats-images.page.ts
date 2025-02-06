@@ -68,6 +68,7 @@ tournament: Tournament = {
     formatImage: ""
   }
 selectedFile: File | null = null;
+selectedFile2: File | null = null;
 
 ngOnInit() {
   this.route.params.subscribe(params => {
@@ -95,38 +96,24 @@ getTournament(id:any){
 onFileSelected(event: any) {
   const file: File = event.target.files[0];
   this.selectedFile = file;
-  console.log('Archivo seleccionado:', file);
 
   this.editImageFormat();
 }
 
-/*async presentAlertImagen() {
-  const alert = await this.alertController.create({
-    header: 'Confirmar',
-    message: '¿Quieres cambiar la imagen del equipo?',
-    buttons: [
-      {
-        text: 'Cancelar',
-        role: 'cancel',
-        handler: () => {
-          console.log('Edición cancelada');
-          this.selectedFile = null; // Reinicia la imagen seleccionada
-        }
-      },
-      {
-        text: 'OK',
-        handler: () => {
-          this.editImage(); // Llama a la función para editar la imagen
-        }
-      }
-    ]
-  });
+onFileSelected2(event: any) {
+  const file: File = event.target.files[0];
+  this.selectedFile2 = file;
 
-  await alert.present();
-}*/
+  this.editImageTorneo()
+}
 
 onSelectImage() {
   const fileInput = document.getElementById('file-input-format') as HTMLInputElement;
+  fileInput.click(); // Simula el clic en el input de archivo oculto
+}
+
+onSelectImage2() {
+  const fileInput = document.getElementById('file-input-torneo') as HTMLInputElement;
   fileInput.click(); // Simula el clic en el input de archivo oculto
 }
 
@@ -135,6 +122,20 @@ editImageFormat(){
   form.append('image', this.selectedFile as Blob);
 
   this.tournamentServ.editFormatImage(this.id, form).subscribe({
+    next: (res : any) => {
+      this.getTournament(this.id)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+editImageTorneo(){
+  const form = new FormData();
+  form.append('image', this.selectedFile2 as Blob);
+
+  this.tournamentServ.editTorneoImage(this.id, form).subscribe({
     next: (res : any) => {
       this.getTournament(this.id)
     },

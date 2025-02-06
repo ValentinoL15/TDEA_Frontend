@@ -52,6 +52,7 @@ export class TournamentPage implements OnInit {
     tarifaInscripcion: 0,
     tarifaPartido: 0,
     formatImage: "",
+    torneoImage: "",
     daysTournament: [{
       day: {
         type: ""
@@ -93,6 +94,12 @@ export class TournamentPage implements OnInit {
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+  }
+
+  isModalOpen2 = false;
+
+  setOpen2(isOpen: boolean) {
+    this.isModalOpen2 = isOpen;
   }
 
   volver(){

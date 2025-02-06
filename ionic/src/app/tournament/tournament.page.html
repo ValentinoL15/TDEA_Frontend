@@ -20,7 +20,31 @@
     
         <ion-card-content>
           <p>- Descripción del formato anual</p>
-          <img [src]="tournament.formatImage" alt="Imagen" (click)="setOpen(true)">
+          <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
+            <img [src]="tournament.formatImage" alt="Imagen" (click)="setOpen(true)">
+          </div>
+          <p>- Descripción del torneo</p>
+          <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
+            <img [src]="tournament.torneoImage" alt="imagen" (click)="setOpen2(true)">
+          </div>
+          <p>- Sedes</p>
+          <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;" *ngFor="let sede of tournament.daysTournament">
+            {{sede ? sede.sede?.name : "A definir"}}
+            <img [src]="sede ? sede.sede?.images : 'https://img.freepik.com/fotos-premium/imagen-estadio-signo-pregunta-blanco-cesped_1306096-92543.jpg'" alt="">
+          </div>
+          <p>- Premios</p>
+          <div>
+            ????
+          </div>
+          <p>- Precios</p>
+          <div>
+            <p>Valor del torneo: {{tournament.tarifaInscripcion | currency: 'ARS'}}</p>
+            <P>Valor por partido: {{tournament.tarifaPartido | currency: 'ARS'}}</P>
+          </div>
+          <p>- Reglamento del torneo</p>
+          <div>
+            <a style="text-decoration: underline; color: blue;">Descargar Reglamento</a>
+          </div>
         </ion-card-content>
     
         <div class="contenedor-button">
@@ -43,6 +67,22 @@
       </ion-header>
       <ion-content class="ion-padding">
         <img class="img-format" [src]="tournament.formatImage" alt="Imagen" >
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="isModalOpen2">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Formato Anual</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen2(false)">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <img class="img-format" [src]="tournament.torneoImage" alt="Imagen" >
       </ion-content>
     </ng-template>
   </ion-modal>

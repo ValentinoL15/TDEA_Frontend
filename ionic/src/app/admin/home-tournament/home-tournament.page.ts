@@ -91,6 +91,7 @@ export class HomeTournamentPage implements OnInit {
     "23:00", "23:15", "23:30", "23:45", "A definir"
   ];
   selectedFile: File | null = null;
+  selectedFile2: File | null = null;
 
 
   currentYear = new Date().getFullYear();
@@ -268,7 +269,8 @@ createTournament() {
   formData.append('tarifaInscripcion', this.form.get('tarifaInscripcion')?.value || '');
   formData.append('tarifaPartido', this.form.get('tarifaPartido')?.value || '');
   formData.append('cupos', this.form.get('cupos')?.value || '');
-  formData.append('image', this.selectedFile as Blob);
+  formData.append('image1', this.selectedFile as Blob);
+  formData.append('image2', this.selectedFile2 as Blob);
   // Agregar los días del torneo al FormData como un JSON string
   formData.append('daysTournament', JSON.stringify(daysTournament));
 
@@ -323,7 +325,11 @@ getTournaments(){
 onFileSelected(event: any) {
   const file: File = event.target.files[0];
   this.selectedFile = file;
-  console.log('Archivo seleccionado:', file);
+}
+
+onFileSelected2(event: any) {
+  const file: File = event.target.files[0];
+  this.selectedFile2 = file;
 }
 
 
