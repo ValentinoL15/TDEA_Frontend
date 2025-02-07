@@ -25,7 +25,7 @@
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
             <img [src]="tournament.formatImage" alt="Imagen" (click)="setOpen(true)">
           </div>
-          <p>- Estructura de Caregorias</p>
+          <p>- Estructura de Categorias</p>
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
             <img [src]="tournament.torneoImage" alt="imagen" (click)="setOpen2(true)">
           </div>
@@ -41,9 +41,9 @@
           <p>- Precios</p>
           <div>
             <ul>
-              <li>Valor del torneo: {{tournament.tarifaInscripcion | currency: 'ARS'}}</li>
+              <li>Inscripción: {{tournament.tarifaInscripcion | currency: 'ARS'}}</li>
               <li>Depósito: {{0 | currency: 'ARS'}}</li>
-              <li>Valor por partido: {{tournament.tarifaPartido | currency: 'ARS'}}</li>
+              <li>Partido: {{tournament.tarifaPartido | currency: 'ARS'}}</li>
             </ul>
           
           </div>
