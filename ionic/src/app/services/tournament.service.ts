@@ -296,6 +296,10 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/editar-torneoImage/${id}`, form)
   }
 
+  editAwardsImage(id:any, form:any){
+    return this.http.put(`${this.API_URL}/editar-awardsImage/${id}`, form)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

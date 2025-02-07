@@ -18,6 +18,7 @@ tournament: Tournament = {
     nameFantasy: "",
     ano: 0,
     order: 0,
+    awardsImage: "",
     campeonato:{
       _id: "",
       type: ""
@@ -69,6 +70,7 @@ tournament: Tournament = {
   }
 selectedFile: File | null = null;
 selectedFile2: File | null = null;
+selectedFile3: File | null = null;
 
 ngOnInit() {
   this.route.params.subscribe(params => {
@@ -107,6 +109,13 @@ onFileSelected2(event: any) {
   this.editImageTorneo()
 }
 
+onFileSelected3(event: any) {
+  const file: File = event.target.files[0];
+  this.selectedFile3 = file;
+
+  this.editImageAwards()
+}
+
 onSelectImage() {
   const fileInput = document.getElementById('file-input-format') as HTMLInputElement;
   fileInput.click(); // Simula el clic en el input de archivo oculto
@@ -114,6 +123,11 @@ onSelectImage() {
 
 onSelectImage2() {
   const fileInput = document.getElementById('file-input-torneo') as HTMLInputElement;
+  fileInput.click(); // Simula el clic en el input de archivo oculto
+}
+
+onSelectImage3() {
+  const fileInput = document.getElementById('file-input-awards') as HTMLInputElement;
   fileInput.click(); // Simula el clic en el input de archivo oculto
 }
 
@@ -136,6 +150,20 @@ editImageTorneo(){
   form.append('image', this.selectedFile2 as Blob);
 
   this.tournamentServ.editTorneoImage(this.id, form).subscribe({
+    next: (res : any) => {
+      this.getTournament(this.id)
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+editImageAwards(){
+  const form = new FormData();
+  form.append('image', this.selectedFile3 as Blob);
+
+  this.tournamentServ.editAwardsImage(this.id, form).subscribe({
     next: (res : any) => {
       this.getTournament(this.id)
     },

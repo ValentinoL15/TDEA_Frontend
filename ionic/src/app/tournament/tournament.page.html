@@ -3,9 +3,14 @@
     <ion-buttons slot="start">
       <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
-      <div *ngFor="let tour of tournament.daysTournament" style="display: inline;">
-        <ion-title>{{tour.day + " - " + tournament.format.formatName + " - " + tournament.category.categoryName}}</ion-title>
+    <ion-title style="margin-top: 8px;">
+      <div *ngFor="let tour of tournament.daysTournament" style="display: inline-block; height: 100%; text-align: center;">
+        <p>{{tour.day + " - "}}</p>
       </div>
+      <div style="display: inline-block;">
+        {{tournament.format.formatName + " - " + tournament.category.categoryName}}
+      </div>
+    </ion-title>
     
   </ion-toolbar>
 </ion-header>
@@ -14,16 +19,13 @@
   <ng-container *ngIf="list">
     <form #miForm>
       <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{tournament.nameFantasy}}</ion-card-title>
-        </ion-card-header>
     
         <ion-card-content>
-          <p>- Descripción del formato anual</p>
+          <p>- Estructura Anual</p>
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
             <img [src]="tournament.formatImage" alt="Imagen" (click)="setOpen(true)">
           </div>
-          <p>- Descripción del torneo</p>
+          <p>- Estructura de Caregorias</p>
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
             <img [src]="tournament.torneoImage" alt="imagen" (click)="setOpen2(true)">
           </div>
@@ -33,13 +35,17 @@
             <img [src]="sede ? sede.sede?.images : 'https://img.freepik.com/fotos-premium/imagen-estadio-signo-pregunta-blanco-cesped_1306096-92543.jpg'" alt="">
           </div>
           <p>- Premios</p>
-          <div>
-            ????
+          <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
+            <img [src]="tournament.awardsImage" alt="Imagen Premio">
           </div>
           <p>- Precios</p>
           <div>
-            <p>Valor del torneo: {{tournament.tarifaInscripcion | currency: 'ARS'}}</p>
-            <P>Valor por partido: {{tournament.tarifaPartido | currency: 'ARS'}}</P>
+            <ul>
+              <li>Valor del torneo: {{tournament.tarifaInscripcion | currency: 'ARS'}}</li>
+              <li>Depósito: {{0 | currency: 'ARS'}}</li>
+              <li>Valor por partido: {{tournament.tarifaPartido | currency: 'ARS'}}</li>
+            </ul>
+          
           </div>
           <p>- Reglamento del torneo</p>
           <div>
