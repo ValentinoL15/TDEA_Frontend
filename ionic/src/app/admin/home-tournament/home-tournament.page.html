@@ -95,7 +95,7 @@
             <ion-select-option *ngFor="let category of categories" [value]="category._id">{{category.categoryName}}</ion-select-option>
           </ion-select>
         </ion-item>
-         <ion-item>
+        <ion-item>
             <ion-input label="Foto Formato" type="file" (change)="onFileSelected($event)"></ion-input>
           </ion-item>
           <ion-item>
@@ -104,6 +104,14 @@
           <ion-item>
             <ion-input label="Foto Premios" type="file" (change)="onFileSelected3($event)"></ion-input>
           </ion-item>
+
+          <ion-item>
+            <ion-label>Ubicación</ion-label>
+            <google-map id="maps" width="100%" height="300px" (mapClick)="onMapClick($event)" >
+              <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+            </google-map>            
+          </ion-item>
+
         <ion-item>
           <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating" formControlName="tarifaInscripcion"></ion-input>
         </ion-item>

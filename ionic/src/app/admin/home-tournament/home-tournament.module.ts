@@ -8,6 +8,7 @@ import { HomeTournamentPageRoutingModule } from './home-tournament-routing.modul
 
 import { HomeTournamentPage } from './home-tournament.page';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {  GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HomeTournamentPageRoutingModule,
     ReactiveFormsModule,
     DragDropModule,
+    GoogleMapsModule,
   ],
   declarations: [HomeTournamentPage]
 })

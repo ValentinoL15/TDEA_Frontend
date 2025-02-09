@@ -1,3 +1,4 @@
+import { Point } from "leaflet";
 import { Campeonato } from "./Campeonato";
 import { Category } from "./Category";
 import { Day } from "./Day";
@@ -82,5 +83,9 @@ export interface Tournament {
             _id?: string,
             nameList?: string,
         }
-    }>
+    }>,
+    maps?: {
+        type?: Point,
+        coordinates: [number, number]
+    }
 }

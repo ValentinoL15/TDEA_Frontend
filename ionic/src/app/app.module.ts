@@ -17,6 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { Tabs2PageModule } from "./admin/tabs2/tabs2.module";
 registerLocaleData(localeEsAr, 'es-Ar')
+import { GoogleMapsModule } from '@angular/google-maps'
 
 
 
@@ -25,7 +26,7 @@ registerLocaleData(localeEsAr, 'es-Ar')
 
 @NgModule({
   declarations: [AppComponent, SpinnerComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, BrowserAnimationsModule, Tabs2PageModule, JoyrideModule.forRoot()],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, BrowserAnimationsModule, Tabs2PageModule, JoyrideModule.forRoot(), GoogleMapsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy } , 
     { 
       provide: RouteReuseStrategy, 

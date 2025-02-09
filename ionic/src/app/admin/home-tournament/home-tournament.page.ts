@@ -13,6 +13,7 @@ import { TournamentService } from 'src/app/services/tournament.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 
+
 @Component({
   selector: 'app-home-tournament',
   templateUrl: './home-tournament.page.html',
@@ -93,7 +94,9 @@ export class HomeTournamentPage implements OnInit {
   selectedFile: File | null = null;
   selectedFile2: File | null = null;
   selectedFile3: File | null = null;
-
+  center = { lat: 40.730610, lng: -73.935242 }; // Coordenadas iniciales (por ejemplo, Nueva York)
+  zoom = 12;
+  markerPosition: { lat: number, lng: number } | null = null;
 
   currentYear = new Date().getFullYear();
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private formBuilder: FormBuilder) {
@@ -117,6 +120,10 @@ export class HomeTournamentPage implements OnInit {
       daysTournament: this.formBuilder.array([]), // Inicializa daysTournament como FormArray
       sedeSeleccionada: [null],
       estadioSeleccionado: [''],
+      location: this.formBuilder.group({
+        lat: ['', Validators.required],
+        lng: ['', Validators.required]
+      }),
     })
   }
 
@@ -143,6 +150,28 @@ export class HomeTournamentPage implements OnInit {
     this.getTournaments();
   }
 
+  onMapClick(event: google.maps.MapMouseEvent) {
+    const latLng = event.latLng;
+    if (latLng) {
+      // Actualiza la posición del marcador en el mapa
+      this.markerPosition = {
+        lat: latLng.lat(),
+        lng: latLng.lng()
+      };
+  
+      // Actualiza los valores de las coordenadas en el formulario
+      this.form.patchValue({
+        location: {
+          lat: latLng.lat(),
+          lng: latLng.lng()
+        }
+      });
+    } else {
+      console.error("LatLng no disponible");
+    }
+  }
+
+  
 isModalOpen = false;
 
 setOpen(isOpen: boolean) {
@@ -276,30 +305,15 @@ createTournament() {
   // Agregar los días del torneo al FormData como un JSON string
   formData.append('daysTournament', JSON.stringify(daysTournament));
 
-  /*const formulario: Tournament = {
-    nameFantasy: this.form.value.nameFantasy,
-    ano: this.form.value.ano,
-    rangeAgeSince: this.form.value.rangeAgeSince,
-    rangeAgeUntil: this.form.value.rangeAgeUntil,
-    category: this.form.value.category,
-    format: this.form.value.format,
-    campeonato: this.form.value.campeonato,
-    edad: this.form.value.edad,
-    isTournamentActive: this.form.value.isTournamentActive,
-    isTournamentMasculine: this.form.value.isTournamentMasculine,
-    tournamentDate: this.form.value.tournamentDate,
-    tournamentNotes: this.form.value.tournamentNotes,
-    ageDescripcion: this.form.value.ageDescripcion,
-    tarifaInscripcion: this.form.value.tarifaInscripcion,
-    tarifaPartido: this.form.value.tarifaPartido,
-    cupos: this.form.value.cupos,
-    daysTournament: this.form.value.daysTournament.map((dayTournament: any) => ({
-      day: dayTournament.day,
-      sede: dayTournament.sedeSeleccionada, 
-      stadium: dayTournament.estadioSeleccionado, 
-      time: dayTournament.time 
-    }))
-  };*/
+  const location = this.form.get('location')?.value;
+if (location?.lat && location?.lng) {
+  formData.append('maps', JSON.stringify({ coordinates: [location.lng, location.lat], type: 'Point' }));
+} else {
+  this.notifyService.error('Por favor, seleccione una ubicación en el mapa');
+  return;
+}
+
+
   this.tournamentServ.createTournament(formData).subscribe({
     next: (res: any) => {
       localStorage.setItem('torneoCreated', res.message);

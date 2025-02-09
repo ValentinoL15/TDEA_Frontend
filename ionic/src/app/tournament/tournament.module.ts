@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TournamentPageRoutingModule } from './tournament-routing.module';
 
 import { TournamentPage } from './tournament.page';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TournamentPageRoutingModule
+    TournamentPageRoutingModule,
+    GoogleMapsModule
   ],
   declarations: [TournamentPage]
 })
