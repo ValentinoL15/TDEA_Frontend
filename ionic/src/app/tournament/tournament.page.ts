@@ -71,6 +71,8 @@ export class TournamentPage implements OnInit {
       time: []
     }],
     cupos: 0,
+    altitude: 0,
+    latitude: 0
   }
 
   currentYear = new Date().getFullYear();
@@ -88,6 +90,11 @@ export class TournamentPage implements OnInit {
     this.userService.getMyListUpdatedListener().subscribe(() => {
       this.getLists()
     })
+  }
+
+  position = {
+    lat: this.tournament.latitude,
+    lng: this.tournament.altitude
   }
 
   isModalOpen = false;

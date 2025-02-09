@@ -9,7 +9,7 @@
 
   <div cdkDropList (cdkDropListDropped)="drop($event)">
     <ion-list [inset]="true" *ngFor="let torneo of tournaments" cdkDrag>
-      <ion-item-sliding >
+      <ion-item-sliding>
         <ion-item [button]="true" (click)="goTournament(torneo._id)">
           <ion-avatar aria-hidden="true" slot="start">
             <img alt="" src="../../../assets/icon/trofeo (1).png" width="10px" height="10px" />
@@ -25,10 +25,10 @@
           </div>
           <!--<ion-label>{{torneo.nameFantasy}}</ion-label>-->
         </ion-item>
-      </ion-item-sliding>  
-    </ion-list>  
+      </ion-item-sliding>
+    </ion-list>
   </div>
-  
+
   <ion-button (click)="setOpen(true)" expand="block">Crear Torneo</ion-button>
 
   <ion-modal [isOpen]="isModalOpen">
@@ -40,162 +40,172 @@
           </ion-buttons>
           <ion-title>Crear Torneo</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="createTournament()" >Confirmar</ion-button>
+            <ion-button (click)="createTournament()">Confirmar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-    <form [formGroup]="form">
-      <ion-list [inset]="true">
-        <ion-item>
-          <ion-select label="Activo" placeholder="¿Está activo?" interface="popover" formControlName="isTournamentActive">
-            <ion-select-option value="true">Si</ion-select-option>
-            <ion-select-option value="false">No</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label>Torneo</ion-label>
-          <ion-input placeholder="Nombre del Torneo" formControlName="nameFantasy" class="value-right"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Año</ion-label>
-          <ion-input type="number" placeholder="Agregar año" formControlName="ano" class="value-right"/>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Campeonato" placeholder="Tipo de Torneo" interface="popover" formControlName="campeonato">
-            <ion-select-option *ngFor="let champ of campeonatos" [value]="champ._id">{{champ.type}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Edad" placeholder="Tipo de Edad" interface="popover" formControlName="edad">
-            <ion-select-option *ngFor="let edad of edades" [value]="edad._id">{{edad.type}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Formato" placeholder="Formato" interface="popover" formControlName="format">
-            <ion-select-option *ngFor="let format of formats" [value]="format._id">{{format.formatName}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label>Desde</ion-label>
-          <ion-input placeholder="Ej: 20" formControlName="rangeAgeSince" class="value-right" (input)="limitLength($event)"  maxlength="2"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Hasta</ion-label>
-          <ion-input placeholder="Ej: 26" formControlName="rangeAgeUntil" class="value-right" (input)="limitLength($event)"  maxlength="2"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Sexo" interface="popover" formControlName="isTournamentMasculine">
-            <ion-select-option value="true">Masculino</ion-select-option>
-            <ion-select-option value="false">Femenino</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Categoria" interface="popover" placeholder="Categoria" formControlName="category">
-            <ion-select-option *ngFor="let category of categories" [value]="category._id">{{category.categoryName}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-input label="Foto Formato" type="file" (change)="onFileSelected($event)"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Foto Torneo" type="file" (change)="onFileSelected2($event)"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Foto Premios" type="file" (change)="onFileSelected3($event)"></ion-input>
-          </ion-item>
+        <form [formGroup]="form">
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-select label="Activo" placeholder="¿Está activo?" interface="popover"
+                formControlName="isTournamentActive">
+                <ion-select-option value="true">Si</ion-select-option>
+                <ion-select-option value="false">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label>Torneo</ion-label>
+              <ion-input placeholder="Nombre del Torneo" formControlName="nameFantasy" class="value-right"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Año</ion-label>
+              <ion-input type="number" placeholder="Agregar año" formControlName="ano" class="value-right" />
+            </ion-item>
+            <ion-item>
+              <ion-select label="Campeonato" placeholder="Tipo de Torneo" interface="popover"
+                formControlName="campeonato">
+                <ion-select-option *ngFor="let champ of campeonatos"
+                  [value]="champ._id">{{champ.type}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Edad" placeholder="Tipo de Edad" interface="popover" formControlName="edad">
+                <ion-select-option *ngFor="let edad of edades" [value]="edad._id">{{edad.type}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Formato" placeholder="Formato" interface="popover" formControlName="format">
+                <ion-select-option *ngFor="let format of formats"
+                  [value]="format._id">{{format.formatName}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label>Desde</ion-label>
+              <ion-input placeholder="Ej: 20" formControlName="rangeAgeSince" class="value-right"
+                (input)="limitLength($event)" maxlength="2"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Hasta</ion-label>
+              <ion-input placeholder="Ej: 26" formControlName="rangeAgeUntil" class="value-right"
+                (input)="limitLength($event)" maxlength="2"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Sexo" interface="popover" formControlName="isTournamentMasculine">
+                <ion-select-option value="true">Masculino</ion-select-option>
+                <ion-select-option value="false">Femenino</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Categoria" interface="popover" placeholder="Categoria" formControlName="category">
+                <ion-select-option *ngFor="let category of categories"
+                  [value]="category._id">{{category.categoryName}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Foto Formato" type="file" (change)="onFileSelected($event)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Foto Torneo" type="file" (change)="onFileSelected2($event)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Foto Premios" type="file" (change)="onFileSelected3($event)"></ion-input>
+            </ion-item>
 
-          <ion-item>
-            <ion-label>Ubicación</ion-label>
-            <google-map id="maps" width="100%" height="300px" (mapClick)="onMapClick($event)" >
-              <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
-            </google-map>            
-          </ion-item>
+            
+              <ion-label>Ubicación</ion-label>
+              <google-map width="100%" height="300px" (mapClick)="onMapClick($event)" [center]="center" [zoom]="zoom">
+                <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+              </google-map>
+            
 
-        <ion-item>
-          <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating" formControlName="tarifaInscripcion"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" label="Valor X Partido" labelPlacement="floating" placeholder="$" formControlName="tarifaPartido"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" label="Cupos Disponibles" labelPlacement="floating" formControlName="cupos"></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="date-item"> 
-        <label class="date-label">Comienzo Torneo</label>
-          <input type="month" formControlName="tournamentDate" class="date-input" />
-        </ion-item>
-      </ion-list>
+            <ion-item>
+              <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating"
+                formControlName="tarifaInscripcion"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" label="Valor X Partido" labelPlacement="floating" placeholder="$"
+                formControlName="tarifaPartido"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" label="Cupos Disponibles" labelPlacement="floating"
+                formControlName="cupos"></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="date-item">
+              <label class="date-label">Comienzo Torneo</label>
+              <input type="month" formControlName="tournamentDate" class="date-input" />
+            </ion-item>
+          </ion-list>
 
 
-<!-- Días del torneo -->
-  <ion-list [inset]="true">
-  <ion-item>
-    <ion-label>Días del Torneo</ion-label>
-    <ion-button (click)="addDayTournament()">Agregar Día</ion-button>
-  </ion-item>
+          <!-- Días del torneo -->
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-label>Días del Torneo</ion-label>
+              <ion-button (click)="addDayTournament()">Agregar Día</ion-button>
+            </ion-item>
 
-  <ng-container formArrayName="daysTournament" style="margin: 10px 0" >
-    <ng-container *ngFor="let day of daysTournament.controls; let i = index" [formGroupName]="i">
-      <ion-item lines="full">
-        <ion-label>Día</ion-label>
-        <ion-select formControlName="day" placeholder="Selecciona un día" interface="popover">
-          <ion-select-option value="Lunes">Lunes</ion-select-option>
-          <ion-select-option value="Martes">Martes</ion-select-option>
-          <ion-select-option value="Miercoles">Miércoles</ion-select-option>
-          <ion-select-option value="Jueves">Jueves</ion-select-option>
-          <ion-select-option value="Viernes">Viernes</ion-select-option>
-          <ion-select-option value="Sabado">Sábado</ion-select-option>
-          <ion-select-option value="Domingo">Domingo</ion-select-option>
-          <ion-select-option value="A definir">A definir</ion-select-option>
-        </ion-select>
-      </ion-item>
+            <ng-container formArrayName="daysTournament" style="margin: 10px 0">
+              <ng-container *ngFor="let day of daysTournament.controls; let i = index" [formGroupName]="i">
+                <ion-item lines="full">
+                  <ion-label>Día</ion-label>
+                  <ion-select formControlName="day" placeholder="Selecciona un día" interface="popover">
+                    <ion-select-option value="Lunes">Lunes</ion-select-option>
+                    <ion-select-option value="Martes">Martes</ion-select-option>
+                    <ion-select-option value="Miercoles">Miércoles</ion-select-option>
+                    <ion-select-option value="Jueves">Jueves</ion-select-option>
+                    <ion-select-option value="Viernes">Viernes</ion-select-option>
+                    <ion-select-option value="Sabado">Sábado</ion-select-option>
+                    <ion-select-option value="Domingo">Domingo</ion-select-option>
+                    <ion-select-option value="A definir">A definir</ion-select-option>
+                  </ion-select>
+                </ion-item>
 
-      <ion-item>
-        <ion-select formControlName="sedeSeleccionada" interface="popover" placeholder="Seleccionar Sede" (ionChange)="onSedeChange(i)" label="Sedes">
-          <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{ sede.name }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      
-      <ion-item *ngIf="filteredStadiums[i].length > 0">
-        <ion-select formControlName="estadioSeleccionado" label="Estadios" interface="popover" placeholder="Seleccionar Estadio">
-          <ion-select-option *ngFor="let estadio of filteredStadiums[i]" [value]="estadio._id">
-            {{ estadio.code }} <!-- Cambia 'name' por la propiedad correcta -->
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
+                <ion-item>
+                  <ion-select formControlName="sedeSeleccionada" interface="popover" placeholder="Seleccionar Sede"
+                    (ionChange)="onSedeChange(i)" label="Sedes">
+                    <ion-select-option *ngFor="let sede of sedes" [value]="sede._id">{{ sede.name }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
 
-      <ion-item>
-        <ion-label>Hora</ion-label>
-        <div style="overflow-x: auto; white-space: nowrap;">
-          <ion-select formControlName="time" placeholder="Selecciona una hora" multiple="true">
-            <ion-select-option *ngFor="let timeOption of times" [value]="timeOption">{{timeOption}}</ion-select-option>
-          </ion-select>
-        </div>
-      </ion-item>
+                <ion-item *ngIf="filteredStadiums[i].length > 0">
+                  <ion-select formControlName="estadioSeleccionado" label="Estadios" interface="popover"
+                    placeholder="Seleccionar Estadio">
+                    <ion-select-option *ngFor="let estadio of filteredStadiums[i]" [value]="estadio._id">
+                      {{ estadio.code }} <!-- Cambia 'name' por la propiedad correcta -->
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
 
-      <ion-button (click)="removeDayTournament(i)" color="danger">Eliminar</ion-button>
-    </ng-container>
-  </ng-container>
-</ion-list>
+                <ion-item>
+                  <ion-label>Hora</ion-label>
+                  <div style="overflow-x: auto; white-space: nowrap;">
+                    <ion-select formControlName="time" placeholder="Selecciona una hora" multiple="true">
+                      <ion-select-option *ngFor="let timeOption of times"
+                        [value]="timeOption">{{timeOption}}</ion-select-option>
+                    </ion-select>
+                  </div>
+                </ion-item>
 
-      <ion-list [inset]="true">
-        <ion-item>
-          <ion-textarea label="Notas del Torneo" labelPlacement="floating" rows="5" formControlName="tournamentNotes"></ion-textarea>
-        </ion-item>
-      </ion-list>
-    </form>
+                <ion-button (click)="removeDayTournament(i)" color="danger">Eliminar</ion-button>
+              </ng-container>
+            </ng-container>
+          </ion-list>
+
+          <ion-list [inset]="true">
+            <ion-item>
+              <ion-textarea label="Notas del Torneo" labelPlacement="floating" rows="5"
+                formControlName="tournamentNotes"></ion-textarea>
+            </ion-item>
+          </ion-list>
+        </form>
       </ion-content>
     </ng-template>
   </ion-modal>
   <ion-modal [keepContentsMounted]="true">
     <ng-template>
-      <ion-datetime
-      id="datetime"
-      presentation="year" 
-      max="2030"
-    ></ion-datetime>
+      <ion-datetime id="datetime" presentation="year" max="2030"></ion-datetime>
     </ng-template>
   </ion-modal>
-  
+
 </ion-content>

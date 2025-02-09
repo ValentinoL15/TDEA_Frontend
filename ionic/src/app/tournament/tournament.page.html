@@ -48,6 +48,11 @@
           </div>
           <div>
             <p>-Ubicación</p>
+            <google-map [center]="{ lat: tournament?.latitude || 0, lng: tournament?.altitude || 0 }">
+              <map-marker [position]="{lat: tournament?.latitude || 0, lng: tournament?.altitude || 0}">
+
+              </map-marker>
+            </google-map>
           </div>
           <p>- Reglamento del torneo</p>
           <div>

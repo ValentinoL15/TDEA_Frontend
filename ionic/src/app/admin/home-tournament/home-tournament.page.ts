@@ -94,9 +94,9 @@ export class HomeTournamentPage implements OnInit {
   selectedFile: File | null = null;
   selectedFile2: File | null = null;
   selectedFile3: File | null = null;
-  center = { lat: 40.730610, lng: -73.935242 }; // Coordenadas iniciales (por ejemplo, Nueva York)
+  markerPosition: google.maps.LatLngLiteral | null = null;
   zoom = 12;
-  markerPosition: { lat: number, lng: number } | null = null;
+  center: google.maps.LatLngLiteral = { lat: -34.6037, lng: -58.3816 }; 
 
   currentYear = new Date().getFullYear();
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private formBuilder: FormBuilder) {
@@ -120,10 +120,8 @@ export class HomeTournamentPage implements OnInit {
       daysTournament: this.formBuilder.array([]), // Inicializa daysTournament como FormArray
       sedeSeleccionada: [null],
       estadioSeleccionado: [''],
-      location: this.formBuilder.group({
-        lat: ['', Validators.required],
-        lng: ['', Validators.required]
-      }),
+      latitude: [null, Validators.required], // Añadir latitud
+      altitude: [null, Validators.required]  // Añadir altitud
     })
   }
 
@@ -151,23 +149,17 @@ export class HomeTournamentPage implements OnInit {
   }
 
   onMapClick(event: google.maps.MapMouseEvent) {
-    const latLng = event.latLng;
-    if (latLng) {
-      // Actualiza la posición del marcador en el mapa
+    if (event.latLng) {
       this.markerPosition = {
-        lat: latLng.lat(),
-        lng: latLng.lng()
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
       };
-  
-      // Actualiza los valores de las coordenadas en el formulario
+
+      // Guardar las coordenadas en el formulario
       this.form.patchValue({
-        location: {
-          lat: latLng.lat(),
-          lng: latLng.lng()
-        }
+        latitude: this.markerPosition.lat,
+        altitude: this.markerPosition.lng
       });
-    } else {
-      console.error("LatLng no disponible");
     }
   }
 
@@ -304,14 +296,8 @@ createTournament() {
   formData.append('image3', this.selectedFile3 as Blob);
   // Agregar los días del torneo al FormData como un JSON string
   formData.append('daysTournament', JSON.stringify(daysTournament));
-
-  const location = this.form.get('location')?.value;
-if (location?.lat && location?.lng) {
-  formData.append('maps', JSON.stringify({ coordinates: [location.lng, location.lat], type: 'Point' }));
-} else {
-  this.notifyService.error('Por favor, seleccione una ubicación en el mapa');
-  return;
-}
+  formData.append('altitude', this.form.get('altitude')?.value)
+  formData.append('latitude', this.form.get('latitude')?.value)
 
 
   this.tournamentServ.createTournament(formData).subscribe({

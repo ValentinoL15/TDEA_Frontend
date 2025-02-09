@@ -84,8 +84,6 @@ export interface Tournament {
             nameList?: string,
         }
     }>,
-    maps?: {
-        type?: Point,
-        coordinates: [number, number]
-    }
+   altitude?: number,
+   latitude?: number,
 }
