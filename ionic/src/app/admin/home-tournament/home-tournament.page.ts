@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Campeonato } from 'src/app/interfaces/Campeonato';
@@ -11,6 +11,7 @@ import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import * as L from 'leaflet';
 
 
 
@@ -19,7 +20,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   templateUrl: './home-tournament.page.html',
   styleUrls: ['./home-tournament.page.scss'],
 })
-export class HomeTournamentPage implements OnInit {
+export class HomeTournamentPage implements OnInit,AfterViewInit  {
 
   form: FormGroup;
   categories: Category[] = [];
@@ -97,8 +98,12 @@ export class HomeTournamentPage implements OnInit {
   markerPosition: google.maps.LatLngLiteral | null = null;
   zoom = 12;
   center: google.maps.LatLngLiteral = { lat: -34.6037, lng: -58.3816 }; 
-
   currentYear = new Date().getFullYear();
+
+  private userMarker : L.Marker<any> | undefined
+  private map : any
+
+
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       nameFantasy: ['', Validators.required],
@@ -138,29 +143,28 @@ export class HomeTournamentPage implements OnInit {
       this.notifyService.success(message);
       localStorage.removeItem('torneoCreated');
     }
-  
-    // Obtener torneos cuando el componente se carga o cuando se actualiza un torneo
     this.tournamentServ.getTournamentUpdate().subscribe(() => {
       this.getTournaments();
     });
-  
-    // Llamar a getTournaments solo una vez al inicio
     this.getTournaments();
   }
 
-  onMapClick(event: google.maps.MapMouseEvent) {
-    if (event.latLng) {
-      this.markerPosition = {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng()
-      };
+  ngAfterViewInit() {
+    this.initMap();
+  }
 
-      // Guardar las coordenadas en el formulario
-      this.form.patchValue({
-        latitude: this.markerPosition.lat,
-        altitude: this.markerPosition.lng
-      });
-    }
+  private initMap() {
+    this.map = L.map('map').setView([-17.78629, -63.18117], 13);
+  
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+
+    L.marker([19.4284, -99.1405]).addTo(this.map)
+  
+    setTimeout(() => {
+      this.map.invalidateSize(); // Fuerza la actualización del tamaño del mapa
+    }, 100);
   }
 
   
