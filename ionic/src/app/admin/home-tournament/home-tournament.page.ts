@@ -153,17 +153,20 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
   }
 
   initMap() {
-    this.map = L.map('map').setView([-34.603722, -58.381592], 10); // Coordenadas iniciales
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    this.map = L.map('map').setView([-34.603722, -58.381592], 10);
+  
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
-
+  
+    this.map.invalidateSize(); // 🔥 IMPORTANTE: Forzar redibujado del mapa
+  
     // Escuchar clics en el mapa
     this.map.on('click', (e: any) => {
       this.addMarker(e.latlng.lat, e.latlng.lng);
     });
   }
+  
 
   addMarker(lat: number, lng: number) {
     // Si ya hay un marcador, lo eliminamos
@@ -199,8 +202,11 @@ setOpen(isOpen: boolean) {
   this.isModalOpen = isOpen;
   if (isOpen) {
     setTimeout(() => {
-      this.initMap(); // Esperar que el modal esté completamente renderizado
-    }, 300); // Pequeño delay para asegurar que el DOM esté listo
+      this.initMap();
+      setTimeout(() => {
+        this.map.invalidateSize(); // 🔥 Forzar ajuste del mapa
+      }, 500);
+    }, 300);
   } else {
     this.destroyMap();
   }
@@ -224,7 +230,7 @@ onAddressChange() {
       this.addMarker(lat, lng);
       this.map.setView([lat, lng], 12);
     } else {
-      console.error('No se encontró la dirección');
+      this.notifyService.error("Por favor selecciona una dirección válida")
     }
   });
 }
