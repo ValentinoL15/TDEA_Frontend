@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Tournament } from '../interfaces/Tournament';
 import { TournamentService } from '../services/tournament.service';
 import { NotifyService } from '../services/notify.service';
@@ -8,6 +8,7 @@ import { Day } from '../interfaces/Day';
 import { Category } from '../interfaces/Category';
 import { UserService } from '../services/user.service';
 import { List } from '../interfaces/List';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-tournament',
@@ -79,6 +80,8 @@ export class TournamentPage implements OnInit {
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private userService: UserService) { }
 
   id:any
+  map: any;
+  marker: any;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -131,6 +134,13 @@ export class TournamentPage implements OnInit {
         this.tournament = res.tournamentFound
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
         console.log("Este es mi torneo:" ,this.tournament)
+        if (this.tournament.latitude && this.tournament.altitude) {
+          setTimeout(() => {
+            this.loadMap(this.tournament.latitude || 0, this.tournament.altitude || 0);
+          }, 500); // Retraso de 500ms para asegurar que el DOM está listo
+        } else {
+          console.warn('No hay latitud y longitud en el torneo');
+        }
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)
@@ -150,7 +160,25 @@ export class TournamentPage implements OnInit {
     })
   }
 
-  
+
+
+  loadMap(lat: number, lng: number) {
+    if (!lat || !lng) {
+      console.error('Latitud o longitud inválidas:', lat, lng);
+      return;
+    }
+
+    // Espera hasta que el elemento #map esté disponible
+    setTimeout(() => {
+      this.map = L.map('map1').setView([lat, lng], 12); // Centra en la ubicación guardada
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(this.map);
+
+      this.marker = L.marker([lat, lng]).addTo(this.map);
+    }, 500);
+  }
 
   adjustDate(date: Date): Date {
     // Ajuste para compensar el desfase de la zona horaria

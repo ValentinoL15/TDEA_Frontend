@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Campeonato } from 'src/app/interfaces/Campeonato';
@@ -12,6 +12,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import * as L from 'leaflet';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -20,7 +21,7 @@ import * as L from 'leaflet';
   templateUrl: './home-tournament.page.html',
   styleUrls: ['./home-tournament.page.scss'],
 })
-export class HomeTournamentPage implements OnInit,AfterViewInit  {
+export class HomeTournamentPage implements OnInit,OnDestroy   {
 
   form: FormGroup;
   categories: Category[] = [];
@@ -100,11 +101,12 @@ export class HomeTournamentPage implements OnInit,AfterViewInit  {
   center: google.maps.LatLngLiteral = { lat: -34.6037, lng: -58.3816 }; 
   currentYear = new Date().getFullYear();
 
-  private userMarker : L.Marker<any> | undefined
-  private map : any
+  map: any;
+  marker: any;
+  address: string = '';
 
 
-  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private formBuilder: FormBuilder, private http: HttpClient) {
     this.form = this.formBuilder.group({
       nameFantasy: ['', Validators.required],
       ano: ['', Validators.required],
@@ -126,7 +128,8 @@ export class HomeTournamentPage implements OnInit,AfterViewInit  {
       sedeSeleccionada: [null],
       estadioSeleccionado: [''],
       latitude: [null, Validators.required], // Añadir latitud
-      altitude: [null, Validators.required]  // Añadir altitud
+      altitude: [null, Validators.required],  // Añadir altitud
+      address: new FormControl(''), // Campo para la dirección
     })
   }
 
@@ -149,22 +152,44 @@ export class HomeTournamentPage implements OnInit,AfterViewInit  {
     this.getTournaments();
   }
 
-  ngAfterViewInit() {
-    this.initMap();
-  }
+  initMap() {
+    this.map = L.map('map').setView([-34.603722, -58.381592], 10); // Coordenadas iniciales
 
-  private initMap() {
-    this.map = L.map('map').setView([-17.78629, -63.18117], 13);
-  
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
 
-    L.marker([19.4284, -99.1405]).addTo(this.map)
-  
-    setTimeout(() => {
-      this.map.invalidateSize(); // Fuerza la actualización del tamaño del mapa
-    }, 100);
+    // Escuchar clics en el mapa
+    this.map.on('click', (e: any) => {
+      this.addMarker(e.latlng.lat, e.latlng.lng);
+    });
+  }
+
+  addMarker(lat: number, lng: number) {
+    // Si ya hay un marcador, lo eliminamos
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
+    }
+
+    // Agregar un nuevo marcador en la posición seleccionada
+    this.marker = L.marker([lat, lng]).addTo(this.map);
+
+    // Actualizar los valores en el formulario
+    this.form.patchValue({
+      latitude: lat,
+      altitude: lng
+    });
+  }
+
+  private destroyMap() {
+    if (this.map) {
+      this.map.remove();
+      this.map = null!;
+    }
+  }
+
+  ngOnDestroy() {
+    this.destroyMap();
   }
 
   
@@ -172,6 +197,36 @@ isModalOpen = false;
 
 setOpen(isOpen: boolean) {
   this.isModalOpen = isOpen;
+  if (isOpen) {
+    setTimeout(() => {
+      this.initMap(); // Esperar que el modal esté completamente renderizado
+    }, 300); // Pequeño delay para asegurar que el DOM esté listo
+  } else {
+    this.destroyMap();
+  }
+}
+
+searchAddress(address: string) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+  return this.http.get(url);
+}
+
+onAddressChange() {
+  const address = this.form.get('address')?.value;
+  if (!address) return;
+
+  this.searchAddress(address).subscribe((results: any) => {
+    if (results.length > 0) {
+      const lat = results[0].lat;
+      const lng = results[0].lon;
+
+      this.form.patchValue({ latitude: lat, longitude: lng });
+      this.addMarker(lat, lng);
+      this.map.setView([lat, lng], 12);
+    } else {
+      console.error('No se encontró la dirección');
+    }
+  });
 }
 
 getCategories(){
@@ -300,8 +355,13 @@ createTournament() {
   formData.append('image3', this.selectedFile3 as Blob);
   // Agregar los días del torneo al FormData como un JSON string
   formData.append('daysTournament', JSON.stringify(daysTournament));
-  formData.append('altitude', this.form.get('altitude')?.value)
-  formData.append('latitude', this.form.get('latitude')?.value)
+  formData.append('latitude', this.form.get('latitude')?.value);
+  formData.append('altitude', this.form.get('altitude')?.value);
+
+if (this.form.get('latitude')?.value === '' || this.form.get('altitude')?.value === '') {
+  return this.notifyService.error('Debes seleccionar una ubicación para el torneo.');
+}
+
 
 
   this.tournamentServ.createTournament(formData).subscribe({

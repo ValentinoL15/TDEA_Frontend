@@ -31,9 +31,7 @@
 
   <ion-button (click)="setOpen(true)" expand="block">Crear Torneo</ion-button>
 
-  <div id="map">
 
-  </div>
 
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
@@ -116,11 +114,19 @@
               <ion-input label="Foto Premios" type="file" (change)="onFileSelected3($event)"></ion-input>
             </ion-item>
 
-            
-              <ion-label>Ubicación</ion-label>
-            
-            
+            <ion-item>
+              <label for="">Buscar calle</label>
+              <input type="text" formControlName="address" (change)="onAddressChange()" placeholder="Ingrese la dirección">
+            </ion-item>
 
+            <ion-item>
+              <ion-label>Ubicación</ion-label>
+              <div id="map" style="height: 300px;"></div>
+            </ion-item>
+            <!-- Campos ocultos para guardar la ubicación -->
+              <input formControlName="latitude" readonly type="hidden">
+              <input formControlName="altitude" readonly type="hidden">
+          
             <ion-item>
               <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating"
                 formControlName="tarifaInscripcion"></ion-input>
