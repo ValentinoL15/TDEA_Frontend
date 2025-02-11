@@ -41,7 +41,7 @@ goTournament(id : any){
 
 
 getTournaments(){
-  this.tournamentServ.getTournaments().subscribe({
+  this.tournamentServ.getMyTournaments().subscribe({
     next: (res : any) => {
       this.torneos = res.tournaments
       console.log("mis torneos:", this.torneos)

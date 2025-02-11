@@ -66,6 +66,17 @@
             <ion-input label="Barrio" label-placement="floating" placeholder="Barrio" formControlName="barrio"></ion-input>
           </ion-item>
           <ion-item>
+            <label for="">Buscar calle</label>
+            <input type="text" formControlName="address" (change)="onAddressChange()" placeholder="Ingrese la dirección">
+          </ion-item>
+          <ion-item>
+            <ion-label>Ubicación</ion-label>
+            <div id="map" style="height: 300px;"></div>
+          </ion-item>
+          <!-- Campos ocultos para guardar la ubicación -->
+            <input formControlName="latitude" readonly type="hidden">
+            <input formControlName="altitude" readonly type="hidden">
+          <ion-item>
             <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" formControlName="socialRed"></ion-input>
           </ion-item>
           <ion-item>

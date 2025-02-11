@@ -69,11 +69,14 @@ export class TournamentPage implements OnInit {
         grass: "",
         punctuaction: "",
       },
+      sede: {
+        _id: "",
+        altitude: 0,
+        latitude:0
+      },
       time: []
     }],
     cupos: 0,
-    altitude: 0,
-    latitude: 0
   }
 
   currentYear = new Date().getFullYear();
@@ -96,9 +99,9 @@ export class TournamentPage implements OnInit {
   }
 
   position = {
-    lat: this.tournament.latitude,
-    lng: this.tournament.altitude
-  }
+    lat: 0,  // Valor por defecto de latitud
+    lng: 0   // Valor por defecto de longitud
+  };
 
   isModalOpen = false;
 
@@ -134,12 +137,14 @@ export class TournamentPage implements OnInit {
         this.tournament = res.tournamentFound
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
         console.log("Este es mi torneo:" ,this.tournament)
-        if (this.tournament.latitude && this.tournament.altitude) {
-          setTimeout(() => {
-            this.loadMap(this.tournament.latitude || 0, this.tournament.altitude || 0);
-          }, 500); // Retraso de 500ms para asegurar que el DOM está listo
-        } else {
-          console.warn('No hay latitud y longitud en el torneo');
+        if (this.tournament.daysTournament && this.tournament.daysTournament[0].sede) {
+          const sede = this.tournament.daysTournament[0].sede;
+          console.log("Esta es mi sedee", sede)
+          if (sede.latitude && sede.altitude) {
+            this.position.lat = sede.latitude;  // Actualiza la latitud
+            this.position.lng = sede.altitude;  // Actualiza la longitud
+            this.loadMap(this.position.lat, this.position.lng); // Llama a la función para cargar el mapa con las coordenadas
+          }
         }
       },
       error: (err: any) => {

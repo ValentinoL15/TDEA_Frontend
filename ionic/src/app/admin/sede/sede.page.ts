@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { Sede } from 'src/app/interfaces/Sede';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-sede',
@@ -32,8 +33,12 @@ export class SedePage implements OnInit {
       },
     ],
     encargado: "",
-    dueno: ""
+    dueno: "",
+    latitude: 0,
+    altitude:0
   }
+  map: any;
+  marker: any;
 
   public alertButtons = [
     {
@@ -100,9 +105,14 @@ export class SedePage implements OnInit {
     this.tournamentServ.getSede(id).subscribe({
         next: (res: any) => {
             this.sede = res.sede;
-
-            // Inicializar selectedDays con los días de atención de la sede
             this.selectedDays = this.sede.daysAttention.map(day => day.day);
+            if (this.sede.latitude && this.sede.altitude) {
+          setTimeout(() => {
+            this.loadMap(this.sede.latitude || 0, this.sede.altitude || 0);
+          }, 500); // Retraso de 500ms para asegurar que el DOM está listo
+        } else {
+          console.warn('No hay latitud y longitud en el torneo');
+        }
         },
         error: (err) => {
             console.error(err);
@@ -191,6 +201,30 @@ async eliminarSede() {
   
     await alert.present();
   }
+
+    position = {
+    lat: this.sede.latitude,
+    lng: this.sede.altitude
+  }
+
+  loadMap(lat: number, lng: number) {
+      if (!lat || !lng) {
+        console.error('Latitud o longitud inválidas:', lat, lng);
+        return;
+      }
+  
+      // Espera hasta que el elemento #map esté disponible
+      setTimeout(() => {
+        this.map = L.map('map2').setView([lat, lng], 12); // Centra en la ubicación guardada
+  
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(this.map);
+  
+        this.marker = L.marker([lat, lng]).addTo(this.map);
+      }, 500);
+    }
+
 
 
 

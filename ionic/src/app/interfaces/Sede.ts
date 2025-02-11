@@ -20,4 +20,6 @@ export interface Sede {
     encargado: string,
     dueno: string,
     stadiums?: Stadium[],
+    altitude?: number,
+    latitude?: number,
 }

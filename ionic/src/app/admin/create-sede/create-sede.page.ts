@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Empresa } from 'src/app/interfaces/Empresa';
 import { Sede } from 'src/app/interfaces/Sede';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-create-sede',
   templateUrl: './create-sede.page.html',
   styleUrls: ['./create-sede.page.scss'],
 })
-export class CreateSedePage implements OnInit {
+export class CreateSedePage implements OnInit,OnDestroy {
 
   id:any
   sedes: Sede[] = []
@@ -30,9 +32,12 @@ export class CreateSedePage implements OnInit {
   day: any
   startTime: string = "00:00"; // Por defecto
   endTime: string = "00:00";   // Por defecto
+  map: any;
+  marker: any;
+  address: string = '';
 
 
-  constructor(private route: ActivatedRoute, private tournamentServ: TournamentService, private notifyServ: NotifyService, private router: Router, private fb : FormBuilder) { 
+  constructor(private route: ActivatedRoute, private tournamentServ: TournamentService, private notifyServ: NotifyService, private router: Router, private fb : FormBuilder, private http: HttpClient, private notifyService: NotifyService) { 
     this.form = this.fb.group({
       name: ['', Validators.required],
       alias: ['', Validators.required],
@@ -44,7 +49,10 @@ export class CreateSedePage implements OnInit {
       socialRed: ['', Validators.required],
       daysAttention: [[], Validators.required],
       encargado: ['', Validators.required],
-      dueno: ['', Validators.required]
+      dueno: ['', Validators.required],
+      latitude: [null, Validators.required], // Añadir latitud
+      altitude: [null, Validators.required],  // Añadir altitud
+      address: new FormControl(''), // Campo para la dirección
     })
   }
 
@@ -60,6 +68,39 @@ export class CreateSedePage implements OnInit {
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+    if (isOpen) {
+      setTimeout(() => {
+        this.initMap();
+        setTimeout(() => {
+          this.map.invalidateSize(); // 🔥 Forzar ajuste del mapa
+        }, 500);
+      }, 300);
+    } else {
+      this.destroyMap();
+    }
+  }
+  
+  searchAddress(address: string) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+    return this.http.get(url);
+  }
+  
+  onAddressChange() {
+    const address = this.form.get('address')?.value;
+    if (!address) return;
+  
+    this.searchAddress(address).subscribe((results: any) => {
+      if (results.length > 0) {
+        const lat = results[0].lat;
+        const lng = results[0].lon;
+  
+        this.form.patchValue({ latitude: lat, longitude: lng });
+        this.addMarker(lat, lng);
+        this.map.setView([lat, lng], 12);
+      } else {
+        this.notifyService.error("Por favor selecciona una dirección válida")
+      }
+    });
   }
 
   volver(){
@@ -110,7 +151,9 @@ export class CreateSedePage implements OnInit {
         };
       }),
       encargado: this.form.value.encargado,
-      dueno: this.form.value.dueno
+      dueno: this.form.value.dueno,
+      latitude: this.form.value.latitude,
+      altitude: this.form.value.altitude
     }
     this.tournamentServ.createSede(this.id,formulario).subscribe({
       next: (res : any) => {
@@ -128,6 +171,49 @@ export class CreateSedePage implements OnInit {
     this.selectedFile = file;
     console.log('Archivo seleccionado:', file);
   }
+
+  initMap() {
+      this.map = L.map('map').setView([-34.603722, -58.381592], 10);
+    
+      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(this.map);
+    
+      this.map.invalidateSize(); // 🔥 IMPORTANTE: Forzar redibujado del mapa
+    
+      // Escuchar clics en el mapa
+      this.map.on('click', (e: any) => {
+        this.addMarker(e.latlng.lat, e.latlng.lng);
+      });
+    }
+    
+  
+    addMarker(lat: number, lng: number) {
+      // Si ya hay un marcador, lo eliminamos
+      if (this.marker) {
+        this.map.removeLayer(this.marker);
+      }
+  
+      // Agregar un nuevo marcador en la posición seleccionada
+      this.marker = L.marker([lat, lng]).addTo(this.map);
+  
+      // Actualizar los valores en el formulario
+      this.form.patchValue({
+        latitude: lat,
+        altitude: lng
+      });
+    }
+  
+    private destroyMap() {
+      if (this.map) {
+        this.map.remove();
+        this.map = null!;
+      }
+    }
+  
+    ngOnDestroy() {
+      this.destroyMap();
+    }
 
 
 }

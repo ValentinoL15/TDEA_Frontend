@@ -119,13 +119,6 @@
               <input type="text" formControlName="address" (change)="onAddressChange()" placeholder="Ingrese la dirección">
             </ion-item>
 
-            <ion-item>
-              <ion-label>Ubicación</ion-label>
-              <div id="map" style="height: 300px;"></div>
-            </ion-item>
-            <!-- Campos ocultos para guardar la ubicación -->
-              <input formControlName="latitude" readonly type="hidden">
-              <input formControlName="altitude" readonly type="hidden">
           
             <ion-item>
               <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating"

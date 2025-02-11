@@ -382,11 +382,11 @@ if (this.form.get('latitude')?.value === '' || this.form.get('altitude')?.value 
 }
 
 getTournaments(){
-  this.tournamentServ.getTournaments().subscribe({
+  this.tournamentServ.getMyTournaments().subscribe({
     next: (res : any) => {
       this.tournaments = res.tournaments
       //this.tournaments = res.tournaments.sort((a:any, b:any) => a.order - b.order);
-      console.log(this.tournaments.length);
+      console.log(this.tournaments);
     },
     error: (err) => {
       this.notifyService.error(err.error.message)
