@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>sede-images</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h6 style="width: 100%; display: flex; justify-content: center;">Imágenes de {{sede.name}}</h6>
+  <ng-container *ngFor="let image of sede.images; let i = index">
+    <div style="margin: 20px; position: relative; display: inline-block;">
+      <img class="img-fluid" [src]="image" alt="">
+
+      <ion-button 
+        fill="clear" 
+        color="danger" 
+        style="position: absolute; left: -10px; top: -10px;" 
+        (click)="deleteImage(i)">
+        <ion-icon name="trash" size="large"></ion-icon>
+      </ion-button>
+      
+      <ion-button 
+        fill="clear" 
+        color="primary" 
+        style="position: absolute; top: -10px; right: -10px;"
+        (click)="openFileInput(i)">
+        <ion-icon name="create" size="large"></ion-icon>
+      </ion-button>
+
+      <!-- Input para seleccionar nueva imagen -->
+      <input 
+        type="file" 
+        accept="image/*" 
+        (change)="onFileSelected($event, i)" 
+        [id]="'file-input-' + i" 
+        style="display: none;">
+    </div>
+  </ng-container>
+</ion-content>
+

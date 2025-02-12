@@ -132,7 +132,12 @@ const routes: Routes = [
   {
     path: 'formats-images/:id',
     loadChildren: () => import('./formats-images/formats-images.module').then( m => m.FormatsImagesPageModule)
+  },
+  {
+    path: 'sede-images/:id',
+    loadChildren: () => import('./sede-images/sede-images.module').then( m => m.SedeImagesPageModule)
   }
+
 
 
 

@@ -22,6 +22,7 @@ sede: Sede = {
   adress: "",
   barrio: "",
   socialRed: "",
+  images: [''],
   daysAttention: [
     {
       day: "",

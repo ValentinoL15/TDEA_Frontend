@@ -28,7 +28,7 @@ export class CreateSedePage implements OnInit,OnDestroy {
     mail: "",
     phone: 0
   }
-  selectedFile: File | null = null;
+  selectedFiles: File[] = []; 
   day: any
   startTime: string = "00:00"; // Por defecto
   endTime: string = "00:00";   // Por defecto
@@ -133,43 +133,52 @@ export class CreateSedePage implements OnInit,OnDestroy {
     })
   }
 
-  crearSede(){
-    const formulario: Sede = {
-      name: this.form.value.name,
-      alias: this.form.value.alias,
-      status: this.form.value.status,
-      phone: this.form.value.phone,
-      celular: this.form.value.celular,
-      adress: this.form.value.adress,
-      barrio: this.form.value.barrio,
-      socialRed: this.form.value.socialRed,
-      daysAttention: this.form.value.daysAttention.map((day: string) => {
-        return {
-          day: day,  // day es simplemente el valor de cada día (como "Lunes", "Martes", etc.)
-          start: this.form.value.startTime ? this.form.value.startTime : "00:00",  // Asegúrate de tener las variables startTime y endTime definidas
-          end: this.form.value.endTime ? this.form.value.endTime : "00:00"
-        };
-      }),
-      encargado: this.form.value.encargado,
-      dueno: this.form.value.dueno,
-      latitude: this.form.value.latitude,
-      altitude: this.form.value.altitude
+  crearSede() {
+    if (!this.form.value.latitude || !this.form.value.altitude) {
+      this.notifyServ.error("Por favor, selecciona una ubicación válida.");
+      return;
     }
-    this.tournamentServ.createSede(this.id,formulario).subscribe({
-      next: (res : any) => {
-        this.notifyServ.success(res.message)
-        window.location.href = `/admin/create-sede/${this.id}`
+    const formData = new FormData();
+  
+    formData.append("name", this.form.value.name);
+    formData.append("alias", this.form.value.alias);
+    formData.append("status", this.form.value.status);
+    formData.append("phone", this.form.value.phone);
+    formData.append("celular", this.form.value.celular);
+    formData.append("adress", this.form.value.adress);
+    formData.append("barrio", this.form.value.barrio);
+    formData.append("socialRed", this.form.value.socialRed);
+    formData.append("encargado", this.form.value.encargado);
+    formData.append("dueno", this.form.value.dueno);
+    formData.append("latitude", this.form.value.latitude);
+    formData.append("altitude", this.form.value.altitude);
+  
+    // Agregar días de atención
+    this.form.value.daysAttention.forEach((day: string, index: number) => {
+      formData.append(`daysAttention[${index}][day]`, day);
+      formData.append(`daysAttention[${index}][start]`, this.form.value.startTime ? this.form.value.startTime : "00:00");
+      formData.append(`daysAttention[${index}][end]`, this.form.value.endTime ? this.form.value.endTime : "00:00");
+    });
+  
+    this.selectedFiles.forEach((file: File) => {
+      formData.append("image", file);  // Usar el nombre "image" para cada archivo si así lo espera tu backend.
+    });
+  
+    this.tournamentServ.createSede(this.id, formData).subscribe({
+      next: (res: any) => {
+        this.notifyServ.success(res.message);
+        window.location.href = `/admin/create-sede/${this.id}`;
       },
-      error: (err : any) => {
-        this.notifyServ.error(err.error.message)
+      error: (err: any) => {
+        this.notifyServ.error(err.error.message);
       }
-    })
+    });
   }
 
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.selectedFile = file;
-    console.log('Archivo seleccionado:', file);
+    const files: FileList = event.target.files;
+    this.selectedFiles = Array.from(files);  // Convertir `FileList` a un array para manejar múltiples archivos.
+    console.log('Archivos seleccionados:', this.selectedFiles);
   }
 
   initMap() {

@@ -35,7 +35,8 @@ export class SedePage implements OnInit {
     encargado: "",
     dueno: "",
     latitude: 0,
-    altitude:0
+    altitude:0,
+    images: ['']
   }
   map: any;
   marker: any;
@@ -225,6 +226,9 @@ async eliminarSede() {
       }, 500);
     }
 
+goImages(id :any){
+  this.router.navigate([`/admin/sede-images/${id}`])
+}
 
 
 

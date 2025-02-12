@@ -52,6 +52,9 @@
     <ion-item>
       <ion-input label="Dueño" label-placement="floating" placeholder="Dueño" name="dueno" [value]="sede.dueno"></ion-input>
     </ion-item>
+    <ion-item detail="true" (click)="goImages(sede._id)">
+      <ion-input label="Sede Imagenes" label-placement="floating" readonly="true"></ion-input>
+    </ion-item>
   </form>
   </ion-list>
 

@@ -164,6 +164,15 @@ editSede(id : any, form : any){
   return this.http.put(`${this.API_URL}/editar-sede/${id}`, form)
 }
 
+editPhotoSede(id: any, form:any){
+  return this.http.put(`${this.API_URL}/editar-foto-sede/${id}`, form)
+}
+
+deletePhotoSede(sedeId: string, index: number): Observable<any> {
+  const url = `${this.API_URL}/eliminar-foto-sede/${sedeId}`;
+  return this.http.delete(url, { body: { index } }); // Enviamos el índice de la imagen que se desea eliminar
+}
+
 deleteSede(id : any){
   return this.http.delete(`${this.API_URL}/eliminar-sede/${id}`)
 }

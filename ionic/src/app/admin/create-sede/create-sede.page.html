@@ -92,7 +92,7 @@
           </ion-item>
           <ion-item>
             <label>Imagen</label>
-            <input type="file" label="Imagen" (change)="onFileSelected($event)">
+            <input type="file" label="Imagen" multiple (change)="onFileSelected($event)">
           </ion-item>
           <ion-item>
             <ion-input label="Encargado" label-placement="floating" placeholder="Encargado" formControlName="encargado"></ion-input>
