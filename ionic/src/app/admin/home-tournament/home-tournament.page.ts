@@ -346,8 +346,6 @@ onFileSelected3(event: any) {
   this.selectedFile3 = file;
 }
 
-
-
 drop(event: CdkDragDrop<any[]>): void {
   // Cambiar el orden en la lista local
   moveItemInArray(this.tournaments, event.previousIndex, event.currentIndex);

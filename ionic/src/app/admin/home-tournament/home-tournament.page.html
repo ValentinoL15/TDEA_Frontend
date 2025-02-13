@@ -8,7 +8,12 @@
 
 
   <div cdkDropList (cdkDropListDropped)="drop($event)">
-    <ion-list [inset]="true" *ngFor="let torneo of tournaments" cdkDrag>
+    <ion-list 
+      [inset]="true" 
+      *ngFor="let torneo of tournaments" 
+      cdkDrag 
+      [cdkDragStartDelay]="1000"
+    >
       <ion-item-sliding>
         <ion-item [button]="true" (click)="goTournament(torneo._id)">
           <ion-avatar aria-hidden="true" slot="start">
@@ -23,11 +28,11 @@
           <div style="display: flex;">
             {{"- Futbol " + torneo.format.formatName + "(" + torneo.edad.type + ")"}}
           </div>
-          <!--<ion-label>{{torneo.nameFantasy}}</ion-label>-->
         </ion-item>
       </ion-item-sliding>
     </ion-list>
   </div>
+  
 
   <ion-button (click)="setOpen(true)" expand="block">Crear Torneo</ion-button>
 
