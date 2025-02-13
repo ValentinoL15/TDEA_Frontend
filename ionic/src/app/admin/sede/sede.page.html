@@ -5,57 +5,60 @@
     </ion-buttons>
     <ion-title style="text-align: center;">Sede</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="editSede(miForm)">Editar</ion-button>
+      <ion-button (click)="editSede()">Editar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
   <ion-list [inset]="true">
-    <form #miForm>
     <ion-item>
-      <ion-input label-placement="floating" label="Nombre" placeholder="Nombre" name="name" [value]="sede.name"></ion-input>
+      <ion-input label-placement="floating" label="Nombre" placeholder="Nombre" [(ngModel)]="sede.name" name="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Alias" label-placement="floating" placeholder="alias" name="alias" [value]="sede.alias"></ion-input>
+      <ion-input label="Alias" label-placement="floating" placeholder="alias" [(ngModel)]="sede.alias" name="alias"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Status" label-placement="floating" placeholder="status" name="status" [value]="sede.status"></ion-input>
+      <ion-input label="Status" label-placement="floating" placeholder="status" [(ngModel)]="sede.status" name="status"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Telefono" label-placement="floating" placeholder="Telefono" name="phone" [value]="sede.phone"></ion-input>
+      <ion-input label="Telefono" label-placement="floating" placeholder="Telefono" [(ngModel)]="sede.phone" name="phone"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Celular" label-placement="floating" placeholder="Celular" name="celular" [value]="sede.celular"></ion-input>
+      <ion-input label="Celular" label-placement="floating" placeholder="Celular" [(ngModel)]="sede.celular" name="celular"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Domicilio" label-placement="floating" name="adress" placeholder="Domicilio" [value]="sede.adress"></ion-input>
+      <input type="text" [(ngModel)]="address" (change)="onAddressChange()" placeholder="Ingrese la dirección">
     </ion-item>
-    <ion-item>
-      <ion-input label="Barrio" label-placement="floating" placeholder="Barrio" name="barrio" [value]="sede.barrio"></ion-input>
-    </ion-item>
+    
     <ion-item>
       <ion-label>Ubicación</ion-label>
       <div id="map2" style="height: 300px;"></div>
     </ion-item>
+    
+
+    <!-- Campos ocultos para guardar latitud y longitud -->
+    
+      <input type="hidden" [(ngModel)]="sede.latitude" name="latitude" readonly="true">
+      <input type="hidden" [(ngModel)]="sede.altitude" name="altitude" readonly="true">
+
     <ion-item>
-      <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" name="socialRed" [value]="sede.socialRed"></ion-input>
+      <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" [(ngModel)]="sede.socialRed" name="socialRed"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-select label="Días de Atención" [placeholder]="'Selecciona días'" name="daysAttention" multiple="true" [(ngModel)]="selectedDays" (ionChange)="updateDaysAttention()">
+      <ion-select label="Días de Atención" [placeholder]="'Selecciona días'" multiple="true" [(ngModel)]="selectedDays" (ionChange)="updateDaysAttention()">
           <ion-select-option *ngFor="let day of allDays" [value]="day">{{ day }}</ion-select-option>
       </ion-select>
-  </ion-item>
-    <ion-item>
-      <ion-input label="Encargado" label-placement="floating" placeholder="Encargado" name="encargado" [value]="sede.encargado"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Dueño" label-placement="floating" placeholder="Dueño" name="dueno" [value]="sede.dueno"></ion-input>
+      <ion-input label="Encargado" label-placement="floating" placeholder="Encargado" [(ngModel)]="sede.encargado" name="encargado"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Dueño" label-placement="floating" placeholder="Dueño" [(ngModel)]="sede.dueno" name="dueno"></ion-input>
     </ion-item>
     <ion-item detail="true" (click)="goImages(sede._id)">
       <ion-input label="Sede Imagenes" label-placement="floating" readonly="true"></ion-input>
     </ion-item>
-  </form>
   </ion-list>
 
   <ion-list [inset]="true">
@@ -67,73 +70,6 @@
   <div class="container">
     <ion-button expand="block" color="danger" (click)="eliminarSede()">Eliminar Sede</ion-button>
   </div>
-
-  <!--<ion-modal [isOpen]="isModalOpen">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button (click)="setOpen(false)">Cerrar</ion-button>
-          </ion-buttons>
-          <ion-title style="text-align: center;">Crear</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="editSede(miForm)">Confirmar</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-
-          <div class="contenedor">
-            <h1>{{sede.name}}</h1>
-          </div>
-      
-        <ion-list [inset]="true">
-          <form #miForm>
-          <ion-item>
-            <ion-input label-placement="floating" label="Nombre" placeholder="Nombre" name="name" [value]="sede.name"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Alias" label-placement="floating" placeholder="alias" name="alias" [value]="sede.alias"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Status" label-placement="floating" placeholder="status" name="status" [value]="sede.status"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Telefono" label-placement="floating" placeholder="Telefono" name="phone" [value]="sede.phone"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Celular" label-placement="floating" placeholder="Celular" name="celular" [value]="sede.celular"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Domicilio" label-placement="floating" name="adress" placeholder="Domicilio" [value]="sede.adress"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Barrio" label-placement="floating" placeholder="Barrio" name="barrio" [value]="sede.barrio"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Instagram" label-placement="floating" placeholder="Instagram" name="socialRed" [value]="sede.socialRed"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-select label="Días de Atención" [placeholder]="'Selecciona días'" name="daysAttention" multiple="true" [(ngModel)]="selectedDays" (ionChange)="updateDaysAttention()">
-                <ion-select-option *ngFor="let day of allDays" [value]="day">{{ day }}</ion-select-option>
-            </ion-select>
-        </ion-item>
-          <ion-item>
-            <ion-input label="Encargado" label-placement="floating" placeholder="Encargado" name="encargado" [value]="sede.encargado"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Dueño" label-placement="floating" placeholder="Dueño" name="dueno" [value]="sede.dueno"></ion-input>
-          </ion-item>
-        </form>
-        </ion-list>
-
-        <div class="container">
-          <ion-button expand="block" color="danger" (click)="eliminarSede()">Eliminar Sede</ion-button>
-        </div>
-      </ion-content>
-      
-    </ng-template>
-  </ion-modal>-->
 
 </ion-content>
 

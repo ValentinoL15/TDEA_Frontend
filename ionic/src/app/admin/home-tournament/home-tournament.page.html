@@ -113,12 +113,6 @@
             <ion-item>
               <ion-input label="Foto Premios" type="file" (change)="onFileSelected3($event)"></ion-input>
             </ion-item>
-
-            <ion-item>
-              <label for="">Buscar calle</label>
-              <input type="text" formControlName="address" (change)="onAddressChange()" placeholder="Ingrese la dirección">
-            </ion-item>
-
           
             <ion-item>
               <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating"
@@ -129,6 +123,10 @@
                 formControlName="tarifaPartido"></ion-input>
             </ion-item>
             <ion-item>
+              <ion-input type="number" label="Depósito" labelPlacement="floating" placeholder="$"
+                formControlName="deposito"></ion-input>
+            </ion-item>
+            <ion-item>
               <ion-input type="number" label="Cupos Disponibles" labelPlacement="floating"
                 formControlName="cupos"></ion-input>
             </ion-item>
@@ -137,7 +135,6 @@
               <input type="month" formControlName="tournamentDate" class="date-input" />
             </ion-item>
           </ion-list>
-
 
           <!-- Días del torneo -->
           <ion-list [inset]="true">

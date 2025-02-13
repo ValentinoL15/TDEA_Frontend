@@ -5,6 +5,7 @@ import { Sede } from 'src/app/interfaces/Sede';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import * as L from 'leaflet';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sede',
@@ -36,10 +37,11 @@ export class SedePage implements OnInit {
     dueno: "",
     latitude: 0,
     altitude:0,
-    images: ['']
+    images: [''],
   }
   map: any;
   marker: any;
+  address: string = '';
 
   public alertButtons = [
     {
@@ -64,7 +66,7 @@ export class SedePage implements OnInit {
   selectedFile: File | null = null;
   selectedDays: string[] = [];
 
-  constructor(private route: ActivatedRoute, private tournamentServ: TournamentService, private notifyServ: NotifyService, private router: Router, private alertController: AlertController) { }
+  constructor(private route: ActivatedRoute, private tournamentServ: TournamentService, private notifyServ: NotifyService, private router: Router, private alertController: AlertController, private http: HttpClient) { }
   
   dias = {
     daysAttention: ['Lunes', 'Miercoles', 'Viernes'] // Inicializar con días seleccionados
@@ -127,34 +129,33 @@ export class SedePage implements OnInit {
     console.log('Archivo seleccionado:', file);
   }
 
-  editSede(form: any) {
-    // Actualiza daysAttention antes de crear el formulario
-    this.updateDaysAttention();
-
+  editSede() {
     const formulario = {
-        name: form.name.value,
-        alias: form.alias.value,
-        adress: form.adress.value,
-        socialRed: form.socialRed.value,
-        daysAttention: this.sede.daysAttention, // Ahora esto tendrá los días seleccionados
-        phone: form.phone.value,
-        celular: form.celular.value,
-        encargado: form.encargado.value,
-        dueno: form.dueno.value,
-        barrio: form.barrio.value,
-        status: form.status.value
+      name: this.sede.name,
+      alias: this.sede.alias,
+      adress: this.sede.adress,
+      socialRed: this.sede.socialRed,
+      daysAttention: this.selectedDays,
+      phone: this.sede.phone,
+      celular: this.sede.celular,
+      encargado: this.sede.encargado,
+      dueno: this.sede.dueno,
+      barrio: this.sede.barrio,
+      status: this.sede.status,
+      latitude: this.sede.latitude,  // 📌 Enviar nueva latitud
+      altitude: this.sede.altitude   // 📌 Enviar nueva longitud
     };
-
+  
     this.tournamentServ.editSede(this.id, formulario).subscribe({
-        next: (res: any) => {
-            this.notifyServ.success(res.message);
-            window.location.href = `/admin/sede/${this.id}`;
-        },
-        error: (err: any) => {
-            this.notifyServ.error(err.error.message);
-        }
-    });
-}
+      next: (res: any) => {
+          this.notifyServ.success(res.message);
+          window.location.href = `/admin/sede/${this.id}`;
+      },
+      error: (err: any) => {
+          this.notifyServ.error(err.error.message);
+      }
+  });
+  }
 
 updateDaysAttention() {
   // Suponiendo que tienes una forma de obtener los horarios de inicio y fin
@@ -209,26 +210,90 @@ async eliminarSede() {
   }
 
   loadMap(lat: number, lng: number) {
-      if (!lat || !lng) {
-        console.error('Latitud o longitud inválidas:', lat, lng);
-        return;
+    setTimeout(() => {
+      if (this.map) {
+        this.map.remove();
       }
   
-      // Espera hasta que el elemento #map esté disponible
-      setTimeout(() => {
-        this.map = L.map('map2').setView([lat, lng], 12); // Centra en la ubicación guardada
+      this.map = L.map('map2').setView([lat, lng], 12);
   
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(this.map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(this.map);
   
-        this.marker = L.marker([lat, lng]).addTo(this.map);
-      }, 500);
+      // Agregar marcador en la ubicación actual
+      this.marker = L.marker([lat, lng], { draggable: true }).addTo(this.map);
+  
+      // Evento para mover el marcador manualmente
+      this.marker.on('dragend', (event: any) => {
+        const newLatLng = event.target.getLatLng();
+        this.updateLocation(newLatLng.lat, newLatLng.lng);
+      });
+  
+      // Permitir selección de nueva ubicación con clic
+      this.map.on('click', (e: any) => {
+        this.updateLocation(e.latlng.lat, e.latlng.lng);
+      });
+  
+    }, 500);
+  }
+
+  updateLocation(lat: number, lng: number) {
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
     }
+  
+    this.marker = L.marker([lat, lng], { draggable: true }).addTo(this.map);
+  
+    // Permitir mover el marcador después de colocarlo
+    this.marker.on('dragend', (event: any) => {
+      const newLatLng = event.target.getLatLng();
+      this.updateLocation(newLatLng.lat, newLatLng.lng);
+    });
+  
+    // Actualizar valores en la sede
+    this.sede.latitude = lat;
+    this.sede.altitude = lng;
+  }
 
 goImages(id :any){
   this.router.navigate([`/admin/sede-images/${id}`])
 }
+
+onAddressChange() {
+  if (!this.address) return;
+
+  this.searchAddress(this.address).subscribe((results: any) => {
+    if (results.length > 0) {
+      const lat = results[0].lat;
+      const lng = results[0].lon;
+
+      // 🔥 Mueve el marker a la nueva dirección
+      this.addMarker(lat, lng);
+      this.map.setView([lat, lng], 12);
+
+      // ✅ Guarda las coordenadas en el objeto sede
+      this.sede.latitude = lat;
+      this.sede.altitude = lng;
+    } else {
+      this.notifyServ.error("Por favor selecciona una dirección válida");
+    }
+  });
+}
+
+searchAddress(address: string) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+  return this.http.get(url);
+}
+
+addMarker(lat: number, lng: number) {
+  if (this.marker) {
+    this.map.removeLayer(this.marker); // Elimina el marker anterior
+  }
+
+  this.marker = L.marker([lat, lng]).addTo(this.map); // Crea un nuevo marker
+}
+
 
 
 

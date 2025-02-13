@@ -72,7 +72,8 @@ export class TournamentPage implements OnInit {
       sede: {
         _id: "",
         altitude: 0,
-        latitude:0
+        latitude:0,
+        images: ['']
       },
       time: []
     }],

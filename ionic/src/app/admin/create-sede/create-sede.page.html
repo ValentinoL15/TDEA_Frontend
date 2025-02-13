@@ -60,17 +60,9 @@
             <ion-input label="Celular" label-placement="floating" placeholder="Celular" formControlName="celular"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="Domicilio" label-placement="floating" formControlName="adress" placeholder="Domicilio"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Barrio" label-placement="floating" placeholder="Barrio" formControlName="barrio"></ion-input>
-          </ion-item>
-          <ion-item>
-            <label for="">Buscar calle</label>
             <input type="text" formControlName="address" (change)="onAddressChange()" placeholder="Ingrese la dirección">
           </ion-item>
           <ion-item>
-            <ion-label>Ubicación</ion-label>
             <div id="map" style="height: 300px;"></div>
           </ion-item>
           <!-- Campos ocultos para guardar la ubicación -->

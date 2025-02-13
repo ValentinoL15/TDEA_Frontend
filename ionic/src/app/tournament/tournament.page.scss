@@ -1,4 +1,4 @@
-.contenedor-button{
+.contenedor-button {
     width: 100%;
     display: flex;
     justify-content: end;
@@ -8,7 +8,7 @@ ion-list {
     margin: 15px 0;
 }
 
-h2{
+h2 {
     font-size: 1.2rem;
 }
 
@@ -34,20 +34,36 @@ p {
 
 .full-width-label {
     width: 100vw;
-    text-align: left; /* Alinea el texto a la izquierda */
+    text-align: left;
+    /* Alinea el texto a la izquierda */
 }
 
 .img-format {
     width: 100%;
-    height: 100vh; /* Ocupa toda la altura de la pantalla */
-    object-fit: contain; /* Mantiene la proporción sin recortar */
-  }
+    height: 100vh;
+    /* Ocupa toda la altura de la pantalla */
+    object-fit: contain;
+    /* Mantiene la proporción sin recortar */
+}
 
-  #map1 {
+#map1 {
     width: 100%;
     height: 300px !important;
     min-height: 300px;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: black; /* Cambia el color a negro */
   }
 
+  .carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    bottom: 10px; /* Mueve las flechas abajo */
+    z-index: 5; /* Asegura que las flechas estén sobre la imagen */
+  }
 
-
+  /* Asegura que todas las imágenes tengan el mismo tamaño */
+  .fixed-size {
+    height: 300px; /* Ajusta la altura que desees */
+    object-fit: cover; /* Esto asegura que las imágenes mantengan la proporción sin deformarse */
+  }

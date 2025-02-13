@@ -81,8 +81,12 @@
       <ion-item>
         <ion-input placeholder="$" label="Valor X Partido" name="tarifaPartido" [value]="tournament.tarifaPartido"></ion-input>
       </ion-item>
+
       <ion-item>
-        
+        <ion-input placeholder="$" label="Depósito" name="deposito" [value]="tournament.deposito"></ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-input label="Cupos" [value]="tempCupos || tournament.cupos"></ion-input>
         <ion-button (click)="updateCupos(1)">+</ion-button>
         <ion-button color="danger" (click)="updateCupos(-1)">-</ion-button>

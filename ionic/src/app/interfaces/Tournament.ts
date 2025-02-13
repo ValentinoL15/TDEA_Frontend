@@ -76,6 +76,7 @@ export interface Tournament {
     isTournamentActive: Boolean,
     tarifaInscripcion: number,
     tarifaPartido: number,
+    deposito?: number,
     cupos: number,
     aAnotar?: number,
     pagos?: Array <{

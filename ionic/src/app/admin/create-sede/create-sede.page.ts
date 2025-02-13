@@ -44,8 +44,6 @@ export class CreateSedePage implements OnInit,OnDestroy {
       status: ['', Validators.required],
       phone: ['', Validators.required],
       celular: ['', Validators.required],
-      adress: ['', Validators.required],
-      barrio: ['', Validators.required],
       socialRed: ['', Validators.required],
       daysAttention: [[], Validators.required],
       encargado: ['', Validators.required],
@@ -145,8 +143,6 @@ export class CreateSedePage implements OnInit,OnDestroy {
     formData.append("status", this.form.value.status);
     formData.append("phone", this.form.value.phone);
     formData.append("celular", this.form.value.celular);
-    formData.append("adress", this.form.value.adress);
-    formData.append("barrio", this.form.value.barrio);
     formData.append("socialRed", this.form.value.socialRed);
     formData.append("encargado", this.form.value.encargado);
     formData.append("dueno", this.form.value.dueno);

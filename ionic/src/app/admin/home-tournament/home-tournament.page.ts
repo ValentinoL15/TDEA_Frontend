@@ -123,6 +123,7 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
       ageDescripcion: ['', Validators.required],
       tarifaInscripcion: ['', Validators.required],
       tarifaPartido: ['', Validators.required],
+      deposito: ['', Validators.required],
       cupos: ['', Validators.required],
       daysTournament: this.formBuilder.array([]), // Inicializa daysTournament como FormArray
       sedeSeleccionada: [null],
@@ -152,38 +153,6 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
     this.getTournaments();
   }
 
-  initMap() {
-    this.map = L.map('map').setView([-34.603722, -58.381592], 10);
-  
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(this.map);
-  
-    this.map.invalidateSize(); // 🔥 IMPORTANTE: Forzar redibujado del mapa
-  
-    // Escuchar clics en el mapa
-    this.map.on('click', (e: any) => {
-      this.addMarker(e.latlng.lat, e.latlng.lng);
-    });
-  }
-  
-
-  addMarker(lat: number, lng: number) {
-    // Si ya hay un marcador, lo eliminamos
-    if (this.marker) {
-      this.map.removeLayer(this.marker);
-    }
-
-    // Agregar un nuevo marcador en la posición seleccionada
-    this.marker = L.marker([lat, lng]).addTo(this.map);
-
-    // Actualizar los valores en el formulario
-    this.form.patchValue({
-      latitude: lat,
-      altitude: lng
-    });
-  }
-
   private destroyMap() {
     if (this.map) {
       this.map.remove();
@@ -200,39 +169,6 @@ isModalOpen = false;
 
 setOpen(isOpen: boolean) {
   this.isModalOpen = isOpen;
-  if (isOpen) {
-    setTimeout(() => {
-      this.initMap();
-      setTimeout(() => {
-        this.map.invalidateSize(); // 🔥 Forzar ajuste del mapa
-      }, 500);
-    }, 300);
-  } else {
-    this.destroyMap();
-  }
-}
-
-searchAddress(address: string) {
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
-  return this.http.get(url);
-}
-
-onAddressChange() {
-  const address = this.form.get('address')?.value;
-  if (!address) return;
-
-  this.searchAddress(address).subscribe((results: any) => {
-    if (results.length > 0) {
-      const lat = results[0].lat;
-      const lng = results[0].lon;
-
-      this.form.patchValue({ latitude: lat, longitude: lng });
-      this.addMarker(lat, lng);
-      this.map.setView([lat, lng], 12);
-    } else {
-      this.notifyService.error("Por favor selecciona una dirección válida")
-    }
-  });
 }
 
 getCategories(){
@@ -355,6 +291,7 @@ createTournament() {
   formData.append('ageDescripcion', this.form.get('ageDescripcion')?.value || '');
   formData.append('tarifaInscripcion', this.form.get('tarifaInscripcion')?.value || '');
   formData.append('tarifaPartido', this.form.get('tarifaPartido')?.value || '');
+  formData.append('deposito', this.form.get('deposito')?.value || '');
   formData.append('cupos', this.form.get('cupos')?.value || '');
   formData.append('image1', this.selectedFile as Blob);
   formData.append('image2', this.selectedFile2 as Blob);

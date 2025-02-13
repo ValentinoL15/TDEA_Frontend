@@ -71,6 +71,7 @@ export class TournamentsPage implements OnInit {
     isTournamentActive: false,
     tarifaInscripcion: 0,
     tarifaPartido: 0,
+    deposito:0,
     cupos: 0,
   }
   tempCupos: number = 0; // Variable temporal para cupos
@@ -291,6 +292,7 @@ export class TournamentsPage implements OnInit {
       tournamentNotes: form.tournamentNotes.value,
       tarifaInscripcion: form.tarifaInscripcion.value,
       tarifaPartido: form.tarifaPartido.value,
+      deposito: form.deposito.value,
       cupos: this.tempCupos, // Enviar los cupos temporales
       aAnotar: this.tempAAnotar, // Enviar los cupos temporales para aAnotar
     };

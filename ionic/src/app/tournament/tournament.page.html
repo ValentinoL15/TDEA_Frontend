@@ -31,9 +31,30 @@
           </div>
           <p>- Sedes</p>
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;" *ngFor="let sede of tournament.daysTournament">
-            {{sede ? sede.sede?.name : "A definir"}}
-            <img [src]="sede ? sede.sede?.images : 'https://img.freepik.com/fotos-premium/imagen-estadio-signo-pregunta-blanco-cesped_1306096-92543.jpg'" alt="">
+            {{sede ? "- " + sede.sede?.name : "A definir"}}
+            <div style="margin: 20px 0" id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <ng-container *ngFor="let item of tournament.daysTournament; let firstIndex = first">
+                  <ng-container *ngFor="let image of item.sede?.images; let index = index">
+                    <div class="carousel-item" [ngClass]="{'active': firstIndex && index === 0}">
+                      <img [src]="image" class="d-block w-100 fixed-size" alt="Imagen {{ index }}">
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            
+              <!-- Controles del carrusel -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
           </div>
+          <div id="map1" ></div>
           <p>- Premios</p>
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
             <img [src]="tournament.awardsImage" alt="Imagen Premio">
@@ -45,10 +66,6 @@
               <li>Depósito: {{0 | currency: 'ARS'}}</li>
               <li>Partido: {{tournament.tarifaPartido | currency: 'ARS'}}</li>
             </ul>
-          </div>
-          <div>
-            <p>-Ubicación</p>
-            <div id="map1" ></div>
           </div>
           <p>- Reglamento del torneo</p>
           <div>
