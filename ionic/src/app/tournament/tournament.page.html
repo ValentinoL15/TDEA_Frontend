@@ -67,14 +67,19 @@
               <li>Partido: {{tournament.tarifaPartido | currency: 'ARS'}}</li>
             </ul>
           </div>
-          <p>- Reglamento del torneo</p>
-          <div>
-            <a style="text-decoration: underline; color: blue;">Descargar Reglamento</a>
+          <p>2) Al inscribirte aceptar términos y condiciones + reglamento que puede descargarse</p>
+          <strong>Aceptación de Términos, Condiciones del Torneo</strong>
+          <p>- He leído y comprendido toda la información relacionada con el torneo y su reglamento.</p>
+
+          <div style="display: flex; align-items: center;">
+            <ion-checkbox [(ngModel)]="termsAccepted" name="terms"></ion-checkbox>
+            <label style="margin-left: 8px;">Acepto cumplir con todas las reglas y disposiciones establecidas</label>
           </div>
+        
         </ion-card-content>
     
         <div class="contenedor-button">
-          <ion-button fill="outline" color="success"(click)="inscription(list._id,list.nameList)">Inscribirse</ion-button>
+          <ion-button fill="outline" [disabled]="!termsAccepted" color="success"(click)="inscription(list._id,list.nameList)">Inscribirse</ion-button>
         </div>
     
       </ion-card>

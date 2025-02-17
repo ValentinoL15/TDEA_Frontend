@@ -79,6 +79,7 @@ export class TournamentPage implements OnInit {
     }],
     cupos: 0,
   }
+  termsAccepted: boolean = false;
 
   currentYear = new Date().getFullYear();
   constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute, private alertController: AlertController, private userService: UserService) { }
