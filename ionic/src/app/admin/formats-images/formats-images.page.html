@@ -8,29 +8,32 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <div class="contenedor">
-    <h6>Formato Anual</h6>
-    <div class="imagen">
-      <img [src]="tournament.formatImage" alt="">
-      <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-      <input type="file" (change)="onFileSelected($event)" hidden id="file-input-format" />
+  
+    <div class="contenedor">
+      <h6>Formato Anual</h6>
+      <div class="imagen">
+        <img [src]="tournament.formatImage" alt="">
+        <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+        <input type="file" (change)="onFileSelected($event)" hidden id="file-input-format" />
+      </div>
+    </div>  
+    <div class="contenedor">
+      <h6>Formato del Torneo</h6>
+      <div class="imagen-2">
+        <img [src]="tournament.torneoImage" alt="">
+        <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+        <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-torneo" />
+      </div>
     </div>
-  </div>  
-  <div class="contenedor2">
-    <h6>Formato del Torneo</h6>
-    <div class="imagen-2">
-      <img [src]="tournament.torneoImage" alt="">
-      <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-      <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-torneo" />
+    <div class="contenedor">
+      <h6>Premios</h6>
+      <div class="imagen-2">
+        <img [src]="tournament.awardsImage" alt="">
+        <ion-button class="edit-button" (click)="onSelectImage3()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+        <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-awards" />
+      </div>
     </div>
-  </div>
-  <div class="contenedor2">
-    <h6>Premios</h6>
-    <div class="imagen-2">
-      <img [src]="tournament.awardsImage" alt="">
-      <ion-button class="edit-button" (click)="onSelectImage3()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-      <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-awards" />
-    </div>
-  </div>
+  
+  
 
 </ion-content>
