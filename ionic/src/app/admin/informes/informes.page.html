@@ -39,7 +39,6 @@
       </ion-item>
     </ion-list>
   </div>
-      
   
   <div class="computadora">
   
@@ -189,5 +188,34 @@
 
   
   </div>
+
+  <div class="computadora">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Año</th>
+          <th scope="col">Torneo</th>
+          <th scope="col">Día</th>
+          <th scope="col">Formato</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Sedes</th>
+          <th scope="col">Horarios</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let tour of allTournaments" (click)="goTournament(tour._id)">
+        <tr>
+          <th>{{tour.ano}}</th>
+          <td>{{tour.nameFantasy}}</td>
+          <td>{{getDays(tour)}}</td>
+          <td>{{tour.format.formatName}}</td>
+          <td>{{tour.edad.type}}</td>
+          <td>{{getSedes(tour)}}</td>
+          <td>{{getHorarios(tour)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+
 </ion-content>
 

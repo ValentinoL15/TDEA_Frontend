@@ -28,7 +28,13 @@ export interface Tournament {
         _id?: string,
         nameList?: string,
         monto?: number,
-        pagoFinal?: number
+        pagoFinal?: number,
+        ownerUser?: {
+            _id?: string,
+            firstName?: string,
+            lastName?: string
+        }
+        editedTimes?: { [key: string]: number }
     }>,
     activeStadiums?: Array<any>,
     ageDescripcion: string,

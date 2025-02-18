@@ -61,6 +61,7 @@ export class InformesInfoPage implements OnInit {
     cupos: 0,
   }
   currentYear = new Date().getFullYear();
+  uniqueSedes: any[] = [];
 constructor(private tournamentServ: TournamentService, private notifyService: NotifyService, private router: Router, private route: ActivatedRoute) { }
 
 id:any
@@ -70,10 +71,15 @@ this.route.params.subscribe(params => {
   this.id = params['id'];
 })
   this.getTournament(this.id)
+  this.uniqueSedes = [...new Set(this.tournament?.daysTournament?.map(d => d.sede?.name || '') || [])];
 }
 
 volver(){
   this.router.navigate(['/admin/informes']);
+}
+
+getDays(tournament: Tournament){
+  return tournament.daysTournament?.map(day => day.day)
 }
 
 getTournament(id:any){
@@ -95,14 +101,13 @@ adjustDate(date: Date): Date {
   return adjustedDate;
 }
 
-getDays(){
-  return this.tournament.daysTournament?.map(day => day.day).join(', ')
-}
-
 getTeamsSubscribed(){
   return this.tournament.teamSubscribed?.length;
 }
 
+goTeams(id:any, dayId: any){
+  this.router.navigate([`/admin/informes-preferences/${id}/${dayId}`])
+}
 
 
 }

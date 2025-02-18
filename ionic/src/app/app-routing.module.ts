@@ -142,6 +142,10 @@ const routes: Routes = [
     path: 'formats-images/:id',
     loadChildren: () => import('./admin/formats-images/formats-images.module').then( m => m.FormatsImagesPageModule)
   },
+  {
+    path: 'informes-preferences/:id/:dayId',
+    loadChildren: () => import('./admin/informes-preferences/informes-preferences.module').then( m => m.InformesPreferencesPageModule)
+  },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
   {
     path: 'create-team',

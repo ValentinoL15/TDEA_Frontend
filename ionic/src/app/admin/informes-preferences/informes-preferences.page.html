@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="volver()">
+      Volver
+    </ion-buttons>
+    <ion-title>Informe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Equipos</th>
+        <th scope="col">Nombre Usuario</th>
+        <th scope="col">Apellido Usuario</th>
+        <th *ngFor="let time of day.horarios.times">{{ time }}</th> <!-- Mostrar los horarios -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let team of tournament.teamSubscribed">
+        <th scope="row">{{ team.nameList }}</th>
+        <th>{{ team.ownerUser?.firstName }}</th>
+        <th>{{ team.ownerUser?.lastName }}</th>
+        <td *ngFor="let time of day.horarios.times">
+          1 <!-- Mostrar el número 1 en cada celda -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ion-content>
+

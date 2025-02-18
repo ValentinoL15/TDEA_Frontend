@@ -15,6 +15,7 @@ import { Table } from 'src/app/interfaces/Tables';
 export class InformesPage implements OnInit {
 
 tournaments: Tournament[] = []
+allTournaments: Tournament[] = [];
 selectedTournament: any = null;  // Torneo seleccionado
 skip: number = 0;  // Comienza desde 0
 limit: number = 15; // Limite de 10 torneos
@@ -42,6 +43,7 @@ constructor(private tournamentServ: TournamentService, private notifyService: No
 ngOnInit() {
   this.getTournaments()
   this.getTotalsTournaments()
+  this.getAllTournaments()
 }
 
 getTournaments(skip: number = this.skip, limit: number = this.limit, year?: number[], torneo?: string, dia?: string, formato?: string, edad?: string) {
@@ -69,6 +71,17 @@ getTotalsTournaments(){
       this.totalActivos = res.activos
       this.totalReservados = res.reservados
       this.anotar = res.anotar
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  })
+}
+
+getAllTournaments(){
+  this.tournamentServ.getMyTournaments().subscribe({
+    next: (res: any) => {
+      this.allTournaments = res.tournaments
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
@@ -141,6 +154,14 @@ changePage(page: number) {
 
 getDays(tournament: Tournament): string {
   return tournament.daysTournament?.map(day => day.day).join(', ') || '';
+}
+
+getSedes(tournament: Tournament): string {
+  return tournament.daysTournament?.map(sede => sede.sede?.name).join(', ') || '';
+}
+
+getHorarios(tournament: Tournament): string {
+  return tournament.daysTournament?.map(hora => hora.time).join(', ') || '';
 }
 
 getTeamsSubscribed(tournament: Tournament): number {
