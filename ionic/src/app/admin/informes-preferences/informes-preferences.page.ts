@@ -71,6 +71,7 @@ tournament: Tournament = {
   tarifaPartido: 0,
   cupos: 0,
 }
+dayIndex: number = 0
 
 
 
@@ -78,6 +79,7 @@ ngOnInit() {
   this.route.params.subscribe(params => {
     this.id = params['id'];
     this.dayId = params['dayId'];
+    this.dayIndex = params['dayIndex']
   })
   this.getTournament()
 }
@@ -86,6 +88,7 @@ getTournament() {
   this.tournamentServ.getDayTournament(this.id, this.dayId).subscribe({
     next: (res: any) => {
       console.log('Datos de horarios:', res.day.time); // Verifica si los datos existen
+      console.log('Datos de preferencias del equipo:', res.tournament.teamSubscribed);
       this.tournament = res.tournament
       console.log(this.tournament)
       this.day = {
@@ -95,17 +98,14 @@ getTournament() {
           times: res.day.time || [] // Asigna las cadenas directamente
         }
       };
-      console.log(this.day); // Verifica la estructura después de la asignación
+   
+
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
     }
   });
 }
-
-
-
-
 
 
 volver(){

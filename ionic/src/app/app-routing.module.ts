@@ -143,7 +143,7 @@ const routes: Routes = [
     loadChildren: () => import('./admin/formats-images/formats-images.module').then( m => m.FormatsImagesPageModule)
   },
   {
-    path: 'informes-preferences/:id/:dayId',
+    path: 'informes-preferences/:id/:dayId/:dayIndex',
     loadChildren: () => import('./admin/informes-preferences/informes-preferences.module').then( m => m.InformesPreferencesPageModule)
   },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////

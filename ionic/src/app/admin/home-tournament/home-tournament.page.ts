@@ -52,6 +52,23 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
     minPlayers: 0,
     maxPlayers: 0
     },
+    daysTournament: [{
+      day: {
+        type: ""
+      },
+      stadium: {
+        _id: "",
+    belongToSede: "",
+    code: "",
+    type: "",
+    length: 0,
+    width: 0,
+    roof: "",
+    grass: "",
+    punctuaction: "",
+      },
+      time: []
+    }],
     tournamentDate: new Date(),
     tournamentNotes: "",
     isTournamentMasculine: false,

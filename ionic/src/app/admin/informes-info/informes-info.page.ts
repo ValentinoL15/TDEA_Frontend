@@ -105,8 +105,8 @@ getTeamsSubscribed(){
   return this.tournament.teamSubscribed?.length;
 }
 
-goTeams(id:any, dayId: any){
-  this.router.navigate([`/admin/informes-preferences/${id}/${dayId}`])
+goTeams(tournamentId: string, dayId: any, dayIndex: any) {
+  this.router.navigate([`/admin/informes-preferences/${tournamentId}/${dayId}/${dayIndex}`]);
 }
 
 

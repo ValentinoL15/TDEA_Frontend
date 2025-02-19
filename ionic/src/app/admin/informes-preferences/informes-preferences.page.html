@@ -18,14 +18,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let team of tournament.teamSubscribed">
-        <th scope="row">{{ team.nameList }}</th>
-        <th>{{ team.ownerUser?.firstName }}</th>
-        <th>{{ team.ownerUser?.lastName }}</th>
-        <td *ngFor="let time of day.horarios.times">
-          1 <!-- Mostrar el número 1 en cada celda -->
-        </td>
-      </tr>
+ <tr *ngFor="let team of tournament.teamSubscribed">
+  <th scope="row">{{ team.nameList }}</th>
+  <th>{{ team.ownerUser?.firstName }}</th>
+  <th>{{ team.ownerUser?.lastName }}</th>
+  
+  <td *ngFor="let time of day.horarios.times; let i = index">
+    {{ team.preferences[dayIndex][i] }}
+  </td>
+</tr>
+
+      
     </tbody>
   </table>
 </ion-content>

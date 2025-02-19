@@ -270,7 +270,7 @@ deleteStadium(id : any){
   }
 
   getDayTournament(id:any, dayId:any){
-    return this.http.get(`${this.API_URL}/obtener-dia-torneo/${id}/${dayId}`)
+    return this.http.get(`${this.API_URL}/obtener-dia-torneo/${id}/${dayId}/`)
   }
 
   editDayTournament(id : any, dayId: any, form : any){

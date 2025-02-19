@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let day of tournament.daysTournament" (click)="goTeams(tournament._id, day._id)">
+      <tr *ngFor="let day of tournament.daysTournament; let i = index" (click)="goTeams(tournament._id, day._id, i)">
         <td>{{ day.day }}</td>
         <td>{{ day.sede?.name }}</td>
         <td>

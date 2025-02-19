@@ -34,13 +34,13 @@ export interface Tournament {
             firstName?: string,
             lastName?: string
         }
-        editedTimes?: { [key: string]: number }
+        preferences: number[][]
     }>,
     activeStadiums?: Array<any>,
     ageDescripcion: string,
-    daysTournament?: [{
+    daysTournament: [{
         _id?: string,
-        day?: {
+        day: {
             _id?: string,
             type: string
         },
