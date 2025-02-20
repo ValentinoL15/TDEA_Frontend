@@ -309,6 +309,11 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/editar-awardsImage/${id}`, form)
   }
 
+  updateTeamsPreferences(tournamentId: any, updatedTeams: any) {
+    return this.http.put(`${this.API_URL}/editar-preferencias/${tournamentId}`, { teams: updatedTeams });
+  }
+  
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

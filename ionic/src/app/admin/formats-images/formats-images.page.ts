@@ -46,6 +46,10 @@ tournament: Tournament = {
       },
       time: []
     }],
+    teamSubscribed: [{
+      _id: "",
+      preferences: []
+    }],
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",

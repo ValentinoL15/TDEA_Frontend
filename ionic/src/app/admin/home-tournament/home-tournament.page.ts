@@ -42,6 +42,10 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",
+    teamSubscribed: [{
+      _id: "",
+      preferences: []
+    }],
     category: {
       _id: "",
       categoryName : ""

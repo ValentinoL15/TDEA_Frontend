@@ -31,6 +31,10 @@ export class CreateDayPage implements OnInit {
     edad: {
       type: ""
     },
+    teamSubscribed: [{
+      _id: "",
+      preferences: []
+    }],
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",

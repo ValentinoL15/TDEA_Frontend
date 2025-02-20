@@ -1,0 +1,20 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center; // Asegura que todo esté centrado
+  vertical-align: middle; // Centra verticalmente el contenido
+}
+
+ion-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --padding-start: 0;
+  --padding-end: 0;
+  text-align: center; // Centrar el texto dentro del input
+}

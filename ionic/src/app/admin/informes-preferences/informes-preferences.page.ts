@@ -33,6 +33,10 @@ tournament: Tournament = {
     _id: "",
     type: ""
   },
+  teamSubscribed: [{
+    _id: "",
+    preferences: []
+  }],
   rangeAgeSince: 0,
   rangeAgeUntil: 0,
   ageDescripcion: "",
@@ -97,15 +101,30 @@ getTournament() {
           ...res.day.horarios,
           times: res.day.time || [] // Asigna las cadenas directamente
         }
-      };
-   
-
+      }
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
     }
   });
 }
+
+updateAllPreferences() {
+  const updatedTeams = this.tournament.teamSubscribed.map(team => ({
+    id: team._id,
+    preferences: team.preferences
+  }));
+
+  this.tournamentServ.updateTeamsPreferences(this.id, updatedTeams).subscribe({
+    next: () => {
+      this.notifyService.success('Preferencias actualizadas correctamente');
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  });
+}
+
 
 
 volver(){

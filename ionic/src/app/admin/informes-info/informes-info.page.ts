@@ -22,6 +22,10 @@ export class InformesInfoPage implements OnInit {
       _id: "",
       type: ""
     },
+    teamSubscribed: [{
+      _id: "",
+      preferences: []
+    }],
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",

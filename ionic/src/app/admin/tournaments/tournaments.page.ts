@@ -52,6 +52,10 @@ export class TournamentsPage implements OnInit {
       },
       time: []
     }],
+    teamSubscribed: [{
+      _id: "",
+      preferences: []
+    }],
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",

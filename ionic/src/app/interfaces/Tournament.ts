@@ -24,8 +24,8 @@ export interface Tournament {
     rangeAgeUntil: number,
     category: Category,
     format: Format,
-    teamSubscribed?: Array<{
-        _id?: string,
+    teamSubscribed: Array<{
+        _id: string,
         nameList?: string,
         monto?: number,
         pagoFinal?: number,

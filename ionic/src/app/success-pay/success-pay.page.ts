@@ -31,6 +31,10 @@ tournamentId: Tournament = {
   _id: "",
   nameFantasy: "",
   ano: 0,
+  teamSubscribed: [{
+    _id: "",
+    preferences: []
+  }],
   campeonato: {
     type: ""
   },

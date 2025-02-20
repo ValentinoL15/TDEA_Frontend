@@ -1,9 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start" (click)="volver()">
-      Volver
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Cancel</ion-button>
     </ion-buttons>
-    <ion-title>Informe</ion-title>
+    <ion-title>informes-info</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="updateAllPreferences()">Guardar Cambios</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,22 +17,22 @@
         <th scope="col">Equipos</th>
         <th scope="col">Nombre Usuario</th>
         <th scope="col">Apellido Usuario</th>
-        <th *ngFor="let time of day.horarios.times">{{ time }}</th> <!-- Mostrar los horarios -->
+        <th *ngFor="let time of day.horarios.times">{{ time }}</th>
       </tr>
     </thead>
     <tbody>
- <tr *ngFor="let team of tournament.teamSubscribed">
-  <th scope="row">{{ team.nameList }}</th>
-  <th>{{ team.ownerUser?.firstName }}</th>
-  <th>{{ team.ownerUser?.lastName }}</th>
-  
-  <td *ngFor="let time of day.horarios.times; let i = index">
-    {{ team.preferences[dayIndex][i] }}
-  </td>
-</tr>
-
-      
+      <tr *ngFor="let team of tournament.teamSubscribed">
+        <th scope="row">{{ team.nameList }}</th>
+        <th>{{ team.ownerUser?.firstName }}</th>
+        <th>{{ team.ownerUser?.lastName }}</th>
+        
+        <td *ngFor="let time of day.horarios.times; let i = index">
+          <ion-input [(ngModel)]="team.preferences[dayIndex][i]" type="number"></ion-input>
+        </td>
+      </tr>
     </tbody>
   </table>
 </ion-content>
+
+
 
