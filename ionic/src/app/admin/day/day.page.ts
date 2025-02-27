@@ -70,6 +70,7 @@ export class DayPage implements OnInit {
         status: "",
         phone: 0,
         celular: 0,
+        images: [],
         adress: "",
         barrio: "",
         socialRed: "",

@@ -54,6 +54,9 @@ export class CreateDayPage implements OnInit {
         _id: "",
         type: ""
       },
+      sede: {
+        images: []
+      },
       stadium: {
         _id: "",
         belongToSede: "",

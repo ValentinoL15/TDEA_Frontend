@@ -60,6 +60,9 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
       day: {
         type: ""
       },
+      sede: {
+        images: []
+      },
       stadium: {
         _id: "",
     belongToSede: "",

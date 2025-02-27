@@ -288,6 +288,51 @@ export class TournamentPage implements OnInit {
   
       await alert.present();
   }
+
+  async presentAlertConfirm(id: any, teamListId: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Inscripción',
+      message: `
+        ¿Vas a inscribir la lista: ${this.list.nameList} en este torneo?
+        Si ya has leído el reglamento, acepta los términos y presiona "Inscribirme".
+        Condiciones:
+        
+          1) Debe ser mayor de edad para participar.
+          2) Respetar las reglas del torneo.
+          3) El incumplimiento de las reglas puede resultar en descalificación.
+        
+      `,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Inscripción cancelada');
+          }
+        },
+        {
+          text: 'Inscribirme',
+          handler: () => {
+            // Aquí se ejecuta la inscripción
+            this.userService.anotarseTorneo(this.id, id).subscribe({
+              next: (res: any) => {
+                setTimeout(() => {
+                  this.notifyService.success(res.message);
+                }, 1000);
+                window.location.href = `user/deudas`;
+              },
+              error: (err: any) => {
+                this.notifyService.error(err.error.message);
+              }
+            });
+          }
+        }
+      ]
+    });
+  
+    await alert.present(); // Presentar el alert
+  }
+  
   
   
 

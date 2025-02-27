@@ -39,6 +39,9 @@ export class TournamentsPage implements OnInit {
         _id: "",
         type: ""
       },
+      sede: {
+        images: []
+      },
       stadium: {
         _id: "",
         belongToSede: "",

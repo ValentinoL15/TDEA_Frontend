@@ -34,13 +34,23 @@
             {{sede ? "- " + sede.sede?.name : "A definir"}}
             <div style="margin: 20px 0" id="carouselExample" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
-                <ng-container *ngFor="let item of tournament.daysTournament; let firstIndex = first">
-                  <ng-container *ngFor="let image of item.sede?.images; let index = index">
-                    <div class="carousel-item" [ngClass]="{'active': firstIndex && index === 0}">
-                      <img [src]="image" class="d-block w-100 fixed-size" alt="Imagen {{ index }}">
-                    </div>
+                
+                <ng-container *ngIf="tournament.daysTournament.length > 0; else noContent">
+                  <ng-container *ngFor="let item of tournament.daysTournament; let firstIndex = first">
+                    <ng-container *ngIf="item.sede?.images && item.sede.images.length > 0; else noContent">
+                      <ng-container *ngFor="let image of item.sede.images; let index = index">
+                        <div class="carousel-item" [ngClass]="{'active': firstIndex && index === 0}">
+                          <img [src]="image" class="d-block w-100 fixed-size" alt="Imagen {{ index }}">
+                        </div>
+                      </ng-container>
+                    </ng-container>
                   </ng-container>
                 </ng-container>
+                
+                <ng-template #noContent>
+                  <img src="https://png.pngtree.com/png-clipart/20220221/ourlarge/pngtree-3d-question-sign-tilt-up-to-the-left-png-image_4443828.png" alt="">
+                </ng-template>
+                
               </div>
             
               <!-- Controles del carrusel -->
@@ -54,7 +64,7 @@
               </button>
             </div>
           </div>
-          <div id="map1" ></div>
+          <div id="map1"></div>
           <p>- Premios</p>
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
             <img [src]="tournament.awardsImage" alt="Imagen Premio">
@@ -67,19 +77,19 @@
               <li>Partido: {{tournament.tarifaPartido | currency: 'ARS'}}</li>
             </ul>
           </div>
-          <p>2) Al inscribirte aceptar términos y condiciones + reglamento que puede descargarse</p>
+          <!--<p>2) Al inscribirte aceptar términos y condiciones + reglamento que puede descargarse</p>
           <strong>Aceptación de Términos, Condiciones del Torneo</strong>
           <p>- He leído y comprendido toda la información relacionada con el torneo y su reglamento.</p>
 
           <div style="display: flex; align-items: center;">
             <ion-checkbox [(ngModel)]="termsAccepted" name="terms"></ion-checkbox>
             <label style="margin-left: 8px;">Acepto cumplir con todas las reglas y disposiciones establecidas</label>
-          </div>
+          </div>-->
         
         </ion-card-content>
     
         <div class="contenedor-button">
-          <ion-button fill="outline" [disabled]="!termsAccepted" color="success"(click)="inscription(list._id,list.nameList)">Inscribirse</ion-button>
+          <ion-button fill="outline"  color="success"(click)="presentAlertConfirm(list._id,list.nameList)">Inscribirse</ion-button>
         </div>
     
       </ion-card>

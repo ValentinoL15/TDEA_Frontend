@@ -44,7 +44,7 @@ export interface Tournament {
             _id?: string,
             type: string
         },
-        sede?: {
+        sede: {
             _id?: string,
             name?: string,
             alias?: string,
@@ -61,7 +61,7 @@ export interface Tournament {
                 start: string;
                 end: string;
             }[];
-            images?: Array<string>,
+            images: Array<string>,
             encargado?: string,
             dueno?: string,
             stadiums?: Stadium[],

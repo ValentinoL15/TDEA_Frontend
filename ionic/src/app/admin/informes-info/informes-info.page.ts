@@ -33,6 +33,9 @@ export class InformesInfoPage implements OnInit {
       day: {
         type: ""
       },
+      sede: {
+        images: []
+      },
       stadium: {
         _id: "",
     belongToSede: "",

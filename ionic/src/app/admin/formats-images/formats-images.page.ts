@@ -33,6 +33,9 @@ tournament: Tournament = {
         _id: "",
         type: ""
       },
+      sede: {
+        images: []
+      },
       stadium: {
         _id: "",
         belongToSede: "",
