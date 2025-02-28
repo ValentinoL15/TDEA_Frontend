@@ -291,9 +291,8 @@ export class TournamentPage implements OnInit {
 
   async presentAlertConfirm(id: any, teamListId: string) {
     const alert = await this.alertController.create({
-      header: 'Aceptación de Términos y Condiciones',
+      header: 'Términos y Condiciones',
       message: `
-        Vas a inscribir la lista: ${this.list.nameList} en este torneo.
         He leído y comprendido toda la información relacionada con el torneo y su reglamento.
       `,
       buttons: [
