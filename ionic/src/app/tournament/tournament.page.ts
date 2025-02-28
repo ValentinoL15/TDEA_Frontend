@@ -291,27 +291,21 @@ export class TournamentPage implements OnInit {
 
   async presentAlertConfirm(id: any, teamListId: string) {
     const alert = await this.alertController.create({
-      header: 'Confirmar Inscripción',
+      header: 'Aceptación de Términos y Condiciones',
       message: `
-        ¿Vas a inscribir la lista: ${this.list.nameList} en este torneo?
-        Si ya has leído el reglamento, acepta los términos y presiona "Inscribirme".
-        Condiciones:
-        
-          1) Debe ser mayor de edad para participar.
-          2) Respetar las reglas del torneo.
-          3) El incumplimiento de las reglas puede resultar en descalificación.
-        
+        Vas a inscribir la lista: ${this.list.nameList} en este torneo.
+        He leído y comprendido toda la información relacionada con el torneo y su reglamento.
       `,
       buttons: [
         {
-          text: 'Cancelar',
+          text: 'No Acepto',
           role: 'cancel',
           handler: () => {
             console.log('Inscripción cancelada');
           }
         },
         {
-          text: 'Inscribirme',
+          text: 'Acepto',
           handler: () => {
             // Aquí se ejecuta la inscripción
             this.userService.anotarseTorneo(this.id, id).subscribe({
