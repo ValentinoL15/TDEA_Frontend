@@ -77,14 +77,10 @@
               <li>Partido: {{tournament.tarifaPartido | currency: 'ARS'}}</li>
             </ul>
           </div>
-          <!--<p>2) Al inscribirte aceptar términos y condiciones + reglamento que puede descargarse</p>
-          <strong>Aceptación de Términos, Condiciones del Torneo</strong>
-          <p>- He leído y comprendido toda la información relacionada con el torneo y su reglamento.</p>
-
-          <div style="display: flex; align-items: center;">
-            <ion-checkbox [(ngModel)]="termsAccepted" name="terms"></ion-checkbox>
-            <label style="margin-left: 8px;">Acepto cumplir con todas las reglas y disposiciones establecidas</label>
-          </div>-->
+          <div>
+            
+            <a href="user/torneos" [download]="tournament.reglamentation + '?download=true'"><p>Descargar reglamento</p></a>
+          </div>
         
         </ion-card-content>
     

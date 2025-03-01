@@ -58,6 +58,7 @@ export class TournamentPage implements OnInit {
     tarifaPartido: 0,
     formatImage: "",
     torneoImage: "",
+    reglamentation: "",
     daysTournament: [{
       day: {
         type: ""
@@ -91,6 +92,7 @@ export class TournamentPage implements OnInit {
   id:any
   map: any;
   marker: any;
+  objectPDF: any;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -288,6 +290,7 @@ export class TournamentPage implements OnInit {
   
       await alert.present();
   }
+
 
   async presentAlertConfirm(id: any, teamListId: string) {
     const alert = await this.alertController.create({

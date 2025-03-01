@@ -15,6 +15,7 @@ export interface Tournament {
     formatImage?: string,
     torneoImage?: string,
     awardsImage?: string,
+    reglamentation?: string,
     campeonato: Campeonato,
     edad: {
         _id?: string,
