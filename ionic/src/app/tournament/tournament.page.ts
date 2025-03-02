@@ -9,6 +9,10 @@ import { Category } from '../interfaces/Category';
 import { UserService } from '../services/user.service';
 import { List } from '../interfaces/List';
 import * as L from 'leaflet';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(pdfMake as any).vfs = (pdfFonts as any).vfs;
+
 
 @Component({
   selector: 'app-tournament',
@@ -94,6 +98,7 @@ export class TournamentPage implements OnInit {
   marker: any;
   objectPDF: any;
 
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id']
@@ -152,7 +157,7 @@ export class TournamentPage implements OnInit {
             this.position.lat = sede.latitude;  // Actualiza la latitud
             this.position.lng = sede.altitude;  // Actualiza la longitud
             this.loadMap(this.position.lat, this.position.lng); // Llama a la función para cargar el mapa con las coordenadas
-          }
+          } 
         }
       },
       error: (err: any) => {
