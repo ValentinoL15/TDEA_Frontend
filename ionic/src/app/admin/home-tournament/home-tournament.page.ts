@@ -120,7 +120,6 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
   selectedFile: File | null = null;
   selectedFile2: File | null = null;
   selectedFile3: File | null = null;
-  selectedFile4: File | null = null;
   markerPosition: google.maps.LatLngLiteral | null = null;
   zoom = 12;
   center: google.maps.LatLngLiteral = { lat: -34.6037, lng: -58.3816 }; 
@@ -150,6 +149,7 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
       tarifaPartido: ['', Validators.required],
       deposito: ['', Validators.required],
       cupos: ['', Validators.required],
+      reglamentationBody: ['', Validators.required],
       daysTournament: this.formBuilder.array([]), // Inicializa daysTournament como FormArray
       sedeSeleccionada: [null],
       estadioSeleccionado: [''],
@@ -321,9 +321,9 @@ createTournament() {
   formData.append('image1', this.selectedFile as Blob);
   formData.append('image2', this.selectedFile2 as Blob);
   formData.append('image3', this.selectedFile3 as Blob);
-  formData.append('reglamentation', this.selectedFile4 as Blob);
+  formData.append('reglamentationBody', this.form.get('reglamentationBody')?.value || '')
   // Agregar los días del torneo al FormData como un JSON string
-  formData.append('daysTournament', JSON.stringify(daysTournament));
+  formData.append('daysTournament', JSON.stringify(daysTournament));  
   formData.append('latitude', this.form.get('latitude')?.value);
   formData.append('altitude', this.form.get('altitude')?.value);
 
@@ -370,11 +370,6 @@ onFileSelected2(event: any) {
 onFileSelected3(event: any) {
   const file: File = event.target.files[0];
   this.selectedFile3 = file;
-}
-
-onFileSelected4(event: any) {
-  const file: File = event.target.files[0];
-  this.selectedFile4 = file;
 }
 
 drop(event: CdkDragDrop<any[]>): void {

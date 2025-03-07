@@ -31,7 +31,7 @@
           </div>
           <p>- Sedes</p>
           <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;" *ngFor="let sede of tournament.daysTournament">
-            {{sede ? "- " + sede.sede?.name : "A definir"}}
+            {{sede ? "- " + sede.sede.name : "A definir"}}
             <div style="margin: 20px 0" id="carouselExample" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
                 
@@ -81,9 +81,9 @@
             
             <p>- Reglamentación</p>
 <div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center; gap: 10px;">
-  <ion-button fill="outline" color="primary" [href]="tournament.reglamentation" target="_blank">
+  <ion-button fill="outline" color="primary" (click)="download()" target="_blank">
     <ion-icon name="eye-outline" slot="start"></ion-icon>
-    Ver Reglamento
+    Descargar Reglamento
   </ion-button>
 
 </div>

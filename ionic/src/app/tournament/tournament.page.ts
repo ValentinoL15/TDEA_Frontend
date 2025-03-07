@@ -296,6 +296,25 @@ export class TournamentPage implements OnInit {
       await alert.present();
   }
 
+  download() {
+    this.tournamentServ.descargarPdf(this.id).subscribe({
+      next: (res: Blob) => {
+        const url = window.URL.createObjectURL(res);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Reglamento.pdf`; // ✅ Nombre del archivo
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Error descargando el PDF:', err);
+      }
+    });
+  }
+  
+
 
   async presentAlertConfirm(id: any, teamListId: string) {
     const alert = await this.alertController.create({

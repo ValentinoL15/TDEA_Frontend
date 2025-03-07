@@ -119,8 +119,7 @@
               <ion-input label="Foto Premios" type="file" (change)="onFileSelected3($event)"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input label="Reglamento" type="file"  (change)="onFileSelected4($event)"></ion-input>
-              <ion-note slot="helper">Solo archivos PDF</ion-note>
+              <ion-textarea label="Reglamento" type="text" formControlName="reglamentationBody"></ion-textarea>
             </ion-item>
             <ion-item>
               <ion-input type="number" placeholder="$" label="Valor Inscripción" labelPlacement="floating"

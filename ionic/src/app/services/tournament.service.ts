@@ -313,7 +313,12 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/editar-preferencias/${tournamentId}`, { teams: updatedTeams });
   }
   
-
+  descargarPdf(id: string) {
+    return this.http.get(`${this.API_URL}/pdf/${id}`, {
+      responseType: 'blob' // ✅ Indicar que la respuesta es un archivo binario (PDF)
+    });
+  }
+  
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){
