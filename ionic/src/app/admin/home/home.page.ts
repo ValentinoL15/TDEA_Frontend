@@ -64,6 +64,10 @@ goImg(){
   this.router.navigate(['/admin/img-approved'])
 }
 
+goTransfers(){
+  this.router.navigate(['/admin/transfer-team'])
+}
+
 cerrarSesion(){
   localStorage.removeItem('token');
   window.location.href = `/login`;

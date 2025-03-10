@@ -2,7 +2,7 @@
   <div class="select-contain">
 
    <div class="select2">
-      <ion-select toggleIcon="none" interface="popover" [placeholder]="myListActive.nameList || 'Elegí lista'"  (ionChange)="onListChange($event.detail.value)">
+      <ion-select toggleIcon="none" interface="popover" [placeholder]="myListActive?.nameList || 'Elegí lista'"  (ionChange)="onListChange($event.detail.value)">
         <ion-list>
           <ion-item>
             <ion-select-option *ngFor="let list of myLists" [value]="list._id">

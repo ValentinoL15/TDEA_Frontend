@@ -36,10 +36,15 @@
     </ion-item>
   </div>
 
-   
   <div class="separator">
     <ion-item button class="button" (click)="goImg()">
       <ion-label class="creator">Imagenes</ion-label>
+    </ion-item>
+  </div>
+
+  <div class="separator" *ngIf="isAdmin">
+    <ion-item button class="button" (click)="goTransfers()">
+      <ion-label class="creator">Transferencias de Equipos</ion-label>
     </ion-item>
   </div>
 

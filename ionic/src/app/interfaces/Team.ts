@@ -1,9 +1,12 @@
 import { Deuda } from "./Deudas"
 import { List } from "./List"
 import { Player } from "./Player"
+import { User } from "./User";
 
 export interface Team {
     _id?: any,
+    creatorUser?: User,
+    transferTo?: User,
     teamName: String,
     teamNotes: String,
     socialMedia: String,

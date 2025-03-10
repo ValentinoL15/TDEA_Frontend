@@ -140,7 +140,11 @@ const routes: Routes = [
   {
     path: 'informes-preferences/:id/:dayId/:dayIndex',
     loadChildren: () => import('./informes-preferences/informes-preferences.module').then( m => m.InformesPreferencesPageModule)
+  },  {
+    path: 'transfer-team',
+    loadChildren: () => import('./transfer-team/transfer-team.module').then( m => m.TransferTeamPageModule)
   }
+
 
 ];
 

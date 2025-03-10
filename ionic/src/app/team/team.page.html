@@ -73,13 +73,41 @@
         
     </form>
     <div class="container"> 
+      <ion-button expand="block" color="primary"  style="font-weight: bold;" (click)="setOpen(true)">
+        Transferir equipo
+      </ion-button>
+
       <ion-button expand="block" color="danger" id="present-alert" (click)="deleteTeam(team._id)" style="font-weight: bold;">
         Eliminar Equipo
       </ion-button>
-        
     </div>
     
   </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="end">
+            <ion-button (click)="transferTeam(miForm)">Editar</ion-button>
+          </ion-buttons>
+          <ion-title>Transferencia de Equipo</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form #miForm>
+          <ion-item>
+            <ion-select label="Usuarios" label-placement="floating" name="transferTo">
+              <ion-select-option *ngFor="let user of teamUsers" [value]='user._id'>{{user.firstName + ' ' + user.lastName}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <ion-alert

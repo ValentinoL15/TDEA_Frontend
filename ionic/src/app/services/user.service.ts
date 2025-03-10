@@ -146,9 +146,28 @@ aprobarMultiples(ids: string[], tipo: 'team' | 'player' | 'list') {
     return this.http.get(`${this.API_URL}/obtener-deudas-equipo`)
   }
 
-
   getDeudas(deudaId: any){
     return this.http.get(`${this.API_URL}/obtener-deudas/${deudaId}`)
+  }
+
+  getTeamUsers(){
+    return this.http.get(`${this.API_URL}/obtener-users`)  
+  }
+
+  transferTeam(id : any, form : any){
+    return this.http.put(`${this.API_URL}/transferir-team/${id}`, form)
+  }
+
+  getTransferencias(){
+    return this.http.get(`${this.API_URL}/obtener-transferencias`)
+  }
+
+  aceptarTransfer(form:any){
+    return this.http.put(`${this.API_URL}/aceptar-transferencia`, form)
+  }
+
+  rechazarTransfer(form : any){
+    return this.http.put(`${this.API_URL}/rechazar-transferencia`, form)
   }
   /*************************************************LISTA***************************************************/ 
 

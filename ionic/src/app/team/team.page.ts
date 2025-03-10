@@ -5,6 +5,7 @@ import { UserService } from '../services/user.service';
 import { Team } from '../interfaces/Team';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { User } from '../interfaces/User';
 
 @Component({
   selector: 'app-team',
@@ -28,6 +29,7 @@ team : Team = {
   socialMedia: "",
   active: false
 }
+teamUsers : User[] = []
 isTeamEdited: boolean = false;
 selectedFile: File | null = null;
 form : FormGroup
@@ -86,6 +88,7 @@ ngOnInit() {
     this.id = params['id'];
   })
   this.getTeam()
+  this.getUsers()
 }
 
 getTeam(){
@@ -223,6 +226,40 @@ editTeam(){
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  getUsers(){
+    this.userService.getTeamUsers().subscribe({
+      next: (res: any) => {
+        this.teamUsers = res.users
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+      }
+    })
+  }
+
+  transferTeam(form : any){
+    const formulario = {
+      transferTo: form.transferTo.value
+    }
+    this.userService.transferTeam(this.id, formulario).subscribe({
+      next: (res: any) => {
+        this.notifyService.success(res.message);
+        this.getTeam()
+        this.isModalOpen = false
+      },
+      error: (err: any) => {
+        this.notifyService.error(err.error.message);
+        this.isModalOpen = false
       }
     })
   }
