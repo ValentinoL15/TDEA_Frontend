@@ -318,7 +318,13 @@ deleteStadium(id : any){
       responseType: 'blob' // ✅ Indicar que la respuesta es un archivo binario (PDF)
     });
   }
-  
+
+/***************************************************FIXTURE*****************************************************/ 
+
+  generateFixture(id:any, form : any){
+    return this.http.post(`${this.API_URL}/generar-fixture/${id}`, form)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

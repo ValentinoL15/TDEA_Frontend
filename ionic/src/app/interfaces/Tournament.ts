@@ -85,6 +85,24 @@ export interface Tournament {
     tarifaPartido: number,
     deposito?: number,
     cupos: number,
+    fixture: [{
+        _id?: string,
+        jornada: number,
+        partidos: [{
+            team1: {
+                _id?: string,
+            },
+            team2: {
+                _id?: string,
+            },
+            resultado: {
+                type: {
+                    team1: number,
+                    team2: number
+                }
+            }
+        }]
+    }]
     aAnotar?: number,
     pagos?: Array <{
         _id?: string,

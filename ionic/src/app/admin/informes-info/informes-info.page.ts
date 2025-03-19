@@ -66,6 +66,24 @@ export class InformesInfoPage implements OnInit {
     tarifaInscripcion: 0,
     tarifaPartido: 0,
     cupos: 0,
+    fixture: [{
+      _id: "",
+      jornada: 0,
+      partidos: [{
+        team1: {
+          _id: '',
+      },
+      team2: {
+          _id: '',
+      },
+      resultado: {
+          type: {
+              team1: 0,
+              team2: 0
+          }
+      }
+      }]
+    }]
   }
   currentYear = new Date().getFullYear();
   uniqueSedes: any[] = [];

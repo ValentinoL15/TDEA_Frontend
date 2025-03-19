@@ -59,6 +59,24 @@ export class TournamentsPage implements OnInit {
       _id: "",
       preferences: []
     }],
+    fixture: [{
+      _id: "",
+      jornada: 0,
+      partidos: [{
+        team1: {
+          _id: '',
+      },
+      team2: {
+          _id: '',
+      },
+      resultado: {
+          type: {
+              team1: 0,
+              team2: 0
+          }
+      }
+      }]
+    }],
     rangeAgeSince: 0,
     rangeAgeUntil: 0,
     ageDescripcion: "",
@@ -207,6 +225,10 @@ export class TournamentsPage implements OnInit {
 
   goFormats(){
     this.router.navigate([`/admin/formats-images/${this.id}`])
+  }
+
+  goFixture(){
+    this.router.navigate([`/admin/fixture/${this.id}`])
   }
 
   goStadiums(){

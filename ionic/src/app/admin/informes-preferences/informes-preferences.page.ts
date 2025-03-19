@@ -70,6 +70,24 @@ tournament: Tournament = {
   minPlayers: 0,
   maxPlayers: 0
   },
+  fixture: [{
+    _id: "",
+    jornada: 0,
+    partidos: [{
+      team1: {
+        _id: '',
+    },
+    team2: {
+        _id: '',
+    },
+    resultado: {
+        type: {
+            team1: 0,
+            team2: 0
+        }
+    }
+    }]
+  }],
   tournamentDate: new Date(),
   tournamentNotes: "",
   isTournamentMasculine: false,

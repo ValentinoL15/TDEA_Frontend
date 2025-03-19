@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Fixture</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ng-container *ngIf="tournament.fixture.length <= 0">
+    <div style="display: flex; width: 100%; justify-content: center;">
+      <ion-button (click)="generarFixture()">Generar Fixture del Torneo</ion-button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="tournament.fixture.length > 0">
+    <ion-list [inset]="true">
+      Hola
+    </ion-list>
+  </ng-container>
+</ion-content>
