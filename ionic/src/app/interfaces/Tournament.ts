@@ -91,15 +91,17 @@ export interface Tournament {
         partidos: [{
             team1: {
                 _id?: string,
+                nameList?: string,
             },
             team2: {
                 _id?: string,
+                nameList?: string,
             },
             resultado: {
-                type: {
+               
                     team1: number,
                     team2: number
-                }
+                
             }
         }]
     }]

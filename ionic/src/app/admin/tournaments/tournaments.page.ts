@@ -70,10 +70,10 @@ export class TournamentsPage implements OnInit {
           _id: '',
       },
       resultado: {
-          type: {
+          
               team1: 0,
               team2: 0
-          }
+          
       }
       }]
     }],
@@ -287,6 +287,7 @@ export class TournamentsPage implements OnInit {
     this.tournamentServ.getTournament(id).subscribe({
       next: (res : any) => {
         this.tournament = res.tournamentFound
+        console.log(this.tournament)
         this.ageRange = res.years; 
         this.tournament.tournamentDate = this.adjustDate(new Date(this.tournament.tournamentDate));
         this.tempCupos = this.tournament.cupos; // Inicializar tempCupos con el valor actual

@@ -81,10 +81,10 @@ tournament: Tournament = {
         _id: '',
     },
     resultado: {
-        type: {
+       
             team1: 0,
             team2: 0
-        }
+        
     }
     }]
   }],

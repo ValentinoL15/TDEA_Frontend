@@ -77,15 +77,17 @@ tournament: Tournament = {
     partidos: [{
       team1: {
         _id: '',
+        nameList: '', 
     },
     team2: {
         _id: '',
+        nameList: '',
     },
     resultado: {
-        type: {
+        
             team1: 0,
             team2: 0
-        }
+        
     }
     }]
   }]
@@ -109,6 +111,17 @@ getTournament(){
     next: (res : any) => {
       this.tournament = res.tournamentFound
       console.log(this.tournament)
+      console.log("Fixture cargado:", JSON.stringify(this.tournament.fixture, null, 2));
+      this.tournament.fixture.forEach(jornada => {
+        jornada.partidos.forEach(match => {
+          if (!match.resultado) {
+            match.resultado = { team1: 0, team2: 0  };
+          }
+          if (!match.resultado) {
+            match.resultado = { team1: 0, team2: 0 };
+          }
+        });
+      });
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
@@ -120,11 +133,41 @@ generarFixture(){
   this.tournamentService.generateFixture(this.id, {}).subscribe({
     next: (res : any) => {
       this.tournament = res.fixture; 
+      this.notifyService.success(res.message)
+      this.getTournament()
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
     }
   })
+}
+
+actualizarResultado(match: any, jornada:any) {
+  const { team1, team2 } = match.resultado;
+
+  const idTorneo = this.id;  // Reemplaza con el id de tu torneo
+  const partidoId = match._id;
+  const jornadaNum = jornada
+
+
+  console.log(match.resultado)
+
+  const form = {
+    team1: team1,
+    team2: team2
+  };
+
+  // Llamamos al servicio para actualizar el resultado
+  this.tournamentService.actualizarResultado(idTorneo, jornadaNum, partidoId, form).subscribe({
+    next: (res: any) => {
+      this.notifyService.success(res.message);
+      this.getTournament()
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message)
+    }
+  }
+  );
 }
 
 }

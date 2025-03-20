@@ -325,6 +325,10 @@ deleteStadium(id : any){
     return this.http.post(`${this.API_URL}/generar-fixture/${id}`, form)
   }
 
+  actualizarResultado(idTorneo: any, jornada: any, partidoId: any, form: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/actualizar-resultado/${idTorneo}/${jornada}/${partidoId}`, form);
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

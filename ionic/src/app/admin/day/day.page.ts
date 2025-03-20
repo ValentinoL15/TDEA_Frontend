@@ -95,10 +95,10 @@ export class DayPage implements OnInit {
           _id: '',
       },
       resultado: {
-          type: {
+         
               team1: 0,
               team2: 0
-          }
+          
       }
       }]
     }],

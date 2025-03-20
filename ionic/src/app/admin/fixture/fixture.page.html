@@ -13,9 +13,43 @@
       <ion-button (click)="generarFixture()">Generar Fixture del Torneo</ion-button>
     </div>
   </ng-container>
+
   <ng-container *ngIf="tournament.fixture.length > 0">
-    <ion-list [inset]="true">
-      Hola
-    </ion-list>
+    <ng-container *ngFor="let jornada of tournament.fixture">
+      <ion-list [inset]="true">
+        <p class="jornada-title">Jornada {{ jornada.jornada }}</p>
+
+        <ion-item *ngFor="let match of jornada.partidos">
+          <ion-grid class="match-grid">
+            <ion-row class="match-row">
+              <!-- Equipo 1 -->
+              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;">
+                {{ match?.team1?.nameList || 'Equipo 1' }}
+              </ion-col>
+
+              <!-- Resultado -->
+              <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+                <!-- Inputs para actualizar el resultado -->
+                <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1" [value]="match?.resultado?.team1 || 0" style="width: 50%;"></ion-input>
+                <span> - </span>
+                <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2" [value]="match?.resultado?.team2 || 0" style="width: 50%;"></ion-input>
+              </ion-col>
+
+              <!-- Equipo 2 -->
+              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;">
+                {{ match?.team2?.nameList || 'Equipo 2' }}
+              </ion-col>
+            </ion-row>
+            <!-- Botón de actualización -->
+            <ion-row>
+              <ion-col style="display: flex; width: 100%; justify-content: center;">
+                <ion-button (click)="actualizarResultado(match, jornada.jornada)">Actualizar Resultado</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ng-container>
   </ng-container>
 </ion-content>
+
