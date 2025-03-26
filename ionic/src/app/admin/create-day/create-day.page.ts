@@ -88,6 +88,16 @@ export class CreateDayPage implements OnInit {
       }
       }]
     }],
+    tablaPosiciones: [{
+          puntos: 0,
+          partidosJugados: 0,
+          ganados: 0,
+          empatados: 0,
+          perdidos: 0,
+          golesAFavor: 0,
+          golesEnContra: 0,
+          diferenciaGoles: 0
+    }],
     tournamentDate: new Date(),
     tournamentNotes: "",
     isTournamentMasculine: false,

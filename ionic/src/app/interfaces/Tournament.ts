@@ -98,12 +98,23 @@ export interface Tournament {
                 nameList?: string,
             },
             resultado: {
-               
                     team1: number,
                     team2: number
                 
             }
         }]
+    }],
+    tablaPosiciones: 
+    [{
+        team?: List,
+        puntos: number,
+        partidosJugados: number,
+        ganados: number,
+        empatados: number,
+        perdidos: number,
+        golesAFavor: number,
+        golesEnContra: number,
+        diferenciaGoles: number
     }]
     aAnotar?: number,
     pagos?: Array <{
