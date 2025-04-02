@@ -1,5 +1,6 @@
 import { Alineacion } from "./Alineacion"
 import { Player } from "./Player"
+import { Tournament } from "./Tournament"
 
 export interface List {
     _id?: any,
@@ -59,6 +60,7 @@ export interface List {
     hasShirtTitular?: boolean,
     hasShirtSuplente?: boolean,
     monto?: number,
+    tournamentRegistration?: Tournament,
     pagoFinal?: number
     listActive?: boolean,
     preferences?: number[][]

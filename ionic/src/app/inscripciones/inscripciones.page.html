@@ -8,9 +8,39 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">inscripciones</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<div style="display: flex; justify-content: center; width: 100%; padding: 10px; font-weight: bold;">
+  {{ list.tournamentRegistration?.nameFantasy }}
+</div>
+  
+
+  <ion-grid class="table-container">
+    <ion-row class="table-header-row">
+      <ion-col size="3.5" class="table-header"><strong>EQUIPO</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>P</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>PJ</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>G</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>E</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>P</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>GF</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>GC</strong></ion-col>
+      <ion-col size="1.5" class="table-header"><strong>DF</strong></ion-col>
+    </ion-row>
+  
+    <ng-container *ngFor="let tabla of list.tournamentRegistration?.tablaPosiciones; let i = index">
+      <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
+        <ion-col size="3.5" class="table-cell">
+          <strong>{{ tabla.team?.nameList }}</strong>
+        </ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.puntos }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.partidosJugados }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.ganados }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.empatados }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.perdidos }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.golesAFavor }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.golesEnContra }}</ion-col>
+        <ion-col size="1.5" class="table-cell">{{ tabla.diferenciaGoles }}</ion-col>
+      </ion-row>
+    </ng-container>
+  </ion-grid>
+  
 </ion-content>

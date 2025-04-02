@@ -259,6 +259,10 @@ private myListUpdated = new Subject<void>();
     return this.myListUpdated.asObservable();
   }
 
+  getTournamnetsList(){
+    return this.http.get(`${this.API_URL}/obtener-torneos-lista`)
+  }
+
   addPlayerList(id : any, jugadorId: any){
     return this.http.put(`${this.API_URL}/agregar-jugador-lista/${id}`, {jugadorId})
   }

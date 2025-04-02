@@ -196,7 +196,7 @@ const routes: Routes = [
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
   {
-    path: 'inscripciones/:id',
+    path: 'inscripciones',
     loadChildren: () => import('./inscripciones/inscripciones.module').then( m => m.InscripcionesPageModule)
   },
   {
