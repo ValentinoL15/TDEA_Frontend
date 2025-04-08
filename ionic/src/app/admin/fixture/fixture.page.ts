@@ -128,8 +128,8 @@ getTournament(){
       this.tournament = res.tournamentFound
       console.log(this.tournament)
       console.log("Fixture cargado:", JSON.stringify(this.tournament.fixture, null, 2));
-      this.tournament.fixture.forEach(jornada => {
-        jornada.partidos.forEach(match => {
+      this.tournament.fixture.forEach((jornada : any) => {
+        jornada.partidos.forEach((match : any) => {
           if (!match.resultado) {
             match.resultado = { team1: 0, team2: 0  };
           }
@@ -186,4 +186,7 @@ actualizarResultado(match: any, jornada:any) {
   );
 }
 
+goEliminatoria(){
+  this.router.navigate(['/admin/eliminatoria', this.id]);
+}
 }

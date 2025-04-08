@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>inscripcion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngFor="let ronda of eliminatoria; let roundIndex = index">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ronda {{ ronda.ronda }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngFor="let match of ronda.partidos; let matchIndex = index"
+            style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 12px; background-color: #f9f9f9;">
+
+          <div style="display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1em;">
+            <span>{{ match.team1.nameList }}</span>
+            <span style="color: #888;">vs</span>
+            <span>{{ match.team2.nameList }}</span>
+          </div>
+
+          <div *ngIf="!match.ganador" style="display: flex; justify-content: space-evenly; margin-top: 12px;">
+            <ion-button size="small" fill="outline" color="primary">
+              Gana {{ match.team1.nameList }}
+            </ion-button>
+            <ion-button size="small" fill="outline" color="secondary">
+              Gana {{ match.team2.nameList }}
+            </ion-button>
+          </div>
+
+          <div *ngIf="match.ganador" style="margin-top: 12px; text-align: center; font-weight: bold;">
+            🏆 Ganador: {{ match.ganador.nameList }}
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+<!-- 🏆 CAMPEÓN -->
+<div *ngIf="campeon" style="margin-top: 30px;">
+  <ion-card color="success">
+    <ion-card-header>
+      <ion-card-title style="text-align: center; font-size: 1.5em;">
+        🏆 CAMPEÓN: {{ campeon.nameList }} 🏆
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</div>
+</ion-content>

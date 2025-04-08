@@ -125,4 +125,5 @@ export interface Tournament {
             nameList?: string,
         }
     }>,
+    faseEliminatoria?: []
 }

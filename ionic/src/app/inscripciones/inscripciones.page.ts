@@ -157,10 +157,8 @@ getTournament(){
   })
 }
 
-  
-volver(){
-  this.router.navigate([`/list/${this.id}`])
+goEliminatoria(id:any){
+  this.router.navigate([`eliminatoria/${id}`])
 }
-
 
 }

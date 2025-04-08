@@ -22,7 +22,7 @@ torneos: Tournament[] = []
 list: List = {
   typeAlineacion: 0,
   nameList: "",
-  teamPicture: ""
+  teamPicture: "",
 }
 
 

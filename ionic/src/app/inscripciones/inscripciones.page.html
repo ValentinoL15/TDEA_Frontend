@@ -1,8 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="volver()">Volver</ion-button>
-    </ion-buttons>
     <ion-title>inscripciones</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,8 +9,7 @@
   {{ list.tournamentRegistration?.nameFantasy }}
 </div>
   
-
-  <ion-grid class="table-container">
+  <ion-grid class="table-container" *ngIf="list.tournamentRegistration!.fixture && list.tournamentRegistration!.fixture.length > 0">
     <ion-row class="table-header-row">
       <ion-col size="3.5" class="table-header"><strong>EQUIPO</strong></ion-col>
       <ion-col size="1" class="table-header"><strong>P</strong></ion-col>
@@ -42,5 +38,9 @@
       </ion-row>
     </ng-container>
   </ion-grid>
+
+  <div style="display: flex; justify-content: center; width: 100%;" *ngIf="list.tournamentRegistration!.faseEliminatoria && list.tournamentRegistration!.faseEliminatoria.length > 0" (click)="goEliminatoria(list.tournamentRegistration?._id)">
+    <ion-button>Ver Eliminatorias</ion-button>
+  </div>
   
 </ion-content>

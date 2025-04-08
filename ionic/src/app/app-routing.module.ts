@@ -184,8 +184,8 @@ const routes: Routes = [
     loadChildren: () => import('./tournaments/tournaments.module').then( m => m.TournamentsPageModule)
   },
   {
-    path: 'inscripcion',
-    loadChildren: () => import('./inscripcion/inscripcion.module').then( m => m.InscripcionPageModule)
+    path: 'eliminatoria/:id',
+    loadChildren: () => import('./eliminatoria/inscripcion.module').then( m => m.InscripcionPageModule)
   },
   {
     path: 'tournament/:id',

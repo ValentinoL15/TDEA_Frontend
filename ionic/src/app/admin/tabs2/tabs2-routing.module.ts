@@ -152,6 +152,10 @@ const routes: Routes = [
       {
         path: 'fixture/:id',
         loadChildren: () => import('../fixture/fixture.module').then( m => m.FixturePageModule)
+      },
+      {
+        path: 'eliminatoria/:id',
+        loadChildren: () => import('../eliminatoria/eliminatoria.module').then( m => m.EliminatoriaPageModule)
       }
     ]
   }

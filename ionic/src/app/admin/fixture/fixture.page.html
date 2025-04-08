@@ -52,69 +52,39 @@
     </ng-container>
   </ng-container>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="2" class="table-header">
-        <strong>Equipo</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Puntos</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Partidos Jugados</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Ganados</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Empatados</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Perdidos</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Goles a Favor</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Goles en Contra</strong>
-      </ion-col>
-      <ion-col size="1" class="table-header">
-        <strong>Diferencia de Goles</strong>
-      </ion-col>
+  <ion-grid class="table-container" *ngIf="tournament.fixture.length > 0">
+    <ion-row class="table-header-row">
+      <ion-col size="3.5" class="table-header"><strong>EQUIPO</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>P</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>PJ</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>G</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>E</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>P</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>GF</strong></ion-col>
+      <ion-col size="1" class="table-header"><strong>GC</strong></ion-col>
+      <ion-col size="1.5" class="table-header"><strong>DF</strong></ion-col>
     </ion-row>
   
-    <ng-container *ngFor="let tabla of tournament.tablaPosiciones">
-      <ion-row class="table-row">
-        <ion-col size="2" class="table-cell">
-          {{ tabla.team?.nameList }}
+    <ng-container *ngFor="let tabla of tournament.tablaPosiciones; let i = index">
+      <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
+        <ion-col size="3.5" class="table-cell">
+          <strong>{{ tabla.team?.nameList }}</strong>
         </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.puntos }}
-        </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.partidosJugados }}
-        </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.ganados }}
-        </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.empatados }}
-        </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.perdidos }}
-        </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.golesAFavor }}
-        </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.golesEnContra }}
-        </ion-col>
-        <ion-col size="1" class="table-cell">
-          {{ tabla.diferenciaGoles }}
-        </ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.puntos }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.partidosJugados }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.ganados }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.empatados }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.perdidos }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.golesAFavor }}</ion-col>
+        <ion-col size="1" class="table-cell">{{ tabla.golesEnContra }}</ion-col>
+        <ion-col size="1.5" class="table-cell">{{ tabla.diferenciaGoles }}</ion-col>
       </ion-row>
     </ng-container>
   </ion-grid>
+
+  <div style="width: 100%; justify-content: center; display: flex ;margin: 20px;" *ngIf="tournament.fixture.length > 0">
+    <ion-button color="secondary" (click)="goEliminatoria()">Armar Eliminatoria</ion-button>
+  </div>
   
 </ion-content>
 

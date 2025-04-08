@@ -329,6 +329,24 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/actualizar-resultado/${idTorneo}/${jornada}/${partidoId}`, form);
   }
 
+  generarEliminatoria(torneoId: string) {
+    return this.http.post(`${this.API_URL}/generar-eliminatoria/${torneoId}`, {});
+  }
+
+  avanzarEliminatoria(torneoId: string) {
+    return this.http.post(`${this.API_URL}/avanzar-eliminatoria/${torneoId}`, {});
+  }
+
+  actualizarGanador(torneoId: string, roundIndex: number, matchIndex: number, winnerTeamId: string) {
+    return this.http.put(`${this.API_URL}/actualizar-ganador/${torneoId}/eliminatoria/${roundIndex}/partido/${matchIndex}`, {
+      winnerTeamId
+    });
+  }
+
+  verEliminatoria(torneoId: string) {
+    return this.http.get(`${this.API_URL}/ver-eliminatoria/${torneoId}`);
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){
