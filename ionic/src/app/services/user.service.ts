@@ -427,5 +427,4 @@ buscarJugadoresMarket(filtros: any) {
   return this.http.get(`${this.API_URL}/buscar-jugadores-market`, { params });
 }
 
-
 }

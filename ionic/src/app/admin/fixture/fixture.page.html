@@ -23,20 +23,20 @@
           <ion-grid class="match-grid">
             <ion-row class="match-row">
               <!-- Equipo 1 -->
-              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;">
+              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;" (click)="setOpen(true, match.team1._id)">
                 {{ match?.team1?.nameList || 'Equipo 1' }}
               </ion-col>
 
               <!-- Resultado -->
               <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
                 <!-- Inputs para actualizar el resultado -->
-                <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1" [value]="match?.resultado?.team1 || 0" style="width: 50%;"></ion-input>
+                <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1" [value]="match?.resultado?.team1 || 0" style="width: 50%;" expand="block" ></ion-input>
                 <span> - </span>
-                <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2" [value]="match?.resultado?.team2 || 0" style="width: 50%;"></ion-input>
+                <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2" [value]="match?.resultado?.team2 || 0" style="width: 50%;" expand="block" ></ion-input>
               </ion-col>
 
               <!-- Equipo 2 -->
-              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;">
+              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;" (click)="setOpen(true, match.team2._id)">
                 {{ match?.team2?.nameList || 'Equipo 2' }}
               </ion-col>
             </ion-row>
@@ -87,4 +87,71 @@
   </div>
   
 </ion-content>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ list.nameList || 'Detalle del equipo' }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false, null)">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div *ngIf="list">
+        <p><strong>Dueño:</strong> {{ list.ownerUser?.firstName }} {{ list.ownerUser?.lastName }}</p>
+      </div>
+    
+      <div *ngFor="let item of list.players" class="player-card">
+        <img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
+        <input type="hidden" name="_id" [value]="item._id" />
+    
+        <div class="info">
+          <p>{{ item.firstName }} {{ item.lastName }}</p>
+          <p>DNI: {{ item.dni }}</p>
+          <p>Nacimiento: {{ item.nacimiento | date: 'dd-MM-yy' }}</p>
+          <form #miForm>
+            <div class="stats">
+              <div class="stat">
+                <label>Goles</label>
+                <div class="counter">
+                  <ion-button size="small" fill="outline" (click)="item.goles = restar(item.goles || 0)">-</ion-button>
+                  <span>{{ item.goles || 0 }}</span>
+                  <ion-button size="small" fill="outline" (click)="item.goles = (item.goles || 0) + 1">+</ion-button>
+                </div>
+                <ion-input type="hidden" name="goles" [value]="item.goles || 0" ngModel></ion-input>
+              </div>
+          
+              <div class="stat">
+                <label>Amarillas</label>
+                <div class="counter">
+                  <ion-button size="small" fill="outline" color="warning"  (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
+                  <span>{{ item.amarillas || 0 }}</span>
+                  <ion-button size="small" fill="outline" color="warning" (click)="item.amarillas = (item.amarillas || 0) + 1">+</ion-button>
+                </div>
+                <ion-input type="hidden" name="amarillas" [value]="item.amarillas || 0" ngModel></ion-input>
+              </div>
+          
+              <div class="stat">
+                <label>Rojas</label>
+                <div class="counter">
+                  <ion-button size="small" fill="outline" color="danger"  (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
+                  <span>{{ item.rojas || 0 }}</span>
+                  <ion-button size="small" fill="outline" color="danger" (click)="item.rojas = (item.rojas || 0) + 1">+</ion-button>
+                </div>
+                <ion-input type="hidden" name="rojas" [value]="item.rojas || 0" ngModel></ion-input>
+              </div>
+            </div>
+          
+            <!-- Botón para guardar -->
+            <ion-button (click)="actualizarTarjetas(item._id, miForm)">
+              Guardar cambios
+            </ion-button>
+          </form>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 

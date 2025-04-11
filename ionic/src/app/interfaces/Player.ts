@@ -8,5 +8,8 @@ export interface Player {
     ownerList?: String,
     picturePlayer?: string
     pictureAccept?: boolean,
-    status?: string
+    status?: string,
+    goles?: number,
+    amarillas?: number,
+    rojas?: number,
 }

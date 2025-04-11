@@ -347,6 +347,10 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/ver-eliminatoria/${torneoId}`);
   }
 
+  updateTarjetas(id:any, form:any){
+    return this.http.put(`${this.API_URL}/change-tarjetas/${id}`, form)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

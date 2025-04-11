@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { List } from 'src/app/interfaces/List';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-fixture',
@@ -108,8 +110,48 @@ tournament: Tournament = {
         diferenciaGoles: 0
   }]
 }
-
-constructor(private route : ActivatedRoute, private notifyService: NotifyService, private router: Router, private tournamentService: TournamentService) { }
+team_id: any
+list: List = {
+  ownerUser: { firstName: "", lastName: "" },
+  ownerTeam: { _id: "" },
+  typeAlineacion: 0,
+  teamPicture: "",
+  shirtColor: "",
+  alineacion: {
+    arquero: { _id: "", firstName: "" },
+    defensor1: { _id: "", firstName: "" },
+    defensor2: { _id: "", firstName: "" },
+    defensor3: { _id: "", firstName: "" },
+    mediocampista1: { _id: "", firstName: "" },
+    mediocampista2: { _id: "", firstName: "" },
+    mediocampista3: { _id: "", firstName: "" },
+    delantero1: { _id: "", firstName: "" },
+    delantero2: { _id: "", firstName: "" },
+    delantero3: {_id: "",firstName: "",},
+  },
+  alternativeShirtColor: "",
+  nameList: "",
+  players: [{
+    _id: "",
+    firstName: "",
+    lastName: "",
+    dni: 0,
+    shirtNumber: 0,
+    nacimiento: "",
+    ownerList: "",
+    picturePlayer: ""
+  }],
+  suplente: [{
+    _id: "",
+    firstName: ""
+  }],
+  titular: [{
+    _id: "",
+    firstName: ""
+  }]
+}
+id_player:any
+constructor(private route : ActivatedRoute, private notifyService: NotifyService, private router: Router, private tournamentService: TournamentService, private userService: UserService) { }
 
 ngOnInit() {
   this.route.params.subscribe((params) => {
@@ -126,8 +168,6 @@ getTournament(){
   this.tournamentService.getTournament(this.id).subscribe({
     next: (res : any) => {
       this.tournament = res.tournamentFound
-      console.log(this.tournament)
-      console.log("Fixture cargado:", JSON.stringify(this.tournament.fixture, null, 2));
       this.tournament.fixture.forEach((jornada : any) => {
         jornada.partidos.forEach((match : any) => {
           if (!match.resultado) {
@@ -156,6 +196,53 @@ generarFixture(){
       this.notifyService.error(err.error.message)
     }
   })
+}
+
+isModalOpen = false;
+
+setOpen(isOpen: boolean, team_id: any) {
+  this.isModalOpen = isOpen;
+  this.team_id = team_id;
+
+  if (team_id && team_id !== 'null') {
+    this.getList();
+  } else {
+    console.warn('ID de equipo inválido:', team_id);
+  }
+}
+
+getList(){
+  this.userService.getList(this.team_id).subscribe({
+    next: (res : any) => {
+      this.list = res.list
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+actualizarTarjetas(id: any, form: any) {
+  const formulario = {
+    goles: form.value?.goles || 0,
+    amarillas: form.value?.amarillas || 0,
+    rojas: form.value?.rojas || 0
+  };
+
+  this.tournamentService.updateTarjetas(id, formulario).subscribe({
+    next: (res: any) => {
+      this.notifyService.success(res.message);
+      this.getTournament();
+      this.getList();
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  });
+}
+
+restar(valor: number) {
+  return valor > 0 ? valor - 1 : 0;
 }
 
 actualizarResultado(match: any, jornada:any) {
