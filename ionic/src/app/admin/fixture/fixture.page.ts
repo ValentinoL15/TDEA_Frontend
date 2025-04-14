@@ -224,9 +224,9 @@ getList(){
 
 actualizarTarjetas(id: any, form: any) {
   const formulario = {
-    goles: form.value?.goles || 0,
-    amarillas: form.value?.amarillas || 0,
-    rojas: form.value?.rojas || 0
+    goles: form.value.goles,
+    amarillas: form.value.amarillas,
+    rojas: form.value.rojas
   };
 
   this.tournamentService.updateTarjetas(id, formulario).subscribe({

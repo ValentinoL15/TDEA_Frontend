@@ -111,7 +111,7 @@
           <p>{{ item.firstName }} {{ item.lastName }}</p>
           <p>DNI: {{ item.dni }}</p>
           <p>Nacimiento: {{ item.nacimiento | date: 'dd-MM-yy' }}</p>
-          <form #miForm>
+          <form #miForm="ngForm">
             <div class="stats">
               <div class="stat">
                 <label>Goles</label>
@@ -120,27 +120,27 @@
                   <span>{{ item.goles || 0 }}</span>
                   <ion-button size="small" fill="outline" (click)="item.goles = (item.goles || 0) + 1">+</ion-button>
                 </div>
-                <ion-input type="hidden" name="goles" [value]="item.goles || 0" ngModel></ion-input>
+                <ion-input type="hidden" name="goles" [(ngModel)]="item.goles"></ion-input>
               </div>
           
               <div class="stat">
                 <label>Amarillas</label>
                 <div class="counter">
-                  <ion-button size="small" fill="outline" color="warning"  (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
+                  <ion-button size="small" fill="outline" color="warning" (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
                   <span>{{ item.amarillas || 0 }}</span>
                   <ion-button size="small" fill="outline" color="warning" (click)="item.amarillas = (item.amarillas || 0) + 1">+</ion-button>
                 </div>
-                <ion-input type="hidden" name="amarillas" [value]="item.amarillas || 0" ngModel></ion-input>
+                <ion-input type="hidden" name="amarillas" [(ngModel)]="item.amarillas"></ion-input>
               </div>
           
               <div class="stat">
                 <label>Rojas</label>
                 <div class="counter">
-                  <ion-button size="small" fill="outline" color="danger"  (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
+                  <ion-button size="small" fill="outline" color="danger" (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
                   <span>{{ item.rojas || 0 }}</span>
                   <ion-button size="small" fill="outline" color="danger" (click)="item.rojas = (item.rojas || 0) + 1">+</ion-button>
                 </div>
-                <ion-input type="hidden" name="rojas" [value]="item.rojas || 0" ngModel></ion-input>
+                <ion-input type="hidden" name="rojas" [(ngModel)]="item.rojas"></ion-input>
               </div>
             </div>
           
