@@ -351,6 +351,18 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/change-tarjetas/${id}`, form)
   }
 
+  getGoleador(id:any){
+    return this.http.get(`${this.API_URL}/goleadores/${id}`)
+  }
+
+  getVallaMenosVencida(id:any){
+    return this.http.get(`${this.API_URL}/valla-menos-vencida/${id}`)
+  }
+
+  getFairPLay(id:any){
+    return this.http.get(`${this.API_URL}/fair-play/${id}`)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

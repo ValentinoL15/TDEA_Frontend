@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { List } from 'src/app/interfaces/List';
+import { Player } from 'src/app/interfaces/Player';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
@@ -14,6 +15,9 @@ import { UserService } from 'src/app/services/user.service';
 export class FixturePage implements OnInit {
 
 id:any
+goleador: Player[] = [];
+valla: any[] = [];
+fairPlay: any[] = [];
 tournament: Tournament = {
   nameFantasy: "",
   ano: 0,
@@ -158,6 +162,9 @@ ngOnInit() {
     this.id = params['id']
   })
   this.getTournament()
+  this.goleadores()
+  this.vallaMenosVencida()
+  this.getFairPLay()
 }
 
 volver(){
@@ -178,6 +185,39 @@ getTournament(){
           }
         });
       });
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+goleadores(){
+  this.tournamentService.getGoleador(this.id).subscribe({
+    next: (res : any) => {
+      this.goleador = res.orederedGoleadores
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+vallaMenosVencida(){
+  this.tournamentService.getVallaMenosVencida(this.id).subscribe({
+    next: (res : any) => {
+      this.valla = res.equipos;
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+getFairPLay(){
+  this.tournamentService.getFairPLay(this.id).subscribe({
+    next: (res : any) => {
+      this.fairPlay = res.fairPlayData
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)
