@@ -110,6 +110,12 @@
               </ion-select>
             </ion-item>
             <ion-item>
+              <ion-select label="Ida y Vuelta" interface="popover" type="text" formControlName="idaYVuelta" [value]="tournament.idaYVuelta">
+                <ion-select-option value="true">Si</ion-select-option>
+                <ion-select-option value="false">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
               <ion-input label="Foto Torneo" type="file" (change)="onFileSelected($event)"></ion-input>
             </ion-item>
             <ion-item>

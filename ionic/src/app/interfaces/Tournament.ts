@@ -126,4 +126,5 @@ export interface Tournament {
         }
     }>,
     faseEliminatoria?: []
+    idaYVuelta?: boolean
 }

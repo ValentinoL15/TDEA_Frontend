@@ -28,6 +28,7 @@ export class EliminatoriaPage implements OnInit {
     this.tournamentServ.generarEliminatoria(this.torneoId).subscribe({
       next: (res: any) => {
         this.eliminatoria = res.faseEliminatoria;
+        this.cargarEliminatoria();
       },
       error: (err) => console.error(err)
     });

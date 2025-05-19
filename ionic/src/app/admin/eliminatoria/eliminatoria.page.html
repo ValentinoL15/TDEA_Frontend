@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <div style="display: flex; justify-content: center; width: 100%;">
-    <ion-button (click)="generarEliminatoria()" *ngIf="eliminatoria.length === 0">Generar Eliminatoria</ion-button>
+    <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria">Generar Eliminatoria</ion-button>
     <ion-button (click)="avanzarEliminatoria()" *ngIf="!campeon">Avanzar Eliminatoria</ion-button>
   </div>
 
@@ -24,24 +24,24 @@
               style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 12px; background-color: #f9f9f9;">
   
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1em;">
-              <span>{{ match.team1.nameList }}</span>
+              <span>{{ match.team1?.nameList }}</span>
               <span style="color: #888;">vs</span>
-              <span>{{ match.team2.nameList }}</span>
+              <span>{{ match.team2?.nameList }}</span>
             </div>
   
             <div *ngIf="!match.ganador" style="display: flex; justify-content: space-evenly; margin-top: 12px;">
               <ion-button size="small" fill="outline" color="primary"
                 (click)="asignarGanador(roundIndex, matchIndex, match.team1._id)">
-                Gana {{ match.team1.nameList }}
+                Gana {{ match.team1?.nameList }}
               </ion-button>
               <ion-button size="small" fill="outline" color="secondary"
                 (click)="asignarGanador(roundIndex, matchIndex, match.team2._id)">
-                Gana {{ match.team2.nameList }}
+                Gana {{ match.team2?.nameList }}
               </ion-button>
             </div>
   
             <div *ngIf="match.ganador" style="margin-top: 12px; text-align: center; font-weight: bold;">
-              🏆 Ganador: {{ match.ganador.nameList }}
+              🏆 Ganador: {{ match.ganador?.nameList }}
             </div>
           </div>
         </ion-card-content>

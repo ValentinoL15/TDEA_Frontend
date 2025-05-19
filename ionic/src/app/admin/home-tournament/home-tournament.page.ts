@@ -182,6 +182,7 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
       latitude: [null, Validators.required], // Añadir latitud
       altitude: [null, Validators.required],  // Añadir altitud
       address: new FormControl(''), // Campo para la dirección
+      idaYVuelta: ['false']
     })
   }
 
@@ -356,8 +357,6 @@ createTournament() {
 if (this.form.get('latitude')?.value === '' || this.form.get('altitude')?.value === '') {
   return this.notifyService.error('Debes seleccionar una ubicación para el torneo.');
 }
-
-
 
   this.tournamentServ.createTournament(formData).subscribe({
     next: (res: any) => {
