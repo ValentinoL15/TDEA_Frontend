@@ -20,33 +20,49 @@
         <p class="jornada-title">Jornada {{ jornada.jornada }}</p>
 
         <ion-item *ngFor="let match of jornada.partidos">
-          <ion-grid class="match-grid">
-            <ion-row class="match-row">
-              <!-- Equipo 1 -->
-              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;" (click)="setOpen(true, match.team1._id)">
-                {{ match?.team1?.nameList || 'Equipo 1' }}
-              </ion-col>
+          <!-- Partido normal -->
+          <ng-container *ngIf="!match.libre">
+            <ion-grid class="match-grid">
+              <ion-row class="match-row">
+                <ion-col size="5" class="team"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
+                  (click)="setOpen(true, match.team1._id)">
+                  {{ match?.team1?.nameList || 'Equipo 1' }}
+                </ion-col>
 
-              <!-- Resultado -->
-              <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
-                <!-- Inputs para actualizar el resultado -->
-                <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1" [value]="match?.resultado?.team1 || 0" style="width: 50%;" expand="block" ></ion-input>
-                <span> - </span>
-                <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2" [value]="match?.resultado?.team2 || 0" style="width: 50%;" expand="block" ></ion-input>
-              </ion-col>
+                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+                  <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1"
+                    style="width: 50%;"></ion-input>
+                  <span> - </span>
+                  <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2"
+                    style="width: 50%;"></ion-input>
+                </ion-col>
 
-              <!-- Equipo 2 -->
-              <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center; font-weight: bold;" (click)="setOpen(true, match.team2._id)">
-                {{ match?.team2?.nameList || 'Equipo 2' }}
-              </ion-col>
-            </ion-row>
-            <!-- Botón de actualización -->
-            <ion-row>
-              <ion-col style="display: flex; width: 100%; justify-content: center;">
-                <ion-button (click)="actualizarResultado(match, jornada.jornada)">Actualizar Resultado</ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+                <ion-col size="5" class="team"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
+                  (click)="setOpen(true, match.team2._id)">
+                  {{ match?.team2?.nameList || 'Equipo 2' }}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col style="display: flex; width: 100%; justify-content: center;">
+                  <ion-button (click)="actualizarResultado(match, jornada.jornada)">Actualizar Resultado</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-container>
+
+          <!-- Partido libre -->
+          <ng-container *ngIf="match.libre">
+            <ion-grid class="match-grid">
+              <ion-row class="match-row">
+                <ion-col size="12" style="text-align: center; font-style: italic;">
+                  {{ getTeamNameById(match.libre) }} queda libre en esta jornada
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-container>
         </ion-item>
       </ion-list>
     </ng-container>
@@ -64,7 +80,7 @@
       <ion-col size="1" class="table-header"><strong>GC</strong></ion-col>
       <ion-col size="1.5" class="table-header"><strong>DF</strong></ion-col>
     </ion-row>
-  
+
     <ng-container *ngFor="let tabla of tournament.tablaPosiciones; let i = index">
       <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
         <ion-col size="3.5" class="table-cell">
@@ -94,7 +110,7 @@
         <ion-col size="3" class="table-header"><strong>Apellido</strong></ion-col>
         <ion-col size="3" class="table-header"><strong>Goles</strong></ion-col>
       </ion-row>
-    
+
       <ng-container *ngFor="let jugador of goleador; let i = index">
         <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
           <ion-col size="3.5" class="table-cell">
@@ -113,7 +129,7 @@
       <ion-col size="5" class="table-header"><strong>Equipo</strong></ion-col>
       <ion-col size="5" class="table-header"><strong>Goles en Contra</strong></ion-col>
     </ion-row>
-    
+
     <ng-container *ngFor="let equipo of valla; let i = index">
       <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
         <ion-col size="5" class="table-cell">
@@ -132,7 +148,7 @@
       <ion-col size="5" class="table-header"><strong>Equipo</strong></ion-col>
       <ion-col size="5" class="table-header"><strong>Goles en Contra</strong></ion-col>
     </ion-row>
-    
+
     <ng-container *ngFor="let equipo of valla; let i = index">
       <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
         <ion-col size="5" class="table-cell">
@@ -147,40 +163,40 @@
 
   <div *ngIf="tournament.fixture.length > 0">
     <p style="width: 100%; justify-content: center; display: flex;">Fair Play</p>
-    
+
     <ion-row class="table-header-row">
       <ion-col size="3.5" class="table-header"><strong>Equipo</strong></ion-col>
-      
+
       <!-- Solo el icono de tarjeta amarilla -->
       <ion-col size="1.6" class="table-header">
         <div style="background-color: #ffc107; width: 24px; height: 32px; border-radius: 4px;"></div>
       </ion-col>
-      
+
       <!-- Solo el icono de tarjeta roja -->
       <ion-col size="1.6" class="table-header">
         <div style="background-color: #dc3545; width: 24px; height: 32px; border-radius: 4px;"></div>
       </ion-col>
-  
+
       <!-- Columna para el total de tarjetas -->
       <ion-col size="2" class="table-header"><strong>Total</strong></ion-col>
     </ion-row>
-  
+
     <ng-container *ngFor="let equipo of fairPlay; let i = index">
       <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
         <ion-col size="3.5" class="table-cell">
           <strong>{{ equipo.nameList }}</strong> <!-- Nombre del equipo -->
         </ion-col>
-        
+
         <!-- Muestra el total de tarjetas amarillas del equipo -->
         <ion-col size="1.6" class="table-cell">
           {{ equipo.totalAmarillas }}
         </ion-col>
-        
+
         <!-- Muestra el total de tarjetas rojas del equipo -->
         <ion-col size="1.6" class="table-cell">
           {{ equipo.totalRojas }}
         </ion-col>
-  
+
         <!-- Muestra el total de tarjetas (amarillas + rojas) -->
         <ion-col size="2" class="table-cell">
           {{ equipo.totalAmarillas + equipo.totalRojas }}
@@ -188,8 +204,8 @@
       </ion-row>
     </ng-container>
   </div>
-  
-  
+
+
 </ion-content>
 
 <ion-modal [isOpen]="isModalOpen">
@@ -206,11 +222,11 @@
       <div *ngIf="list">
         <p><strong>Dueño:</strong> {{ list.ownerUser?.firstName }} {{ list.ownerUser?.lastName }}</p>
       </div>
-    
+
       <div *ngFor="let item of list.players" class="player-card">
         <img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
         <input type="hidden" name="_id" [value]="item._id" />
-    
+
         <div class="info">
           <p>{{ item.firstName }} {{ item.lastName }}</p>
           <p>DNI: {{ item.dni }}</p>
@@ -226,28 +242,32 @@
                 </div>
                 <ion-input type="hidden" name="goles" [(ngModel)]="item.goles"></ion-input>
               </div>
-          
+
               <div class="stat">
                 <label>Amarillas</label>
                 <div class="counter">
-                  <ion-button size="small" fill="outline" color="warning" (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
+                  <ion-button size="small" fill="outline" color="warning"
+                    (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
                   <span>{{ item.amarillas || 0 }}</span>
-                  <ion-button size="small" fill="outline" color="warning" (click)="item.amarillas = (item.amarillas || 0) + 1">+</ion-button>
+                  <ion-button size="small" fill="outline" color="warning"
+                    (click)="item.amarillas = (item.amarillas || 0) + 1">+</ion-button>
                 </div>
                 <ion-input type="hidden" name="amarillas" [(ngModel)]="item.amarillas"></ion-input>
               </div>
-          
+
               <div class="stat">
                 <label>Rojas</label>
                 <div class="counter">
-                  <ion-button size="small" fill="outline" color="danger" (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
+                  <ion-button size="small" fill="outline" color="danger"
+                    (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
                   <span>{{ item.rojas || 0 }}</span>
-                  <ion-button size="small" fill="outline" color="danger" (click)="item.rojas = (item.rojas || 0) + 1">+</ion-button>
+                  <ion-button size="small" fill="outline" color="danger"
+                    (click)="item.rojas = (item.rojas || 0) + 1">+</ion-button>
                 </div>
                 <ion-input type="hidden" name="rojas" [(ngModel)]="item.rojas"></ion-input>
               </div>
             </div>
-          
+
             <!-- Botón para guardar -->
             <ion-button (click)="actualizarTarjetas(item._id, miForm)">
               Guardar cambios
@@ -258,4 +278,3 @@
     </ion-content>
   </ng-template>
 </ion-modal>
-

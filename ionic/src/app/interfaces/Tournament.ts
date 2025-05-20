@@ -102,6 +102,10 @@ export interface Tournament {
                     team2: number
                 
             }
+            libre?: {
+                _id?: string,
+                nameList?: string
+            }
         }]
     }],
     tablaPosiciones: 

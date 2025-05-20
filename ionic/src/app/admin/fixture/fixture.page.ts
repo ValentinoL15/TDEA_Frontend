@@ -192,6 +192,11 @@ getTournament(){
   })
 }
 
+getTeamNameById(id: any): any {
+  const team = this.tournament.teamSubscribed.find(t => t._id === id);
+  return team ? team.nameList : 'Equipo desconocido';
+}
+
 goleadores(){
   this.tournamentService.getGoleador(this.id).subscribe({
     next: (res : any) => {
