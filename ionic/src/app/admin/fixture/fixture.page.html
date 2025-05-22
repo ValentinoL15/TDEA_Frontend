@@ -143,25 +143,6 @@
   </div>
 
   <div *ngIf="tournament.fixture.length > 0">
-    <p style="width: 100%; justify-content: center; display: flex;">Valla Menos Vencida</p>
-    <ion-row class="table-header-row">
-      <ion-col size="5" class="table-header"><strong>Equipo</strong></ion-col>
-      <ion-col size="5" class="table-header"><strong>Goles en Contra</strong></ion-col>
-    </ion-row>
-
-    <ng-container *ngFor="let equipo of valla; let i = index">
-      <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
-        <ion-col size="5" class="table-cell">
-          <strong>{{ equipo.equipo }}</strong> <!-- ← nombre del equipo -->
-        </ion-col>
-        <ion-col size="5" class="table-cell">
-          {{ equipo.golesEnContra }} <!-- ← goles recibidos -->
-        </ion-col>
-      </ion-row>
-    </ng-container>
-  </div>
-
-  <div *ngIf="tournament.fixture.length > 0">
     <p style="width: 100%; justify-content: center; display: flex;">Fair Play</p>
 
     <ion-row class="table-header-row">
