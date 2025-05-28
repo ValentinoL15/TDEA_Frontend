@@ -24,7 +24,7 @@ player: Player = {
   pictureAccept: false,
   status: "",
   nacimiento: "yyyy-mm-dd",
-  ownerList: "",
+  
   picturePlayer: ""
 }
 players: Player[] = []

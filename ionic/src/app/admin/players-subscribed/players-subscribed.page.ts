@@ -23,7 +23,7 @@ export class PlayersSubscribedPage implements OnInit {
     dni: 0,
     shirtNumber: 0,
     nacimiento: "",
-    ownerList: "",
+    
     picturePlayer: ""
   }
   tournamentSubscribed: any; // ID del torneo

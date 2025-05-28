@@ -45,7 +45,7 @@ list: List = {
     dni: 0,
     shirtNumber: 0,
     nacimiento: "",
-    ownerList: "",
+    
     picturePlayer: ""
   }],
   suplente: [{

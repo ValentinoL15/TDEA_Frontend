@@ -142,7 +142,7 @@ list: List = {
     dni: 0,
     shirtNumber: 0,
     nacimiento: "",
-    ownerList: "",
+   
     picturePlayer: ""
   }],
   suplente: [{
@@ -201,6 +201,7 @@ goleadores(){
   this.tournamentService.getGoleador(this.id).subscribe({
     next: (res : any) => {
       this.goleador = res.orederedGoleadores
+      console.log("Goleadores:",this.goleador)
     },
     error: (err : any) => {
       this.notifyService.error(err.error.message)

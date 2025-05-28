@@ -106,14 +106,16 @@
     <p style="width: 100%; justify-content: center; display: flex;">Tabla de goleadores</p>
     <ion-grid class="table-container">
       <ion-row class="table-header-row">
-        <ion-col size="3.5" class="table-header"><strong>Nombre</strong></ion-col>
+        <ion-col size="3" class="table-header"><strong>Equipo</strong></ion-col>
+        <ion-col size="3" class="table-header"><strong>Nombre</strong></ion-col>
         <ion-col size="3" class="table-header"><strong>Apellido</strong></ion-col>
         <ion-col size="3" class="table-header"><strong>Goles</strong></ion-col>
       </ion-row>
 
       <ng-container *ngFor="let jugador of goleador; let i = index">
         <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
-          <ion-col size="3.5" class="table-cell">
+          <ion-col size="3" class="table-cell">{{jugador.ownerList?.nameList}}</ion-col>
+          <ion-col size="3" class="table-cell">
             <strong>{{ jugador.firstName }}</strong>
           </ion-col>
           <ion-col size="3" class="table-cell">{{ jugador.lastName }}</ion-col>

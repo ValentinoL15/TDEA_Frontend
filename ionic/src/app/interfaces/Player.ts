@@ -1,3 +1,5 @@
+import { List } from "./List";
+
 export interface Player {
     _id?: String,
     firstName: string,
@@ -5,7 +7,7 @@ export interface Player {
     dni?: number,
     shirtNumber?: number,
     nacimiento?: string,
-    ownerList?: String,
+    ownerList?: List,
     picturePlayer?: string
     pictureAccept?: boolean,
     status?: string,
