@@ -187,7 +187,12 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
   }
 
   ngOnInit() {
-    this.getCategories();
+    this.tournamentServ.categories$.subscribe((res) => {
+    if (res) {
+      this.categories = res;
+    }
+  });
+  this.tournamentServ.getCategories();
     this.getFormats();
     this.getCampeonatos();
     this.getEdades();
@@ -223,16 +228,17 @@ setOpen(isOpen: boolean) {
   this.isModalOpen = isOpen;
 }
 
-getCategories(){
+/*getCategories(){
   this.tournamentServ.getCategories().subscribe({
     next: (res : any) => {
       this.categories = res.categories
+      this.categories = res.categories.sort((a:any, b:any) => a.order - b.order);
     },
     error: (err) => {
       this.notifyService.error(err.error.message)
     }
   })
-}
+}*/
 
 getCampeonatos(){
   this.tournamentServ.getCampeonatos().subscribe({

@@ -141,7 +141,7 @@ export class SedePage implements OnInit {
       encargado: this.sede.encargado,
       dueno: this.sede.dueno,
       barrio: this.sede.barrio,
-      status: this.sede.status,
+      //status: this.sede.status,
       latitude: this.sede.latitude,  // 📌 Enviar nueva latitud
       altitude: this.sede.altitude   // 📌 Enviar nueva longitud
     };

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../interfaces/Category';
 import { Format } from '../interfaces/Format';
-import { Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +24,33 @@ export class TournamentService {
     return this.http.get(`${this.API_URL}/obtener-categoria/${id}`)
   }
 
-  getCategories(){
-    return this.http.get(`${this.API_URL}/obtener-categorias`)
+  private categorySubject = new BehaviorSubject<Category[] | null>(null);
+  public categories$ = this.categorySubject.asObservable();
+
+  getCategoriesFromBackend() {
+    return this.http.get<{ categories: Category[] }>(`${this.API_URL}/obtener-categorias`);
   }
 
-  editCateogry(id:any, form : Category){
-    return this.http.put(`${this.API_URL}/editar-categoria/${id}`, form)
+  // 🟢 Actualiza el BehaviorSubject con las categorías
+  getCategories() {
+    this.getCategoriesFromBackend().subscribe({
+      next: (res) => {
+        const sorted = res.categories.sort((a:any, b:any) => a.order - b.order);
+        this.categorySubject.next(sorted);
+      },
+      error: (err) => {
+        console.error('Error al obtener categorías:', err);
+      }
+    });
   }
+
+  // ✏️ Edita una categoría y actualiza la lista automáticamente
+  editCategory(id: any, form: Category) {
+    return this.http.put(`${this.API_URL}/editar-categoria/${id}`, form).pipe(
+      tap(() => this.getCategories())
+    );
+  }
+
 
   deleteCategory(id:any){
     return this.http.delete(`${this.API_URL}/eliminar-categoria/${id}`)

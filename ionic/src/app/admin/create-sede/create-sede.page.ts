@@ -41,7 +41,7 @@ export class CreateSedePage implements OnInit,OnDestroy {
     this.form = this.fb.group({
       name: ['', Validators.required],
       alias: ['', Validators.required],
-      status: ['', Validators.required],
+      //status: ['', Validators.required],
       phone: ['', Validators.required],
       celular: ['', Validators.required],
       socialRed: ['', Validators.required],
@@ -140,7 +140,7 @@ export class CreateSedePage implements OnInit,OnDestroy {
   
     formData.append("name", this.form.value.name);
     formData.append("alias", this.form.value.alias);
-    formData.append("status", this.form.value.status);
+    //formData.append("status", this.form.value.status);
     formData.append("phone", this.form.value.phone);
     formData.append("celular", this.form.value.celular);
     formData.append("socialRed", this.form.value.socialRed);

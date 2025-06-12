@@ -18,7 +18,7 @@ export class CreateCategoryPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
   form:FormGroup
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
-  categorias: Category[] = [];
+  categories: Category[] = [];
 
   constructor(private router: Router , private formBuilder: FormBuilder, private tournamentServ : TournamentService, private notifyService: NotifyService) { 
     this.form = this.formBuilder.group({
@@ -27,9 +27,15 @@ export class CreateCategoryPage implements OnInit {
     })
   }
   
-
   ngOnInit() {
-    this.getCategoryes();
+    this.tournamentServ.categories$.subscribe((res) => {
+    if (res) {
+      this.categories = res;
+    }
+  });
+
+  // Solo al inicio
+  this.tournamentServ.getCategories();
   }
 
   cancel() {
@@ -55,8 +61,9 @@ export class CreateCategoryPage implements OnInit {
     this.tournamentServ.createCategory(form).subscribe({
       next: (res : any) => {
         this.notifyService.success(res.message)
-        this.categorias.push(res.category)
+        this.categories.push(res.category)
         this.cancel()
+        this.form.reset();
       },
       error: (err) => {
         console.log(err);
@@ -65,7 +72,7 @@ export class CreateCategoryPage implements OnInit {
     })
   }
 
-  getCategoryes(){
+  /*getCategoryes(){
     this.tournamentServ.getCategories().subscribe({
       next: (res : any) => {
         this.categorias = res.categories
@@ -75,7 +82,7 @@ export class CreateCategoryPage implements OnInit {
         this.notifyService.error(err.error.message)
       }
     })
-  }
+  }*/
 
 
 
@@ -88,10 +95,10 @@ export class CreateCategoryPage implements OnInit {
 
   drop(event: CdkDragDrop<string[]>): void {
     // Reorganiza las categorías en memoria
-    moveItemInArray(this.categorias, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.categories, event.previousIndex, event.currentIndex);
   
     // Enviar el nuevo orden al backend
-    this.tournamentServ.updateCategoryOrder(this.categorias.map(c => c._id)).subscribe({
+    this.tournamentServ.updateCategoryOrder(this.categories.map(c => c._id)).subscribe({
       next: (res: any) => {
         this.notifyService.success('Orden actualizado correctamente');
       },

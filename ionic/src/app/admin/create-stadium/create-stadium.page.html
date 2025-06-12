@@ -14,9 +14,9 @@
   </div>
 
   <ion-list [inset]="true" *ngFor="let stadium of stadiums">
-  <ion-item button (click)="goStadium(stadium._id)">
-    <ion-label>{{stadium.code}}</ion-label>
-  </ion-item>
+    <ion-item button (click)="goStadium(stadium._id)">
+      <ion-label>{{stadium.code}}</ion-label>
+    </ion-item>
   </ion-list>
 
   <div class="container">
@@ -39,58 +39,61 @@
       <ion-content class="ion-padding">
         <ion-list [inset]="true">
           <form [formGroup]="form">
-          <ion-item>
-            <ion-input label="Codigo" label-placement="floating" placeholder="Codigo" formControlName="code"></ion-input>
-          </ion-item>
-          <ion-item>
+            <ion-item>
+              <ion-input label="Código *" label-placement="floating" placeholder="Código" formControlName="code">
+              </ion-input>
+            </ion-item>
 
-            <ion-select label="Tipo de cancha" interface="popover" formControlName="type" class="select">
-              <ion-select-option value="5">5</ion-select-option>
-              <ion-select-option value="6">6</ion-select-option>
-              <ion-select-option value="7">7</ion-select-option>
-              <ion-select-option value="8">8</ion-select-option>
-              <ion-select-option value="9">9</ion-select-option>
-              <ion-select-option value="10">10</ion-select-option>
-              <ion-select-option value="11">11</ion-select-option>
-              <ion-select-option value="Sin definir">Sin definir</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-input type="number" label="Largo (Metros)" label-placement="floating" placeholder="Longitud" formControlName="length"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input type="number" label="Ancho (Metros)" label-placement="floating" placeholder="Ancho" formControlName="width" ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-select label="Techado" formControlName="roof" interface="popover">
-              <ion-select-option value="Techada">Techada</ion-select-option>
-              <ion-select-option value="Destechada">Destechada</ion-select-option>
-              <ion-select-option value="Sin definir">Sin definir</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-select label="Cesped" formControlName="grass" interface="popover">
-              <ion-select-option value="Cesped">Pasto</ion-select-option>
-              <ion-select-option value="Sintetico">Sintetico</ion-select-option>
-              <ion-select-option value="Sin definir">Sin definir</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-select label="Puntuacion" formControlName="punctuaction" interface="popover">
-              <ion-select-option value="1">1</ion-select-option>
-              <ion-select-option value="2">2</ion-select-option>
-              <ion-select-option value="3">3</ion-select-option>
-              <ion-select-option value="4">4</ion-select-option>
-              <ion-select-option value="5">5</ion-select-option>
-              <ion-select-option value="6">6</ion-select-option>
-              <ion-select-option value="7">7</ion-select-option>
-              <ion-select-option value="8">8</ion-select-option>
-              <ion-select-option value="9">9</ion-select-option>
-              <ion-select-option value="10">10</ion-select-option>
-              <ion-select-option value="Sin definir">Sin definir</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </form>
+            <ion-item>
+              <ion-select label="Tipo de cancha *" interface="popover" formControlName="type" class="select">
+                <ion-select-option value="5">5</ion-select-option>
+                <ion-select-option value="6">6</ion-select-option>
+                <ion-select-option value="7">7</ion-select-option>
+                <ion-select-option value="8">8</ion-select-option>
+                <ion-select-option value="9">9</ion-select-option>
+                <ion-select-option value="10">10</ion-select-option>
+                <ion-select-option value="11">11</ion-select-option>
+                <ion-select-option value="Sin definir">Sin definir</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" label="Largo (Metros)" label-placement="floating" placeholder="Longitud"
+                formControlName="length"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" label="Ancho (Metros)" label-placement="floating" placeholder="Ancho"
+                formControlName="width"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Techado" formControlName="roof" interface="popover">
+                <ion-select-option value="Techada">Techada</ion-select-option>
+                <ion-select-option value="Destechada">Destechada</ion-select-option>
+                <ion-select-option value="Sin definir">Sin definir</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Cesped" formControlName="grass" interface="popover">
+                <ion-select-option value="Cesped">Pasto</ion-select-option>
+                <ion-select-option value="Sintetico">Sintetico</ion-select-option>
+                <ion-select-option value="Sin definir">Sin definir</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Puntuacion" formControlName="punctuaction" interface="popover">
+                <ion-select-option value="1">1</ion-select-option>
+                <ion-select-option value="2">2</ion-select-option>
+                <ion-select-option value="3">3</ion-select-option>
+                <ion-select-option value="4">4</ion-select-option>
+                <ion-select-option value="5">5</ion-select-option>
+                <ion-select-option value="6">6</ion-select-option>
+                <ion-select-option value="7">7</ion-select-option>
+                <ion-select-option value="8">8</ion-select-option>
+                <ion-select-option value="9">9</ion-select-option>
+                <ion-select-option value="10">10</ion-select-option>
+                <ion-select-option value="Sin definir">Sin definir</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </form>
         </ion-list>
       </ion-content>
     </ng-template>

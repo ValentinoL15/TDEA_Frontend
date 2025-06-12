@@ -204,8 +204,16 @@ export class TournamentsPage implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id']
     })
+    this.tournamentServ.categories$.subscribe((res) => {
+    if (res) {
+      this.categories = res;
+    }
+  });
+
+  // Solo al inicio
+  this.tournamentServ.getCategories();
     this.getTournament(this.id)
-    this.getCategories()
+    //this.getCategories()
     this.getFormats()
     this.getCampeonatos()
     this.getEdades();
@@ -271,7 +279,7 @@ export class TournamentsPage implements OnInit {
     })
   }
 
-  getCategories(){
+  /*getCategories(){
     this.tournamentServ.getCategories().subscribe({
       next: (res : any) => {
         this.categories = res.categories
@@ -280,7 +288,7 @@ export class TournamentsPage implements OnInit {
         this.notifyService.error(err.error.message)
       }
     })
-  }
+  }*/
   
   getFormats(){
     this.tournamentServ.getFormats().subscribe({

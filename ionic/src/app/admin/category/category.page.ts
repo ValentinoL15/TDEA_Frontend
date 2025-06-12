@@ -55,7 +55,7 @@ export class CategoryPage implements OnInit {
       ageLimiter: form.ageLimiter.value
     } 
     console.log(formulario)
-    this.torunamentServ.editCateogry(id, formulario).subscribe({
+    this.torunamentServ.editCategory(id, formulario).subscribe({
       next: (res:any) => {
         this.notifyService.success(res.message)
         window.location.href = "/admin/create-category"
