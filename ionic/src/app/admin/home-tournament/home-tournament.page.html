@@ -115,15 +115,29 @@
                 <ion-select-option value="false">No</ion-select-option>
               </ion-select>
             </ion-item>
-            <ion-item>
-              <ion-input label="Foto Torneo" type="file" (change)="onFileSelected($event)"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input label="Foto Formato" type="file" (change)="onFileSelected2($event)"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input label="Foto Premios" type="file" (change)="onFileSelected3($event)"></ion-input>
-            </ion-item>
+<ion-item>
+  <ion-label position="stacked">Foto Torneo</ion-label>
+  <input type="file" (change)="onFileSelected($event)" />
+</ion-item>
+<ion-item *ngIf="imagePreview1">
+  <img [src]="imagePreview1" alt="Vista previa" style="width: 100px; height: auto;" />
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Foto Formato</ion-label>
+  <input type="file" (change)="onFileSelected2($event)" />
+</ion-item>
+<ion-item *ngIf="imagePreview2">
+  <img [src]="imagePreview2" alt="Vista previa" style="width: 100px; height: auto;" />
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Foto Premios</ion-label>
+  <input type="file" (change)="onFileSelected3($event)" />
+</ion-item>
+<ion-item *ngIf="imagePreview3">
+  <img [src]="imagePreview3" alt="Vista previa" style="width: 100px; height: auto;" />
+</ion-item>
             <ion-item>
               <ion-textarea label="Reglamento" type="text" formControlName="reglamentationBody"></ion-textarea>
             </ion-item>

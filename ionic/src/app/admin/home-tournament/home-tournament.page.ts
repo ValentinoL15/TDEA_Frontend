@@ -143,9 +143,13 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
     "22:00", "22:15", "22:30", "22:45", 
     "23:00", "23:15", "23:30", "23:45", "A definir"
   ];
-  selectedFile: File | null = null;
-  selectedFile2: File | null = null;
-  selectedFile3: File | null = null;
+imagePreview1: string | null = null;
+imagePreview2: string | null = null;
+imagePreview3: string | null = null;
+
+selectedFile: File | null = null;
+selectedFile2: File | null = null;
+selectedFile3: File | null = null;
   markerPosition: google.maps.LatLngLiteral | null = null;
   zoom = 12;
   center: google.maps.LatLngLiteral = { lat: -34.6037, lng: -58.3816 }; 
@@ -389,18 +393,27 @@ getTournaments(){
 }
 
 onFileSelected(event: any) {
-  const file: File = event.target.files[0];
-  this.selectedFile = file;
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedFile = file;
+    this.imagePreview1 = URL.createObjectURL(file);
+  }
 }
 
 onFileSelected2(event: any) {
-  const file: File = event.target.files[0];
-  this.selectedFile2 = file;
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedFile2 = file;
+    this.imagePreview2 = URL.createObjectURL(file);
+  }
 }
 
 onFileSelected3(event: any) {
-  const file: File = event.target.files[0];
-  this.selectedFile3 = file;
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedFile3 = file;
+    this.imagePreview3 = URL.createObjectURL(file);
+  }
 }
 
 drop(event: CdkDragDrop<any[]>): void {
