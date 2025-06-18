@@ -223,19 +223,26 @@ ngOnInit() {
 
 }
 
-getTournamentList(){
+getTournamentList() {
   this.userService.getTournamnetsList().subscribe({
-    next: (res : any) => {
-      this.list.tournamentRegistration = res.tournament
-      console.log(this.list.tournamentRegistration) 
-      this.goleadores()
-      this.vallaMenosVencida()
-      this.getFairPLay()
+    next: (res: any) => {
+      this.list.tournamentRegistration = res.tournament;
+      console.log(this.list.tournamentRegistration);
+
+      // Validamos que haya un torneo y que tenga ID
+      const tournamentId = this.list.tournamentRegistration?._id;
+      if (tournamentId) {
+        this.goleadores();
+        this.vallaMenosVencida();
+        this.getFairPLay();
+      } else {
+        console.log('No hay torneo registrado aún');
+      }
     },
     error: (err) => {
-      this.notifyService.error(err.error.message)
+      this.notifyService.error(err.error.message);
     }
-  })
+  });
 }
 
 getTournament(){
