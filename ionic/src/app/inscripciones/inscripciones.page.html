@@ -47,8 +47,8 @@
     <p style="width: 100%; justify-content: center; display: flex;">Tabla de goleadores</p>
     <ion-grid class="table-container">
       <ion-row class="table-header-row">
-        <ion-col size="3.5" class="table-header"><strong>Nombre</strong></ion-col>
-        <ion-col size="3" class="table-header"><strong>Apellido</strong></ion-col>
+        <ion-col size="4.5" class="table-header"><strong>Nombre</strong></ion-col>
+        <ion-col size="4.5" class="table-header"><strong>Apellido</strong></ion-col>
         <ion-col size="3" class="table-header"><strong>Goles</strong></ion-col>
       </ion-row>
 
@@ -67,8 +67,8 @@
    <div>
     <p style="width: 100%; justify-content: center; display: flex;">Valla Menos Vencida</p>
     <ion-row class="table-header-row">
-      <ion-col size="4" class="table-header"><strong>Equipo</strong></ion-col>
-      <ion-col size="6" class="table-header"><strong>Goles en Contra</strong></ion-col>
+      <ion-col size="8" class="table-header"><strong>Equipo</strong></ion-col>
+      <ion-col size="4" class="table-header"><strong>Goles en Contra</strong></ion-col>
     </ion-row>
 
     <ng-container *ngFor="let equipo of valla; let i = index">
@@ -87,15 +87,15 @@
     <p style="width: 100%; justify-content: center; display: flex;">Fair Play</p>
 
     <ion-row class="table-header-row">
-      <ion-col size="3.5" class="table-header"><strong>Equipo</strong></ion-col>
+      <ion-col size="6" class="table-header"><strong>Equipo</strong></ion-col>
 
       <!-- Solo el icono de tarjeta amarilla -->
-      <ion-col size="1.6" class="table-header">
+      <ion-col size="1.5" class="table-header">
         <div style="background-color: #ffc107; width: 24px; height: 32px; border-radius: 4px;"></div>
       </ion-col>
 
       <!-- Solo el icono de tarjeta roja -->
-      <ion-col size="1.6" class="table-header">
+      <ion-col size="1.5" class="table-header">
         <div style="background-color: #dc3545; width: 24px; height: 32px; border-radius: 4px;"></div>
       </ion-col>
 

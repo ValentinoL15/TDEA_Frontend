@@ -57,9 +57,23 @@
           </ion-item>
           
 
-        <ion-item class="item">
-          <ion-input label="Nacimiento" labelPlacement="stacked" formControlName="birthday" type="date" id="start" />
-        </ion-item>
+<ion-item class="item">
+  <div style="display: flex; flex-direction: column; width: 100%;">
+    <label for="birthday" style="margin-bottom: 2px; font-size: 14px; color: var(--ion-color-medium);">
+      Nacimiento
+    </label>
+    <input
+      id="birthday"
+      name="birthday"
+      type="date"
+      placeholder="dd/mm/aaaa"
+      formControlName="birthday"
+      inputmode="numeric"
+      style="padding: 2px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;"
+    />
+  </div>
+</ion-item>
+
 
      <ion-item>
   <div class="foto">
