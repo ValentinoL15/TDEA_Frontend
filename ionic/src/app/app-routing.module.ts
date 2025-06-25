@@ -238,7 +238,11 @@ const routes: Routes = [
   {
     path: 'team/:id',
     loadChildren: () => import('./team/team.module').then( m => m.TeamPageModule)
+  },  {
+    path: 'inscripcion',
+    loadChildren: () => import('./inscripcion/inscripcion.module').then( m => m.InscripcionPageModule)
   },
+
 
 
 

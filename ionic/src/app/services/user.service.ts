@@ -259,7 +259,7 @@ private myListUpdated = new Subject<void>();
     return this.myListUpdated.asObservable();
   }
 
-  getTournamnetsList(){
+  getTournamentsList(){
     return this.http.get(`${this.API_URL}/obtener-torneos-lista`)
   }
 

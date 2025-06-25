@@ -220,11 +220,10 @@ fairPlay: any[] = [];
 
 ngOnInit() {
   this.getTournamentList()
-
 }
 
 getTournamentList() {
-  this.userService.getTournamnetsList().subscribe({
+  this.userService.getTournamentsList().subscribe({
     next: (res: any) => {
       this.list.tournamentRegistration = res.tournament;
       console.log(this.list.tournamentRegistration);
@@ -239,7 +238,7 @@ getTournamentList() {
         console.log('No hay torneo registrado aún');
       }
     },
-    error: (err) => {
+    error: (err: any) => {
       this.notifyService.error(err.error.message);
     }
   });

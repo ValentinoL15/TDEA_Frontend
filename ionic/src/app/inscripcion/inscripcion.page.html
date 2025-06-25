@@ -1,17 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Mi Torneo</ion-title>
+    <ion-title>inscripciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngIf="list.tournamentRegistration !== null">
-
 <div style="display: flex; justify-content: center; width: 100%; padding: 10px; font-weight: bold;">
   {{ list.tournamentRegistration?.nameFantasy }}
 </div>
   
-  <ion-grid class="table-container" *ngIf="list.tournamentRegistration!?.fixture && list.tournamentRegistration!.fixture.length > 0">
+  <ion-grid class="table-container" *ngIf="list.tournamentRegistration!.fixture && list.tournamentRegistration!.fixture.length > 0">
     <ion-row class="table-header-row">
       <ion-col size="3.5" class="table-header"><strong>EQUIPO</strong></ion-col>
       <ion-col size="1" class="table-header"><strong>P</strong></ion-col>
@@ -41,17 +39,17 @@
     </ng-container>
   </ion-grid>
 
-  <!--<div style="display: flex; justify-content: center; width: 100%;" *ngIf="list.tournamentRegistration!.faseEliminatoria && list.tournamentRegistration!.faseEliminatoria.length > 0" (click)="goEliminatoria(list.tournamentRegistration?._id)">
+  <div style="display: flex; justify-content: center; width: 100%;" *ngIf="list.tournamentRegistration!.faseEliminatoria && list.tournamentRegistration!.faseEliminatoria.length > 0" (click)="goEliminatoria(list.tournamentRegistration?._id)">
     <ion-button>Ver Eliminatorias</ion-button>
-  </div>-->
+  </div>
 
   <div >
     <p style="width: 100%; justify-content: center; display: flex;">Tabla de goleadores</p>
     <ion-grid class="table-container">
       <ion-row class="table-header-row">
-        <ion-col size="5" class="table-header"><strong>Nombre</strong></ion-col>
-        <ion-col size="4" class="table-header"><strong>Apellido</strong></ion-col>
-        <ion-col size="2" class="table-header"><strong>Goles</strong></ion-col>
+        <ion-col size="4.5" class="table-header"><strong>Nombre</strong></ion-col>
+        <ion-col size="4.5" class="table-header"><strong>Apellido</strong></ion-col>
+        <ion-col size="3" class="table-header"><strong>Goles</strong></ion-col>
       </ion-row>
 
       <ng-container *ngFor="let jugador of goleador; let i = index">
@@ -69,8 +67,8 @@
    <div>
     <p style="width: 100%; justify-content: center; display: flex;">Valla Menos Vencida</p>
     <ion-row class="table-header-row">
-      <ion-col size="5" class="table-header"><strong>Equipo</strong></ion-col>
-      <ion-col size="5" class="table-header"><strong>Goles en Contra</strong></ion-col>
+      <ion-col size="8" class="table-header"><strong>Equipo</strong></ion-col>
+      <ion-col size="4" class="table-header"><strong>Goles en Contra</strong></ion-col>
     </ion-row>
 
     <ng-container *ngFor="let equipo of valla; let i = index">
@@ -89,7 +87,7 @@
     <p style="width: 100%; justify-content: center; display: flex;">Fair Play</p>
 
     <ion-row class="table-header-row">
-      <ion-col size="5" class="table-header"><strong>Equipo</strong></ion-col>
+      <ion-col size="6" class="table-header"><strong>Equipo</strong></ion-col>
 
       <!-- Solo el icono de tarjeta amarilla -->
       <ion-col size="1.5" class="table-header">
@@ -128,12 +126,48 @@
       </ion-row>
     </ng-container>
   </div>
-  </ng-container>
+  <ng-container *ngIf="list.tournamentRegistration!.fixture">
+    <ng-container *ngFor="let jornada of tournament.fixture">
+      <ion-list [inset]="true">
+        <p class="jornada-title">Jornada {{ jornada.jornada }}</p>
 
-  <ng-container *ngIf="list.tournamentRegistration === null">
-    <div style="display: flex; justify-content: center; width: 100%; align-items: center; height: 100%; padding: 10px; font-weight: bold;">
-      Inscribite a un torneo para ver tu equipo!
-    </div>
+        <ion-item *ngFor="let match of jornada.partidos">
+          <!-- Partido normal -->
+          <ng-container *ngIf="!match.libre">
+            <ion-grid class="match-grid">
+              <ion-row class="match-row">
+                <ion-col size="5" class="team"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;">
+                  {{ match?.team1?.nameList || 'Equipo 1' }}
+                </ion-col>
+
+                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+                  <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1"
+                    style="width: 50%;"></ion-input>
+                  <span> - </span>
+                  <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2"
+                    style="width: 50%;"></ion-input>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </ng-container>
+
+          <!-- Partido libre -->
+          <ng-container *ngIf="match.libre">
+            <ion-grid class="match-grid">
+              <ion-row class="match-row">
+                <ion-col size="12" style="text-align: center; font-style: italic;">
+                  {{ getTeamNameById(match.libre) }} queda libre en esta jornada
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-container>
+        </ion-item>
+      </ion-list>
+    </ng-container>
   </ng-container>
+     
   
 </ion-content>
+
