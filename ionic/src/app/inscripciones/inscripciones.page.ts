@@ -305,4 +305,9 @@ goEliminatoria(id:any){
   this.router.navigate([`eliminatoria/${id}`])
 }
 
+getTeamNameById(id: any): any {
+    const team = this.tournament.teamSubscribed.find(t => t._id === id);
+    return team ? team.nameList : 'Equipo desconocido';
+  }
+
 }

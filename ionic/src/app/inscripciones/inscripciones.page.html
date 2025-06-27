@@ -135,5 +135,47 @@
       Inscribite a un torneo para ver tu equipo!
     </div>
   </ng-container>
+
+  <ng-container *ngIf="list.tournamentRegistration!.fixture.length > 0">
+    <ng-container *ngFor="let jornada of tournament.fixture">
+      <ion-list [inset]="true">
+        <p class="jornada-title">Jornada {{ jornada.jornada }}</p>
+
+        <ion-item *ngFor="let match of jornada.partidos">
+          <!-- Partido normal -->
+          <ng-container *ngIf="!match.libre">
+            <ion-grid class="match-grid">
+              <ion-row class="match-row">
+                <ion-col size="5" class="team"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;">
+                  {{ match?.team1?.nameList || 'Equipo 1' }}
+                </ion-col>
+
+                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+                  <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1"
+                    style="width: 50%;"></ion-input>
+                  <span> - </span>
+                  <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2"
+                    style="width: 50%;"></ion-input>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </ng-container>
+
+          <!-- Partido libre -->
+          <ng-container *ngIf="match.libre">
+            <ion-grid class="match-grid">
+              <ion-row class="match-row">
+                <ion-col size="12" style="text-align: center; font-style: italic;">
+                  {{ getTeamNameById(match.libre) }} queda libre en esta jornada
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-container>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+  </ng-container>
   
 </ion-content>
