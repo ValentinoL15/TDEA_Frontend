@@ -92,12 +92,12 @@
       <ion-col size="5" class="table-header"><strong>Equipo</strong></ion-col>
 
       <!-- Solo el icono de tarjeta amarilla -->
-      <ion-col size="1.5" class="table-header">
+      <ion-col size="1.3" class="table-header">
         <div style="background-color: #ffc107; width: 24px; height: 32px; border-radius: 4px;"></div>
       </ion-col>
 
       <!-- Solo el icono de tarjeta roja -->
-      <ion-col size="1.5" class="table-header">
+      <ion-col size="1.3" class="table-header">
         <div style="background-color: #dc3545; width: 24px; height: 32px; border-radius: 4px;"></div>
       </ion-col>
 
@@ -107,17 +107,17 @@
 
     <ng-container *ngFor="let equipo of fairPlay; let i = index">
       <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
-        <ion-col size="3.5" class="table-cell">
+        <ion-col size="5" class="table-cell">
           <strong>{{ equipo.nameList }}</strong> <!-- Nombre del equipo -->
         </ion-col>
 
         <!-- Muestra el total de tarjetas amarillas del equipo -->
-        <ion-col size="1.6" class="table-cell">
+        <ion-col size="1.3" class="table-cell">
           {{ equipo.totalAmarillas }}
         </ion-col>
 
         <!-- Muestra el total de tarjetas rojas del equipo -->
-        <ion-col size="1.6" class="table-cell">
+        <ion-col size="1.3" class="table-cell">
           {{ equipo.totalRojas }}
         </ion-col>
 
@@ -136,12 +136,12 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="list.tournamentRegistration!.fixture.length > 0">
+  <ng-container *ngIf="tournament.fixture.length > 0">
     <ng-container *ngFor="let jornada of tournament.fixture">
       <ion-list [inset]="true">
         <p class="jornada-title">Jornada {{ jornada.jornada }}</p>
 
-        <ion-item *ngFor="let match of jornada.partidos">
+<ion-item *ngFor="let match of jornada.partidos">
           <!-- Partido normal -->
           <ng-container *ngIf="!match.libre">
             <ion-grid class="match-grid">
@@ -159,6 +159,10 @@
                     style="width: 50%;"></ion-input>
                 </ion-col>
 
+                <ion-col size="5" class="team"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;">
+                  {{ match?.team2?.nameList || 'Equipo 2' }}
+                </ion-col>
               </ion-row>
             </ion-grid>
           </ng-container>

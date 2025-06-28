@@ -35,6 +35,35 @@
   }
 }
 
+.match-grid {
+  width: 100%;
+}
+
+.match-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.score {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jornada-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
 .table-cell {
   padding: 10px;
   color: #000; // Texto negro

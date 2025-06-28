@@ -234,6 +234,7 @@ getTournamentList() {
         this.goleadores();
         this.vallaMenosVencida();
         this.getFairPLay();
+        this.getTournament()
       } else {
         console.log('No hay torneo registrado aún');
       }
@@ -254,9 +255,6 @@ getTournament(){
         jornada.partidos.forEach((match : any) => {
           if (!match.resultado) {
             match.resultado = { team1: 0, team2: 0  };
-          }
-          if (!match.resultado) {
-            match.resultado = { team1: 0, team2: 0 };
           }
         });
       });
