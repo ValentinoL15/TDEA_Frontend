@@ -308,4 +308,9 @@ getTeamNameById(id: any): any {
     return team ? team.nameList : 'Equipo desconocido';
   }
 
+  getTeamPicture(nameList: any): string {
+  const equipo = this.tournament?.teamSubscribed?.find(team => team.nameList === nameList);
+  return equipo?.teamPicture || 'assets/default-team.png'; // Imagen por defecto si no encuentra
+}
+
 }

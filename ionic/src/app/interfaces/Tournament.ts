@@ -29,6 +29,7 @@ export interface Tournament {
         _id: string,
         nameList?: string,
         monto?: number,
+        teamPicture?: string,
         pagoFinal?: number,
         ownerUser?: {
             _id?: string,
