@@ -150,6 +150,10 @@ const routes: Routes = [
     path: 'transfer-team',
     loadChildren: () => import('./admin/transfer-team/transfer-team.module').then( m => m.TransferTeamPageModule)
   },
+   {
+    path: 'tribunales/:id/:player_id',
+    loadChildren: () => import('./admin/tribunales/tribunales.module').then( m => m.TribunalesPageModule)
+  },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
   {
     path: 'create-team',
@@ -238,7 +242,8 @@ const routes: Routes = [
   {
     path: 'team/:id',
     loadChildren: () => import('./team/team.module').then( m => m.TeamPageModule)
-  },  {
+  },
+  {
     path: 'inscripcion',
     loadChildren: () => import('./inscripcion/inscripcion.module').then( m => m.InscripcionPageModule)
   },

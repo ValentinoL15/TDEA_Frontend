@@ -339,6 +339,10 @@ deleteStadium(id : any){
     });
   }
 
+  crearSancion(id: any, form: any) {
+    return this.http.post(`${this.API_URL}/crear-sancion/${id}`, form);
+  }
+
 /***************************************************FIXTURE*****************************************************/ 
 
   generateFixture(id:any, form : any){

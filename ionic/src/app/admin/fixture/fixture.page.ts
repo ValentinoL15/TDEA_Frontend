@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IonModal } from '@ionic/angular';
 import { List } from 'src/app/interfaces/List';
 import { Player } from 'src/app/interfaces/Player';
 import { Tournament } from 'src/app/interfaces/Tournament';
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./fixture.page.scss'],
 })
 export class FixturePage implements OnInit {
-
+@ViewChild(IonModal) modal!: IonModal;
 id:any
 goleador: Player[] = [];
 valla: any[] = [];
@@ -321,5 +322,13 @@ actualizarResultado(match: any, jornada:any) {
 
 goEliminatoria(){
   this.router.navigate(['/admin/eliminatoria', this.id]);
+}
+
+goTribunales(player_id:any) {
+  if (this.modal) {
+    this.modal.dismiss(); // Cierra el modal correctamente
+    this.isModalOpen = false; // Actualiza el estado del modal
+  }
+  this.router.navigate([`/tribunales/${this.id}`, player_id]); // Luego navega
 }
 }

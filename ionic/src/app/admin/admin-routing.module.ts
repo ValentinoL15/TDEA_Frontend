@@ -152,7 +152,12 @@ const routes: Routes = [
   {
     path: 'eliminatoria/:id',
     loadChildren: () => import('./eliminatoria/eliminatoria.module').then( m => m.EliminatoriaPageModule)
+  },
+  {
+    path: 'tribunales/:id/:player_id',
+    loadChildren: () => import('./tribunales/tribunales.module').then( m => m.TribunalesPageModule)
   }
+
 
 
 
