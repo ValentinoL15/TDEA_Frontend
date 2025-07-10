@@ -156,7 +156,12 @@ const routes: Routes = [
   {
     path: 'tribunales/:id/:player_id',
     loadChildren: () => import('./tribunales/tribunales.module').then( m => m.TribunalesPageModule)
+  },
+  {
+    path: 'ver-tribunales/:id',
+    loadChildren: () => import('./ver-tribunales/ver-tribunales.module').then( m => m.VerTribunalesPageModule)
   }
+
 
 
 

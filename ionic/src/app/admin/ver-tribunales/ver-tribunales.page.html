@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Tribunal de Disciplina</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let tribunal of tribunales">
+    <ion-card-header>
+      <ion-card-title>{{ tribunal.name }} {{ tribunal.lastName }}</ion-card-title>
+      <ion-card-subtitle>Jugador Sancionado</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+          
+            <p>Tarjeta: {{ tribunal.tarjeta }}</p>
+            <p>Fecha: {{ tribunal.fecha }}</p>
+            <p>Lista Perteneciente: {{ tribunal.equipo }}</p>
+            <!--<p>Versus: {{ tribunal.versus }}</p> -->
+            <p>Motivo: {{ tribunal.motivo }}</p>
+            <p>Fechas de Expulsión: {{ tribunal.fechas_de_expulsion  }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

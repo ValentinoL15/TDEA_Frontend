@@ -407,7 +407,9 @@ export class TournamentsPage implements OnInit {
     await alert.present();
   }
 
-  
+  goTribunal() {
+    this.router.navigate([`/ver-tribunales/${this.id}`]);
+  }
 
 
 

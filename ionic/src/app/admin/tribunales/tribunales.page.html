@@ -1,9 +1,46 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>tribunales</ion-title>
+      <ion-buttons slot="start">
+      <ion-button (click)="volver()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Tribunales</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
+  <p style="width: 100%; display: flex; justify-content: center; font-weight: bold; text-decoration: underline;">Sancionar a: {{ player?.firstName + " " + player?.lastName }}</p>
+
+  
+    <form [formGroup]="form">
+      <ion-list [inset]="true">
+        <ion-item>
+          <ion-input type="text" labelPlacement="stacked" label="Jugador" readonly="true" value="{{ player?.firstName + ' ' + player?.lastName}}"></ion-input>
+          
+        </ion-item>
+        <ion-item>
+          <ion-select formControlName="tarjeta" labelPlacement="stacked" label="Tarjeta" placeholder="Seleccionar Tarjeta">
+            <ion-select-option value="Amarilla">Tarjeta Amarilla</ion-select-option>
+            <ion-select-option value="Roja">Tarjeta Roja</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-select labelPlacement="stacked" label="Fecha ocurrida" placeholder="Fecha en la que ocurrió" formControlName="fecha">
+            <ion-select-option *ngFor="let fecha of fixtureJornadas" [value]="fecha">{{ fecha }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" labelPlacement="stacked" label="Motivo" placeholder="Ingrese el motivo de la sanción" formControlName="motivo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Fechas de expulsión" labelPlacement="stacked" type="number" placeholder="Número de fechas" formControlName="fechas_de_expulsion"></ion-input>
+        </ion-item>
+      </ion-list>
+      <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <ion-button (click)="crearSancion()">
+          Sancionar
+        </ion-button>
+      </div>
+      
+    </form>
   
 </ion-content>

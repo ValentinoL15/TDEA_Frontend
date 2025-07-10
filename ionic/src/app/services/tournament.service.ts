@@ -387,6 +387,10 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/fair-play/${id}`)
   }
 
+  getTribunales(id:any){
+    return this.http.get(`${this.API_URL}/obtener-sanciones/${id}`)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

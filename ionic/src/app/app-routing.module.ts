@@ -154,6 +154,10 @@ const routes: Routes = [
     path: 'tribunales/:id/:player_id',
     loadChildren: () => import('./admin/tribunales/tribunales.module').then( m => m.TribunalesPageModule)
   },
+   {
+    path: 'ver-tribunales/:id',
+    loadChildren: () => import('./admin/ver-tribunales/ver-tribunales.module').then( m => m.VerTribunalesPageModule)
+  },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
   {
     path: 'create-team',
