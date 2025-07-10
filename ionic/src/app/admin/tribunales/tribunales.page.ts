@@ -8,12 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TribunalesPage implements OnInit {
 id:any;
+player_id:any
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+      this.player_id = params['player_id'];
     })
   }
 
