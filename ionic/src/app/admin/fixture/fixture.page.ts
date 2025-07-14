@@ -198,16 +198,17 @@ getTeamNameById(id: any): any {
   return team ? team.nameList : 'Equipo desconocido';
 }
 
-goleadores(){
+goleadores() {
   this.tournamentService.getGoleador(this.id).subscribe({
-    next: (res : any) => {
-      this.goleador = res.orederedGoleadores
-      console.log("Goleadores:",this.goleador)
+    next: (res: any) => {
+      // Filtrar jugadores que tengan al menos 1 gol
+      this.goleador = res.orederedGoleadores.filter((jugador: any) => jugador.goles > 0);
+      console.log("Goleadores:", this.goleador);
     },
-    error: (err : any) => {
-      this.notifyService.error(err.error.message)
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
     }
-  })
+  });
 }
 
 vallaMenosVencida(){
@@ -281,6 +282,9 @@ actualizarTarjetas(id: any, form: any) {
       this.notifyService.success(res.message);
       this.getTournament();
       this.getList();
+      this.goleadores(); // 🔁 actualizamos la tabla de goleadores
+        this.getFairPLay(); // Si también lo necesitás
+        this.vallaMenosVencida(); // Idem
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
