@@ -95,6 +95,7 @@
 
 .player-card {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   gap: 16px;
   padding: 16px;
@@ -106,12 +107,12 @@
 }
 
 .player-img {
+  
   width: 90px;
   height: 90px;
   object-fit: cover;
   border-radius: 12px;
   border: 2px solid #ccc;
-  flex-shrink: 0;
 }
 
 .info {
@@ -128,7 +129,6 @@
 
 .stats {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
   margin-top: 12px;

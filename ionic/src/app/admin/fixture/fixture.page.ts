@@ -292,6 +292,33 @@ actualizarTarjetas(id: any, form: any) {
   });
 }
 
+guardarCambiosTodos() {
+const cambios = (this.list.players ?? []).map((item: any) => ({
+  id: item._id,
+  goles: item.goles || 0,
+  amarillas: item.amarillas || 0,
+  rojas: item.rojas || 0
+}));
+
+
+  this.tournamentService.updateJugadores(cambios).subscribe({
+    next: (res: any) => {
+      this.notifyService.success('Cambios guardados correctamente');
+      this.getTournament();
+      this.getList();
+      this.goleadores();
+      this.getFairPLay();
+      this.vallaMenosVencida();
+      this.setOpen(false, null); // cerrar modal
+    },
+    error: (err: any) => {
+      this.notifyService.error('Error al guardar los cambios');
+      console.error(err);
+    }
+  });
+}
+
+
 restar(valor: number) {
   return valor > 0 ? valor - 1 : 0;
 }
