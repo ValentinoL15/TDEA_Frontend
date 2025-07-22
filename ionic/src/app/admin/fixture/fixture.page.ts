@@ -115,7 +115,8 @@ tournament: Tournament = {
         diferenciaGoles: 0
   }]
 }
-team_id: any
+team_id: List | null = null
+vsTeam_id: List | null = null
 list: List = {
   ownerUser: { firstName: "", lastName: "" },
   ownerTeam: { _id: "" },
@@ -248,19 +249,21 @@ generarFixture(){
 
 isModalOpen = false;
 
-setOpen(isOpen: boolean, team_id: any) {
+setOpen(isOpen: boolean, team_id: any, vsTeam_id: any) {
   this.isModalOpen = isOpen;
   this.team_id = team_id;
+  this.vsTeam_id = vsTeam_id;
 
   if (team_id && team_id !== 'null') {
     this.getList();
+    
   } else {
     console.warn('ID de equipo inválido:', team_id);
   }
 }
 
 getList(){
-  this.userService.getList(this.team_id).subscribe({
+  this.userService.getList(this.team_id?._id).subscribe({
     next: (res : any) => {
       this.list = res.list
     },
@@ -309,7 +312,7 @@ const cambios = (this.list.players ?? []).map((item: any) => ({
       this.goleadores();
       this.getFairPLay();
       this.vallaMenosVencida();
-      this.setOpen(false, null); // cerrar modal
+      this.setOpen(false, null,null); // cerrar modal
     },
     error: (err: any) => {
       this.notifyService.error('Error al guardar los cambios');

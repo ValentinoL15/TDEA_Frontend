@@ -95,6 +95,7 @@
 
 .player-card {
   display: flex;
+  flex-direction: column;
   width: 100%;
   flex-wrap: wrap;
   gap: 16px;
@@ -105,19 +106,19 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   color: #000; // color negro para todo el texto
 }
-
+player-im
 .player-img {
   
-  width: 90px;
-  height: 90px;
+  width: 50%;
+  height: 50%;
   object-fit: cover;
   border-radius: 12px;
   border: 2px solid #ccc;
 }
 
 .info {
-  flex: 1;
-  min-width: 200px;
+  width: 30%;
+  display: flex;
 }
 
 .info h3,
@@ -129,14 +130,15 @@
 
 .stats {
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: 12px;
   width: 100%;
 }
 
 .stat {
-  flex: 1 1 30%;
+  
   min-width: 100px;
   max-width: 33%;
   display: flex;
@@ -148,8 +150,7 @@
 .counter {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 4px;
+
 }
 
 .counter span {

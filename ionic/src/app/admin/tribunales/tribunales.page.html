@@ -28,7 +28,7 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-input type="text" labelPlacement="stacked" label="Motivo" placeholder="Ingrese el motivo de la sanción" formControlName="motivo"></ion-input>
+          <ion-textarea type="text" labelPlacement="stacked" label="Motivo" [counter]="true" maxlength="1000" placeholder="Ingrese el motivo de la sanción" formControlName="motivo"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-input label="Fechas de expulsión" labelPlacement="stacked" type="number" placeholder="Número de fechas" formControlName="fechas_de_expulsion"></ion-input>
