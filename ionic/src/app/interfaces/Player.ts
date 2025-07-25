@@ -13,5 +13,6 @@ export interface Player {
     status?: string,
     goles?: number,
     amarillas?: number,
+    ultimaTarjeta?: string,
     rojas?: number,
 }

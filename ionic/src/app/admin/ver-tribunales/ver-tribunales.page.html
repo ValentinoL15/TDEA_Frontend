@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-      <ion-buttons slot="start">
+    <ion-buttons slot="start">
       <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
     <ion-title>Tribunal de Disciplina</ion-title>
@@ -11,23 +11,47 @@
   <ion-card *ngFor="let tribunal of tribunales">
     <ion-card-header>
       <ion-card-title>{{ tribunal.name }} {{ tribunal.lastName }}</ion-card-title>
-      <ion-card-subtitle>Jugador Sancionado</ion-card-subtitle>
+      <!--<ion-card-subtitle>Jugador Sancionado</ion-card-subtitle>-->
     </ion-card-header>
 
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>
-          
-            <p>Tarjeta: {{ tribunal.tarjeta }}</p>
-            <p>Fecha: {{ tribunal.fecha }}</p>
-            <p>Lista Perteneciente: {{ tribunal.equipo }}</p>
-            <!--<p>Versus: {{ tribunal.versus }}</p> -->
-            <p>Motivo: {{ tribunal.motivo }}</p>
-            <p>Fechas de Expulsión: {{ tribunal.fechas_de_expulsion  }}</p>
-            <p>Vuelve a jugar en la fecha: {{tribunal.fecha + tribunal.fechas_de_expulsion}}</p>
-          </ion-label>
+          <ion-input readonly="true" label="Fecha: " [value]="tribunal.fecha"></ion-input>
         </ion-item>
+        <ion-item>
+          <ion-input readonly="true" label="Equipo: " [value]="tribunal.equipo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input readonly="true" label="Rival: " [value]="tribunal.versus.nameList"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input readonly="true" label="Tarjeta: " [value]="tribunal.tarjeta"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input readonly="true" label="Informe: " [value]="tribunal.motivo"></ion-input>
+        </ion-item>
+       <form [formGroup]="forms[tribunal._id]">
+        <ion-item>
+          <ion-input
+            label="Fechas de suspensión"
+            labelPlacement="stacked"
+            placeholder="Ingresar fechas de suspensión"
+            formControlName="fechas_de_expulsion">
+          </ion-input>
+        </ion-item>
+        <input type="hidden" formControlName="_id">
+        <ion-button
+          expand="block"
+          style="margin-top: 10px;"
+          (click)="editarFechas(tribunal._id)">
+          Editar Fechas
+        </ion-button>
+      </form>
+        <!--<p>Fechas de Expulsión: {{ tribunal.fechas_de_expulsion }}</p>
+        <p>Vuelve a jugar en la fecha: {{tribunal.fecha + tribunal.fechas_de_expulsion}}</p>-->
+
+
       </ion-list>
     </ion-card-content>
   </ion-card>

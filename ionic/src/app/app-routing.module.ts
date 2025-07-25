@@ -151,12 +151,16 @@ const routes: Routes = [
     loadChildren: () => import('./admin/transfer-team/transfer-team.module').then( m => m.TransferTeamPageModule)
   },
    {
-    path: 'tribunales/:id/:player_id',
+    path: 'tribunales/:id/:player_id/:fecha/:vsTeam_id',
     loadChildren: () => import('./admin/tribunales/tribunales.module').then( m => m.TribunalesPageModule)
   },
    {
     path: 'ver-tribunales/:id',
     loadChildren: () => import('./admin/ver-tribunales/ver-tribunales.module').then( m => m.VerTribunalesPageModule)
+  },
+  {
+    path: 'tablas/:id',
+    loadChildren: () => import('./admin/tablas/tablas.module').then( m => m.TablasPageModule)
   },
 /////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
   {

@@ -411,6 +411,10 @@ export class TournamentsPage implements OnInit {
     this.router.navigate([`/ver-tribunales/${this.id}`]);
   }
 
+  goTablas() {
+    this.router.navigate([`/tablas/${this.id}`]);
+  }
+
 
 
 }

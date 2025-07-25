@@ -360,11 +360,11 @@ goEliminatoria(){
   this.router.navigate(['/admin/eliminatoria', this.id]);
 }
 
-goTribunales(player_id:any) {
+goTribunales(player_id:any, fecha:any, vsTeam_id:any) {
   if (this.modal) {
     this.modal.dismiss(); // Cierra el modal correctamente
     this.isModalOpen = false; // Actualiza el estado del modal
   }
-  this.router.navigate([`/tribunales/${this.id}`, player_id]); // Luego navega
+  this.router.navigate([`/tribunales/${this.id}`, player_id, fecha, vsTeam_id]); // Luego navega
 }
 }

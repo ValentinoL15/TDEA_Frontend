@@ -398,6 +398,10 @@ deleteStadium(id : any){
     return this.http.get(`${this.API_URL}/obtener-sanciones/${id}`)
   }
 
+  editFechas(form:any){
+    return this.http.put(`${this.API_URL}/editar-sancion`, form)
+  }
+
 /****************************************************DAYS*****************************************************/ 
 
   createDay(id:any, form:any){

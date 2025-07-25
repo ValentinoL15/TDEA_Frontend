@@ -160,7 +160,11 @@ const routes: Routes = [
   {
     path: 'ver-tribunales/:id',
     loadChildren: () => import('./ver-tribunales/ver-tribunales.module').then( m => m.VerTribunalesPageModule)
+  },  {
+    path: 'tablas',
+    loadChildren: () => import('./tablas/tablas.module').then( m => m.TablasPageModule)
   }
+
 
 
 

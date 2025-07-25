@@ -17,22 +17,27 @@
           <ion-input type="text" labelPlacement="stacked" label="Jugador" readonly="true" value="{{ player?.firstName + ' ' + player?.lastName}}"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-select formControlName="tarjeta" labelPlacement="stacked" label="Tarjeta" placeholder="Seleccionar Tarjeta">
+          <!--<ion-select formControlName="tarjeta" labelPlacement="stacked" label="Tarjeta" placeholder="Seleccionar Tarjeta">
             <ion-select-option value="Amarilla">Tarjeta Amarilla</ion-select-option>
             <ion-select-option value="Roja">Tarjeta Roja</ion-select-option>
-          </ion-select>
+          </ion-select>-->
+          <ion-input readonly="true" type="text" labelPlacement="stacked" label="Tarjeta" placeholder="Ingrese la tarjeta" [value]="player?.ultimaTarjeta" formControlName="tarjeta"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-select labelPlacement="stacked" label="Fecha ocurrida" placeholder="Fecha en la que ocurrió" formControlName="fecha">
+          <!--<ion-select labelPlacement="stacked" label="Fecha ocurrida" placeholder="Fecha en la que ocurrió" formControlName="fecha">
             <ion-select-option *ngFor="let fecha of fixtureJornadas" [value]="fecha">{{ fecha }}</ion-select-option>
-          </ion-select>
+          </ion-select>-->
+          <ion-input readonly="true" labelPlacement="stacked" label="Fecha" [value]="fecha"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-input readonly="true" labelPlacement="stacked" label="Versus" [value]="list?.nameList" formControlName="versus"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-textarea type="text" labelPlacement="stacked" label="Motivo" [counter]="true" maxlength="1000" placeholder="Ingrese el motivo de la sanción" formControlName="motivo"></ion-textarea>
+          <ion-textarea class="texto-area" type="text" labelPlacement="stacked" label="Motivo" [counter]="true" maxlength="1000" placeholder="Ingrese el motivo de la sanción" formControlName="motivo"></ion-textarea>
         </ion-item>
-        <ion-item>
+        <!--<ion-item>
           <ion-input label="Fechas de expulsión" labelPlacement="stacked" type="number" placeholder="Número de fechas" formControlName="fechas_de_expulsion"></ion-input>
-        </ion-item>
+        </ion-item>-->
       </ion-list>
       <div style="display: flex; justify-content: center; margin-top: 20px;">
         <ion-button (click)="crearSancion()">
