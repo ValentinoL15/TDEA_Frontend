@@ -28,7 +28,7 @@
               <ion-row class="match-row">
                 <ion-col size="5" class="team"
                   style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-                  (click)="setOpen(true, match.team1,match.team2)">
+                  (click)="setOpen(true, match.team1,match.team2, jornada.jornada)">
                   {{ match?.team1?.nameList || 'Equipo 1' }}
                 </ion-col>
 
@@ -42,7 +42,7 @@
 
                 <ion-col size="5" class="team"
                   style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-                  (click)="setOpen(true, match.team2,match.team1)">
+                  (click)="setOpen(true, match.team2,match.team1, jornada.jornada)">
                   {{ match?.team2?.nameList || 'Equipo 2' }}
                 </ion-col>
               </ion-row>
@@ -212,25 +212,23 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ list.nameList || 'Detalle del equipo' }}</ion-title>
+        <ion-title style="font-size: 0.8rem;">{{ "Fecha " + jornada + ": " + team_id?.nameList + " vs " +
+          vsTeam_id?.nameList }}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setOpen(false, null,null)">Cerrar</ion-button>
+          <ion-button (click)="setOpen(false, null,null, 0)">Cerrar</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <div *ngIf="list" style="display: flex; justify-content: center; width: 100%; align-items: center;">
-        <p>{{team_id?.nameList }}</p>
-        <p style="padding-left: 10px; padding-right: 10px;">VS</p>
-        <p>{{vsTeam_id?.nameList}}</p>
-
-      </div>
+      <!--<div *ngIf="list" style="display: flex; justify-content: center; width: 100%; align-items: center;">
+        {{ "Fecha " + jornada + ": " + team_id?.nameList + " vs " + vsTeam_id?.nameList }}
+      </div>-->
       <div style="margin: 0 10px;">
         <ion-segment value="default">
           <ion-segment-button value="default">
             <ion-label>{{team_id?.nameList}}</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="disabled">
+          <ion-segment-button value="disabled" [disabled]="true">
             <ion-label>{{vsTeam_id?.nameList}}</ion-label>
           </ion-segment-button>
         </ion-segment>
@@ -242,12 +240,13 @@
       </div>
 
       <div *ngFor="let item of list.players" class="player-card">
-        <div style="width: 100%; display: flex; align-items: center;">
-          <div style="width: 70%; display: flex;">
+        <div style="width: 100%; display: flex; align-items: center; flex-direction: column;">
+          <div style="width: 100%; display: flex;">
             <div style="width: 50%;">
               <img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
             </div>
-            <div style="width: 50%; flex-direction: column; display: flex; text-align: center; align-items: center;">
+            <div
+              style="width: 50%; flex-direction: column; display: flex; text-align: center; align-items: center; justify-content: space-between;">
               <p style="font-size: 1rem; text-align: center;">{{ item.firstName }} {{ item.lastName }}</p>
               <p>{{item.dni}}</p>
               <p>{{item.nacimiento}}</p>
@@ -258,42 +257,48 @@
 
           <div class="info">
             <!--<p style="display: flex; justify-content: center; width: 100%;">{{ item.firstName }} {{ item.lastName }}</p>-->
-            <form #miForm="ngForm" style="margin-bottom: 10px;">
+            <form #miForm="ngForm" style="margin-bottom: 10px; width: 100%;">
               <div class="stats">
-                <div class="stat">
-                  <div class="counter">
-                    <ion-button size="small" fill="outline"
-                      (click)="item.goles = restar(item.goles || 0)">-</ion-button>
-                    <span>{{ item.goles || 0 }}</span>
-                    <ion-button size="small" fill="outline" (click)="item.goles = (item.goles || 0) + 1">+</ion-button>
+                <div class="stats-column">
+                  <div class="stat">
+                    <div class="counter">
+                      <ion-button size="small" fill="outline"
+                        (click)="item.goles = restar(item.goles || 0)">-</ion-button>
+                      <span>{{ item.goles || 0 }}</span>
+                      <ion-button size="small" fill="outline"
+                        (click)="item.goles = (item.goles || 0) + 1">+</ion-button>
+                    </div>
+                    <input type="hidden" name="goles" [(ngModel)]="item.goles">
                   </div>
-                  <input type="hidden" name="goles" [(ngModel)]="item.goles">
-                </div>
 
-                <div class="stat">
-                  <div class="counter">
-                    <ion-button size="small" fill="outline" color="warning"
-                      (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
-                    <span>{{ item.amarillas || 0 }}</span>
-                    <ion-button size="small" fill="outline" color="warning"
-                      (click)="item.amarillas = (item.amarillas || 0) + 1"
-                      [disabled]="(item.amarillas || 0) >= 2">+</ion-button>
+                  <div class="stat">
+                    <div class="counter">
+                      <ion-button size="small" fill="outline" color="warning"
+                        (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
+                      <span>{{ item.amarillas || 0 }}</span>
+                      <ion-button size="small" fill="outline" color="warning"
+                        (click)="item.amarillas = (item.amarillas || 0) + 1"
+                        [disabled]="(item.amarillas || 0) >= 2">+</ion-button>
+                    </div>
+                    <input type="hidden" name="amarillas" [(ngModel)]="item.amarillas">
                   </div>
-                  <input type="hidden" name="amarillas" [(ngModel)]="item.amarillas">
-                </div>
 
-                <div class="stat">
-                  <div class="counter">
-                    <ion-button size="small" fill="outline" color="danger"
-                      (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
-                    <span>{{ item.rojas || 0 }}</span>
-                    <ion-button size="small" fill="outline" color="danger"
-                      (click)="item.rojas = (item.rojas || 0) + 1"
-                      [disabled]="(item.rojas || 0) >= 1">+</ion-button>
+                  <div class="stat">
+                    <div class="counter">
+                      <ion-button size="small" fill="outline" color="danger"
+                        (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
+                      <span>{{ item.rojas || 0 }}</span>
+                      <ion-button size="small" fill="outline" color="danger"
+                        (click)="item.rojas = (item.rojas || 0) + 1" [disabled]="(item.rojas || 0) >= 1">+</ion-button>
+                    </div>
+                    <input type="hidden" name="rojas" [(ngModel)]="item.rojas">
                   </div>
-                  <input type="hidden" name="rojas" [(ngModel)]="item.rojas">
+                </div>
+                <div>
+                  <ion-button color="danger" (click)="goTribunales(item._id)">Crear Sanción</ion-button>
                 </div>
               </div>
+
 
               <!-- Botón para guardar 
               <ion-button (click)="actualizarTarjetas(item._id, miForm)">
@@ -303,9 +308,6 @@
 
             </form>
           </div>
-        </div>
-        <div style="display: flex; justify-content: center; width: 100%;">
-          <ion-button color="danger" (click)="goTribunales(item._id)">Crear Sanción</ion-button>
         </div>
         <!--<div class="info">
           <p style="display: flex; justify-content: center; width: 100%;">{{ item.firstName }} {{ item.lastName }}</p>

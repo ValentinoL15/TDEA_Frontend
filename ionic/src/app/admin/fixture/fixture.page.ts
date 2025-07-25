@@ -18,6 +18,7 @@ export class FixturePage implements OnInit {
 id:any
 goleador: Player[] = [];
 valla: any[] = [];
+jornada: number = 0;
 fairPlay: any[] = [];
 tournament: Tournament = {
   nameFantasy: "",
@@ -249,10 +250,11 @@ generarFixture(){
 
 isModalOpen = false;
 
-setOpen(isOpen: boolean, team_id: any, vsTeam_id: any) {
+setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number) {
   this.isModalOpen = isOpen;
   this.team_id = team_id;
   this.vsTeam_id = vsTeam_id;
+  this.jornada = jornada;
 
   if (team_id && team_id !== 'null') {
     this.getList();
@@ -312,7 +314,7 @@ const cambios = (this.list.players ?? []).map((item: any) => ({
       this.goleadores();
       this.getFairPLay();
       this.vallaMenosVencida();
-      this.setOpen(false, null,null); // cerrar modal
+      this.setOpen(false, null,null,0); // cerrar modal
     },
     error: (err: any) => {
       this.notifyService.error('Error al guardar los cambios');

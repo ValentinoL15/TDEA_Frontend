@@ -108,9 +108,8 @@
 }
 player-im
 .player-img {
-  
-  width: 50%;
-  height: 50%;
+  width: 30%;
+  height: 30%;
   object-fit: cover;
   border-radius: 12px;
   border: 2px solid #ccc;
@@ -119,6 +118,8 @@ player-im
 .info {
   width: 30%;
   display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .info h3,
@@ -130,11 +131,20 @@ player-im
 
 .stats {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.stats-column {
+    display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin-top: 12px;
-  width: 100%;
+  width: 70%;
 }
 
 .stat {
