@@ -16,10 +16,7 @@ import { UserService } from 'src/app/services/user.service';
 export class FixturePage implements OnInit {
 @ViewChild(IonModal) modal!: IonModal;
 id:any
-goleador: Player[] = [];
-valla: any[] = [];
 jornada: number = 0;
-fairPlay: any[] = [];
 tournament: Tournament = {
   nameFantasy: "",
   ano: 0,
@@ -165,9 +162,6 @@ ngOnInit() {
     this.id = params['id']
   })
   this.getTournament()
-  this.goleadores()
-  this.vallaMenosVencida()
-  this.getFairPLay()
 }
 
 volver(){
@@ -198,41 +192,6 @@ getTournament(){
 getTeamNameById(id: any): any {
   const team = this.tournament.teamSubscribed.find(t => t._id === id);
   return team ? team.nameList : 'Equipo desconocido';
-}
-
-goleadores() {
-  this.tournamentService.getGoleador(this.id).subscribe({
-    next: (res: any) => {
-      // Filtrar jugadores que tengan al menos 1 gol
-      this.goleador = res.orederedGoleadores.filter((jugador: any) => jugador.goles > 0);
-      console.log("Goleadores:", this.goleador);
-    },
-    error: (err: any) => {
-      this.notifyService.error(err.error.message);
-    }
-  });
-}
-
-vallaMenosVencida(){
-  this.tournamentService.getVallaMenosVencida(this.id).subscribe({
-    next: (res : any) => {
-      this.valla = res.equipos;
-    },
-    error: (err : any) => {
-      this.notifyService.error(err.error.message)
-    }
-  })
-}
-
-getFairPLay(){
-  this.tournamentService.getFairPLay(this.id).subscribe({
-    next: (res : any) => {
-      this.fairPlay = res.fairPlayData
-    },
-    error: (err : any) => {
-      this.notifyService.error(err.error.message)
-    }
-  })
 }
 
 generarFixture(){
@@ -287,9 +246,6 @@ actualizarTarjetas(id: any, form: any) {
       this.notifyService.success(res.message);
       this.getTournament();
       this.getList();
-      this.goleadores(); // 🔁 actualizamos la tabla de goleadores
-        this.getFairPLay(); // Si también lo necesitás
-        this.vallaMenosVencida(); // Idem
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message);
@@ -311,9 +267,6 @@ const cambios = (this.list.players ?? []).map((item: any) => ({
       this.notifyService.success('Cambios guardados correctamente');
       this.getTournament();
       this.getList();
-      this.goleadores();
-      this.getFairPLay();
-      this.vallaMenosVencida();
       this.setOpen(false, null,null,0); // cerrar modal
     },
     error: (err: any) => {

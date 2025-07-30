@@ -3,12 +3,12 @@
       <ion-buttons slot="start">
       <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
-    <ion-title>Tribunales</ion-title>
+    <ion-title>Informe</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <p style="width: 100%; display: flex; justify-content: center; font-weight: bold; text-decoration: underline;">Informar a: {{ player?.firstName + " " + player?.lastName }}</p>
+  <p style="width: 100%; display: flex; justify-content: center; font-weight: bold; text-decoration: underline;">{{ player?.firstName + " " + player?.lastName }}</p>
 
   
     <form [formGroup]="form">
@@ -27,7 +27,8 @@
           <!--<ion-select labelPlacement="stacked" label="Fecha ocurrida" placeholder="Fecha en la que ocurrió" formControlName="fecha">
             <ion-select-option *ngFor="let fecha of fixtureJornadas" [value]="fecha">{{ fecha }}</ion-select-option>
           </ion-select>-->
-          <ion-input readonly="true" labelPlacement="stacked" label="Fecha" [value]="fecha"></ion-input>
+          <ion-input readonly="true" labelPlacement="stacked" [label]="'Fecha ' + fecha" [value]="player?.ownerList?.nameList + ' vs ' + list?.nameList"></ion-input>
+          <input type="hidden" [value]="fecha" formControlName="fecha" />
         </ion-item>
         <ion-item >
           <ion-input readonly="true" labelPlacement="stacked" label="Versus" [value]="list?.nameList" formControlName="versus"></ion-input>
@@ -41,7 +42,7 @@
       </ion-list>
       <div style="display: flex; justify-content: center; margin-top: 20px;">
         <ion-button (click)="crearSancion()">
-          Sancionar
+          Informar
         </ion-button>
       </div>
       

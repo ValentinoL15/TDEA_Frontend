@@ -3,20 +3,29 @@
   border-radius: 8px;
   overflow: hidden;
   background: #fff;
+  font-weight: 100px;
 }
 
 .table-header-row {
   background: #f1f1f1; // Fondo más claro
   color: #000; // Texto negro
   text-align: center;
-  font-weight: bold;
+  font-weight: 100px;
   border-bottom: 2px solid #ccc;
+  font-size: 10px;
+  font-weight: 300px;
+}
+
+ion-col {
+  font-size: 0.8rem;
 }
 
 .table-header {
   padding: 10px;
   text-align: center;
   border-right: 1px solid #ccc;
+  font-weight: 100px;
+  white-space: nowrap; 
 
   &:last-child {
     border-right: none;
@@ -26,7 +35,7 @@
 .table-cell {
   padding: 10px;
   color: #000; // Texto negro
-  font-weight: bold;
+  font-weight: 100px;
   border-right: 1px solid #ccc;
 
   &:last-child {

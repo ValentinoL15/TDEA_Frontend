@@ -8,8 +8,8 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 })
 export class UserService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
   constructor(private http: HttpClient) { }
 
 /*************************************************ADMIN**********************************************/ 

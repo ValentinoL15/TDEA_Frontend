@@ -17,14 +17,14 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-input readonly="true" label="Fecha: " [value]="tribunal.fecha"></ion-input>
+          <ion-input readonly="true" [label]="'Fecha ' + tribunal.fecha + ':'" [value]="tribunal.equipo + ' vs ' + tribunal.versus.nameList"></ion-input>
         </ion-item>
-        <ion-item>
+        <!--<ion-item>
           <ion-input readonly="true" label="Equipo: " [value]="tribunal.equipo"></ion-input>
         </ion-item>
         <ion-item>
           <ion-input readonly="true" label="Rival: " [value]="tribunal.versus.nameList"></ion-input>
-        </ion-item>
+        </ion-item>-->
         <ion-item>
           <ion-input readonly="true" label="Tarjeta: " [value]="tribunal.tarjeta"></ion-input>
         </ion-item>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Player } from 'src/app/interfaces/Player';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
@@ -108,6 +109,9 @@ export class TablasPage implements OnInit {
         diferenciaGoles: 0
   }]
 }
+goleador: Player[] = [];
+valla: any[] = [];
+fairPlay: any[] = [];
 
   constructor(private tournamentService: TournamentService, private route: ActivatedRoute, private notifyService: NotifyService, private router: Router) { }
 
@@ -116,6 +120,9 @@ export class TablasPage implements OnInit {
     this.id = params['id']
   })
     this.getTournament()
+    this.goleadores();
+    this.vallaMenosVencida();
+    this.getFairPLay();
   }
 
   getTournament(){
@@ -137,6 +144,46 @@ export class TablasPage implements OnInit {
       this.notifyService.error(err.error.message)
     }
   })
+}
+
+goleadores() {
+  this.tournamentService.getGoleador(this.id).subscribe({
+    next: (res: any) => {
+      // Filtrar jugadores que tengan al menos 1 gol
+      this.goleador = res.orederedGoleadores.filter((jugador: any) => jugador.goles > 0);
+      console.log("Goleadores:", this.goleador);
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  });
+}
+
+vallaMenosVencida(){
+  this.tournamentService.getVallaMenosVencida(this.id).subscribe({
+    next: (res : any) => {
+      this.valla = res.equipos;
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+getFairPLay(){
+  this.tournamentService.getFairPLay(this.id).subscribe({
+    next: (res : any) => {
+      this.fairPlay = res.fairPlayData
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
+    }
+  })
+}
+
+  getTeamPicture(nameList: any): string {
+  const equipo = this.tournament?.teamSubscribed?.find(team => team.nameList === nameList);
+  return equipo?.teamPicture || 'assets/default-team.png'; // Imagen por defecto si no encuentra
 }
 
  volver(){

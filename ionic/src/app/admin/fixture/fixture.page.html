@@ -108,104 +108,6 @@
   <div style="width: 100%; justify-content: center; display: flex ;">
     <ion-button color="secondary" (click)="goEliminatoria()">Armar Eliminatoria</ion-button>
   </div>
-
-  <div *ngIf="tournament.fixture.length > 0" style="padding: 20px 0;">
-    <ion-grid class="table-container">
-      <p style="width: 100%; justify-content: center; display: flex; font-weight: bold;">Goleadores</p>
-      <ion-row class="table-header-row">
-        <ion-col size="1" class="table-header">#</ion-col>
-        <ion-col size="3" class="table-header"><strong>Equipo</strong></ion-col>
-        <ion-col size="3" class="table-header"><strong>Nombre</strong></ion-col>
-        <ion-col size="3" class="table-header"><strong>Apellido</strong></ion-col>
-        <ion-col size="2" class="table-header"><strong>Goles</strong></ion-col>
-      </ion-row>
-
-      <ng-container *ngFor="let jugador of goleador; let i = index">
-        <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
-          <ion-col size="1" class="table-cell">{{ i + 1 }}</ion-col>
-          <ion-col size="3" class="table-cell">{{jugador.ownerList?.nameList}}</ion-col>
-          <ion-col size="3" class="table-cell">
-            <strong>{{ jugador.firstName }}</strong>
-          </ion-col>
-          <ion-col size="3" class="table-cell">{{ jugador.lastName }}</ion-col>
-          <ion-col size="2" class="table-cell">{{ jugador.goles }}</ion-col>
-        </ion-row>
-      </ng-container>
-    </ion-grid>
-  </div>
-
-  <div *ngIf="tournament.fixture.length > 0">
-    <ion-grid class="table-container">
-      <p style="width: 100%; justify-content: center; display: flex; font-weight: bold;">Valla menos Vencida</p>
-      <ion-row class="table-header-row">
-        <ion-col size="1" class="table-header">#</ion-col>
-        <ion-col size="5" class="table-header"><strong>Equipo</strong></ion-col>
-        <ion-col size="5" class="table-header"><strong>Goles en Contra</strong></ion-col>
-      </ion-row>
-
-      <ng-container *ngFor="let equipo of valla; let i = index">
-        <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
-          <ion-col size="1" class="table-cell">{{ i + 1 }}</ion-col>
-          <ion-col size="5" class="table-cell">
-            <strong>{{ equipo.equipo }}</strong> <!-- ← nombre del equipo -->
-          </ion-col>
-          <ion-col size="5" class="table-cell">
-            {{ equipo.golesEnContra }} <!-- ← goles recibidos -->
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ion-grid>
-  </div>
-
-  <div *ngIf="tournament.fixture.length > 0" style="padding: 20px 0;">
-    <ion-grid class="table-container">
-      <p style="width: 100%; justify-content: center; display: flex; font-weight: bold;">Fair Play</p>
-
-      <ion-row class="table-header-row">
-        <ion-col size="1" class="table-header">#</ion-col>
-        <ion-col size="3.5" class="table-header"><strong>Equipo</strong></ion-col>
-
-        <!-- Solo el icono de tarjeta amarilla -->
-        <ion-col size="1.6" class="table-header">
-          <div style="background-color: #ffc107; width: 24px; height: 32px; border-radius: 4px;"></div>
-        </ion-col>
-
-        <!-- Solo el icono de tarjeta roja -->
-        <ion-col size="1.6" class="table-header">
-          <div style="background-color: #dc3545; width: 24px; height: 32px; border-radius: 4px;"></div>
-        </ion-col>
-
-        <!-- Columna para el total de tarjetas -->
-        <ion-col size="2" class="table-header"><strong>Total</strong></ion-col>
-      </ion-row>
-
-      <ng-container *ngFor="let equipo of fairPlay; let i = index">
-        <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
-          <ion-col size="1" class="table-cell">{{ i + 1 }}</ion-col>
-          <ion-col size="3.5" class="table-cell">
-            <strong>{{ equipo.nameList }}</strong> <!-- Nombre del equipo -->
-          </ion-col>
-
-          <!-- Muestra el total de tarjetas amarillas del equipo -->
-          <ion-col size="1.6" class="table-cell">
-            {{ equipo.totalAmarillas }}
-          </ion-col>
-
-          <!-- Muestra el total de tarjetas rojas del equipo -->
-          <ion-col size="1.6" class="table-cell">
-            {{ equipo.totalRojas }}
-          </ion-col>
-
-          <!-- Muestra el total de tarjetas (amarillas + rojas) -->
-          <ion-col size="2" class="table-cell">
-            {{ equipo.totalAmarillas + equipo.totalRojas }}
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ion-grid>
-  </div>
-
-
 </ion-content>
 
 <ion-modal #modal [isOpen]="isModalOpen">
@@ -242,11 +144,11 @@
       <div *ngFor="let item of list.players" class="player-card">
         <div style="width: 100%; display: flex; align-items: center; flex-direction: column;">
           <div style="width: 100%; display: flex;">
-            <div style="width: 50%;">
+            <div style="width: 50%; display: flex; justify-content: center;">
               <img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
             </div>
             <div
-              style="width: 50%; flex-direction: column; display: flex; text-align: center; align-items: center; justify-content: space-between;">
+              style="width: 50%; flex-direction: column; display: flex; text-align: center; align-items: center; line-height: 15px;">
               <p style="font-size: 1rem; text-align: center;">{{ item.firstName }} {{ item.lastName }}</p>
               <p>{{item.dni}}</p>
               <p>{{item.nacimiento}}</p>
@@ -295,7 +197,7 @@
                   </div>
                 </div>
                 <div>
-                  <ion-button color="danger" (click)="goTribunales(item._id, jornada, vsTeam_id?._id)">Crear Sanción</ion-button>
+                  <ion-button color="danger" (click)="goTribunales(item._id, jornada, vsTeam_id?._id)">Informe</ion-button>
                 </div>
               </div>
 
