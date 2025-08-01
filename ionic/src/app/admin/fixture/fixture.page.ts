@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { List } from 'src/app/interfaces/List';
@@ -17,6 +18,8 @@ export class FixturePage implements OnInit {
 @ViewChild(IonModal) modal!: IonModal;
 id:any
 jornada: number = 0;
+local: string | null = null;
+visitante: string | null = null;
 tournament: Tournament = {
   nameFantasy: "",
   ano: 0,
@@ -88,6 +91,14 @@ tournament: Tournament = {
         _id: '',
         nameList: '',
     },
+      local: {
+          _id: '',
+          nameList: ''
+      },
+      visitante: {
+          _id: '',
+          nameList: ''
+      },
     resultado: {
         
             team1: 0,
@@ -154,8 +165,28 @@ list: List = {
     firstName: ""
   }]
 }
+form: FormGroup
 id_player:any
-constructor(private route : ActivatedRoute, private notifyService: NotifyService, private router: Router, private tournamentService: TournamentService, private userService: UserService) { }
+player: Player | null = null;
+motivo: string = ''; // lo escribe el admin
+motivos: { [key: string]: string } = {}; // objeto con claves por ID del jugador
+amarillasPorJugador: { [jugadorId: string]: number } = {};
+
+constructor(private route : ActivatedRoute, private notifyService: NotifyService, private router: Router, private tournamentService: TournamentService, private userService: UserService, private fb: FormBuilder) { 
+   this.form = this.fb.group({
+        player_id: ['', Validators.required],
+        name: ['', Validators.required],
+        lastName: ['', Validators.required],
+        equipo: ['', Validators.required],
+        local: ['', Validators.required],
+        visitante: ['', Validators.required],
+        tarjeta: ['', Validators.required],
+        fecha: ['', Validators.required],
+        versus: ['', Validators.required],
+        motivo: ['', Validators.required],
+        //fechas_de_expulsion: ['', Validators.required],
+      });
+}
 
 ngOnInit() {
   this.route.params.subscribe((params) => {
@@ -209,12 +240,13 @@ generarFixture(){
 
 isModalOpen = false;
 
-setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number) {
+setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: any, visitante: any) {
   this.isModalOpen = isOpen;
   this.team_id = team_id;
   this.vsTeam_id = vsTeam_id;
   this.jornada = jornada;
-
+  this.local = local
+  this.visitante = visitante;
   if (team_id && team_id !== 'null') {
     this.getList();
     
@@ -253,25 +285,57 @@ actualizarTarjetas(id: any, form: any) {
   });
 }
 
-guardarCambiosTodos() {
-const cambios = (this.list.players ?? []).map((item: any) => ({
-  id: item._id,
-  goles: item.goles || 0,
-  amarillas: item.amarillas || 0,
-  rojas: item.rojas || 0
-}));
+guardarCambiosTodos(jugador: any) {
+ const cambio = {
+    id: jugador._id,
+    goles: jugador.goles || 0,
+    amarillas: jugador.amarillas || 0,
+    rojas: jugador.rojas || 0
+  };
 
-
-  this.tournamentService.updateJugadores(cambios).subscribe({
+  this.tournamentService.updateJugadores([cambio]).subscribe({
     next: (res: any) => {
       this.notifyService.success('Cambios guardados correctamente');
       this.getTournament();
       this.getList();
-      this.setOpen(false, null,null,0); // cerrar modal
     },
     error: (err: any) => {
       this.notifyService.error('Error al guardar los cambios');
       console.error(err);
+    }
+  });
+}
+
+crearSancion(item: any, vsTeam: any, myTeam: any) {
+
+  const motivo = this.motivos[item._id];
+
+  if (!motivo || item.ultimaTarjeta === 'Ninguna') {
+    this.notifyService.error('Debe ingresar un motivo y haber al menos una tarjeta');
+    return;
+  }
+
+  const sancionData = {
+    player_id: item._id,
+    tarjeta: item.ultimaTarjeta,
+    name: item.firstName,
+    lastName: item.lastName,
+    equipo: myTeam, // asumimos que tenés guardado el nombre del equipo
+    versus: vsTeam || 'N/A',
+    local: this.local,
+    visitante: this.visitante,
+    fecha: this.jornada,
+    motivo: motivo
+  };
+
+  this.tournamentService.crearSancion(this.id, sancionData).subscribe({
+    next: (res: any) => {
+      this.notifyService.success('Sanción creada correctamente');
+      item.motivo = ''; // limpiar textarea
+    },
+    error: (err: any) => {
+      console.error(err);
+      this.notifyService.error('Error al crear la sanción');
     }
   });
 }
@@ -313,11 +377,11 @@ goEliminatoria(){
   this.router.navigate(['/admin/eliminatoria', this.id]);
 }
 
-goTribunales(player_id:any, fecha:any, vsTeam_id:any) {
+goTribunales(player_id:any, fecha:any, vsTeam_id:any,local:any, visitante:any) {
   if (this.modal) {
     this.modal.dismiss(); // Cierra el modal correctamente
     this.isModalOpen = false; // Actualiza el estado del modal
   }
-  this.router.navigate([`/tribunales/${this.id}`, player_id, fecha, vsTeam_id]); // Luego navega
+  this.router.navigate([`/tribunales/${this.id}`, player_id, fecha, vsTeam_id, local, visitante]); // Luego navega
 }
 }

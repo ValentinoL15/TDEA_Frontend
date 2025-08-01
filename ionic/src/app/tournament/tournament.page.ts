@@ -96,6 +96,14 @@ export class TournamentPage implements OnInit {
       team2: {
           _id: '',
       },
+        local: {
+          _id: '',
+          nameList: ''
+      },
+      visitante: {
+          _id: '',
+          nameList: ''
+      },
       resultado: {
           
               team1: 0,

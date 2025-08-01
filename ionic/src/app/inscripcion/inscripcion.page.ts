@@ -91,6 +91,14 @@ export class InscripcionPage implements OnInit {
             _id: '',
             nameList: '',
           },
+            local: {
+          _id: '',
+          nameList: ''
+      },
+      visitante: {
+          _id: '',
+          nameList: ''
+      },
           resultado: {
 
             team1: 0,
@@ -188,6 +196,14 @@ export class InscripcionPage implements OnInit {
           _id: '',
           nameList: '',
         },
+          local: {
+          _id: '',
+          nameList: ''
+      },
+      visitante: {
+          _id: '',
+          nameList: ''
+      },
         resultado: {
 
           team1: 0,

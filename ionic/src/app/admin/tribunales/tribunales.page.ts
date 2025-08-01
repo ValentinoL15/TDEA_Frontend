@@ -23,6 +23,8 @@ export class TribunalesPage implements OnInit {
   vsTeam_id: any;
   list: List | null = null;
   tournament: Tournament | null = null
+  local: string | null = null;
+  visitante: string | null = null;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private fb: FormBuilder, private tournamentServ: TournamentService, private notifyService: NotifyService) {
     this.form = this.fb.group({
@@ -44,6 +46,8 @@ export class TribunalesPage implements OnInit {
       this.fecha = params['fecha'];
       this.vsTeam_id = params['vsTeam_id'];
       this.player_id = params['player_id'];
+      this.local = params['local'];
+      this.visitante = params['visitante'];
         this.form.patchValue({ player_id: this.player_id });
     })
     this.getPlayer();

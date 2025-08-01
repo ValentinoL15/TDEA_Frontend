@@ -98,6 +98,14 @@ export interface Tournament {
                 _id?: string,
                 nameList?: string,
             },
+            local: {
+                _id?: string,
+                nameList?: string,
+            },
+            visitante: {
+                _id?: string,
+                nameList?: string,
+            },
             resultado: {
                     team1: number,
                     team2: number

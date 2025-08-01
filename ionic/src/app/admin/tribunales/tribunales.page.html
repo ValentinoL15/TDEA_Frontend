@@ -27,7 +27,7 @@
           <!--<ion-select labelPlacement="stacked" label="Fecha ocurrida" placeholder="Fecha en la que ocurrió" formControlName="fecha">
             <ion-select-option *ngFor="let fecha of fixtureJornadas" [value]="fecha">{{ fecha }}</ion-select-option>
           </ion-select>-->
-          <ion-input readonly="true" labelPlacement="stacked" [label]="'Fecha ' + fecha" [value]="player?.ownerList?.nameList + ' vs ' + list?.nameList"></ion-input>
+          <ion-input readonly="true" labelPlacement="stacked" [label]="'Fecha ' + fecha" [value]="local + ' vs ' + visitante"></ion-input>
           <input type="hidden" [value]="fecha" formControlName="fecha" />
         </ion-item>
         <ion-item >

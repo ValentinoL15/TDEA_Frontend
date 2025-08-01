@@ -151,7 +151,7 @@ const routes: Routes = [
     loadChildren: () => import('./admin/transfer-team/transfer-team.module').then( m => m.TransferTeamPageModule)
   },
    {
-    path: 'tribunales/:id/:player_id/:fecha/:vsTeam_id',
+    path: 'tribunales/:id/:player_id/:fecha/:vsTeam_id/:local/:visitante',
     loadChildren: () => import('./admin/tribunales/tribunales.module').then( m => m.TribunalesPageModule)
   },
    {

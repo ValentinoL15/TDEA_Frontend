@@ -28,7 +28,7 @@
               <ion-row class="match-row">
                 <ion-col size="5" class="team"
                   style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-                  (click)="setOpen(true, match.team1,match.team2, jornada.jornada)">
+                  (click)="setOpen(true, match.team1,match.team2, jornada.jornada, match.team1.nameList, match.team2.nameList)">
                   {{ match?.team1?.nameList || 'Equipo 1' }}
                 </ion-col>
 
@@ -42,7 +42,7 @@
 
                 <ion-col size="5" class="team"
                   style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-                  (click)="setOpen(true, match.team2,match.team1, jornada.jornada)">
+                  (click)="setOpen(true, match.team2,match.team1, jornada.jornada, match.team1.nameList, match.team2.nameList)">
                   {{ match?.team2?.nameList || 'Equipo 2' }}
                 </ion-col>
               </ion-row>
@@ -114,10 +114,10 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title style="font-size: 0.8rem;">{{ "Fecha " + jornada + ": " + team_id?.nameList + " vs " +
-          vsTeam_id?.nameList }}</ion-title>
+        <ion-title style="font-size: 0.8rem;">{{ "Fecha " + jornada + ": " + local + " vs " +
+          visitante }}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setOpen(false, null,null, 0)">Cerrar</ion-button>
+          <ion-button (click)="setOpen(false, null,null, 0, null,null)">Cerrar</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -128,30 +128,30 @@
       <div style="margin: 0 10px;">
         <ion-segment value="default">
           <ion-segment-button value="default">
-            <ion-label>{{team_id?.nameList}}</ion-label>
+            <ion-label>{{local}}</ion-label>
           </ion-segment-button>
           <ion-segment-button value="disabled" [disabled]="true">
-            <ion-label>{{vsTeam_id?.nameList}}</ion-label>
+            <ion-label>{{visitante}}</ion-label>
           </ion-segment-button>
         </ion-segment>
       </div>
       <div style="display: flex; width: 100%; justify-content: end; align-items: center; padding: 10px;">
-        <ion-button size="small" (click)="guardarCambiosTodos()">
+        <!-- <ion-button size="small" (click)="guardarCambiosTodos()">
           Guardar cambios
-        </ion-button>
+        </ion-button>-->
       </div>
 
       <div *ngFor="let item of list.players" class="player-card">
         <div style="width: 100%; display: flex; align-items: center; flex-direction: column;">
           <div style="width: 100%; display: flex;">
-            <div style="width: 50%; display: flex; justify-content: center;">
-              <img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
-            </div>
             <div
               style="width: 50%; flex-direction: column; display: flex; text-align: center; align-items: center; line-height: 15px;">
-              <p style="font-size: 1rem; text-align: center;">{{ item.firstName }} {{ item.lastName }}</p>
-              <p>{{item.dni}}</p>
-              <p>{{item.nacimiento}}</p>
+              <p style="font-size: 1rem; text-align: center;">Nombre: {{ item.firstName }} {{ item.lastName }}</p>
+              <p>DNI: {{item.dni}}</p>
+              <p>Nacimiento: {{item.nacimiento}}</p>
+            </div>
+            <div style="width: 50%; display: flex; justify-content: center;">
+              <img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
             </div>
             <!--<img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
           <input type="hidden" name="_id" [value]="item._id" />-->
@@ -165,10 +165,10 @@
                   <div class="stat">
                     <div class="counter">
                       <ion-button size="small" fill="outline"
-                        (click)="item.goles = restar(item.goles || 0)">-</ion-button>
+                        (click)="item.goles = restar(item.goles || 0); guardarCambiosTodos(item)">-</ion-button>
                       <span>{{ item.goles || 0 }}</span>
                       <ion-button size="small" fill="outline"
-                        (click)="item.goles = (item.goles || 0) + 1">+</ion-button>
+                        (click)="item.goles = (item.goles || 0) + 1; guardarCambiosTodos(item)">+</ion-button>
                     </div>
                     <input type="hidden" name="goles" [(ngModel)]="item.goles">
                   </div>
@@ -176,11 +176,11 @@
                   <div class="stat">
                     <div class="counter">
                       <ion-button size="small" fill="outline" color="warning"
-                        (click)="item.amarillas = restar(item.amarillas || 0)">-</ion-button>
+                        (click)="item.amarillas = restar(item.amarillas || 0); guardarCambiosTodos(item)">-</ion-button>
                       <span>{{ item.amarillas || 0 }}</span>
                       <ion-button size="small" fill="outline" color="warning"
-                        (click)="item.amarillas = (item.amarillas || 0) + 1"
-                        [disabled]="(item.amarillas || 0) >= 2">+</ion-button>
+                        (click)="item.amarillas = (item.amarillas || 0) + 1; guardarCambiosTodos(item)"
+                        [disabled]="(item.amarillas || 0) >= 3">+</ion-button>
                     </div>
                     <input type="hidden" name="amarillas" [(ngModel)]="item.amarillas">
                   </div>
@@ -188,26 +188,33 @@
                   <div class="stat">
                     <div class="counter">
                       <ion-button size="small" fill="outline" color="danger"
-                        (click)="item.rojas = restar(item.rojas || 0)">-</ion-button>
+                        (click)="item.rojas = restar(item.rojas || 0); guardarCambiosTodos(item)">-</ion-button>
                       <span>{{ item.rojas || 0 }}</span>
                       <ion-button size="small" fill="outline" color="danger"
-                        (click)="item.rojas = (item.rojas || 0) + 1" [disabled]="(item.rojas || 0) >= 1">+</ion-button>
+                        (click)="item.rojas = (item.rojas || 0) + 1; guardarCambiosTodos(item)">+</ion-button>
                     </div>
                     <input type="hidden" name="rojas" [(ngModel)]="item.rojas">
                   </div>
                 </div>
+                <!--<div>
+                  <ion-button color="danger" (click)="goTribunales(item._id, jornada, vsTeam_id?._id,local,visitante)">Informe</ion-button>
+                </div>-->
                 <div>
-                  <ion-button color="danger" (click)="goTribunales(item._id, jornada, vsTeam_id?._id)">Informe</ion-button>
+                  <ion-textarea class="texto-area" type="text" [(ngModel)]="motivos[item._id]" labelPlacement="stacked"
+                    label="Motivo" [counter]="true" name="motivo" maxlength="500"
+                    placeholder="Ingrese el motivo de la sanción"></ion-textarea>
                 </div>
               </div>
-
+              <div style="display: flex; justify-content: center; width: 100%; margin-top: 10px;">
+                <ion-button color="danger" (click)="crearSancion(item, vsTeam_id?._id, team_id?.nameList)">
+                  Informar
+                </ion-button>
+              </div>
 
               <!-- Botón para guardar 
               <ion-button (click)="actualizarTarjetas(item._id, miForm)">
               Guardar cambios
             </ion-button> -->
-
-
             </form>
           </div>
         </div>

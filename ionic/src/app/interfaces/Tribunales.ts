@@ -11,6 +11,8 @@ export interface Tribunales {
   tarjeta: string;
   fecha: number;
   versus: List; // puede ser el ID o el objeto populado
+  local: string,
+  visitante: string;
   motivo: string;
   fechas_de_expulsion: number;
 }

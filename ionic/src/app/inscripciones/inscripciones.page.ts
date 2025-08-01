@@ -92,6 +92,14 @@ list: List = {
         _id: '',
         nameList: '',
     },
+      local: {
+          _id: '',
+          nameList: ''
+      },
+      visitante: {
+          _id: '',
+          nameList: ''
+      },
     resultado: {
         
             team1: 0,
@@ -189,6 +197,14 @@ tournament: Tournament = {
         _id: '',
         nameList: '',
     },
+      local: {
+          _id: '',
+          nameList: ''
+      },
+      visitante: {
+          _id: '',
+          nameList: ''
+      },
     resultado: {
         
             team1: 0,

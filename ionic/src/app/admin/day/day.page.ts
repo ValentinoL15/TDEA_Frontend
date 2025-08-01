@@ -94,6 +94,14 @@ export class DayPage implements OnInit {
       team2: {
           _id: '',
       },
+      local: {
+          _id: '',
+          nameList: ''
+      },
+      visitante: {
+          _id: '',
+          nameList: ''
+      },
       resultado: {
               team1: 0,
               team2: 0

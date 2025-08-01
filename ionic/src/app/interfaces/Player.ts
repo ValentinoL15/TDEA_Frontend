@@ -1,7 +1,7 @@
 import { List } from "./List";
 
 export interface Player {
-    _id?: String,
+    _id: string,
     firstName: string,
     lastName?: string,
     dni?: number,
