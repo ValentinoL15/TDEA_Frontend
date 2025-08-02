@@ -375,8 +375,8 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/change-tarjetas/${id}`, form)
   }
 
- updateJugadores(jugadores: any[]) {
-  return this.http.put(`${this.API_URL}/change-multiple-tarjetas`, {
+ updateJugadores(id:any,jugadores: any[]) {
+  return this.http.put(`${this.API_URL}/change-multiple-tarjetas/${id}`, {
     jugadores: jugadores
   });
 }

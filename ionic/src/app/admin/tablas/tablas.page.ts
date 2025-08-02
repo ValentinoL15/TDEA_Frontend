@@ -97,9 +97,27 @@ export class TablasPage implements OnInit {
             team1: 0,
             team2: 0
         
-    }
+    },
     }]
   }],
+             estadisticasJugadores: [
+          {
+              jugador: {
+                  _id: '',
+                  firstName: '',
+                  lastName: '',
+              },
+              equipo: {
+                  _id: '',
+                  nameList: '',
+                  typeAlineacion: 0,
+                  teamPicture: ''
+              },
+              goles: 0,
+              amarillas: 0,
+              rojas: 0
+          }
+      ],
   tablaPosiciones: [{
         team: {
           _id: '',

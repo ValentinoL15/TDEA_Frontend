@@ -91,22 +91,39 @@ export class InscripcionPage implements OnInit {
             _id: '',
             nameList: '',
           },
-            local: {
-          _id: '',
-          nameList: ''
-      },
-      visitante: {
-          _id: '',
-          nameList: ''
-      },
+          local: {
+            _id: '',
+            nameList: ''
+          },
+          visitante: {
+            _id: '',
+            nameList: ''
+          },
           resultado: {
-
             team1: 0,
             team2: 0
-
-          }
+          },
+         
         }]
       }],
+       estadisticasJugadores: [
+            {
+              jugador: {
+                _id: '',
+                firstName: '',
+                lastName: '',
+              },
+              equipo: {
+                _id: '',
+                nameList: '',
+                typeAlineacion: 0,
+                teamPicture: ''
+              },
+              goles: 0,
+              amarillas: 0,
+              rojas: 0
+            }
+          ],
       tablaPosiciones: [{
         team: {
           _id: '',
@@ -196,22 +213,40 @@ export class InscripcionPage implements OnInit {
           _id: '',
           nameList: '',
         },
-          local: {
+        local: {
           _id: '',
           nameList: ''
-      },
-      visitante: {
+        },
+        visitante: {
           _id: '',
           nameList: ''
-      },
+        },
         resultado: {
 
           team1: 0,
           team2: 0
 
-        }
+        },
       }]
     }],
+     estadisticasJugadores: [
+          {
+            jugador: {
+              _id: '',
+              firstName: '',
+              lastName: '',
+            },
+            equipo: {
+              _id: '',
+              nameList: '',
+              typeAlineacion: 0,
+              teamPicture: ''
+            },
+            goles: 0,
+            amarillas: 0,
+            rojas: 0
+          }
+        ],
     tablaPosiciones: [{
       team: {
         _id: '',
@@ -254,7 +289,7 @@ export class InscripcionPage implements OnInit {
           console.log('No hay torneo registrado aún');
         }
       },
-      error: (err : any) => {
+      error: (err: any) => {
         this.notifyService.error(err.error.message);
       }
     });

@@ -7,6 +7,7 @@ import { Format } from "./Format";
 import { List } from "./List";
 import { Sede } from "./Sede";
 import { Stadium } from "./Stadium";
+import { Player } from "./Player";
 
 export interface Tournament {
     _id?: any,
@@ -109,7 +110,6 @@ export interface Tournament {
             resultado: {
                     team1: number,
                     team2: number
-                
             }
             libre?: {
                 _id?: string,
@@ -117,6 +117,15 @@ export interface Tournament {
             }
         }]
     }],
+     estadisticasJugadores: [
+                {
+                    jugador: Player,
+                    equipo: List,
+                    goles: number,
+                    amarillas: number,
+                    rojas: number,
+                }
+            ],
     tablaPosiciones: 
     [{
         team?: List,

@@ -104,9 +104,28 @@ tournament: Tournament = {
             team1: 0,
             team2: 0
         
-    }
+    },
+    
     }]
   }],
+  estadisticasJugadores: [
+          {
+              jugador: {
+                  _id: '',
+                  firstName: '',
+                  lastName: '',
+              },
+              equipo: {
+                  _id: '',
+                  nameList: '',
+                  typeAlineacion: 0,
+                  teamPicture: ''
+              },
+              goles: 0,
+              amarillas: 0,
+              rojas: 0
+          }
+      ],
   tablaPosiciones: [{
         team: {
           _id: '',
@@ -146,6 +165,7 @@ list: List = {
   },
   alternativeShirtColor: "",
   nameList: "",
+  _id: "",
   players: [{
     _id: "",
     firstName: "",
@@ -239,6 +259,8 @@ generarFixture(){
 }
 
 isModalOpen = false;
+jugadoresFiltrados: any[] = [];
+
 
 setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: any, visitante: any) {
   this.isModalOpen = isOpen;
@@ -247,6 +269,16 @@ setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: a
   this.jornada = jornada;
   this.local = local
   this.visitante = visitante;
+  console.log("sapeee", team_id, vsTeam_id, jornada, local, visitante)
+  console.log("Jugadores filtrados:", this.tournament.estadisticasJugadores);
+  
+
+  if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
+    this.jugadoresFiltrados = this.tournament.estadisticasJugadores.filter(
+      (jugador) => jugador.equipo === team_id._id
+      
+    );
+  }
   if (team_id && team_id !== 'null') {
     this.getList();
     
@@ -286,15 +318,21 @@ actualizarTarjetas(id: any, form: any) {
 }
 
 guardarCambiosTodos(jugador: any) {
+   if (!jugador._id) {
+    this.notifyService.error('ID del jugador no válido');
+    return;
+  }
  const cambio = {
     id: jugador._id,
     goles: jugador.goles || 0,
     amarillas: jugador.amarillas || 0,
     rojas: jugador.rojas || 0
   };
+  console.log(cambio)
 
-  this.tournamentService.updateJugadores([cambio]).subscribe({
+  this.tournamentService.updateJugadores(this.id,[cambio]).subscribe({
     next: (res: any) => {
+      console.log('Actualizados:', res.resultados);
       this.notifyService.success('Cambios guardados correctamente');
       this.getTournament();
       this.getList();
@@ -307,8 +345,9 @@ guardarCambiosTodos(jugador: any) {
 }
 
 crearSancion(item: any, vsTeam: any, myTeam: any) {
-
+  console.log("Mi id:", item._id)
   const motivo = this.motivos[item._id];
+  console.log("mi motiv", motivo)
 
   if (!motivo || item.ultimaTarjeta === 'Ninguna') {
     this.notifyService.error('Debe ingresar un motivo y haber al menos una tarjeta');
