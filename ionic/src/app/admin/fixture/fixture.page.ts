@@ -328,7 +328,7 @@ guardarCambiosTodos(jugador: any) {
     amarillas: jugador.amarillas || 0,
     rojas: jugador.rojas || 0
   };
-  console.log(cambio)
+  console.log("cambio",cambio)
 
   this.tournamentService.updateJugadores(this.id,[cambio]).subscribe({
     next: (res: any) => {
@@ -344,9 +344,39 @@ guardarCambiosTodos(jugador: any) {
   });
 }
 
+guardarCambiosTodos2() {
+  const cambios = this.jugadoresFiltrados
+    .filter(j => j.jugador && j.jugador._id) // nos aseguramos que tenga ID
+    .map(j => ({
+      id: j.jugador._id, // O j._id si lo tenés ahí
+      goles: j.goles || 0,
+      amarillas: j.amarillas || 0,
+      rojas: j.rojas || 0
+    }));
+
+  if (cambios.length === 0) {
+    this.notifyService.error('No hay cambios para guardar');
+    return;
+  }
+
+  this.tournamentService.updateJugadores(this.id, cambios).subscribe({
+    next: (res: any) => {
+      console.log('Actualizados:', res.resultados);
+      this.notifyService.success('Cambios guardados correctamente');
+      this.getTournament();
+      this.getList();
+    },
+    error: (err: any) => {
+      this.notifyService.error('Error al guardar los cambios');
+      console.error(err);
+    }
+  });
+}
+
+
 crearSancion(item: any, vsTeam: any, myTeam: any) {
-  console.log("Mi id:", item._id)
-  const motivo = this.motivos[item._id];
+  console.log("Mi id:", item.jugador._id)
+  const motivo = this.motivos[item.jugador._id];
   console.log("mi motiv", motivo)
 
   if (!motivo || item.ultimaTarjeta === 'Ninguna') {
@@ -355,10 +385,10 @@ crearSancion(item: any, vsTeam: any, myTeam: any) {
   }
 
   const sancionData = {
-    player_id: item._id,
+    player_id: item.jugador._id,
     tarjeta: item.ultimaTarjeta,
-    name: item.firstName,
-    lastName: item.lastName,
+    name: item.jugador.firstName,
+    lastName: item.jugador.lastName,
     equipo: myTeam, // asumimos que tenés guardado el nombre del equipo
     versus: vsTeam || 'N/A',
     local: this.local,
