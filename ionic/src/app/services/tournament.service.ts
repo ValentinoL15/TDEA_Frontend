@@ -9,8 +9,8 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 })
 export class TournamentService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http : HttpClient) { }
 
@@ -375,10 +375,18 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/change-tarjetas/${id}`, form)
   }
 
- updateJugadores(id:any,jugadores: any[]) {
-  return this.http.put(`${this.API_URL}/change-multiple-tarjetas/${id}`, {
-    jugadores: jugadores
-  });
+ updateJugadores(id:any,jugadorId:any,jornadaNumber:any,jugadores: any) {
+  return this.http.put(`${this.API_URL}/change-multiple-tarjetas/${jugadorId}/${jornadaNumber}/${id}`, jugadores);
+}
+
+private refresh$ = new BehaviorSubject<void>(undefined);
+
+getRefreshObservable() {
+  return this.refresh$.asObservable();
+}
+
+emitRefresh() {
+  this.refresh$.next();
 }
 
 

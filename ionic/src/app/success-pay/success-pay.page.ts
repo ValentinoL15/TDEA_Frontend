@@ -90,6 +90,22 @@ tournamentId: Tournament = {
     team2: {
         _id: '',
     },
+    estadisticasJugadores: [
+                {
+                    jugador: {
+                      _id: "",
+                      firstName: ""
+                    },
+                    equipo: {
+                      typeAlineacion: 0,
+                      teamPicture: "",
+                      nameList: ""
+                    },
+                    goles: 0,
+                    amarillas: 0,
+                    rojas: 0,
+                }
+            ],
       local: {
           _id: '',
           nameList: ''

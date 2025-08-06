@@ -99,6 +99,15 @@ export interface Tournament {
                 _id?: string,
                 nameList?: string,
             },
+            estadisticasJugadores: [
+                {
+                    jugador: Player,
+                    equipo: List,
+                    goles: number,
+                    amarillas: number,
+                    rojas: number,
+                }
+            ],
             local: {
                 _id?: string,
                 nameList?: string,

@@ -91,6 +91,22 @@ tournament: Tournament = {
         _id: '',
         nameList: '',
     },
+    estadisticasJugadores: [
+                {
+                    jugador: {
+                      _id: "",
+                      firstName: ""
+                    },
+                    equipo: {
+                      typeAlineacion: 0,
+                      teamPicture: "",
+                      nameList: ""
+                    },
+                    goles: 0,
+                    amarillas: 0,
+                    rojas: 0,
+                }
+            ],
       local: {
           _id: '',
           nameList: ''
@@ -191,6 +207,8 @@ player: Player | null = null;
 motivo: string = ''; // lo escribe el admin
 motivos: { [key: string]: string } = {}; // objeto con claves por ID del jugador
 amarillasPorJugador: { [jugadorId: string]: number } = {};
+selectedFixtureIndex = 0; // jornada 1
+selectedPartidoIndex = 0; // primer partido de la jornada
 
 constructor(private route : ActivatedRoute, private notifyService: NotifyService, private router: Router, private tournamentService: TournamentService, private userService: UserService, private fb: FormBuilder) { 
    this.form = this.fb.group({
@@ -274,10 +292,13 @@ setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: a
   
 
   if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
-    this.jugadoresFiltrados = this.tournament.estadisticasJugadores.filter(
-      (jugador) => jugador.equipo === team_id._id
-      
-    );
+    this.jugadoresFiltrados = this.tournament.fixture
+  .find(j => j.jornada === jornada)?.partidos
+  .find(p => 
+    (p.team1?._id === team_id._id && p.team2?._id === vsTeam_id._id) ||
+    (p.team1?._id === vsTeam_id._id && p.team2?._id === team_id._id)
+  )?.estadisticasJugadores
+  .filter(j => j.equipo && j.equipo._id === team_id._id) || [];
   }
   if (team_id && team_id !== 'null') {
     this.getList();
@@ -317,25 +338,31 @@ actualizarTarjetas(id: any, form: any) {
   });
 }
 
-guardarCambiosTodos(jugador: any) {
-   if (!jugador._id) {
+guardarCambiosTodos(jugadorId: any) {
+const jugador = this.jugadoresFiltrados.find(j => j._id === jugadorId._id);
+console.log("mi jugador",jugador)
+
+  if (!jugador) {
     this.notifyService.error('ID del jugador no válido');
     return;
   }
- const cambio = {
-    id: jugador._id,
+
+    const cambios = {
     goles: jugador.goles || 0,
     amarillas: jugador.amarillas || 0,
     rojas: jugador.rojas || 0
   };
-  console.log("cambio",cambio)
 
-  this.tournamentService.updateJugadores(this.id,[cambio]).subscribe({
+  console.log(cambios)
+
+  this.tournamentService.updateJugadores(this.id,jugadorId._id,this.jornada,cambios).subscribe({
     next: (res: any) => {
-      console.log('Actualizados:', res.resultados);
+      console.log('Actualizados:', res.jugador);
       this.notifyService.success('Cambios guardados correctamente');
+      this.tournamentService.emitRefresh();
       this.getTournament();
       this.getList();
+      Object.assign(jugador, res.jugador);
     },
     error: (err: any) => {
       this.notifyService.error('Error al guardar los cambios');
@@ -359,7 +386,7 @@ guardarCambiosTodos2() {
     return;
   }
 
-  this.tournamentService.updateJugadores(this.id, cambios).subscribe({
+  this.tournamentService.updateJugadores(this.id, this.jornada,this.jornada,cambios).subscribe({
     next: (res: any) => {
       console.log('Actualizados:', res.resultados);
       this.notifyService.success('Cambios guardados correctamente');
@@ -396,6 +423,8 @@ crearSancion(item: any, vsTeam: any, myTeam: any) {
     fecha: this.jornada,
     motivo: motivo
   };
+  console.log(sancionData.tarjeta)
+  
 
   this.tournamentService.crearSancion(this.id, sancionData).subscribe({
     next: (res: any) => {
