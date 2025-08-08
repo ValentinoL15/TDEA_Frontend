@@ -362,13 +362,22 @@ console.log("mi jugador",jugador)
       this.tournamentService.emitRefresh();
       this.getTournament();
       this.getList();
-      Object.assign(jugador, res.jugador);
+        const index = this.jugadoresFiltrados.findIndex(j => j._id === res.jugador._id);
+      if (index !== -1) {
+        this.jugadoresFiltrados[index] = {...this.jugadoresFiltrados[index], ...res.jugador};
+      }
     },
     error: (err: any) => {
       this.notifyService.error('Error al guardar los cambios');
       console.error(err);
     }
   });
+}
+
+actualizarAmarillas(jugador: any, cambio: number) {
+  jugador.amarillas = (jugador.amarillas || 0) + cambio;
+  jugador.ultimaTarjeta = jugador.amarillas > 0 ? 'Amarilla' : 'Ninguna';
+  this.guardarCambiosTodos(jugador);
 }
 
 guardarCambiosTodos2() {

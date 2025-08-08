@@ -177,11 +177,11 @@
                   <div class="stat">
                     <div class="counter">
                       <ion-button size="small" fill="outline" color="warning"
-                        (click)="item.amarillas = restar(item.amarillas || 0)" (click)="guardarCambiosTodos(item)">-</ion-button>
+                       (click)="actualizarAmarillas(item, -1)">-</ion-button>
                       <span>{{ item.amarillas || 0 }}</span>
                       <ion-button size="small" fill="outline" color="warning"
-                        (click)="item.amarillas = (item.amarillas || 0) + 1; "
-                        [disabled]="(item.amarillas || 0) >= 2" (click)="guardarCambiosTodos(item)">+</ion-button>
+                       (click)="actualizarAmarillas(item, 1)"
+                        [disabled]="(item.amarillas || 0) >= 2">+</ion-button>
                     </div>
                     <input type="hidden" name="amarillas" [(ngModel)]="item.amarillas">
                   </div>
