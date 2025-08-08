@@ -375,6 +375,17 @@ actualizarAmarillas(jugador: any, cambio: number) {
   this.guardarCambiosTodos(jugador);
 }
 
+actualizarGoles(jugador: any, cambio: number) {
+  jugador.goles = (jugador.goles || 0) + cambio;
+  this.guardarCambiosTodos(jugador);
+}
+
+actualizarRojas(jugador: any, cambio: number) {
+  jugador.rojas = (jugador.rojas || 0) + cambio;
+  jugador.ultimaTarjeta = jugador.rojas > 0 ? 'Roja' : 'Ninguna';
+  this.guardarCambiosTodos(jugador);
+}
+
 guardarCambiosTodos2() {
   const cambios = this.jugadoresFiltrados
     .filter(j => j.jugador && j.jugador._id) // nos aseguramos que tenga ID

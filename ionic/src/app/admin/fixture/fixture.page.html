@@ -149,11 +149,12 @@
             </div>
             <div
               style="width: 50%; flex-direction: column; display: flex; text-align: center; align-items: center; line-height: 15px; justify-content: center;">
-              <p style="font-size: 1rem; text-align: center;">{{ item.jugador.firstName }} {{ item.jugador.lastName }}</p>
+              <p style="font-size: 1rem; text-align: center;">{{ item.jugador.firstName }} {{ item.jugador.lastName }}
+              </p>
               <p>{{item.jugador.dni}}</p>
-              <p>{{ item.jugador.nacimiento }}</p>    
+              <p>{{ item.jugador.nacimiento }}</p>
             </div>
-            
+
             <!--<img class="player-img" [src]="item.picturePlayer" alt="Foto jugador" />
           <input type="hidden" name="_id" [value]="item._id" />-->
           </div>
@@ -165,11 +166,9 @@
                 <div class="stats-column">
                   <div class="stat">
                     <div class="counter">
-                      <ion-button size="small" fill="outline"
-                        (click)="item.goles = restar(item.goles || 0); " (click)="guardarCambiosTodos(item)">-</ion-button>
+                      <ion-button size="small" fill="outline" (click)="actualizarGoles(item, -1)">-</ion-button>
                       <span>{{ item.goles || 0 }}</span>
-                      <ion-button size="small" fill="outline"
-                        (click)="item.goles = (item.goles || 0) + 1; " (click)="guardarCambiosTodos(item)">+</ion-button>
+                      <ion-button size="small" fill="outline" (click)="actualizarGoles(item, 1)">+</ion-button>
                     </div>
                     <input type="hidden" name="goles" [(ngModel)]="item.goles">
                   </div>
@@ -177,10 +176,9 @@
                   <div class="stat">
                     <div class="counter">
                       <ion-button size="small" fill="outline" color="warning"
-                       (click)="actualizarAmarillas(item, -1)">-</ion-button>
+                        (click)="actualizarAmarillas(item, -1)">-</ion-button>
                       <span>{{ item.amarillas || 0 }}</span>
-                      <ion-button size="small" fill="outline" color="warning"
-                       (click)="actualizarAmarillas(item, 1)"
+                      <ion-button size="small" fill="outline" color="warning" (click)="actualizarAmarillas(item, 1)"
                         [disabled]="(item.amarillas || 0) >= 2">+</ion-button>
                     </div>
                     <input type="hidden" name="amarillas" [(ngModel)]="item.amarillas">
@@ -189,10 +187,10 @@
                   <div class="stat">
                     <div class="counter">
                       <ion-button size="small" fill="outline" color="danger"
-                        (click)="item.rojas = restar(item.rojas || 0); " (click)="guardarCambiosTodos(item)">-</ion-button>
+                        (click)="actualizarRojas(item, -1)">-</ion-button>
                       <span>{{ item.rojas || 0 }}</span>
-                      <ion-button size="small" fill="outline" color="danger"
-                        (click)="item.rojas = (item.rojas || 0) + 1; " [disabled]="(item.rojas || 0) >= 1" (click)="guardarCambiosTodos(item)">+</ion-button>
+                      <ion-button size="small" fill="outline" color="danger" (click)="actualizarRojas(item, 1)"
+                        [disabled]="(item.rojas || 0) >= 1">+</ion-button>
                     </div>
                     <input type="hidden" name="rojas" [(ngModel)]="item.rojas">
                   </div>
@@ -201,8 +199,8 @@
                   <ion-button color="danger" (click)="goTribunales(item._id, jornada, vsTeam_id?._id,local,visitante)">Informe</ion-button>
                 </div>-->
                 <div>
-                  <ion-textarea class="texto-area" type="text" [(ngModel)]="motivos[item.jugador._id]" labelPlacement="stacked"
-                    label="Motivo" [counter]="true" name="motivo" maxlength="500"
+                  <ion-textarea class="texto-area" type="text" [(ngModel)]="motivos[item.jugador._id]"
+                    labelPlacement="stacked" label="Motivo" [counter]="true" name="motivo" maxlength="500"
                     placeholder="Ingrese el motivo de la sanción"></ion-textarea>
                 </div>
               </div>
