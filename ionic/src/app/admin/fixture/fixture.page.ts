@@ -359,13 +359,8 @@ console.log("mi jugador",jugador)
     next: (res: any) => {
       console.log('Actualizados:', res.jugador);
       this.notifyService.success('Cambios guardados correctamente');
-      this.tournamentService.emitRefresh();
-      this.getTournament();
-      this.getList();
-        const index = this.jugadoresFiltrados.findIndex(j => j._id === res.jugador._id);
-      if (index !== -1) {
-        this.jugadoresFiltrados[index] = {...this.jugadoresFiltrados[index], ...res.jugador};
-      }
+      
+      
     },
     error: (err: any) => {
       this.notifyService.error('Error al guardar los cambios');
