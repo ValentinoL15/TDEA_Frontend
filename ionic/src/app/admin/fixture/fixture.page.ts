@@ -430,6 +430,7 @@ crearSancion(item: any, vsTeam: any, myTeam: any) {
     next: (res: any) => {
       this.notifyService.success('Sanción creada correctamente');
       item.motivo = ''; // limpiar textarea
+      this.setOpen(false,null,null,0,null,null)
     },
     error: (err: any) => {
       console.error(err);
