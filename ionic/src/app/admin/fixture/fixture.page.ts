@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
+import { forkJoin, Observable } from 'rxjs';
 import { List } from 'src/app/interfaces/List';
 import { Player } from 'src/app/interfaces/Player';
 import { Tournament } from 'src/app/interfaces/Tournament';
@@ -372,45 +373,69 @@ console.log("mi jugador",jugador)
 actualizarAmarillas(jugador: any, cambio: number) {
   jugador.amarillas = (jugador.amarillas || 0) + cambio;
   jugador.ultimaTarjeta = jugador.amarillas > 0 ? 'Amarilla' : 'Ninguna';
-  this.guardarCambiosTodos(jugador);
 }
 
 actualizarGoles(jugador: any, cambio: number) {
   jugador.goles = (jugador.goles || 0) + cambio;
-  this.guardarCambiosTodos(jugador);
 }
 
 actualizarRojas(jugador: any, cambio: number) {
   jugador.rojas = (jugador.rojas || 0) + cambio;
   jugador.ultimaTarjeta = jugador.rojas > 0 ? 'Roja' : 'Ninguna';
-  this.guardarCambiosTodos(jugador);
 }
 
-guardarCambiosTodos2() {
-  const cambios = this.jugadoresFiltrados
-    .filter(j => j.jugador && j.jugador._id) // nos aseguramos que tenga ID
-    .map(j => ({
-      id: j.jugador._id, // O j._id si lo tenés ahí
-      goles: j.goles || 0,
-      amarillas: j.amarillas || 0,
-      rojas: j.rojas || 0
-    }));
+guardarCambiosTodosDeUna() {
+  const peticiones: Observable<any>[] = [];
+  
+  this.jugadoresFiltrados.forEach(jugador => {
+    const cambios = {
+      goles: jugador.goles || 0,
+      amarillas: jugador.amarillas || 0,
+      rojas: jugador.rojas || 0
+    };
 
-  if (cambios.length === 0) {
-    this.notifyService.error('No hay cambios para guardar');
-    return;
-  }
+    // 1️⃣ Petición para actualizar estadísticas
+    peticiones.push(
+      this.tournamentService.updateJugadores(
+        this.id,
+        jugador._id,
+        this.jornada,
+        cambios
+      )
+    );
 
-  this.tournamentService.updateJugadores(this.id, this.jornada,this.jornada,cambios).subscribe({
-    next: (res: any) => {
-      console.log('Actualizados:', res.resultados);
-      this.notifyService.success('Cambios guardados correctamente');
+    // 2️⃣ Si hay motivo escrito y tiene al menos una tarjeta => crear sanción
+    const motivo = this.motivos[jugador.jugador._id];
+    if (motivo && motivo.trim() !== '' && jugador.ultimaTarjeta !== 'Ninguna') {
+      const sancionData = {
+        player_id: jugador.jugador._id,
+        tarjeta: jugador.ultimaTarjeta,
+        name: jugador.jugador.firstName,
+        lastName: jugador.jugador.lastName,
+        equipo: this.team_id?.nameList || '',
+        versus: this.vsTeam_id || '',
+        local: this.local,
+        visitante: this.visitante,
+        fecha: this.jornada,
+        motivo: motivo
+      };
+
+      peticiones.push(
+        this.tournamentService.crearSancion(this.id, sancionData)
+      );
+    }
+  });
+
+  // 3️⃣ Ejecutar todo en paralelo
+  forkJoin(peticiones).subscribe({
+    next: () => {
+      this.notifyService.success('Cambios y sanciones procesados');
       this.getTournament();
       this.getList();
     },
-    error: (err: any) => {
-      this.notifyService.error('Error al guardar los cambios');
+    error: (err) => {
       console.error(err);
+      this.notifyService.error('Error al guardar cambios y sanciones');
     }
   });
 }
