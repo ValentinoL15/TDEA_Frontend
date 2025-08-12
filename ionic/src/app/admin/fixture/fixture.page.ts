@@ -420,9 +420,9 @@ guardarCambiosTodosDeUna() {
         motivo: motivo
       };
 
-      /*peticiones.push(
+      peticiones.push(
         this.tournamentService.crearSancion(this.id, sancionData)
-      );*/
+      );
     }
   });
 
