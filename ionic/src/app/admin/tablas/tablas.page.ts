@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EsatdisticaJugador } from 'src/app/interfaces/EstadisiticaJugador';
 import { Player } from 'src/app/interfaces/Player';
 import { Tournament } from 'src/app/interfaces/Tournament';
 import { NotifyService } from 'src/app/services/notify.service';
@@ -151,7 +152,7 @@ export class TablasPage implements OnInit {
         diferenciaGoles: 0
   }]
 }
-goleador: Player[] = [];
+goleador: EsatdisticaJugador[] = [];
 valla: any[] = [];
 fairPlay: any[] = [];
 

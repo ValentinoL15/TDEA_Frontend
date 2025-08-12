@@ -61,11 +61,12 @@
           <ion-row class="table-row" [ngClass]="{ 'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0 }">
             <ion-col size="1" class="table-cell">{{i + 1}}</ion-col>
             <ion-col size="4" class="table-cell">
-              <img [src]="getTeamPicture(jugador.ownerList?.nameList)" alt="team2"
-                    style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px; object-fit: cover;">
-              {{ jugador.firstName }}
+              <!--<img [src]="getTeamPicture(jugador.jugador.ownerList?.nameList)" alt="team2"
+                    style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px; object-fit: cover;">-->
+              {{ jugador.jugador.firstName }}
+              
             </ion-col>
-            <ion-col size="4" class="table-cell">{{ jugador.lastName }}</ion-col>
+            <ion-col size="4" class="table-cell">{{ jugador.jugador.lastName }}</ion-col>
             <ion-col size="3" class="table-cell text-center">{{ jugador.goles }}</ion-col>
           </ion-row>
         </ng-container>
@@ -129,7 +130,7 @@
           <ion-col size="5" class="table-cell">
              <img [src]="equipo.teamPicture" alt="team1"
                     style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px; object-fit: cover;">
-            {{ equipo.nameList }} <!-- Nombre del equipo -->
+            {{ equipo.teamName }} <!-- Nombre del equipo -->
           </ion-col>
 
           <!-- Muestra el total de tarjetas amarillas del equipo -->

@@ -106,6 +106,7 @@ tournament: Tournament = {
                     goles: 0,
                     amarillas: 0,
                     rojas: 0,
+                    motivo: ""
                 }
             ],
       local: {
@@ -140,7 +141,7 @@ tournament: Tournament = {
               },
               goles: 0,
               amarillas: 0,
-              rojas: 0
+              rojas: 0,
           }
       ],
   tablaPosiciones: [{
@@ -289,7 +290,7 @@ setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: a
   this.local = local
   this.visitante = visitante;
   console.log("sapeee", team_id, vsTeam_id, jornada, local, visitante)
-  console.log("Jugadores filtrados:", this.tournament.estadisticasJugadores);
+  
   
 
   if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
@@ -300,10 +301,14 @@ setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: a
     (p.team1?._id === vsTeam_id._id && p.team2?._id === team_id._id)
   )?.estadisticasJugadores
   .filter(j => j.equipo && j.equipo._id === team_id._id) || [];
+  this.jugadoresFiltrados.forEach(jugador => {
+      jugador.motivoOriginal = jugador.motivo || ''; // Guarda el motivo que llegó inicialmente
+    });
+
   }
   if (team_id && team_id !== 'null') {
     this.getList();
-    
+    console.log("Jugadores filtrados:", this.jugadoresFiltrados);
   } else {
     console.warn('ID de equipo inválido:', team_id);
   }
@@ -391,7 +396,8 @@ guardarCambiosTodosDeUna() {
     const cambios = {
       goles: jugador.goles || 0,
       amarillas: jugador.amarillas || 0,
-      rojas: jugador.rojas || 0
+      rojas: jugador.rojas || 0,
+      motivo: jugador.motivo || null
     };
 
     // 1️⃣ Petición para actualizar estadísticas
@@ -403,10 +409,15 @@ guardarCambiosTodosDeUna() {
         cambios
       )
     );
+    this.getList()
+    this.getTournament()
+    
 
     // 2️⃣ Si hay motivo escrito y tiene al menos una tarjeta => crear sanción
-    const motivo = this.motivos[jugador.jugador._id];
-    if (motivo && motivo.trim() !== '' && jugador.ultimaTarjeta !== 'Ninguna') {
+    //const motivo = this.motivos[jugador.jugador._id];
+    if (jugador.ultimaTarjeta !== 'Ninguna' &&  jugador.motivo && 
+      jugador.motivo.trim() !== '' &&
+      jugador.motivo !== jugador.motivoOriginal) {
       const sancionData = {
         player_id: jugador.jugador._id,
         tarjeta: jugador.ultimaTarjeta,
@@ -417,7 +428,7 @@ guardarCambiosTodosDeUna() {
         local: this.local,
         visitante: this.visitante,
         fecha: this.jornada,
-        motivo: motivo
+        motivo: jugador.motivo
       };
 
       peticiones.push(

@@ -106,6 +106,7 @@ export interface Tournament {
                     goles: number,
                     amarillas: number,
                     rojas: number,
+                    motivo?: string
                 }
             ],
             local: {
