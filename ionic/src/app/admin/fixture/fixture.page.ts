@@ -281,6 +281,7 @@ generarFixture(){
 isModalOpen = false;
 jugadoresFiltrados: any[] = [];
 
+selectedTeamSegment: string = '';
 
 setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: any, visitante: any) {
   this.isModalOpen = isOpen;
@@ -289,29 +290,33 @@ setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: a
   this.jornada = jornada;
   this.local = local
   this.visitante = visitante;
-  console.log("sapeee", team_id, vsTeam_id, jornada, local, visitante)
-  
-  
+   if (team_id && team_id._id) {
+    this.selectedTeamSegment = team_id._id;
+  }
 
   if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
-    this.jugadoresFiltrados = this.tournament.fixture
-  .find(j => j.jornada === jornada)?.partidos
-  .find(p => 
-    (p.team1?._id === team_id._id && p.team2?._id === vsTeam_id._id) ||
-    (p.team1?._id === vsTeam_id._id && p.team2?._id === team_id._id)
-  )?.estadisticasJugadores
-  .filter(j => j.equipo && j.equipo._id === team_id._id) || [];
-  this.jugadoresFiltrados.forEach(jugador => {
-      jugador.motivoOriginal = jugador.motivo || ''; // Guarda el motivo que llegó inicialmente
-    });
+    this.filtrarJugadoresPorEquipo(this.selectedTeamSegment);
+  }
+}
 
-  }
-  if (team_id && team_id !== 'null') {
-    this.getList();
-    console.log("Jugadores filtrados:", this.jugadoresFiltrados);
-  } else {
-    console.warn('ID de equipo inválido:', team_id);
-  }
+filtrarJugadoresPorEquipo(equipoId: string) {
+  this.jugadoresFiltrados = this.tournament.fixture
+    .find(j => j.jornada === this.jornada)?.partidos
+    .find(p => 
+      (p.team1?._id === this.team_id?._id && p.team2?._id === this.vsTeam_id?._id) ||
+      (p.team1?._id === this.vsTeam_id?._id && p.team2?._id === this.team_id?._id)
+    )?.estadisticasJugadores
+    .filter(j => j.equipo && j.equipo._id === equipoId) || [];
+  
+  this.jugadoresFiltrados.forEach(jugador => {
+    jugador.motivoOriginal = jugador.motivo || ''; // Guarda el motivo que llegó inicialmente
+  });
+}
+
+onSegmentChanged(event: any) {
+  const equipoId = event.detail.value;
+  this.selectedTeamSegment = equipoId;
+  this.filtrarJugadoresPorEquipo(equipoId);
 }
 
 getList(){
