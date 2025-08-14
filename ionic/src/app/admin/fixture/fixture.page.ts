@@ -281,7 +281,7 @@ generarFixture(){
 isModalOpen = false;
 jugadoresFiltrados: any[] = [];
 
-selectedTeamSegment: string = '';
+//selectedTeamSegment: string = '';
 
 setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: any, visitante: any) {
   this.isModalOpen = isOpen;
@@ -291,11 +291,11 @@ setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: a
   this.local = local
   this.visitante = visitante;
    if (team_id && team_id._id) {
-    this.selectedTeamSegment = team_id._id;
+   // this.selectedTeamSegment = team_id._id;
   }
 
   if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
-    this.filtrarJugadoresPorEquipo(this.selectedTeamSegment);
+    //this.filtrarJugadoresPorEquipo(this.selectedTeamSegment);
   }
 }
 
@@ -315,7 +315,7 @@ filtrarJugadoresPorEquipo(equipoId: string) {
 
 onSegmentChanged(event: any) {
   const equipoId = event.detail.value;
-  this.selectedTeamSegment = equipoId;
+  //this.selectedTeamSegment = equipoId;
   this.filtrarJugadoresPorEquipo(equipoId);
 }
 

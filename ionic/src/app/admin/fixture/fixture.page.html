@@ -26,11 +26,11 @@
           <ng-container *ngIf="!match.libre">
             <ion-grid class="match-grid">
               <ion-row class="match-row">
-                <!--<ion-col size="5" class="team"
+                <ion-col size="5" class="team"
                   style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
                   (click)="setOpen(true, match.team1,match.team2, jornada.jornada, match.team1.nameList, match.team2.nameList)">
                   {{ match?.team1?.nameList || 'Equipo 1' }}
-                </ion-col>-->
+                </ion-col>
 
                 <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
                   <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1"
@@ -40,11 +40,11 @@
                     style="width: 50%;"></ion-input>
                 </ion-col>
 
-                <!--<ion-col size="5" class="team"
+                <ion-col size="5" class="team"
                   style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
                   (click)="setOpen(true, match.team1,match.team2, jornada.jornada, match.team1.nameList, match.team2.nameList)">
                   {{ match?.team2?.nameList || 'Equipo 2' }}
-                </ion-col>-->
+                </ion-col>
               </ion-row>
 
               <ion-row>
@@ -124,14 +124,14 @@
     <ion-content class="ion-padding">
 
       <div style="margin: 0 10px;">
-        <ion-segment value="default" [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">
+       <!-- <ion-segment value="default" [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">
           <ion-segment-button [value]="team_id?._id">
             <ion-label>{{local}}</ion-label>
           </ion-segment-button>
           <ion-segment-button [value]="vsTeam_id?._id">
             <ion-label>{{visitante}}</ion-label>
           </ion-segment-button>
-        </ion-segment>
+        </ion-segment>-->
       </div>
       <div style="display: flex; width: 100%; justify-content: end; align-items: center; padding: 10px;">
          <ion-button size="small" (click)="guardarCambiosTodosDeUna()">
