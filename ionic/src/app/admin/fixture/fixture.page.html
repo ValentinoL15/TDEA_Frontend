@@ -124,14 +124,14 @@
     <ion-content class="ion-padding">
 
       <div style="margin: 0 10px;">
-       <!-- <ion-segment value="default" [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">
+        <ion-segment value="default" [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">
           <ion-segment-button [value]="team_id?._id">
             <ion-label>{{local}}</ion-label>
           </ion-segment-button>
           <ion-segment-button [value]="vsTeam_id?._id">
             <ion-label>{{visitante}}</ion-label>
           </ion-segment-button>
-        </ion-segment>-->
+        </ion-segment>
       </div>
       <div style="display: flex; width: 100%; justify-content: end; align-items: center; padding: 10px;">
          <ion-button size="small" (click)="guardarCambiosTodosDeUna()">
