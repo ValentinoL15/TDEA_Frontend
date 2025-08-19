@@ -115,6 +115,9 @@
   border: 2px solid #ccc;
 }
 
+
+
+
 .info {
   width: 30%;
   display: flex;
@@ -144,7 +147,12 @@
   align-items: center;
   flex-direction: column;
   margin-top: 12px;
-  width: 50%;
+  margin-right: 0px;
+  width: 30%;
+}
+
+.texto-area {
+  height: 100px;
 }
 
 .stat {
