@@ -382,7 +382,7 @@ console.log("mi jugador",jugador)
 
 actualizarAmarillas(jugador: any, cambio: number) {
   jugador.amarillas = (jugador.amarillas || 0) + cambio;
-  jugador.ultimaTarjeta = jugador.amarillas > 0 ? 'Amarilla' : 'Ninguna';
+  //jugador.ultimaTarjeta = jugador.amarillas > 0 ? 'Amarilla' : 'Ninguna';
 }
 
 actualizarGoles(jugador: any, cambio: number) {
@@ -391,18 +391,28 @@ actualizarGoles(jugador: any, cambio: number) {
 
 actualizarRojas(jugador: any, cambio: number) {
   jugador.rojas = (jugador.rojas || 0) + cambio;
-  jugador.ultimaTarjeta = jugador.rojas > 0 ? 'Roja' : 'Ninguna';
+  //jugador.ultimaTarjeta = jugador.rojas > 0 ? 'Roja' : 'Ninguna';
 }
 
 guardarCambiosTodosDeUna() {
   const peticiones: Observable<any>[] = [];
   
-  this.jugadoresFiltrados.forEach(jugador => {
+  this.jugadoresFiltrados.forEach((jugador:any) => {
+    if(jugador.amarillas === 2 && jugador.rojas === 1) {
+      jugador.ultimaTarjeta = '2 Amarilla y Roja'
+    } else if(jugador.amarillas === 1 && jugador.rojas === 1) {
+      jugador.ultimaTarjeta = 'Amarilla y Roja'
+    }else if(jugador.amarillas === 0 && jugador.rojas === 1){
+      jugador.ultimaTarjeta = 'Roja'
+    } else {
+      jugador.ultimaTarjeta = null
+    }
     const cambios = {
       goles: jugador.goles || 0,
       amarillas: jugador.amarillas || 0,
       rojas: jugador.rojas || 0,
-      motivo: jugador.motivo || null
+      motivo: jugador.motivo || null,
+      ultimaTarjeta: jugador.ultimaTarjeta
     };
 
     // 1️⃣ Petición para actualizar estadísticas
@@ -458,9 +468,7 @@ guardarCambiosTodosDeUna() {
 
 
 crearSancion(item: any, vsTeam: any, myTeam: any) {
-  console.log("Mi id:", item.jugador._id)
   const motivo = this.motivos[item.jugador._id];
-  console.log("mi motiv", motivo)
 
   if (!motivo || item.ultimaTarjeta === 'Ninguna') {
     this.notifyService.error('Debe ingresar un motivo y haber al menos una tarjeta');

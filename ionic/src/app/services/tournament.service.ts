@@ -9,8 +9,8 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 })
 export class TournamentService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http : HttpClient) { }
 
@@ -406,8 +406,8 @@ emitRefresh() {
     return this.http.get(`${this.API_URL}/obtener-sanciones/${id}`)
   }
 
-  editFechas(form:any){
-    return this.http.put(`${this.API_URL}/editar-sancion`, form)
+  editFechas(payload: { sanciones: Array<{ _id: string; fechas_de_expulsion: number }> }){
+    return this.http.put(`${this.API_URL}/editar-sanciones`, payload)
   }
 
 /****************************************************DAYS*****************************************************/ 

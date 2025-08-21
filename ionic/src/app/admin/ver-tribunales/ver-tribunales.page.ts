@@ -6,6 +6,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { UserService } from 'src/app/services/user.service';
 
+
 @Component({
   selector: 'app-ver-tribunales',
   templateUrl: './ver-tribunales.page.html',
@@ -62,24 +63,39 @@ export class VerTribunalesPage implements OnInit {
     })
   }
 
- editarFechas(id: string) {
-    const form = this.forms[id];
-    const formulario = {
-      _id: form.value._id,
-      fechas_de_expulsion: form.value.fechas_de_expulsion
-    };
+  hayCambios(): boolean {
+  return this.tribunales.some(t => this.forms[t._id]?.dirty);
+}
 
-    this.torunamentServ.editFechas(formulario).subscribe({
-      next: (res: any) => {
-        this.notifyService.success(res.message);
-        this.getTribunales(); // para refrescar
-      },
-      error: (err: any) => {
-        console.error(err);
-        this.notifyService.error(err.error.message || 'Error al editar las fechas de expulsión');
-      }
+guardarTodas() {
+  // Enviamos solo las que cambiaron (dirty) para evitar escrituras innecesarias
+  const sanciones = this.tribunales
+    .filter(t => this.forms[t._id]?.dirty)
+    .map(t => {
+      const raw = this.forms[t._id].value;
+      return {
+        _id: raw._id,
+        fechas_de_expulsion: Number(raw.fechas_de_expulsion) || 0
+      };
     });
+
+  if (sanciones.length === 0) {
+    this.notifyService.info('No hay cambios para guardar.');
+    return;
   }
+
+  this.torunamentServ.editFechas({ sanciones }).subscribe({
+    next: (res: any) => {
+      this.notifyService.success(res.message || 'Actualización masiva exitosa');
+      this.getTribunales(); // refresca y resetea estado dirty
+    },
+    error: (err: any) => {
+      console.error(err);
+      this.notifyService.error(err.error?.message || 'Error al editar sanciones');
+    }
+  });
+}
+
 
   volver() {
     this.router.navigate([`/admin/tournaments/${this.id}`])
