@@ -27,7 +27,19 @@ export class VerTribunalesPage implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
-    this.getTribunales();
+     this.torunamentServ.sanciones$.subscribe((sanciones) => {
+      this.tribunales = sanciones;
+
+      // regenerar forms cuando cambian
+      this.forms = {};
+      this.tribunales.forEach(t => {
+        this.forms[t._id] = this.fb.group({
+          _id: [t._id],
+          fechas_de_expulsion: [t.fechas_de_expulsion || '']
+        });
+      });
+    });
+    this.getTribunales()
   }
 
   getTribunales() {

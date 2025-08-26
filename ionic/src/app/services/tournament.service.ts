@@ -9,8 +9,8 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 })
 export class TournamentService {
 
-  API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://localhost:3000/api/futbol'
+  //API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
+  API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http : HttpClient) { }
 
@@ -339,10 +339,15 @@ deleteStadium(id : any){
     });
   }
 
-  crearSancion(id: any, form: any) {
-    return this.http.post(`${this.API_URL}/crear-sancion/${id}`, form);
-  }
-
+  crearSancion(id: any, sancionData: any) {
+  return this.http.post(`${this.API_URL}/crear-sancion/${id}`, sancionData).pipe(
+    tap((res: any) => {
+      // 🚀 agrego la sanción recién creada a la lista
+      const actuales = this.sancionesSubject.value;
+      this.sancionesSubject.next([...actuales, res.sancion]);
+    })
+  );
+}
 /***************************************************FIXTURE*****************************************************/ 
 
   generateFixture(id:any, form : any){
@@ -389,7 +394,6 @@ emitRefresh() {
   this.refresh$.next();
 }
 
-
   getGoleador(id:any){
     return this.http.get(`${this.API_URL}/goleadores/${id}`)
   }
@@ -402,9 +406,16 @@ emitRefresh() {
     return this.http.get(`${this.API_URL}/fair-play/${id}`)
   }
 
-  getTribunales(id:any){
-    return this.http.get(`${this.API_URL}/obtener-sanciones/${id}`)
-  }
+  private sancionesSubject = new BehaviorSubject<any[]>([]);
+  sanciones$ = this.sancionesSubject.asObservable();
+
+ getTribunales(id: any) {
+  return this.http.get(`${this.API_URL}/obtener-sanciones/${id}`).pipe(
+    tap((res: any) => {
+      this.sancionesSubject.next(res.sanciones); // 🔔 guardo sanciones globalmente
+    })
+  );
+}
 
   editFechas(payload: { sanciones: Array<{ _id: string; fechas_de_expulsion: number }> }){
     return this.http.put(`${this.API_URL}/editar-sanciones`, payload)
