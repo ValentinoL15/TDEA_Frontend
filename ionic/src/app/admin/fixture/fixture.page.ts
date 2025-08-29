@@ -397,15 +397,33 @@ actualizarRojas(jugador: any, cambio: number) {
 guardarCambiosTodosDeUna() {
   const peticiones: Observable<any>[] = [];
   
-  this.jugadoresFiltrados.forEach((jugador:any) => {
-    if(jugador.amarillas === 2 && jugador.rojas === 1) {
-      jugador.ultimaTarjeta = '2 Amarilla y Roja'
-    } else if(jugador.amarillas === 1 && jugador.rojas === 1) {
-      jugador.ultimaTarjeta = 'Amarilla y Roja'
-    }else if(jugador.amarillas === 0 && jugador.rojas === 1){
-      jugador.ultimaTarjeta = 'Roja'
-    } else {
-      jugador.ultimaTarjeta = null
+for (const jugador of this.jugadoresFiltrados) {
+    let ultimaTarjeta = null;
+    console.log(jugador)
+
+    // ✅ Validaciones con motivo obligatorio
+    if (jugador.amarillas === 2 && jugador.rojas === 1) {
+      if (!jugador.motivo || jugador.motivo.trim() === '') {
+        console.error(`El jugador ${jugador.jugador.firstName} tiene 2 amarillas y 1 roja pero no tiene motivo`);
+        // Podés mostrar un toast o un alert en Ionic
+        this.notifyService.error(`⚠️ El jugador ${jugador.jugador.firstName} necesita un motivo para registrar la expulsión`);
+        return; // ⛔ Detener toda la función
+      }
+      jugador.ultimaTarjeta = '2 Amarilla y Roja';
+
+    } else if (jugador.amarillas === 1 && jugador.rojas === 1) {
+      if (!jugador.motivo || jugador.motivo.trim() === '') {
+        this.notifyService.error(`⚠️ El jugador ${jugador.jugador.firstName} necesita un motivo para Amarilla y Roja`);
+        return;
+      }
+      jugador.ultimaTarjeta = 'Amarilla y Roja';
+
+    } else if (jugador.amarillas === 0 && jugador.rojas === 1) {
+      if (!jugador.motivo || jugador.motivo.trim() === '') {
+        this.notifyService.error(`⚠️ El jugador ${jugador.jugador.firstName} necesita un motivo para Roja`);
+        return;
+      }
+      jugador.ultimaTarjeta = 'Roja';
     }
     const cambios = {
       goles: jugador.goles || 0,
@@ -450,7 +468,7 @@ guardarCambiosTodosDeUna() {
         this.tournamentService.crearSancion(this.id, sancionData)
       );
     }
-  });
+  };
 
   // 3️⃣ Ejecutar todo en paralelo
   forkJoin(peticiones).subscribe({
