@@ -17,7 +17,7 @@
     <ng-container *ngFor="let ronda of eliminatoria; let roundIndex = index">
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Ronda {{ ronda.ronda }}</ion-card-title>
+          <ion-card-title>{{ getNombreRonda(roundIndex) }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <div *ngFor="let match of ronda.partidos; let matchIndex = index"

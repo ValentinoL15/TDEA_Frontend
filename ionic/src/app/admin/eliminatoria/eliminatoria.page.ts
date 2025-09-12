@@ -73,6 +73,26 @@ export class EliminatoriaPage implements OnInit {
     }
   }
 
+getNombreRonda(roundIndex: number): string {
+  if (!this.eliminatoria.length) return `Ronda ${roundIndex + 1}`;
+
+  // total de equipos que arrancaron
+  const totalEquipos = this.eliminatoria[0].partidos.length * 2;
+  // equipos que quedan en esta ronda
+  const equiposEnRonda = totalEquipos / Math.pow(2, roundIndex);
+
+  if (equiposEnRonda >= 32) return `Dieciseisavos de final`;
+  if (equiposEnRonda === 16) return `Octavos de final`;
+  if (equiposEnRonda === 8) return `Cuartos de final`;
+  if (equiposEnRonda === 4) return `Semifinal`;
+  if (equiposEnRonda === 2) return `Final`;
+  if (equiposEnRonda === 1) return `Campeón`;
+
+  return `Ronda ${roundIndex + 1}`;
+}
+
+
+
   volver(){
     this.router.navigate([`/admin/fixture/${this.torneoId}`])
   }

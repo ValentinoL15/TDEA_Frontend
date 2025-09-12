@@ -288,30 +288,39 @@ setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: a
   this.team_id = team_id;
   this.vsTeam_id = vsTeam_id;
   this.jornada = jornada;
-  this.local = local
+  this.local = local;
   this.visitante = visitante;
-   if (team_id && team_id._id) {
+  if (team_id && team_id._id) {
     this.selectedTeamSegment = team_id._id;
   }
 
   if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
+    // Todos los jugadores de esta jornada
+    const partido = this.tournament.fixture
+      .find(j => j.jornada === this.jornada)?.partidos
+      .find(p => 
+        (p.team1?._id === this.team_id?._id && p.team2?._id === this.vsTeam_id?._id) ||
+        (p.team1?._id === this.vsTeam_id?._id && p.team2?._id === this.team_id?._id)
+      );
+
+    this.jugadoresPorJornada = partido?.estadisticasJugadores.map(j => ({ ...j })) || [];
+
+    // Mostrar solo los del equipo seleccionado
     this.filtrarJugadoresPorEquipo(this.selectedTeamSegment);
   }
 }
 
+
+jugadoresPorJornada: any[] = [];
+
 filtrarJugadoresPorEquipo(equipoId: string) {
-  this.jugadoresFiltrados = this.tournament.fixture
-    .find(j => j.jornada === this.jornada)?.partidos
-    .find(p => 
-      (p.team1?._id === this.team_id?._id && p.team2?._id === this.vsTeam_id?._id) ||
-      (p.team1?._id === this.vsTeam_id?._id && p.team2?._id === this.team_id?._id)
-    )?.estadisticasJugadores
-    .filter(j => j.equipo && j.equipo._id === equipoId) || [];
-  
+  this.jugadoresFiltrados = this.jugadoresPorJornada.filter(j => j.equipo?._id === equipoId);
+
   this.jugadoresFiltrados.forEach(jugador => {
-    jugador.motivoOriginal = jugador.motivo || ''; // Guarda el motivo que llegó inicialmente
+    jugador.motivoOriginal = jugador.motivo || '';
   });
 }
+
 
 onSegmentChanged(event: any) {
   const equipoId = event.detail.value;
@@ -396,81 +405,89 @@ actualizarRojas(jugador: any, cambio: number) {
 
 guardarCambiosTodosDeUna() {
   const peticiones: Observable<any>[] = [];
-  
-for (const jugador of this.jugadoresFiltrados) {
+  let hayErrores = false; // 👈 bandera global
+
+  for (const jugador of this.jugadoresPorJornada) {
     let ultimaTarjeta = null;
-    console.log(jugador)
+    jugador.errorMotivo = false; // reseteo por las dudas
 
     // ✅ Validaciones con motivo obligatorio
     if (jugador.amarillas === 2 && jugador.rojas === 1) {
       if (!jugador.motivo || jugador.motivo.trim() === '') {
-        console.error(`El jugador ${jugador.jugador.firstName} tiene 2 amarillas y 1 roja pero no tiene motivo`);
-        // Podés mostrar un toast o un alert en Ionic
-        this.notifyService.error(`⚠️ El jugador ${jugador.jugador.firstName} necesita un motivo para registrar la expulsión`);
-        return; // ⛔ Detener toda la función
+        jugador.errorMotivo = true;  // 👈 marco en el jugador
+        hayErrores = true;           // 👈 activo bandera
       }
-      jugador.ultimaTarjeta = '2 Amarilla y Roja';
+      ultimaTarjeta = '2 Amarilla y Roja';
 
     } else if (jugador.amarillas === 1 && jugador.rojas === 1) {
       if (!jugador.motivo || jugador.motivo.trim() === '') {
-        this.notifyService.error(`⚠️ El jugador ${jugador.jugador.firstName} necesita un motivo para Amarilla y Roja`);
-        return;
+        jugador.errorMotivo = true;
+        hayErrores = true;
       }
-      jugador.ultimaTarjeta = 'Amarilla y Roja';
+      ultimaTarjeta = 'Amarilla y Roja';
 
     } else if (jugador.amarillas === 0 && jugador.rojas === 1) {
       if (!jugador.motivo || jugador.motivo.trim() === '') {
-        this.notifyService.error(`⚠️ El jugador ${jugador.jugador.firstName} necesita un motivo para Roja`);
-        return;
+        jugador.errorMotivo = true;
+        hayErrores = true;
       }
-      jugador.ultimaTarjeta = 'Roja';
+      ultimaTarjeta = 'Roja';
     }
-    const cambios = {
-      goles: jugador.goles || 0,
-      amarillas: jugador.amarillas || 0,
-      rojas: jugador.rojas || 0,
-      motivo: jugador.motivo || null,
-      ultimaTarjeta: jugador.ultimaTarjeta
-    };
 
-    // 1️⃣ Petición para actualizar estadísticas
-    peticiones.push(
-      this.tournamentService.updateJugadores(
-        this.id,
-        jugador._id,
-        this.jornada,
-        cambios
-      )
-    );
-    this.getList()
-    this.getTournament()
-    
+    jugador.ultimaTarjeta = ultimaTarjeta;
 
-    // 2️⃣ Si hay motivo escrito y tiene al menos una tarjeta => crear sanción
-    //const motivo = this.motivos[jugador.jugador._id];
-    if (jugador.ultimaTarjeta !== 'Ninguna' &&  jugador.motivo && 
-      jugador.motivo.trim() !== '' &&
-      jugador.motivo !== jugador.motivoOriginal) {
-      const sancionData = {
-        player_id: jugador.jugador._id,
-        tarjeta: jugador.ultimaTarjeta,
-        name: jugador.jugador.firstName,
-        lastName: jugador.jugador.lastName,
-        equipo: this.team_id?.nameList || '',
-        versus: this.vsTeam_id || '',
-        local: this.local,
-        visitante: this.visitante,
-        fecha: this.jornada,
-        motivo: jugador.motivo
+    // 👇 solo preparo la petición si no hay error en este jugador
+    if (!jugador.errorMotivo) {
+      const cambios = {
+        goles: jugador.goles || 0,
+        amarillas: jugador.amarillas || 0,
+        rojas: jugador.rojas || 0,
+        motivo: jugador.motivo || null,
+        ultimaTarjeta: jugador.ultimaTarjeta
       };
 
       peticiones.push(
-        this.tournamentService.crearSancion(this.id, sancionData)
+        this.tournamentService.updateJugadores(
+          this.id,
+          jugador._id,
+          this.jornada,
+          cambios
+        )
       );
-    }
-  };
 
-  // 3️⃣ Ejecutar todo en paralelo
+      // crear sanción si corresponde
+      if (
+        jugador.ultimaTarjeta &&
+        jugador.ultimaTarjeta !== 'Ninguna' &&
+        jugador.motivo &&
+        jugador.motivo.trim() !== '' &&
+        jugador.motivo !== jugador.motivoOriginal
+      ) {
+        const sancionData = {
+          player_id: jugador.jugador._id,
+          tarjeta: jugador.ultimaTarjeta,
+          name: jugador.jugador.firstName,
+          lastName: jugador.jugador.lastName,
+          equipo: this.team_id?.nameList || '',
+          versus: this.vsTeam_id || '',
+          local: this.local,
+          visitante: this.visitante,
+          fecha: this.jornada,
+          motivo: jugador.motivo
+        };
+
+        peticiones.push(this.tournamentService.crearSancion(this.id, sancionData));
+      }
+    }
+  }
+
+  // 🚨 si hubo algún error, muestro aviso y no ejecuto nada
+  if (hayErrores) {
+    this.notifyService.error('⚠️ Hay jugadores que necesitan un informe antes de continuar');
+    return;
+  }
+
+  // ✅ si todo bien, ejecuto peticiones
   forkJoin(peticiones).subscribe({
     next: () => {
       this.notifyService.success('Cambios y sanciones procesados');
@@ -483,6 +500,7 @@ for (const jugador of this.jugadoresFiltrados) {
     }
   });
 }
+
 
 
 crearSancion(item: any, vsTeam: any, myTeam: any) {

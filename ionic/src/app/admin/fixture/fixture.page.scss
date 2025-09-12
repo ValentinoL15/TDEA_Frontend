@@ -9,6 +9,11 @@
   width: 100%;
 }
 
+.error-card {
+  border: 2px solid red !important;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6) !important;
+}
+
 .match-row {
   display: flex;
   align-items: center;
