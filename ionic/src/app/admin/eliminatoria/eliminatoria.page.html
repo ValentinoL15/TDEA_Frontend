@@ -3,50 +3,94 @@
     <ion-buttons slot="start">
       <ion-button (click)="volver()">Volver</ion-button>
     </ion-buttons>
-    <ion-title>eliminatoria</ion-title>
+    <ion-title>Eliminatoria</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div style="display: flex; justify-content: center; width: 100%;">
-    <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria">Generar Eliminatoria</ion-button>
-    <ion-button (click)="avanzarEliminatoria()" *ngIf="!campeon">Avanzar Eliminatoria</ion-button>
+
+  <!-- Seleccionar fase inicial -->
+  <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 15px;">
+    <ion-item>
+      <ion-label>Fase Inicial</ion-label>
+      <ion-select [(ngModel)]="faseInicial">
+        <ion-select-option value="32avos">32avos de final</ion-select-option>
+        <ion-select-option value="16avos">16avos de final</ion-select-option>
+        <ion-select-option value="octavos">Octavos de final</ion-select-option>
+        <ion-select-option value="cuartos">Cuartos de final</ion-select-option>
+        <ion-select-option value="semifinal">Semifinal</ion-select-option>
+        <ion-select-option value="final">Final</ion-select-option>
+      </ion-select>
+    </ion-item>
   </div>
 
-    <!-- RONDAS -->
-    <ng-container *ngFor="let ronda of eliminatoria; let roundIndex = index">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{ getNombreRonda(roundIndex) }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <div *ngFor="let match of ronda.partidos; let matchIndex = index"
-              style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 12px; background-color: #f9f9f9;">
-  
-            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1em;">
-              <span>{{ match.team1?.nameList }}</span>
-              <span style="color: #888;">vs</span>
-              <span>{{ match.team2?.nameList }}</span>
-            </div>
-  
-            <div *ngIf="!match.ganador" style="display: flex; justify-content: space-evenly; margin-top: 12px;">
-              <ion-button size="small" fill="outline" color="primary"
-                (click)="asignarGanador(roundIndex, matchIndex, match.team1._id)">
-                Gana {{ match.team1?.nameList }}
-              </ion-button>
-              <ion-button size="small" fill="outline" color="secondary"
-                (click)="asignarGanador(roundIndex, matchIndex, match.team2._id)">
-                Gana {{ match.team2?.nameList }}
-              </ion-button>
-            </div>
-  
-            <div *ngIf="match.ganador" style="margin-top: 12px; text-align: center; font-weight: bold;">
-              🏆 Ganador: {{ match.ganador?.nameList }}
-            </div>
+  <div style="display: flex; justify-content: center; width: 100%;">
+    <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">Generar Eliminatoria</ion-button>
+    <ion-button (click)="avanzarEliminatoria()" *ngIf="!campeon && eliminatoria?.length">Avanzar Eliminatoria</ion-button>
+  </div>
+
+  <!-- RONDAS -->
+  <ng-container *ngFor="let ronda of eliminatoria; let roundIndex = index">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ getNombreRonda(roundIndex) }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngFor="let match of ronda.partidos; let matchIndex = index"
+            style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 12px; background-color: #f9f9f9;">
+
+          <!-- Si ya hay equipos asignados -->
+          <div *ngIf="match.team1 && match.team2" 
+              style="display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1em;">
+            <span>{{ match.team1?.nameList || 'BYE' }}</span>
+            <span style="color: #888;">vs</span>
+            <span>{{ match.team2?.nameList || 'BYE' }}</span>
           </div>
-        </ion-card-content>
-      </ion-card>
-    </ng-container>
+
+          <!-- Si no hay equipos, mostramos selects para asignar -->
+         <div *ngIf="!match.team1 || !match.team2" style="display: flex; justify-content: space-evenly; margin-top: 12px;">
+  <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover">
+  <ion-select-option 
+    *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])" 
+    [value]="team._id">
+    {{ team.nameList }}
+  </ion-select-option>
+</ion-select>
+
+<ion-select placeholder="Equipo 2" [(ngModel)]="match.team2Id" interface="popover">
+  <ion-select-option 
+    *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])" 
+    [value]="team._id">
+    {{ team.nameList }}
+  </ion-select-option>
+</ion-select>
+
+  <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
+    Asignar
+  </ion-button>
+</div>
+
+          <!-- Botones para asignar ganador solo si ya hay equipos -->
+          <div *ngIf="!match.ganador && match.team1 && match.team2" 
+              style="display: flex; justify-content: space-evenly; margin-top: 12px;">
+            <ion-button size="small" fill="outline" color="primary"
+              (click)="asignarGanador(roundIndex, matchIndex, match.team1._id)">
+              Gana {{ match.team1?.nameList }}
+            </ion-button>
+            <ion-button size="small" fill="outline" color="secondary"
+              (click)="asignarGanador(roundIndex, matchIndex, match.team2._id)">
+              Gana {{ match.team2?.nameList }}
+            </ion-button>
+          </div>
+
+          <!-- Mostrar ganador -->
+          <div *ngIf="match.ganador" style="margin-top: 12px; text-align: center; font-weight: bold;">
+            🏆 Ganador: {{ match.ganador?.nameList }}
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
 
   <!-- 🏆 CAMPEÓN -->
   <div *ngIf="campeon" style="margin-top: 30px;">
@@ -59,4 +103,5 @@
     </ion-card>
   </div>
 </ion-content>
+
 
