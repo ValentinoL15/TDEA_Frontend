@@ -405,6 +405,8 @@ actualizarRojas(jugador: any, cambio: number) {
 
 guardarCambiosTodosDeUna() {
   let hayErrores = false;
+  let sancionesPendientes = 0;
+  let sancionesCompletadas = 0;
 
   for (const jugador of this.jugadoresPorJornada) {
     jugador.errorMotivo = false;
@@ -441,20 +443,22 @@ guardarCambiosTodosDeUna() {
         ultimaTarjeta: jugador.ultimaTarjeta
       };
 
-      // 👉 Update inmediato
+      // update inmediato
       this.tournamentService.updateJugadores(this.id, jugador._id, this.jornada, cambios)
         .subscribe({
           next: () => console.log("Jugador actualizado"),
           error: (err) => console.error(err)
         });
 
-      // 👉 Crear sanción inmediata
+      // crear sanción inmediata
       if (
         jugador.ultimaTarjeta &&
         jugador.ultimaTarjeta !== 'Ninguna' &&
         jugador.motivo?.trim() &&
         jugador.motivo !== jugador.motivoOriginal
       ) {
+        sancionesPendientes++; // 👈 sumo una sanción a procesar
+
         const sancionData = {
           player_id: jugador.jugador._id,
           tarjeta: jugador.ultimaTarjeta,
@@ -471,10 +475,16 @@ guardarCambiosTodosDeUna() {
         this.tournamentService.crearSancion(this.id, sancionData)
           .subscribe({
             next: () => {
-              this.notifyService.success("Sanción creada instantáneamente");
-              this.getList(); // 👉 recargo tribunales
+              sancionesCompletadas++;
+              if (sancionesCompletadas === sancionesPendientes) {
+                this.notifyService.success("✅ Todas las sanciones creadas correctamente");
+                this.getList();
+              }
             },
-            error: (err) => console.error(err)
+            error: (err) => {
+              console.error(err);
+              this.notifyService.error('❌ Error al crear una sanción');
+            }
           });
       }
     }
