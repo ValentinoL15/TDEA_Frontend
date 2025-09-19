@@ -404,39 +404,34 @@ actualizarRojas(jugador: any, cambio: number) {
 }
 
 guardarCambiosTodosDeUna() {
-  const peticiones: Observable<any>[] = [];
-  let hayErrores = false; // 👈 bandera global
+  let hayErrores = false;
 
   for (const jugador of this.jugadoresPorJornada) {
+    jugador.errorMotivo = false;
     let ultimaTarjeta = null;
-    jugador.errorMotivo = false; // reseteo por las dudas
 
-    // ✅ Validaciones con motivo obligatorio
+    // Validaciones
     if (jugador.amarillas === 2 && jugador.rojas === 1) {
-      if (!jugador.motivo || jugador.motivo.trim() === '') {
-        jugador.errorMotivo = true;  // 👈 marco en el jugador
-        hayErrores = true;           // 👈 activo bandera
+      if (!jugador.motivo?.trim()) {
+        jugador.errorMotivo = true;
+        hayErrores = true;
       }
       ultimaTarjeta = '2 Amarilla y Roja';
-
     } else if (jugador.amarillas === 1 && jugador.rojas === 1) {
-      if (!jugador.motivo || jugador.motivo.trim() === '') {
+      if (!jugador.motivo?.trim()) {
         jugador.errorMotivo = true;
         hayErrores = true;
       }
       ultimaTarjeta = 'Amarilla y Roja';
-
     } else if (jugador.amarillas === 0 && jugador.rojas === 1) {
-      if (!jugador.motivo || jugador.motivo.trim() === '') {
+      if (!jugador.motivo?.trim()) {
         jugador.errorMotivo = true;
         hayErrores = true;
       }
       ultimaTarjeta = 'Roja';
     }
-
     jugador.ultimaTarjeta = ultimaTarjeta;
 
-    // 👇 solo preparo la petición si no hay error en este jugador
     if (!jugador.errorMotivo) {
       const cambios = {
         goles: jugador.goles || 0,
@@ -446,21 +441,18 @@ guardarCambiosTodosDeUna() {
         ultimaTarjeta: jugador.ultimaTarjeta
       };
 
-      peticiones.push(
-        this.tournamentService.updateJugadores(
-          this.id,
-          jugador._id,
-          this.jornada,
-          cambios
-        )
-      );
+      // 👉 Update inmediato
+      this.tournamentService.updateJugadores(this.id, jugador._id, this.jornada, cambios)
+        .subscribe({
+          next: () => console.log("Jugador actualizado"),
+          error: (err) => console.error(err)
+        });
 
-      // crear sanción si corresponde
+      // 👉 Crear sanción inmediata
       if (
         jugador.ultimaTarjeta &&
         jugador.ultimaTarjeta !== 'Ninguna' &&
-        jugador.motivo &&
-        jugador.motivo.trim() !== '' &&
+        jugador.motivo?.trim() &&
         jugador.motivo !== jugador.motivoOriginal
       ) {
         const sancionData = {
@@ -476,30 +468,23 @@ guardarCambiosTodosDeUna() {
           motivo: jugador.motivo
         };
 
-        peticiones.push(this.tournamentService.crearSancion(this.id, sancionData));
+        this.tournamentService.crearSancion(this.id, sancionData)
+          .subscribe({
+            next: () => {
+              this.notifyService.success("Sanción creada instantáneamente");
+              this.getList(); // 👉 recargo tribunales
+            },
+            error: (err) => console.error(err)
+          });
       }
     }
   }
 
-  // 🚨 si hubo algún error, muestro aviso y no ejecuto nada
   if (hayErrores) {
     this.notifyService.error('⚠️ Hay jugadores que necesitan un informe antes de continuar');
-    return;
   }
-
-  // ✅ si todo bien, ejecuto peticiones
-  forkJoin(peticiones).subscribe({
-    next: () => {
-      this.notifyService.success('Cambios y sanciones procesados');
-      this.getTournament();
-      this.getList();
-    },
-    error: (err) => {
-      console.error(err);
-      this.notifyService.error('Error al guardar cambios y sanciones');
-    }
-  });
 }
+
 
 
 
