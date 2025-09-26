@@ -7,10 +7,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
 
   <!-- Seleccionar fase inicial -->
-  <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 15px;">
+  <div class="fase-inicial">
     <ion-item>
       <ion-label>Fase Inicial</ion-label>
       <ion-select [(ngModel)]="faseInicial">
@@ -24,9 +24,10 @@
     </ion-item>
   </div>
 
-  <div style="display: flex; justify-content: center; width: 100%;">
-    <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">Generar Eliminatoria</ion-button>
-    <ion-button (click)="avanzarEliminatoria()" *ngIf="!campeon && eliminatoria?.length">Avanzar Eliminatoria</ion-button>
+  <div class="generar-btn">
+    <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">
+      Generar Eliminatoria
+    </ion-button>
   </div>
 
   <!-- RONDAS -->
@@ -36,72 +37,186 @@
         <ion-card-title>{{ getNombreRonda(roundIndex) }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <div *ngFor="let match of ronda.partidos; let matchIndex = index"
-            style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 12px; background-color: #f9f9f9;">
 
-          <!-- Si ya hay equipos asignados -->
-          <div *ngIf="match.team1 && match.team2" 
-              style="display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1em;">
-            <span>{{ match.team1?.nameList || 'BYE' }}</span>
-            <span style="color: #888;">vs</span>
-            <span>{{ match.team2?.nameList || 'BYE' }}</span>
+        <div *ngFor="let match of ronda.partidos; let matchIndex = index" class="match-card">
+
+          <!-- Campeón -->
+          <div *ngIf="ronda.fase === 'campeon' && campeon" class="campeon">
+            🏆 Campeón: {{ campeon.nameList }}
           </div>
 
-          <!-- Si no hay equipos, mostramos selects para asignar -->
-         <div *ngIf="!match.team1 || !match.team2" style="display: flex; justify-content: space-evenly; margin-top: 12px;">
-  <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover">
-  <ion-select-option 
-    *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])" 
-    [value]="team._id">
-    {{ team.nameList }}
-  </ion-select-option>
-</ion-select>
+          <!-- Si no es campeón -->
+          <ng-container *ngIf="ronda.fase !== 'campeon'">
 
-<ion-select placeholder="Equipo 2" [(ngModel)]="match.team2Id" interface="popover">
-  <ion-select-option 
-    *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])" 
-    [value]="team._id">
-    {{ team.nameList }}
-  </ion-select-option>
-</ion-select>
+            <!-- Si no hay equipos asignados -->
+            <div *ngIf="!match.team1 || !match.team2" class="asignar-equipos">
+              <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover">
+                <ion-select-option
+                  *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"
+                  [value]="team._id">
+                  {{ team.nameList }}
+                </ion-select-option>
+              </ion-select>
 
-  <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
-    Asignar
-  </ion-button>
-</div>
+              <ion-select placeholder="Equipo 2" [(ngModel)]="match.team2Id" interface="popover">
+                <ion-select-option
+                  *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"
+                  [value]="team._id">
+                  {{ team.nameList }}
+                </ion-select-option>
+              </ion-select>
 
-          <!-- Botones para asignar ganador solo si ya hay equipos -->
-          <div *ngIf="!match.ganador && match.team1 && match.team2" 
-              style="display: flex; justify-content: space-evenly; margin-top: 12px;">
-            <ion-button size="small" fill="outline" color="primary"
-              (click)="asignarGanador(roundIndex, matchIndex, match.team1._id)">
-              Gana {{ match.team1?.nameList }}
-            </ion-button>
-            <ion-button size="small" fill="outline" color="secondary"
-              (click)="asignarGanador(roundIndex, matchIndex, match.team2._id)">
-              Gana {{ match.team2?.nameList }}
-            </ion-button>
-          </div>
+              <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
+                Asignar
+              </ion-button>
+            </div>
 
-          <!-- Mostrar ganador -->
-          <div *ngIf="match.ganador" style="margin-top: 12px; text-align: center; font-weight: bold;">
-            🏆 Ganador: {{ match.ganador?.nameList }}
-          </div>
+            <!-- Si ya hay equipos asignados -->
+            <div *ngIf="match.team1 && match.team2" class="equipos">
+              <div class="equipos" >
+                <div class="equipo" (click)="abrirModal(roundIndex, matchIndex)">
+                  {{ match.team1?.nameList || 'BYE' }}
+                  <ion-input type="number" min="0" [(ngModel)]="match.golesTeam1" placeholder="Goles"></ion-input>
+                  <span *ngIf="match.resultado">({{ match.resultado.team1 }})</span>
+                </div>
+                <div class="vs">vs</div>
+                <div class="equipo" (click)="abrirModal(roundIndex, matchIndex)">
+                  {{ match.team2?.nameList || 'BYE' }}
+                  <ion-input type="number" min="0" [(ngModel)]="match.golesTeam2" placeholder="Goles"></ion-input>
+                  <span style="display: flex; width: 100%; justify-content: center;" *ngIf="match.resultado">({{ match.resultado.team2 }})</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón guardar resultado -->
+            <div class="result-btn" *ngIf="match.team1 && match.team2">
+              <ion-button color="success"
+                (click)="guardarResultado(roundIndex, matchIndex, match.golesTeam1, match.golesTeam2)">
+                Guardar Resultado
+              </ion-button>
+            </div>
+
+            <!-- Botones asignar ganador -->
+            <div class="winner-btn" *ngIf="!match.ganador && match.team1 && match.team2">
+              <ion-button size="small" fill="outline" color="primary"
+                (click)="asignarGanador(roundIndex, matchIndex, match.team1._id)">
+                Gana {{ match.team1?.nameList }}
+              </ion-button>
+              <ion-button size="small" fill="outline" color="secondary"
+                (click)="asignarGanador(roundIndex, matchIndex, match.team2._id)">
+                Gana {{ match.team2?.nameList }}
+              </ion-button>
+            </div>
+
+            <!-- Mostrar ganador -->
+            <div *ngIf="match.ganador" class="ganador">
+              🏆 Ganador: {{ match.ganador?.nameList }}
+            </div>
+
+          </ng-container>
+
         </div>
       </ion-card-content>
     </ion-card>
   </ng-container>
 
-  <!-- 🏆 CAMPEÓN -->
-  <div *ngIf="campeon" style="margin-top: 30px;">
-    <ion-card color="success">
-      <ion-card-header>
-        <ion-card-title style="text-align: center; font-size: 1.5em;">
-          🏆 CAMPEÓN: {{ campeon.nameList }} 🏆
-        </ion-card-title>
-      </ion-card-header>
-    </ion-card>
-  </div>
 </ion-content>
+<ion-modal #modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title style="font-size: 0.8rem;">
+          {{ modalMatch?.team1?.nameList }} vs {{ modalMatch?.team2?.nameList }}
+        </ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
 
+      <div style="margin: 0 10px;">
+        <ion-segment [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">
+          <ion-segment-button [value]="modalMatch?.team1?._id">
+            <ion-label>{{ modalMatch?.team1?.nameList }}</ion-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="modalMatch?.team2?._id">
+            <ion-label>{{ modalMatch?.team2?.nameList }}</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
 
+      <div style="display: flex; width: 100%; justify-content: end; align-items: center; padding: 10px;">
+        <ion-button size="small" (click)="guardarCambiosTodosDeUna()">
+          Guardar cambios
+        </ion-button>
+      </div>
+
+      <div *ngFor="let item of jugadoresFiltrados" class="player-card" [class.error-card]="item.errorMotivo">
+        <div style="width: 100%; display: flex; align-items: center; flex-direction: column;">
+          <div style="width: 100%; display: flex;">
+            <div style="width: 40%; display: flex; justify-content: center; margin-right: 30px;">
+              <img class="player-img" [src]="item.jugador.picturePlayer" alt="Foto jugador" />
+            </div>
+            <div
+              style="width: 60%; flex-direction: column; display: flex; margin-left: 20px;margin-top: 5px; align-items: flex-start; line-height: 30px; justify-content: center;">
+              <p style="font-size: 1rem; margin: 0;">{{ item.jugador.firstName }} {{ item.jugador.lastName }}</p>
+              <p style="margin: 0;">{{ item.jugador.dni }}</p>
+              <p style="margin: 0;">{{ item.jugador.nacimiento }}</p>
+            </div>
+          </div>
+
+          <div class="info">
+            <form #miForm="ngForm" style="margin-bottom: 10px; width: 100%;">
+              <div class="stats">
+                <div class="stats-column">
+                  <div class="stat">
+                    <div class="counter">
+                      <ion-button size="small" fill="outline" (click)="actualizarGoles(item, -1)">-</ion-button>
+                      <span>{{ item.goles || 0 }}</span>
+                      <ion-button size="small" fill="outline" (click)="actualizarGoles(item, 1)">+</ion-button>
+                    </div>
+                    <input type="hidden" name="goles" [(ngModel)]="item.goles">
+                  </div>
+
+                  <div class="stat">
+                    <div class="counter">
+                      <ion-button size="small" fill="outline" color="warning"
+                        (click)="actualizarAmarillas(item, -1)">-</ion-button>
+                      <span>{{ item.amarillas || 0 }}</span>
+                      <ion-button size="small" fill="outline" color="warning" (click)="actualizarAmarillas(item, 1)"
+                        [disabled]="(item.amarillas || 0) >= 2">+</ion-button>
+                    </div>
+                    <input type="hidden" name="amarillas" [(ngModel)]="item.amarillas">
+                  </div>
+
+                  <div class="stat">
+                    <div class="counter">
+                      <ion-button size="small" fill="outline" color="danger"
+                        (click)="actualizarRojas(item, -1)">-</ion-button>
+                      <span>{{ item.rojas || 0 }}</span>
+                      <ion-button size="small" fill="outline" color="danger" (click)="actualizarRojas(item, 1)"
+                        [disabled]="(item.rojas || 0) >= 1">+</ion-button>
+                    </div>
+                    <input type="hidden" name="rojas" [(ngModel)]="item.rojas">
+                  </div>
+                </div>
+
+                <div style="margin-top: 30px; margin-right: 10px">
+                  <ion-textarea type="text" [(ngModel)]="item.motivo"
+                    (ngModelChange)="item.errorMotivo = !item.motivo?.trim()"
+                    (ionBlur)="item.errorMotivo = false"
+                    labelPlacement="stacked" label="Informe"
+                    [counter]="true" name="motivo" maxlength="500" placeholder="Ingrese el motivo " rows="3"
+                    auto-grow="false">
+                  </ion-textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>

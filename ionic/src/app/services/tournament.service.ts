@@ -358,6 +358,10 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/actualizar-resultado/${idTorneo}/${jornada}/${partidoId}`, form);
   }
 
+  actualizarResultadoEliminatoria(idTorneo: any, round: any, matchId: any, form: any): Observable<any> {
+  return this.http.put(`${this.API_URL}/actualizar-resultado/${idTorneo}/eliminatoria/${round}/partido/${matchId}`, form);
+}
+
   /*generarEliminatoria(torneoId: string) {
     return this.http.post(`${this.API_URL}/generar-eliminatoria/${torneoId}`, {});
   }*/
@@ -365,6 +369,10 @@ deleteStadium(id : any){
   generarEliminatoria(torneoId: string, faseInicial: string) {
   return this.http.post(`${this.API_URL}/generar-eliminatoria/${torneoId}`, { faseInicial });
 }
+
+  getPartidoEliminatoria(torneoId: string, roundIndex: number, matchIndex: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/eliminatoria/${torneoId}/ronda/${roundIndex}/partido/${matchIndex}`);
+  }
 
 avanzarEliminatoria(torneoId: string) {
   return this.http.post(`${this.API_URL}/avanzar-eliminatoria/${torneoId}`, {});
@@ -401,6 +409,10 @@ asignarEquipos(torneoId: string, roundIndex: number, matchIndex: number, team1Id
 
  updateJugadores(id:any,jugadorId:any,jornadaNumber:any,jugadores: any) {
   return this.http.put(`${this.API_URL}/change-multiple-tarjetas/${jugadorId}/${jornadaNumber}/${id}`, jugadores);
+}
+
+updateJugadoresEliminatorias(id:any,jugadorId:any,jugadores: any) {
+  return this.http.put(`${this.API_URL}/change-multiple-tarjetas-eliminatoria/${jugadorId}/${id}`, jugadores);
 }
 
 private refresh$ = new BehaviorSubject<void>(undefined);

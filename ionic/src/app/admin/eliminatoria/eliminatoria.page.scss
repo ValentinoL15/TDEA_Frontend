@@ -1,0 +1,134 @@
+.fase-inicial {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.generar-btn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.match-card {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+}
+
+.equipos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.equipo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.vs {
+  font-weight: 700;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.result-btn, .winner-btn {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ganador, .campeon {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 10px;
+  color: #2e7d32;
+}
+
+.error-card {
+  border: 2px solid red !important;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6) !important;
+}
+
+.player-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  color: #000;
+}
+
+.player-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #ccc;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.stats-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 12px;
+  margin-right: 60px;
+  width: 30%;
+}
+
+.stat {
+  min-width: 100px;
+  max-width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+}
+
+.counter span {
+  font-size: 18px;
+  min-width: 20px;
+  text-align: center;
+  color: #000;
+}
+
+
+
