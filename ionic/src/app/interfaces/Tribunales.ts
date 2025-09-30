@@ -15,4 +15,5 @@ export interface Tribunales {
   visitante: string;
   motivo: string;
   fechas_de_expulsion: number;
+  isTorneo: boolean;
 }

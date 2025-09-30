@@ -46,6 +46,7 @@ export class VerTribunalesPage implements OnInit {
     this.torunamentServ.getTribunales(this.id).subscribe({
       next: (res: any) => {
         this.tribunales = res.sanciones;
+
         this.tribunales.forEach(t => {
           this.forms[t._id] = this.fb.group({
             _id: [t._id],
@@ -60,7 +61,9 @@ export class VerTribunalesPage implements OnInit {
     });
   }
 
-  
+    getTribunalesPorTipo(isTorneo: boolean): Tribunales[] {
+    return this.tribunales.filter(t => t.isTorneo === isTorneo);
+  }
 
   getList(id:any){
     this.userService.getList(id).subscribe({

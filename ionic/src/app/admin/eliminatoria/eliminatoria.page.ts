@@ -233,10 +233,12 @@ actualizarResultado(roundIndex: number, matchIndex: number, team1Goles: number, 
 
   /************************************Modal*****************************************/
   
+  roundIndex!: number; // para saber en qué ronda estamos
 
 async abrirModal(roundIndex: number, matchIndex: number) {
   try {
     const res: any = await this.tournamentServ.getPartidoEliminatoria(this.torneoId, roundIndex, matchIndex).toPromise();
+    this.roundIndex = roundIndex; // Guardar el índice de la ronda actual
 
     this.modalMatch = res.partido; // El partido completo con estadisticasJugadores populadas
 
@@ -309,6 +311,7 @@ guardarCambiosTodosDeUna() {
   let hayErrores = false;
   let sancionesPendientes = 0;
   let sancionesCompletadas = 0;
+  console.log("askijdhbasidbhisad",this.roundIndex)
 
   for (const jugador of this.jugadoresFiltrados) {
     jugador.errorMotivo = false;
@@ -370,16 +373,17 @@ const equipoRival = this.modalMatch.team1._id === this.selectedTeamSegment
   : this.modalMatch.team1;
 
         const sancionData = {
-          player_id: jugador.jugador._id,
-          tarjeta: jugador.ultimaTarjeta,
-          name: jugador.jugador.firstName,
-          lastName: jugador.jugador.lastName,
-         equipo: equipoActual?.nameList || '',
-  versus: equipoRival?.nameList || '',
-  local: this.modalMatch.team1?.nameList || '',
-  visitante: this.modalMatch.team2?.nameList || '',
-          fecha: null,
-          motivo: jugador.motivo
+        player_id: jugador.jugador._id,
+        tarjeta: jugador.ultimaTarjeta,
+        name: jugador.jugador.firstName,
+        lastName: jugador.jugador.lastName,
+        equipo: equipoActual?.nameList || '',
+        versus: equipoRival?._id || '',
+        local: this.modalMatch.team1?.nameList || '',
+        visitante: this.modalMatch.team2?.nameList || '',
+        isTorneo: true,
+        fecha: this.roundIndex,
+        motivo: jugador.motivo
         };
 
         this.tournamentServ.crearSancion(this.torneoId, sancionData)

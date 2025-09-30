@@ -8,10 +8,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let tribunal of tribunales">
+  
+  <!-- SECCIÓN: Tribunales NO Torneo (isTorneo = false) -->
+  <ion-list-header *ngIf="getTribunalesPorTipo(false).length > 0">
+    <ion-title>
+      <p>Fecha regular</p>
+    </ion-title>
+  </ion-list-header>
+
+  <ion-card *ngFor="let tribunal of getTribunalesPorTipo(false)">
     <ion-card-header>
       <ion-card-title>{{ tribunal.name }} {{ tribunal.lastName }}</ion-card-title>
-      <!--<ion-card-subtitle>Jugador Sancionado</ion-card-subtitle>-->
     </ion-card-header>
 
     <ion-card-content>
@@ -19,12 +26,6 @@
         <ion-item>
           <ion-input readonly="true" [label]="'Fecha ' + tribunal.fecha + ':'" [value]="tribunal.local + ' vs ' + tribunal.visitante"></ion-input>
         </ion-item>
-        <!--<ion-item>
-          <ion-input readonly="true" label="Equipo: " [value]="tribunal.equipo"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input readonly="true" label="Rival: " [value]="tribunal.versus.nameList"></ion-input>
-        </ion-item>-->
         <ion-item>
           <ion-input readonly="true" label="Tarjeta: " [value]="tribunal.tarjeta"></ion-input>
         </ion-item>
@@ -32,28 +33,68 @@
           <ion-textarea readonly="true" label="Informe: " labelPlacement="stacked" [value]="tribunal.motivo" rows="3"></ion-textarea>
         </ion-item>
         <form [formGroup]="forms[tribunal._id]">
-      <ion-item>
-        <ion-input
-          type="number"
-          inputmode="numeric"
-          label="Fechas de suspensión"
-          labelPlacement="stacked"
-          placeholder="Ingresar fechas de suspensión"
-          formControlName="fechas_de_expulsion">
-        </ion-input>
-      </ion-item>
-      <input type="hidden" formControlName="_id">
-      <!-- Quitá el botón individual -->
-    </form>
-        <!--<p>Fechas de Expulsión: {{ tribunal.fechas_de_expulsion }}</p>
-        <p>Vuelve a jugar en la fecha: {{tribunal.fecha + tribunal.fechas_de_expulsion}}</p>-->
-
-
+          <ion-item>
+            <ion-input
+              type="number"
+              inputmode="numeric"
+              label="Fechas de suspensión"
+              labelPlacement="stacked"
+              placeholder="Ingresar fechas de suspensión"
+              formControlName="fechas_de_expulsion">
+            </ion-input>
+          </ion-item>
+          <input type="hidden" formControlName="_id">
+        </form>
       </ion-list>
     </ion-card-content>
   </ion-card>
 
-   <div style="padding: 12px;">
+  <!-- SEPARADOR -->
+  <div *ngIf="getTribunalesPorTipo(false).length > 0 && getTribunalesPorTipo(true).length > 0" 
+       style="height: 20px; background-color: #f4f5f8; margin: 16px 0;">
+  </div>
+
+  <!-- SECCIÓN: Tribunales DE Torneo (isTorneo = true) -->
+  <ion-list-header *ngIf="getTribunalesPorTipo(true).length > 0">
+    <ion-title>
+      <p>Torneo</p>
+    </ion-title>
+  </ion-list-header>
+
+  <ion-card *ngFor="let tribunal of getTribunalesPorTipo(true)">
+    <ion-card-header>
+      <ion-card-title>{{ tribunal.name }} {{ tribunal.lastName }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-input readonly="true" [label]="'Fecha ' + tribunal.fecha + ':'" [value]="tribunal.local + ' vs ' + tribunal.visitante"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input readonly="true" label="Tarjeta: " [value]="tribunal.tarjeta"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-textarea readonly="true" label="Informe: " labelPlacement="stacked" [value]="tribunal.motivo" rows="3"></ion-textarea>
+        </ion-item>
+        <form [formGroup]="forms[tribunal._id]">
+          <ion-item>
+            <ion-input
+              type="number"
+              inputmode="numeric"
+              label="Fechas de suspensión"
+              labelPlacement="stacked"
+              placeholder="Ingresar fechas de suspensión"
+              formControlName="fechas_de_expulsion">
+            </ion-input>
+          </ion-item>
+          <input type="hidden" formControlName="_id">
+        </form>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <div style="padding: 12px;">
     <ion-button expand="block" (click)="guardarTodas()" [disabled]="!hayCambios()">
       Guardar todas las sanciones
     </ion-button>
