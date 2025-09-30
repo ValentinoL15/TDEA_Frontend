@@ -411,8 +411,8 @@ asignarEquipos(torneoId: string, roundIndex: number, matchIndex: number, team1Id
   return this.http.put(`${this.API_URL}/change-multiple-tarjetas/${jugadorId}/${jornadaNumber}/${id}`, jugadores);
 }
 
-updateJugadoresEliminatorias(id:any,jugadorId:any,jugadores: any) {
-  return this.http.put(`${this.API_URL}/change-multiple-tarjetas-eliminatoria/${jugadorId}/${id}`, jugadores);
+updateJugadoresEliminatorias(id:any,jugadorId:any,ronda:any,jugadores: any) {
+  return this.http.put(`${this.API_URL}/change-multiple-tarjetas-eliminatoria/${jugadorId}/${ronda}/${id}`, jugadores);
 }
 
 private refresh$ = new BehaviorSubject<void>(undefined);

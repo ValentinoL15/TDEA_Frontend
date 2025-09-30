@@ -74,14 +74,20 @@
             <!-- Si ya hay equipos asignados -->
             <div *ngIf="match.team1 && match.team2" class="equipos">
               <div class="equipos" >
-                <div class="equipo" (click)="abrirModal(roundIndex, matchIndex)">
-                  {{ match.team1?.nameList || 'BYE' }}
+                <div class="equipo" >
+                  <p (click)="abrirModal(roundIndex, matchIndex)">
+                    {{ match.team1?.nameList || 'BYE' }}
+                  </p>
+                 
                   <ion-input type="number" min="0" [(ngModel)]="match.golesTeam1" placeholder="Goles"></ion-input>
                   <span *ngIf="match.resultado">({{ match.resultado.team1 }})</span>
                 </div>
                 <div class="vs">vs</div>
-                <div class="equipo" (click)="abrirModal(roundIndex, matchIndex)">
-                  {{ match.team2?.nameList || 'BYE' }}
+                <div class="equipo">
+                  <p (click)="abrirModal(roundIndex, matchIndex)">
+                    {{ match.team2?.nameList || 'BYE' }}
+                  </p>
+                  
                   <ion-input type="number" min="0" [(ngModel)]="match.golesTeam2" placeholder="Goles"></ion-input>
                   <span style="display: flex; width: 100%; justify-content: center;" *ngIf="match.resultado">({{ match.resultado.team2 }})</span>
                 </div>

@@ -241,6 +241,8 @@ async abrirModal(roundIndex: number, matchIndex: number) {
     this.roundIndex = roundIndex; // Guardar el índice de la ronda actual
 
     this.modalMatch = res.partido; // El partido completo con estadisticasJugadores populadas
+    console.log("modal",this.modalMatch)
+    
 
     // Setear equipo que se muestra inicialmente en el segment (local)
     this.selectedTeamSegment = this.modalMatch.team1?._id;
@@ -287,7 +289,8 @@ filtrarJugadores(teamId: string) {
       goles: stat.goles || 0,
       amarillas: stat.amarillas || 0,
       rojas: stat.rojas || 0,
-      motivo: stat.motivo || ''
+      motivo: stat.motivo || '',
+      motivoOriginal: stat.motivo || ''
     }));
 
   console.log("Jugadores filtrados:", this.jugadoresFiltrados);
@@ -311,11 +314,13 @@ guardarCambiosTodosDeUna() {
   let hayErrores = false;
   let sancionesPendientes = 0;
   let sancionesCompletadas = 0;
-  console.log("askijdhbasidbhisad",this.roundIndex)
 
   for (const jugador of this.jugadoresFiltrados) {
     jugador.errorMotivo = false;
     let ultimaTarjeta = null;
+    
+    
+    console.log("Jugadores que tengo que frenarrrr:" , jugador)
 
     // Validaciones
     if (jugador.amarillas === 2 && jugador.rojas === 1) {
@@ -349,12 +354,12 @@ guardarCambiosTodosDeUna() {
       };
 
       // update inmediato
-      this.tournamentServ.updateJugadoresEliminatorias(this.torneoId, jugador._id, cambios)
+      this.tournamentServ.updateJugadoresEliminatorias(this.torneoId, jugador._id,this.roundIndex ,cambios)
         .subscribe({
           next: () => console.log("Jugador actualizado"),
           error: (err) => console.error(err)
         });
-
+      
       // crear sanción inmediata
       if (
         jugador.ultimaTarjeta &&
