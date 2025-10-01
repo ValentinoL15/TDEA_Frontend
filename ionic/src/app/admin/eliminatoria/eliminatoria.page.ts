@@ -267,11 +267,6 @@ cerrarModal() {
   this.jugadoresFiltrados = [];
 }
 
-onSegmentChanged(event: any) {
-  this.selectedTeamSegment = event.detail.value;
-  this.filtrarJugadores(this.selectedTeamSegment);
-}
-
 filtrarJugadores(teamId: string) {
   if (!this.modalMatch) return;
 
@@ -310,12 +305,43 @@ actualizarRojas(jugador: any, cambio: number) {
   //jugador.ultimaTarjeta = jugador.rojas > 0 ? 'Roja' : 'Ninguna';
 }
 
+onSegmentChanged(event: any) {
+  // antes de cambiar de equipo, guardo los cambios en el array correspondiente
+  if (this.selectedTeamSegment === this.modalMatch.team1._id) {
+    this.jugadoresEquipo1 = [...this.jugadoresFiltrados];
+  } else if (this.selectedTeamSegment === this.modalMatch.team2._id) {
+    this.jugadoresEquipo2 = [...this.jugadoresFiltrados];
+  }
+
+  // ahora cambio el segmento seleccionado
+  this.selectedTeamSegment = event.detail.value;
+
+  // y filtro para mostrar los jugadores de ese equipo
+  this.filtrarJugadores(this.selectedTeamSegment);
+}
+
+
+jugadoresEquipo1: any[] = [];
+jugadoresEquipo2: any[] = [];
+
 guardarCambiosTodosDeUna() {
   let hayErrores = false;
   let sancionesPendientes = 0;
   let sancionesCompletadas = 0;
 
-  for (const jugador of this.jugadoresFiltrados) {
+    if (this.selectedTeamSegment === this.modalMatch.team1._id) {
+    this.jugadoresEquipo1 = [...this.jugadoresFiltrados];
+  } else if (this.selectedTeamSegment === this.modalMatch.team2._id) {
+    this.jugadoresEquipo2 = [...this.jugadoresFiltrados];
+  }
+
+  // Unifico los jugadores de ambos equipos
+  const jugadores = [
+    ...this.jugadoresEquipo1,
+    ...this.jugadoresEquipo2
+  ];
+
+  for (const jugador of jugadores) {
     jugador.errorMotivo = false;
     let ultimaTarjeta = null;
     
