@@ -358,7 +358,7 @@ actualizarTarjetas(id: any, form: any) {
   });
 }
 
-guardarCambiosTodos(jugadorId: any) {
+/*guardarCambiosTodos(jugadorId: any) {
 const jugador = this.jugadoresFiltrados.find(j => j._id === jugadorId._id);
 console.log("mi jugador",jugador)
 
@@ -387,7 +387,7 @@ console.log("mi jugador",jugador)
       console.error(err);
     }
   });
-}
+}*/
 
 actualizarAmarillas(jugador: any, cambio: number) {
   jugador.amarillas = (jugador.amarillas || 0) + cambio;
@@ -446,7 +446,10 @@ guardarCambiosTodosDeUna() {
       // update inmediato
       this.tournamentService.updateJugadores(this.id, jugador._id, this.jornada, cambios)
         .subscribe({
-          next: () => console.log("Jugador actualizado"),
+          next: () => {
+            console.log("Jugador actualizado"),
+            this.getTournament()
+          },
           error: (err) => console.error(err)
         });
 
