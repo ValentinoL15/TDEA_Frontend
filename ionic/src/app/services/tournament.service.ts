@@ -403,6 +403,10 @@ asignarEquipos(torneoId: string, roundIndex: number, matchIndex: number, team1Id
     return this.http.get(`${this.API_URL}/ver-eliminatoria/${torneoId}`);
   }
 
+  restaurarEliminatoria(torneoId: string) {
+    return this.http.delete(`${this.API_URL}/restaurar-eliminatoria/${torneoId}`, {});
+  }
+
   updateTarjetas(id:any, form:any){
     return this.http.put(`${this.API_URL}/change-tarjetas/${id}`, form)
   }

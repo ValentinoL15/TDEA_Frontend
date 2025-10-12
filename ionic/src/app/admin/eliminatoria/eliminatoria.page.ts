@@ -200,6 +200,16 @@ actualizarResultado(roundIndex: number, matchIndex: number, team1Goles: number, 
   });
 }
 
+  restaurarEliminatoria() {
+    this.tournamentServ.restaurarEliminatoria(this.torneoId).subscribe({
+      next: (res: any) => {
+        this.eliminatoria = [];
+        this.cargarEliminatoria();
+        this.notifyServ.success('Eliminatoria restaurada. Puedes generar una nueva.');
+      },
+      error: (err) => console.error(err)
+    })
+  }
 
   verificarCampeon() {
     const ultimaRonda = this.eliminatoria[this.eliminatoria.length - 1];

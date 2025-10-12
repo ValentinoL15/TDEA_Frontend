@@ -22,7 +22,14 @@
         <ion-select-option value="final">Final</ion-select-option>
       </ion-select>
     </ion-item>
+    <div>
+      <ion-button (click)="restaurarEliminatoria()">
+        Restaurar Eliminatoria
+      </ion-button>
+    </div>
   </div>
+
+  
 
   <div class="generar-btn">
     <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">
