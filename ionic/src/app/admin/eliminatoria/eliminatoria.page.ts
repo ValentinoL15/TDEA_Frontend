@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 
@@ -32,7 +33,8 @@ selectedTeamSegment!: string;
     private tournamentServ: TournamentService, 
     private route: ActivatedRoute, 
     private notifyServ: NotifyService, 
-    private router: Router
+    private router: Router,
+    private alertController: AlertController 
   ) {}
 
   ngOnInit() {
@@ -200,7 +202,32 @@ actualizarResultado(roundIndex: number, matchIndex: number, team1Goles: number, 
   });
 }
 
-  restaurarEliminatoria() {
+async restaurarEliminatoria() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Restauración',
+      message: '¿Estás **seguro** de querer restaurar la eliminatoria? Se perderán todos los resultados y cruces actuales.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Restauración cancelada');
+          }
+        }, {
+          text: 'Sí, Restaurar',
+          handler: () => {
+            // Lógica original de restauración movida aquí
+            this.ejecutarRestauracion();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  ejecutarRestauracion() {
     this.tournamentServ.restaurarEliminatoria(this.torneoId).subscribe({
       next: (res: any) => {
         this.eliminatoria = [];
@@ -210,6 +237,8 @@ actualizarResultado(roundIndex: number, matchIndex: number, team1Goles: number, 
       error: (err) => console.error(err)
     })
   }
+
+  
 
   verificarCampeon() {
     const ultimaRonda = this.eliminatoria[this.eliminatoria.length - 1];

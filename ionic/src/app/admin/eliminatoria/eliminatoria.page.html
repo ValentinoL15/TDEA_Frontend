@@ -79,27 +79,57 @@
             </div>
 
             <!-- Si ya hay equipos asignados -->
-            <div *ngIf="match.team1 && match.team2" class="equipos">
-              <div class="equipos" >
-                <div class="equipo" >
-                  <p (click)="abrirModal(roundIndex, matchIndex)">
-                    {{ match.team1?.nameList || 'BYE' }}
-                  </p>
-                 
-                  <ion-input type="number" min="0" [(ngModel)]="match.golesTeam1" placeholder="Goles"></ion-input>
-                  <span *ngIf="match.resultado">({{ match.resultado.team1 }})</span>
-                </div>
-                <div class="vs">vs</div>
-                <div class="equipo">
-                  <p (click)="abrirModal(roundIndex, matchIndex)">
-                    {{ match.team2?.nameList || 'BYE' }}
-                  </p>
-                  
-                  <ion-input type="number" min="0" [(ngModel)]="match.golesTeam2" placeholder="Goles"></ion-input>
-                  <span style="display: flex; width: 100%; justify-content: center;" *ngIf="match.resultado">({{ match.resultado.team2 }})</span>
-                </div>
-              </div>
-            </div>
+           <ng-container *ngIf="match.team1 && match.team2">
+  <ion-grid class="match-grid">
+    <ion-row class="match-row">
+      <ion-col
+        size="5"
+        class="team"
+        style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
+        (click)="abrirModal(roundIndex, matchIndex)"
+      >
+        {{ match.team1?.nameList || 'BYE' }}
+      </ion-col>
+
+      <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+        <ion-input
+          [(ngModel)]="match.golesTeam1"
+          type="number"
+          min="0"
+          placeholder="0"
+          style="width: 50%;"
+        ></ion-input>
+        <span> - </span>
+        <ion-input
+          [(ngModel)]="match.golesTeam2"
+          type="number"
+          min="0"
+          placeholder="0"
+          style="width: 50%;"
+        ></ion-input>
+      </ion-col>
+
+      <ion-col
+        size="5"
+        class="team"
+        style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
+        (click)="abrirModal(roundIndex, matchIndex)"
+      >
+        {{ match.team2?.nameList || 'BYE' }}
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="match.resultado">
+      <ion-col style="display: flex; justify-content: center;">
+        <span style="margin-right: 10px;">Resultado Guardado:</span>
+        <span style="font-weight: bold;">({{ match.resultado.team1 }})</span>
+        <span style="margin: 0 5px;">-</span>
+        <span style="font-weight: bold;">({{ match.resultado.team2 }})</span>
+      </ion-col>
+    </ion-row>
+
+    </ion-grid>
+</ng-container>
 
             <!-- Botón guardar resultado -->
             <div class="result-btn" *ngIf="match.team1 && match.team2">

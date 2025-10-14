@@ -358,37 +358,6 @@ actualizarTarjetas(id: any, form: any) {
   });
 }
 
-/*guardarCambiosTodos(jugadorId: any) {
-const jugador = this.jugadoresFiltrados.find(j => j._id === jugadorId._id);
-console.log("mi jugador",jugador)
-
-  if (!jugador) {
-    this.notifyService.error('ID del jugador no válido');
-    return;
-  }
-
-    const cambios = {
-    goles: jugador.goles || 0,
-    amarillas: jugador.amarillas || 0,
-    rojas: jugador.rojas || 0
-  };
-
-  console.log(cambios)
-
-  this.tournamentService.updateJugadores(this.id,jugadorId._id,this.jornada,cambios).subscribe({
-    next: (res: any) => {
-      console.log('Actualizados:', res.jugador);
-      this.notifyService.success('Cambios guardados correctamente');
-      
-      
-    },
-    error: (err: any) => {
-      this.notifyService.error('Error al guardar los cambios');
-      console.error(err);
-    }
-  });
-}*/
-
 actualizarAmarillas(jugador: any, cambio: number) {
   jugador.amarillas = (jugador.amarillas || 0) + cambio;
   //jugador.ultimaTarjeta = jugador.amarillas > 0 ? 'Amarilla' : 'Ninguna';
@@ -498,9 +467,6 @@ guardarCambiosTodosDeUna() {
   }
 }
 
-
-
-
 crearSancion(item: any, vsTeam: any, myTeam: any) {
   const motivo = this.motivos[item.jugador._id];
 
@@ -542,32 +508,86 @@ restar(valor: number) {
   return valor > 0 ? valor - 1 : 0;
 }
 
-actualizarResultado(match: any, jornada:any) {
-  const { team1, team2 } = match.resultado;
+actualizarResultado(match: any, jornada: any) {
+    const { team1, team2 } = match.resultado;
+    const idTorneo = this.id;
+    const partidoId = match._id;
+    const jornadaNum = jornada;
 
-  const idTorneo = this.id;  // Reemplaza con el id de tu torneo
-  const partidoId = match._id;
-  const jornadaNum = jornada
+    const form = {
+        team1: team1,
+        team2: team2
+    };
+
+    this.tournamentService.actualizarResultado(idTorneo, jornadaNum, partidoId, form).subscribe({
+        next: (res: any) => {
+            // 1. Mostrar notificación
+            this.notifyService.success(res.message);
+
+            // 2. ACTUALIZACIÓN DIRECTA: Reemplazar las propiedades del torneo con los datos frescos del servidor.
+            //    Esto obliga al DOM a refrescarse inmediatamente por la magia de Angular.
+            if (res.fixture && res.tablaPosiciones) {
+                this.tournament.fixture = res.fixture; 
+                this.tournament.tablaPosiciones = res.tablaPosiciones;
+                
+                // Opcional: Si 'this.getTournament()' es muy ligero, puedes mantenerlo,
+                // pero si 'res' trae los datos, esta línea es a menudo innecesaria.
+                // Si la actualización directa falla, se mantiene la recarga completa como respaldo.
+                // this.getTournament(); 
+            } else {
+                // Si el backend no devuelve los datos, recurrimos a la recarga completa
+                this.getTournament();
+            }
+        },
+        error: (err: any) => {
+            this.notifyService.error(err.error.message);
+        }
+    });
+}
+
+actualizarResultadosJornada(jornada: any) {
+  const idTorneo = this.id; 
+  const jornadaNum = jornada.jornada;
+
+  // 1. Mapear (transformar) los partidos para el formato que espera el backend
+  const partidosAActualizar = jornada.partidos
+    .filter((match: any) => !match.libre) // Ignoramos partidos libres (BYE)
+    .map((match: any) => {
+      // Usamos 'match.resultado.team1' y 'match.resultado.team2' que el ngModel ha actualizado localmente
+      const resultado = match.resultado || {}; 
+      
+      return {
+        partidoId: match._id,
+        // Aseguramos que los valores sean números, por si acaso
+        team1: Number(resultado.team1) || 0,
+        team2: Number(resultado.team2) || 0
+      };
+    })
+    // Opcional: Filtramos solo partidos con resultados ingresados, aunque el backend maneja 0-0.
+    // Lo mantengo simple: enviamos todos los partidos no libres con sus resultados (incluido 0-0).
+    // Si quieres enviar solo los que tienen resultados (no nulos), debes ajustar el filtro aquí.
 
 
-  console.log(match.resultado)
-
-  const form = {
-    team1: team1,
-    team2: team2
+  // 2. Crear el formulario de envío (payload)
+  const formActualizacion = {
+      jornada: jornadaNum,
+      partidos: partidosAActualizar
   };
 
-  // Llamamos al servicio para actualizar el resultado
-  this.tournamentService.actualizarResultado(idTorneo, jornadaNum, partidoId, form).subscribe({
+  // console.log('Datos a enviar:', formActualizacion); 
+
+  // 3. Llamar al servicio (usa el nuevo método que creaste en el service)
+  this.tournamentService.actualizarResultadosJornada(idTorneo, formActualizacion).subscribe({
     next: (res: any) => {
-      this.notifyService.success(res.message);
-      this.getTournament()
+      // El backend devuelve el torneo actualizado, recargamos la vista.
+      this.notifyService.success(res.message || `Fecha ${jornadaNum} actualizada.`);
+      this.getTournament(); // Asumo que esto recarga 'this.tournament' con los datos actualizados
     },
     error: (err: any) => {
-      this.notifyService.error(err.error.message)
+      const errorMessage = err.error?.message || 'Error al actualizar resultados de la jornada.';
+      this.notifyService.error(errorMessage);
     }
-  }
-  );
+  });
 }
 
 goEliminatoria(){

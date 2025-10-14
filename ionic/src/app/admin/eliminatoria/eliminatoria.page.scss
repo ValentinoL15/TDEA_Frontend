@@ -131,5 +131,38 @@
   color: #000;
 }
 
+.match-grid {
+  width: 100%;
+}
+
+.match-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-name {
+  font-weight: bold;
+}
+
+.score {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.table-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
 
 

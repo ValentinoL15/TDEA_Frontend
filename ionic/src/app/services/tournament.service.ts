@@ -358,6 +358,12 @@ deleteStadium(id : any){
     return this.http.put(`${this.API_URL}/actualizar-resultado/${idTorneo}/${jornada}/${partidoId}`, form);
   }
 
+  actualizarResultadosJornada(idTorneo: string, formActualizacion: any) {
+    // Asegúrate de que la URL apunte a la nueva ruta que creaste:
+    // PUT /api/torneos/actualizar-jornada/:idTorneo
+    return this.http.put(`${this.API_URL}/actualizar-jornada/${idTorneo}`, formActualizacion);
+  }
+
   actualizarResultadoEliminatoria(idTorneo: any, round: any, matchId: any, form: any): Observable<any> {
   return this.http.put(`${this.API_URL}/actualizar-resultado/${idTorneo}/eliminatoria/${round}/partido/${matchId}`, form);
 }
