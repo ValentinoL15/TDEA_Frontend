@@ -16,7 +16,14 @@
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 12px;
-  background-color: #f9f9f9;
+  background-color: #000;
+}
+
+.jornada-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top:10px
 }
 
 .equipos {
@@ -48,6 +55,7 @@
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
+  background-color: #000;
 }
 
 .ganador, .campeon {

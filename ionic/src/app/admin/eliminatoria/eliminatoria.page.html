@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" color="light">
 
   <!-- Seleccionar fase inicial -->
   <div class="fase-inicial">
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  
+
 
   <div class="generar-btn">
     <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">
@@ -39,128 +39,114 @@
 
   <!-- RONDAS -->
   <ng-container *ngFor="let ronda of eliminatoria; let roundIndex = index">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ getNombreRonda(roundIndex) }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
+    <ion-list [inset]="true">
+      <div>
+        <p class="jornada-title">{{ getNombreRonda(roundIndex) }}</p>
+      </div>
 
-        <div *ngFor="let match of ronda.partidos; let matchIndex = index" class="match-card">
+      <div *ngFor="let match of ronda.partidos; let matchIndex = index">
 
-          <!-- Campeón -->
-          <div *ngIf="ronda.fase === 'campeon' && campeon" class="campeon">
-            🏆 Campeón: {{ campeon.nameList }}
+        <!-- Campeón -->
+        <div *ngIf="ronda.fase === 'campeon' && campeon" class="campeon">
+          🏆 Campeón: {{ campeon.nameList }}
+        </div>
+
+        <!-- Si no es campeón -->
+        <ng-container *ngIf="ronda.fase !== 'campeon'">
+
+          <!-- Si no hay equipos asignados -->
+          <div *ngIf="!match.team1 || !match.team2" class="asignar-equipos">
+            <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover">
+              <ion-select-option
+                *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"
+                [value]="team._id">
+                {{ team.nameList }}
+              </ion-select-option>
+            </ion-select>
+
+            <ion-select placeholder="Equipo 2" [(ngModel)]="match.team2Id" interface="popover">
+              <ion-select-option
+                *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"
+                [value]="team._id">
+                {{ team.nameList }}
+              </ion-select-option>
+            </ion-select>
+
+            <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
+              Asignar
+            </ion-button>
           </div>
 
-          <!-- Si no es campeón -->
-          <ng-container *ngIf="ronda.fase !== 'campeon'">
+          <!-- Si ya hay equipos asignados -->
 
-            <!-- Si no hay equipos asignados -->
-            <div *ngIf="!match.team1 || !match.team2" class="asignar-equipos">
-              <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover">
-                <ion-select-option
-                  *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"
-                  [value]="team._id">
-                  {{ team.nameList }}
-                </ion-select-option>
-              </ion-select>
+          <ng-container style="background-color: black;" *ngIf="match.team1 && match.team2">
+            <ion-grid class="match-grid">
+              <ion-row class="match-row">
+                <ion-col size="5" class="team"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;color: white;"
+                  (click)="abrirModal(roundIndex, matchIndex)">
+                  {{ match.team1?.nameList || 'BYE' }}
+                </ion-col>
 
-              <ion-select placeholder="Equipo 2" [(ngModel)]="match.team2Id" interface="popover">
-                <ion-select-option
-                  *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"
-                  [value]="team._id">
-                  {{ team.nameList }}
-                </ion-select-option>
-              </ion-select>
+                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+                  <ion-input [(ngModel)]="match.golesTeam1" type="number" min="0" placeholder="0"
+                    style="width: 50%; color: white;"></ion-input>
+                  <span> - </span>
+                  <ion-input [(ngModel)]="match.golesTeam2" type="number" min="0" placeholder="0"
+                    style="width: 50%;color: white;"></ion-input>
+                </ion-col>
 
-              <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
-                Asignar
-              </ion-button>
-            </div>
+                <ion-col size="5" class="team"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;color: white;"
+                  (click)="abrirModal(roundIndex, matchIndex)">
+                  {{ match.team2?.nameList || 'BYE' }}
+                </ion-col>
+              </ion-row>
 
-            <!-- Si ya hay equipos asignados -->
-           <ng-container *ngIf="match.team1 && match.team2">
-  <ion-grid class="match-grid">
-    <ion-row class="match-row">
-      <ion-col
-        size="5"
-        class="team"
-        style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-        (click)="abrirModal(roundIndex, matchIndex)"
-      >
-        {{ match.team1?.nameList || 'BYE' }}
-      </ion-col>
+              <ion-row *ngIf="match.resultado">
+                <ion-col style="display: flex; justify-content: center;">
+                  <span style="margin-right: 10px;color: white;font-weight: bold;">Resultado Guardado:</span>
+                  <span style="font-weight: bold;">({{ match.resultado.team1 }})</span>
+                  <span style="margin: 0 5px;">-</span>
+                  <span style="font-weight: bold;">({{ match.resultado.team2 }})</span>
+                </ion-col>
+              </ion-row>
 
-      <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
-        <ion-input
-          [(ngModel)]="match.golesTeam1"
-          type="number"
-          min="0"
-          placeholder="0"
-          style="width: 50%;"
-        ></ion-input>
-        <span> - </span>
-        <ion-input
-          [(ngModel)]="match.golesTeam2"
-          type="number"
-          min="0"
-          placeholder="0"
-          style="width: 50%;"
-        ></ion-input>
-      </ion-col>
-
-      <ion-col
-        size="5"
-        class="team"
-        style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-        (click)="abrirModal(roundIndex, matchIndex)"
-      >
-        {{ match.team2?.nameList || 'BYE' }}
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="match.resultado">
-      <ion-col style="display: flex; justify-content: center;">
-        <span style="margin-right: 10px;">Resultado Guardado:</span>
-        <span style="font-weight: bold;">({{ match.resultado.team1 }})</span>
-        <span style="margin: 0 5px;">-</span>
-        <span style="font-weight: bold;">({{ match.resultado.team2 }})</span>
-      </ion-col>
-    </ion-row>
-
-    </ion-grid>
-</ng-container>
-
-            <!-- Botón guardar resultado -->
-            <div class="result-btn" *ngIf="match.team1 && match.team2">
-              <ion-button color="success"
-                (click)="guardarResultado(roundIndex, matchIndex, match.golesTeam1, match.golesTeam2)">
-                Guardar Resultado
-              </ion-button>
-            </div>
-
-            <!-- Botones asignar ganador -->
-            <div class="winner-btn" *ngIf="!match.ganador && match.team1 && match.team2">
-              <ion-button size="small" fill="outline" color="primary"
-                (click)="asignarGanador(roundIndex, matchIndex, match.team1._id)">
-                Gana {{ match.team1?.nameList }}
-              </ion-button>
-              <ion-button size="small" fill="outline" color="secondary"
-                (click)="asignarGanador(roundIndex, matchIndex, match.team2._id)">
-                Gana {{ match.team2?.nameList }}
-              </ion-button>
-            </div>
-
-            <!-- Mostrar ganador -->
-            <div *ngIf="match.ganador" class="ganador">
-              🏆 Ganador: {{ match.ganador?.nameList }}
-            </div>
-
+            </ion-grid>
           </ng-container>
 
-        </div>
-      </ion-card-content>
-    </ion-card>
+          <!-- Botón guardar resultado -->
+          <div class="result-btn" *ngIf="match.team1 && match.team2">
+            <ion-button size="small"
+              (click)="guardarResultado(roundIndex, matchIndex, match.golesTeam1, match.golesTeam2)">
+              Actualizar Resultado
+            </ion-button>
+          </div>
+
+          <!-- Botones asignar ganador -->
+          <div class="winner-btn" *ngIf="!match.ganador && match.team1 && match.team2">
+            <ion-button size="small" fill="outline" color="primary"
+              (click)="asignarGanador(roundIndex, matchIndex, match.team1._id)">
+              Gana {{ match.team1?.nameList }}
+            </ion-button>
+            <ion-button size="small" fill="outline" color="secondary"
+              (click)="asignarGanador(roundIndex, matchIndex, match.team2._id)">
+              Gana {{ match.team2?.nameList }}
+            </ion-button>
+          </div>
+
+
+          <!-- Mostrar ganador -->
+          <div *ngIf="match.ganador" class="ganador">
+            🏆 Ganador: {{ match.ganador?.nameList }}
+          </div>
+          <div style="height: 1px; background-color: #ccc; /* Gris claro */margin: 15px 15px; /* Espacio superior e inferior */"></div>
+
+        </ng-container>
+
+      </div>
+
+    </ion-list>
   </ng-container>
 
 </ion-content>
@@ -247,11 +233,9 @@
 
                 <div style="margin-top: 30px; margin-right: 10px">
                   <ion-textarea type="text" [(ngModel)]="item.motivo"
-                    (ngModelChange)="item.errorMotivo = !item.motivo?.trim()"
-                    (ionBlur)="item.errorMotivo = false"
-                    labelPlacement="stacked" label="Informe"
-                    [counter]="true" name="motivo" maxlength="500" placeholder="Ingrese el motivo " rows="3"
-                    auto-grow="false">
+                    (ngModelChange)="item.errorMotivo = !item.motivo?.trim()" (ionBlur)="item.errorMotivo = false"
+                    labelPlacement="stacked" label="Informe" [counter]="true" name="motivo" maxlength="500"
+                    placeholder="Ingrese el motivo " rows="3" auto-grow="false">
                   </ion-textarea>
                 </div>
               </div>
