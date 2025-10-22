@@ -24,36 +24,22 @@
         <ion-item *ngFor="let match of jornada.partidos">
           <!-- Partido normal -->
           <ng-container *ngIf="!match.libre">
-            <ion-grid class="match-grid">
-              <ion-row class="match-row">
-                <ion-col size="5" class="team"
-                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-                  (click)="setOpen(true, match.team1,match.team2, jornada.jornada, match.team1.nameList, match.team2.nameList)">
-                  {{ match?.team1?.nameList || 'Equipo 1' }}
-                </ion-col>
+  <ion-grid class="match-grid">
+    <ion-row class="match-row" (click)="setOpen(true, match.team1,match.team2, jornada.jornada, match.team1.nameList, match.team2.nameList, match)">
+      <ion-col size="5" class="team" style="/* estilos */">
+        {{ match?.team1?.nameList || 'Equipo 1' }}
+      </ion-col>
 
-                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
-                  <ion-input [(ngModel)]="match.resultado.team1" type="number" placeholder="Goles Team 1"
-                    style="width: 50%;"></ion-input>
-                  <span> - </span>
-                  <ion-input [(ngModel)]="match.resultado.team2" type="number" placeholder="Goles Team 2"
-                    style="width: 50%;"></ion-input>
-                </ion-col>
+      <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center; font-size: 1.2em; font-weight: bold;">
+        {{ match.resultado.team1 || 0 }} - {{ match.resultado.team2 || 0 }}
+      </ion-col>
 
-                <ion-col size="5" class="team"
-                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
-                  (click)="setOpen(true, match.team1,match.team2, jornada.jornada, match.team1.nameList, match.team2.nameList)">
-                  {{ match?.team2?.nameList || 'Equipo 2' }}
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col style="display: flex; width: 100%; justify-content: center;">
-                  <ion-button (click)="actualizarResultado(match, jornada.jornada)">Actualizar Resultado</ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ng-container>
+      <ion-col size="5" class="team" style="/* estilos */">
+        {{ match?.team2?.nameList || 'Equipo 2' }}
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+</ng-container>
 
           <!-- Partido libre -->
           <ng-container *ngIf="match.libre">
@@ -91,11 +77,25 @@
         <ion-title style="font-size: 0.8rem;">{{ "Fecha " + jornada + ": " + local + " vs " +
           visitante }}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setOpen(false, null,null, 0, null,null)">Cerrar</ion-button>
+          <ion-button (click)="setOpen(false, null,null, 0, null,null,partidoSeleccionado)">Cerrar</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
+
+      <div style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <span style="font-weight: bold;">{{ local }}</span>
+        
+        <ion-input type="number" [(ngModel)]="partidoSeleccionado.resultado.team1" 
+                   style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
+        
+        <span> - </span>
+        
+        <ion-input type="number" [(ngModel)]="partidoSeleccionado.resultado.team2" 
+                   style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
+        
+        <span style="font-weight: bold;">{{ visitante }}</span>
+    </div>
 
       <div style="margin: 0 10px;">
         <ion-segment value="default" [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">

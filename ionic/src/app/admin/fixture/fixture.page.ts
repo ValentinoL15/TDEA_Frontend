@@ -211,6 +211,7 @@ motivos: { [key: string]: string } = {}; // objeto con claves por ID del jugador
 amarillasPorJugador: { [jugadorId: string]: number } = {};
 selectedFixtureIndex = 0; // jornada 1
 selectedPartidoIndex = 0; // primer partido de la jornada
+partidoSeleccionado: any = null;
 
 constructor(private route : ActivatedRoute, private notifyService: NotifyService, private router: Router, private tournamentService: TournamentService, private userService: UserService, private fb: FormBuilder) { 
    this.form = this.fb.group({
@@ -283,31 +284,33 @@ jugadoresFiltrados: any[] = [];
 
 selectedTeamSegment: string = '';
 
-setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: any, visitante: any) {
-  this.isModalOpen = isOpen;
-  this.team_id = team_id;
-  this.vsTeam_id = vsTeam_id;
-  this.jornada = jornada;
-  this.local = local;
-  this.visitante = visitante;
-  if (team_id && team_id._id) {
-    this.selectedTeamSegment = team_id._id;
-  }
+// Modificamos la firma de la función para aceptar el partido
+setOpen(isOpen: boolean, team_id: any, vsTeam_id: any, jornada: number, local: any, visitante: any, match: any) {
+    this.isModalOpen = isOpen;
+    this.team_id = team_id;
+    this.vsTeam_id = vsTeam_id;
+    this.jornada = jornada;
+    this.local = local;
+    this.visitante = visitante;
+    // 🟢 NUEVO: Guardar el partido seleccionado
+    this.partidoSeleccionado = match; 
 
-  if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
-    // Todos los jugadores de esta jornada
-    const partido = this.tournament.fixture
-      .find(j => j.jornada === this.jornada)?.partidos
-      .find(p => 
-        (p.team1?._id === this.team_id?._id && p.team2?._id === this.vsTeam_id?._id) ||
-        (p.team1?._id === this.vsTeam_id?._id && p.team2?._id === this.team_id?._id)
-      );
+    if (team_id && team_id._id) {
+        this.selectedTeamSegment = team_id._id;
+    }
 
-    this.jugadoresPorJornada = partido?.estadisticasJugadores.map(j => ({ ...j })) || [];
+    if (isOpen && this.tournament && this.tournament.estadisticasJugadores) {
+        // ... (El resto del código de filtrado de jugadores es el mismo)
+        const partido = this.tournament.fixture
+          .find(j => j.jornada === this.jornada)?.partidos
+          .find(p => 
+            (p.team1?._id === this.team_id?._id && p.team2?._id === this.vsTeam_id?._id) ||
+            (p.team1?._id === this.vsTeam_id?._id && p.team2?._id === this.team_id?._id)
+          );
 
-    // Mostrar solo los del equipo seleccionado
-    this.filtrarJugadoresPorEquipo(this.selectedTeamSegment);
-  }
+        this.jugadoresPorJornada = partido?.estadisticasJugadores.map(j => ({ ...j })) || [];
+        this.filtrarJugadoresPorEquipo(this.selectedTeamSegment);
+    }
 }
 
 
@@ -373,6 +376,8 @@ actualizarRojas(jugador: any, cambio: number) {
 }
 
 guardarCambiosTodosDeUna() {
+
+  this.actualizarResultado(this.partidoSeleccionado, this.jornada);
   let hayErrores = false;
   let sancionesPendientes = 0;
   let sancionesCompletadas = 0;
@@ -494,7 +499,7 @@ crearSancion(item: any, vsTeam: any, myTeam: any) {
     next: (res: any) => {
       this.notifyService.success('Sanción creada correctamente');
       item.motivo = ''; // limpiar textarea
-      this.setOpen(false,null,null,0,null,null)
+      this.setOpen(false,null,null,0,null,null,null)
     },
     error: (err: any) => {
       console.error(err);
