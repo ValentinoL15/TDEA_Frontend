@@ -277,22 +277,21 @@ async restaurarEliminatoria() {
 async abrirModal(roundIndex: number, matchIndex: number) {
   try {
     const res: any = await this.tournamentServ.getPartidoEliminatoria(this.torneoId, roundIndex, matchIndex).toPromise();
-    this.roundIndex = roundIndex; // Guardar el índice de la ronda actual
-
-    this.modalMatch = res.partido; // El partido completo con estadisticasJugadores populadas
-    console.log("modal",this.modalMatch)
     
-
+    this.roundIndex = roundIndex;
+    // IMPORTANTE: Aseguramos que el matchIndex sea parte del objeto del modal
+    this.modalMatch = { ...res.partido, matchIndex: matchIndex }; 
+    
+    // 🔑 CLAVE: Inicializar los modelos de goles con el resultado guardado o 0
+    this.modalMatch.golesTeam1 = this.modalMatch.resultado?.team1 || 0;
+    this.modalMatch.golesTeam2 = this.modalMatch.resultado?.team2 || 0;
+    
     // Setear equipo que se muestra inicialmente en el segment (local)
     this.selectedTeamSegment = this.modalMatch.team1?._id;
 
     // Filtrar jugadores según el equipo seleccionado
     this.filtrarJugadores(this.selectedTeamSegment);
 
-    console.log('Partido cargado para modal:', this.modalMatch);
-    console.log('Jugadores filtrados:', this.jugadoresFiltrados);
-
-    // Abrir modal
     this.isModalOpen = true;
 
   } catch (error) {
@@ -368,24 +367,19 @@ guardarCambiosTodosDeUna() {
   let sancionesPendientes = 0;
   let sancionesCompletadas = 0;
 
-    if (this.selectedTeamSegment === this.modalMatch.team1._id) {
+  // Guardamos los jugadores según el equipo visible
+  if (this.selectedTeamSegment === this.modalMatch.team1._id) {
     this.jugadoresEquipo1 = [...this.jugadoresFiltrados];
   } else if (this.selectedTeamSegment === this.modalMatch.team2._id) {
     this.jugadoresEquipo2 = [...this.jugadoresFiltrados];
   }
 
-  // Unifico los jugadores de ambos equipos
-  const jugadores = [
-    ...this.jugadoresEquipo1,
-    ...this.jugadoresEquipo2
-  ];
+  // Unificamos jugadores de ambos equipos
+  const jugadores = [...this.jugadoresEquipo1, ...this.jugadoresEquipo2];
 
   for (const jugador of jugadores) {
     jugador.errorMotivo = false;
     let ultimaTarjeta = null;
-    
-    
-    console.log("Jugadores que tengo que frenarrrr:" , jugador)
 
     // Validaciones
     if (jugador.amarillas === 2 && jugador.rojas === 1) {
@@ -418,65 +412,82 @@ guardarCambiosTodosDeUna() {
         ultimaTarjeta: jugador.ultimaTarjeta
       };
 
-      // update inmediato
-      this.tournamentServ.updateJugadoresEliminatorias(this.torneoId, jugador._id,this.roundIndex ,cambios)
-        .subscribe({
-          next: () => console.log("Jugador actualizado"),
-          error: (err) => console.error(err)
-        });
-      
-      // crear sanción inmediata
+      // Actualizamos jugador
+      this.tournamentServ.updateJugadoresEliminatorias(
+        this.torneoId,
+        jugador._id,
+        this.roundIndex,
+        cambios
+      ).subscribe({
+        next: () => console.log("Jugador actualizado"),
+        error: (err) => console.error(err)
+      });
+
+      // Crear sanción
       if (
         jugador.ultimaTarjeta &&
         jugador.ultimaTarjeta !== 'Ninguna' &&
         jugador.motivo?.trim() &&
         jugador.motivo !== jugador.motivoOriginal
       ) {
-        sancionesPendientes++; // 👈 sumo una sanción a procesar
+        sancionesPendientes++;
 
         const equipoActual = this.modalMatch.team1._id === this.selectedTeamSegment
-  ? this.modalMatch.team1
-  : this.modalMatch.team2;
+          ? this.modalMatch.team1
+          : this.modalMatch.team2;
 
-const equipoRival = this.modalMatch.team1._id === this.selectedTeamSegment
-  ? this.modalMatch.team2
-  : this.modalMatch.team1;
+        const equipoRival = this.modalMatch.team1._id === this.selectedTeamSegment
+          ? this.modalMatch.team2
+          : this.modalMatch.team1;
 
         const sancionData = {
-        player_id: jugador.jugador._id,
-        tarjeta: jugador.ultimaTarjeta,
-        name: jugador.jugador.firstName,
-        lastName: jugador.jugador.lastName,
-        equipo: equipoActual?.nameList || '',
-        versus: equipoRival?._id || '',
-        local: this.modalMatch.team1?.nameList || '',
-        visitante: this.modalMatch.team2?.nameList || '',
-        isTorneo: true,
-        fecha: this.roundIndex,
-        motivo: jugador.motivo
+          player_id: jugador.jugador._id,
+          tarjeta: jugador.ultimaTarjeta,
+          name: jugador.jugador.firstName,
+          lastName: jugador.jugador.lastName,
+          equipo: equipoActual?.nameList || '',
+          versus: equipoRival?._id || '',
+          local: this.modalMatch.team1?.nameList || '',
+          visitante: this.modalMatch.team2?.nameList || '',
+          isTorneo: true,
+          fecha: this.roundIndex,
+          motivo: jugador.motivo
         };
 
-        this.tournamentServ.crearSancion(this.torneoId, sancionData)
-          .subscribe({
-            next: () => {
-              sancionesCompletadas++;
-              if (sancionesCompletadas === sancionesPendientes) {
-                this.notifyServ.success("✅ Todas las sanciones creadas correctamente");
-                
-              }
-            },
-            error: (err) => {
-              console.error(err);
-              this.notifyServ.error('❌ Error al crear una sanción');
+        this.tournamentServ.crearSancion(this.torneoId, sancionData).subscribe({
+          next: () => {
+            sancionesCompletadas++;
+            if (sancionesCompletadas === sancionesPendientes) {
+              this.notifyServ.success("✅ Todas las sanciones creadas correctamente");
             }
-          });
+          },
+          error: (err) => {
+            console.error(err);
+            this.notifyServ.error('❌ Error al crear una sanción');
+          }
+        });
       }
     }
   }
 
   if (hayErrores) {
     this.notifyServ.error('⚠️ Hay jugadores que necesitan un informe antes de continuar');
+    return; // Detenemos si hay errores
   }
+
+  // ✅ Si todo fue bien, actualizamos también el resultado del partido
+  const matchIndex = this.modalMatch.matchIndex;
+  const roundIndex = this.roundIndex;
+
+  this.guardarResultado(
+    roundIndex,
+    matchIndex,
+    this.modalMatch.golesTeam1,
+    this.modalMatch.golesTeam2
+  );
+
+  // Cerramos el modal
+  this.cerrarModal();
 }
 
 

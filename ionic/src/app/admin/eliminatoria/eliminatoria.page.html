@@ -88,13 +88,11 @@
                   {{ match.team1?.nameList || 'BYE' }}
                 </ion-col>
 
-                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
-                  <ion-input [(ngModel)]="match.golesTeam1" type="number" min="0" placeholder="0"
-                    style="width: 50%; color: white;"></ion-input>
-                  <span> - </span>
-                  <ion-input [(ngModel)]="match.golesTeam2" type="number" min="0" placeholder="0"
-                    style="width: 50%;color: white;"></ion-input>
-                </ion-col>
+              <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+  <span style="width: 50%; text-align: center; color: white;">{{ match.resultado.team1 || 0 }}</span>
+  <span> - </span>
+  <span style="width: 50%; text-align: center; color: white;">{{ match.resultado.team2 || 0 }}</span>
+</ion-col>
 
                 <ion-col size="5" class="team"
                   style="display: flex; justify-content: center; align-items: center; font-weight: bold;color: white;"
@@ -103,25 +101,25 @@
                 </ion-col>
               </ion-row>
 
-              <ion-row *ngIf="match.resultado">
+              <!--<ion-row *ngIf="match.resultado">
                 <ion-col style="display: flex; justify-content: center;">
                   <span style="margin-right: 10px;color: white;font-weight: bold;">Resultado Guardado:</span>
                   <span style="font-weight: bold;">({{ match.resultado.team1 }})</span>
                   <span style="margin: 0 5px;">-</span>
                   <span style="font-weight: bold;">({{ match.resultado.team2 }})</span>
                 </ion-col>
-              </ion-row>
+              </ion-row>-->
 
             </ion-grid>
           </ng-container>
 
           <!-- Botón guardar resultado -->
-          <div class="result-btn" *ngIf="match.team1 && match.team2">
+          <!--<div class="result-btn" *ngIf="match.team1 && match.team2">
             <ion-button size="small"
               (click)="guardarResultado(roundIndex, matchIndex, match.golesTeam1, match.golesTeam2)">
               Actualizar Resultado
             </ion-button>
-          </div>
+          </div>-->
 
           <!-- Botones asignar ganador -->
           <div class="winner-btn" *ngIf="!match.ganador && match.team1 && match.team2">
@@ -180,6 +178,20 @@
           Guardar cambios
         </ion-button>
       </div>
+
+      <div style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 15px; margin-top: 10px;">
+  <span style="font-weight: bold;">{{ modalMatch?.team1?.nameList }}</span>
+
+  <ion-input type="number" [(ngModel)]="modalMatch.golesTeam1" min="0" 
+             style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
+
+  <span> - </span>
+
+  <ion-input type="number" [(ngModel)]="modalMatch.golesTeam2" min="0" 
+             style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
+
+  <span style="font-weight: bold;">{{ modalMatch?.team2?.nameList }}</span>
+</div>
 
       <div *ngFor="let item of jugadoresFiltrados" class="player-card" [class.error-card]="item.errorMotivo">
         <div style="width: 100%; display: flex; align-items: center; flex-direction: column;">
