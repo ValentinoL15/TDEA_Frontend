@@ -398,6 +398,10 @@ asignarEquipos(torneoId: string, roundIndex: number, matchIndex: number, team1Id
   });
 }
 
+desasignarEquipos(torneoId: string, roundIndex: number, matchIndex: number) {
+  const url = `${this.API_URL}/desasignar-equipos/${torneoId}/eliminatoria/${roundIndex}/partido/${matchIndex}`;
+  return this.http.put(url, {}); // PUT sin cuerpo de mensaje
+}
 
   /*actualizarGanador(torneoId: string, roundIndex: number, matchIndex: number, winnerTeamId: string) {
     return this.http.put(`${this.API_URL}/actualizar-ganador/${torneoId}/eliminatoria/${roundIndex}/partido/${matchIndex}`, {

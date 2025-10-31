@@ -24,7 +24,7 @@
     </ion-item>
     <div>
       <ion-button (click)="restaurarEliminatoria()">
-        Restaurar Eliminatoria
+        Restaurar
       </ion-button>
     </div>
   </div>
@@ -33,7 +33,7 @@
 
   <div class="generar-btn">
     <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">
-      Generar Eliminatoria
+      Generar
     </ion-button>
   </div>
 
@@ -79,25 +79,38 @@
 
           <!-- Si ya hay equipos asignados -->
 
-          <ng-container style="background-color: black;" *ngIf="match.team1 && match.team2">
+          <ng-container *ngIf="match.team1 && match.team2">
             <ion-grid class="match-grid">
               <ion-row class="match-row">
                 <ion-col size="5" class="team"
-                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;color: white;"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
                   (click)="abrirModal(roundIndex, matchIndex)">
                   {{ match.team1?.nameList || 'BYE' }}
                 </ion-col>
 
-              <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
-  <span style="width: 50%; text-align: center; color: white;">{{ match.resultado.team1 || 0 }}</span>
-  <span> - </span>
-  <span style="width: 50%; text-align: center; color: white;">{{ match.resultado.team2 || 0 }}</span>
-</ion-col>
+                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+                  <span style="width: 50%; text-align: center; ">{{ match.resultado.team1 || 0 }}</span>
+                  <span> - </span>
+                  <span style="width: 50%; text-align: center;">{{ match.resultado.team2 || 0 }}</span>
+                </ion-col>
 
                 <ion-col size="5" class="team"
-                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;color: white;"
+                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
                   (click)="abrirModal(roundIndex, matchIndex)">
                   {{ match.team2?.nameList || 'BYE' }}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="12" style="text-align: center; padding-top: 5px;">
+                  <ion-button 
+                    size="small" 
+                    fill="clear" 
+                    color="danger" 
+                    (click)="desasignarEquipos(roundIndex, matchIndex)">
+                    <ion-icon name="trash-outline" slot="start"></ion-icon>
+                    Desasignar Equipos
+                  </ion-button>
                 </ion-col>
               </ion-row>
 
@@ -138,7 +151,9 @@
           <div *ngIf="match.ganador" class="ganador">
             🏆 Ganador: {{ match.ganador?.nameList }}
           </div>
-          <div style="height: 1px; background-color: #ccc; /* Gris claro */margin: 15px 15px; /* Espacio superior e inferior */"></div>
+          <div
+            style="height: 1px; background-color: #ccc; /* Gris claro */margin: 15px 15px; /* Espacio superior e inferior */">
+          </div>
 
         </ng-container>
 
@@ -179,19 +194,20 @@
         </ion-button>
       </div>
 
-      <div style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 15px; margin-top: 10px;">
-  <span style="font-weight: bold;">{{ modalMatch?.team1?.nameList }}</span>
+      <div
+        style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 15px; margin-top: 10px;">
+        <span style="font-weight: bold;">{{ modalMatch?.team1?.nameList }}</span>
 
-  <ion-input type="number" [(ngModel)]="modalMatch.golesTeam1" min="0" 
-             style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
+        <ion-input type="number" [(ngModel)]="modalMatch.golesTeam1" min="0"
+          style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
 
-  <span> - </span>
+        <span> - </span>
 
-  <ion-input type="number" [(ngModel)]="modalMatch.golesTeam2" min="0" 
-             style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
+        <ion-input type="number" [(ngModel)]="modalMatch.golesTeam2" min="0"
+          style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
 
-  <span style="font-weight: bold;">{{ modalMatch?.team2?.nameList }}</span>
-</div>
+        <span style="font-weight: bold;">{{ modalMatch?.team2?.nameList }}</span>
+      </div>
 
       <div *ngFor="let item of jugadoresFiltrados" class="player-card" [class.error-card]="item.errorMotivo">
         <div style="width: 100%; display: flex; align-items: center; flex-direction: column;">
