@@ -11,7 +11,8 @@
 
   <!-- Seleccionar fase inicial -->
   <div class="fase-inicial">
-    <ion-item>
+    <div>
+      <ion-item>
       <ion-label>Fase Inicial</ion-label>
       <ion-select [(ngModel)]="faseInicial">
         <ion-select-option value="32avos">32avos de final</ion-select-option>
@@ -22,24 +23,26 @@
         <ion-select-option value="final">Final</ion-select-option>
       </ion-select>
     </ion-item>
-    <div>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
       <ion-button (click)="restaurarEliminatoria()">
         Restaurar
       </ion-button>
+      
+      <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">
+      Generar
+    </ion-button>
+  
     </div>
   </div>
 
 
 
-  <div class="generar-btn">
-    <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">
-      Generar
-    </ion-button>
-  </div>
+ 
 
   <!-- RONDAS -->
   <ng-container *ngFor="let ronda of eliminatoria; let roundIndex = index">
-    <ion-list [inset]="true">
+    <ion-list [inset]="true" style="background-color: rgb(26, 25, 25);">
       <div>
         <p class="jornada-title">{{ getNombreRonda(roundIndex) }}</p>
       </div>
@@ -79,11 +82,10 @@
 
           <!-- Si ya hay equipos asignados -->
 
-          <ng-container *ngIf="match.team1 && match.team2">
+          <div *ngIf="match.team1 && match.team2">
             <ion-grid class="match-grid">
               <ion-row class="match-row">
-                <ion-col size="5" class="team"
-                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
+                <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center;"
                   (click)="abrirModal(roundIndex, matchIndex)">
                   {{ match.team1?.nameList || 'BYE' }}
                 </ion-col>
@@ -94,8 +96,7 @@
                   <span style="width: 50%; text-align: center;">{{ match.resultado.team2 || 0 }}</span>
                 </ion-col>
 
-                <ion-col size="5" class="team"
-                  style="display: flex; justify-content: center; align-items: center; font-weight: bold;"
+                <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center;"
                   (click)="abrirModal(roundIndex, matchIndex)">
                   {{ match.team2?.nameList || 'BYE' }}
                 </ion-col>
@@ -103,10 +104,7 @@
 
               <ion-row>
                 <ion-col size="12" style="text-align: center; padding-top: 5px;">
-                  <ion-button 
-                    size="small" 
-                    fill="clear" 
-                    color="danger" 
+                  <ion-button size="small" fill="clear" color="danger"
                     (click)="desasignarEquipos(roundIndex, matchIndex)">
                     <ion-icon name="trash-outline" slot="start"></ion-icon>
                     Desasignar Equipos
@@ -124,7 +122,7 @@
               </ion-row>-->
 
             </ion-grid>
-          </ng-container>
+          </div>
 
           <!-- Botón guardar resultado -->
           <!--<div class="result-btn" *ngIf="match.team1 && match.team2">
@@ -167,11 +165,16 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+        </ion-buttons>
         <ion-title style="font-size: 0.8rem;">
           {{ modalMatch?.team1?.nameList }} vs {{ modalMatch?.team2?.nameList }}
         </ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+        <ion-buttons size="small" slot="end">
+          <ion-button (click)="guardarCambiosTodosDeUna()">
+            Guardar
+          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -188,11 +191,11 @@
         </ion-segment>
       </div>
 
-      <div style="display: flex; width: 100%; justify-content: end; align-items: center; padding: 10px;">
+      <!--<div style="display: flex; width: 100%; justify-content: end; align-items: center; padding: 10px;">
         <ion-button size="small" (click)="guardarCambiosTodosDeUna()">
           Guardar cambios
         </ion-button>
-      </div>
+      </div>-->
 
       <div
         style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 15px; margin-top: 10px;">

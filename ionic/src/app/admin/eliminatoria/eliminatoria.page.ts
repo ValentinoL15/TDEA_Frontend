@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { IonModal } from '@ionic/angular/common';
 import { NotifyService } from 'src/app/services/notify.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 
@@ -10,6 +11,12 @@ import { TournamentService } from 'src/app/services/tournament.service';
   styleUrls: ['./eliminatoria.page.scss'],
 })
 export class EliminatoriaPage implements OnInit {
+
+  @ViewChild('modal') modal!: IonModal;
+  initialGolesTeam1: number = 0;
+  initialGolesTeam2: number = 0;
+  initialPlayerStats: any[] = [];
+
   torneoId!: string;
   eliminatoria: any[] = [];
   campeon: any = null;
@@ -310,59 +317,181 @@ export class EliminatoriaPage implements OnInit {
   roundIndex!: number; // para saber en qué ronda estamos
 
   async abrirModal(roundIndex: number, matchIndex: number) {
-    try {
-      const res: any = await this.tournamentServ.getPartidoEliminatoria(this.torneoId, roundIndex, matchIndex).toPromise();
+  try {
+    const res: any = await this.tournamentServ.getPartidoEliminatoria(this.torneoId, roundIndex, matchIndex).toPromise();
 
-      this.roundIndex = roundIndex;
-      // IMPORTANTE: Aseguramos que el matchIndex sea parte del objeto del modal
-      this.modalMatch = { ...res.partido, matchIndex: matchIndex };
+    this.roundIndex = roundIndex;
+    this.modalMatch = { ...res.partido, matchIndex: matchIndex };
 
-      // 🔑 CLAVE: Inicializar los modelos de goles con el resultado guardado o 0
-      this.modalMatch.golesTeam1 = this.modalMatch.resultado?.team1 || 0;
-      this.modalMatch.golesTeam2 = this.modalMatch.resultado?.team2 || 0;
+    this.modalMatch.golesTeam1 = this.modalMatch.resultado?.team1 || 0;
+    this.modalMatch.golesTeam2 = this.modalMatch.resultado?.team2 || 0;
 
-      // Setear equipo que se muestra inicialmente en el segment (local)
-      this.selectedTeamSegment = this.modalMatch.team1?._id;
+    this.initialGolesTeam1 = this.modalMatch.golesTeam1;
+    this.initialGolesTeam2 = this.modalMatch.golesTeam2;
 
-      // Filtrar jugadores según el equipo seleccionado
-      this.filtrarJugadores(this.selectedTeamSegment);
+    // 1. Limpiar arrays temporales al abrir
+    this.jugadoresEquipo1 = [];
+    this.jugadoresEquipo2 = [];
+    
+    // 2. Cargar y distribuir las estadísticas en los arrays temporales de ambos equipos
+    this.cargarEstadisticasIniciales(this.modalMatch.estadisticasJugadores);
 
-      this.isModalOpen = true;
+    // 3. Establecer el estado inicial (que ahora incluye ambos equipos)
+    this.initialPlayerStats = JSON.parse(JSON.stringify([...this.jugadoresEquipo1, ...this.jugadoresEquipo2]));
+    
+    // Setear equipo que se muestra inicialmente en el segment (local)
+    this.selectedTeamSegment = this.modalMatch.team1?._id;
 
-    } catch (error) {
-      console.error('Error abriendo modal:', error);
-    }
+    // 4. Filtrar jugadores para mostrar el primer equipo
+    this.filtrarJugadoresParaVista(this.selectedTeamSegment); // ¡Nueva función!
+
+    this.isModalOpen = true;
+
+  } catch (error) {
+    console.error('Error abriendo modal:', error);
   }
+}
 
-  cerrarModal() {
-    this.isModalOpen = false;
-    this.modalMatch = null;
-    this.jugadoresFiltrados = [];
-  }
-
-  filtrarJugadores(teamId: string) {
+cargarEstadisticasIniciales(allStats: any[]) {
     if (!this.modalMatch) return;
+    
+    const statsArray = Array.isArray(allStats) ? allStats : [];
 
-    // Obtenemos directamente las estadísticas del partido
-    const allStats = Array.isArray(this.modalMatch.estadisticasJugadores)
-      ? this.modalMatch.estadisticasJugadores
-      : [];
-    console.log("Todas las estadísticas del partido:", allStats);
-
-    // Filtramos por teamId del jugador
-    this.jugadoresFiltrados = allStats
-      .filter((stat: any) => stat.equipo.toString() === teamId)
-      .map((stat: any) => ({
+    // Mapear y distribuir las estadísticas en jugadoresEquipo1 y jugadoresEquipo2
+    const statsMapeadas = statsArray.map((stat: any) => ({
         ...stat,
         goles: stat.goles || 0,
         amarillas: stat.amarillas || 0,
         rojas: stat.rojas || 0,
         motivo: stat.motivo || '',
         motivoOriginal: stat.motivo || ''
-      }));
+    }));
+    
+    this.jugadoresEquipo1 = statsMapeadas.filter((stat: any) => stat.equipo.toString() === this.modalMatch.team1._id);
+    this.jugadoresEquipo2 = statsMapeadas.filter((stat: any) => stat.equipo.toString() === this.modalMatch.team2._id);
+}
 
-    console.log("Jugadores filtrados:", this.jugadoresFiltrados);
-  }
+// 🔄 Función para SOLO cambiar la lista visible (ya no carga del backend)
+filtrarJugadoresParaVista(teamId: string) {
+    if (teamId === this.modalMatch.team1._id) {
+        this.jugadoresFiltrados = this.jugadoresEquipo1;
+    } else if (teamId === this.modalMatch.team2._id) {
+        this.jugadoresFiltrados = this.jugadoresEquipo2;
+    } else {
+        this.jugadoresFiltrados = [];
+    }
+}
+
+  hayCambiosPendientes(): boolean {
+    if (!this.modalMatch) return false;
+    
+    // 1. Verificar cambios en el marcador
+    if (this.modalMatch.golesTeam1 !== this.initialGolesTeam1 || this.modalMatch.golesTeam2 !== this.initialGolesTeam2) {
+        return true;
+    }
+
+    // 2. Verificar cambios en las estadísticas de los jugadores
+    // Debes consolidar jugadoresEquipo1 y jugadoresEquipo2 antes de esta verificación
+    const currentStats = [...this.jugadoresEquipo1, ...this.jugadoresEquipo2];
+    
+    // Si la cantidad de stats cambió (lo cual no debería pasar aquí, pero es un chequeo)
+    if (currentStats.length !== this.initialPlayerStats.length) return true;
+
+    // Verificar si alguna stat individual ha cambiado
+    for (const initialStat of this.initialPlayerStats) {
+        const currentStat = currentStats.find(s => s._id === initialStat._id);
+        
+        if (currentStat && (
+            currentStat.goles !== (initialStat.goles || 0) || 
+            currentStat.amarillas !== (initialStat.amarillas || 0) || 
+            currentStat.rojas !== (initialStat.rojas || 0) ||
+            currentStat.motivo !== (initialStat.motivo || '')
+        )) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+async cerrarModal() {
+    // Verificar si hay cambios antes de cerrar
+    if (this.hayCambiosPendientes()) {
+        const alert = await this.alertController.create({
+            header: '⚠️ Descartar Cambios',
+            message: 'Hay cambios sin guardar. ¿Estás seguro de que quieres salir sin guardar?',
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        // El modal se queda abierto
+                    }
+                }, {
+                    text: 'Sí, Descartar',
+                    handler: () => {
+                        // Cierra el modal y limpia el estado
+                        this.ejecutarCierreModal();
+                    }
+                }
+            ]
+        });
+        await alert.present();
+    } else {
+        // Si no hay cambios, cierra directamente
+        this.ejecutarCierreModal();
+    }
+}
+
+ejecutarCierreModal() {
+    this.isModalOpen = false;
+    this.modalMatch = null;
+    this.jugadoresFiltrados = [];
+    this.jugadoresEquipo1 = []; // Limpiar para el siguiente partido
+    this.jugadoresEquipo2 = []; // Limpiar para el siguiente partido
+    this.initialPlayerStats = []; // Limpiar estado inicial
+}
+
+  /*cerrarModal() {
+    this.isModalOpen = false;
+    this.modalMatch = null;
+    this.jugadoresFiltrados = [];
+  }*/
+
+  filtrarJugadores(teamId: string) {
+    if (!this.modalMatch) return;
+
+    // 1. Obtener la lista de jugadores a mostrar (desde el array temporal si existe)
+    if (teamId === this.modalMatch.team1._id) {
+        this.jugadoresFiltrados = [...this.jugadoresEquipo1];
+    } else if (teamId === this.modalMatch.team2._id) {
+        this.jugadoresFiltrados = [...this.jugadoresEquipo2];
+    } else {
+        // Lógica de carga inicial/Fallback (usando el código original para cargar desde modalMatch si las listas están vacías)
+        const allStats = Array.isArray(this.modalMatch.estadisticasJugadores)
+            ? this.modalMatch.estadisticasJugadores
+            : [];
+
+        this.jugadoresFiltrados = allStats
+            .filter((stat: any) => stat.equipo.toString() === teamId)
+            .map((stat: any) => ({
+                ...stat,
+                goles: stat.goles || 0,
+                amarillas: stat.amarillas || 0,
+                rojas: stat.rojas || 0,
+                motivo: stat.motivo || '',
+                motivoOriginal: stat.motivo || ''
+            }));
+        
+        // Cargar las listas temporales si es la carga inicial
+        if (teamId === this.modalMatch.team1._id) {
+            this.jugadoresEquipo1 = [...this.jugadoresFiltrados];
+        } else if (teamId === this.modalMatch.team2._id) {
+            this.jugadoresEquipo2 = [...this.jugadoresFiltrados];
+        }
+    }
+}
 
   actualizarAmarillas(jugador: any, cambio: number) {
     jugador.amarillas = (jugador.amarillas || 0) + cambio;
@@ -378,24 +507,36 @@ export class EliminatoriaPage implements OnInit {
     //jugador.ultimaTarjeta = jugador.rojas > 0 ? 'Roja' : 'Ninguna';
   }
 
-  onSegmentChanged(event: any) {
-    // antes de cambiar de equipo, guardo los cambios en el array correspondiente
+onSegmentChanged(event: any) {
+    // 1. Guardar los cambios del equipo que se está dejando de ver (this.jugadoresFiltrados)
     if (this.selectedTeamSegment === this.modalMatch.team1._id) {
-      this.jugadoresEquipo1 = [...this.jugadoresFiltrados];
+        this.jugadoresEquipo1 = [...this.jugadoresFiltrados];
     } else if (this.selectedTeamSegment === this.modalMatch.team2._id) {
-      this.jugadoresEquipo2 = [...this.jugadoresFiltrados];
+        this.jugadoresEquipo2 = [...this.jugadoresFiltrados];
     }
 
-    // ahora cambio el segmento seleccionado
+    // 2. Cambiar el segmento seleccionado
     this.selectedTeamSegment = event.detail.value;
 
-    // y filtro para mostrar los jugadores de ese equipo
-    this.filtrarJugadores(this.selectedTeamSegment);
-  }
+    // 3. Mostrar el nuevo equipo
+    this.filtrarJugadoresParaVista(this.selectedTeamSegment);
+}
 
 
   jugadoresEquipo1: any[] = [];
   jugadoresEquipo2: any[] = [];
+
+  // En EliminatoriaPage
+
+establecerEstadoInicial() {
+    // 1. Resetear el marcador inicial con los nuevos valores
+    this.initialGolesTeam1 = this.modalMatch.golesTeam1;
+    this.initialGolesTeam2 = this.modalMatch.golesTeam2;
+
+    // 2. Unificar y resetear el estado inicial de las estadísticas de los jugadores
+    const currentStats = [...this.jugadoresEquipo1, ...this.jugadoresEquipo2];
+    this.initialPlayerStats = JSON.parse(JSON.stringify(currentStats));
+}
 
   guardarCambiosTodosDeUna() {
     let hayErrores = false;
@@ -506,8 +647,8 @@ export class EliminatoriaPage implements OnInit {
     }
 
     if (hayErrores) {
-      this.notifyServ.error('⚠️ Hay jugadores que necesitan un informe antes de continuar');
-      return; // Detenemos si hay errores
+        this.notifyServ.error('⚠️ Hay jugadores que necesitan un informe antes de continuar');
+        return; // Detenemos si hay errores
     }
 
     // ✅ Si todo fue bien, actualizamos también el resultado del partido
@@ -515,14 +656,18 @@ export class EliminatoriaPage implements OnInit {
     const roundIndex = this.roundIndex;
 
     this.guardarResultado(
-      roundIndex,
-      matchIndex,
-      this.modalMatch.golesTeam1,
-      this.modalMatch.golesTeam2
+        roundIndex,
+        matchIndex,
+        this.modalMatch.golesTeam1,
+        this.modalMatch.golesTeam2
     );
 
+    // 🚨 CLAVE: Actualizar el estado inicial *antes* de cerrar el modal.
+    // Esto hace que el estado actual sea considerado el estado inicial.
+    this.establecerEstadoInicial(); // 👈 Llama a la nueva función aquí
+
     // Cerramos el modal
-    this.cerrarModal();
+    this.cerrarModal(); // Ahora cerrará sin preguntar porque hayCambiosPendientes() retornará 'false'
   }
 
 

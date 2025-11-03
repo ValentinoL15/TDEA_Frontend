@@ -1,6 +1,7 @@
 .fase-inicial {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
   margin-bottom: 20px;
   width: 100%;
 }
@@ -23,7 +24,7 @@
   font-weight: bold;
   text-align: center;
   font-size: 1.2rem;
-  margin-top:10px
+  margin-top:10px;
 }
 
 .equipos {
@@ -50,12 +51,15 @@
   color: #555;
 }
 
+.ronda-container {
+  background-color: black;
+}
+
 .result-btn, .winner-btn {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
-  background-color: #000;
 }
 
 .ganador, .campeon {
