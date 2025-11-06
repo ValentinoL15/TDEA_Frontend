@@ -38,7 +38,7 @@
 
   <!-- RONDAS -->
   <ng-container *ngFor="let ronda of eliminatoria; let roundIndex = index">
-    <ion-list [inset]="true" style="background-color: rgb(26, 25, 25);">
+    <ion-list [inset]="true">
       <div>
         <p class="jornada-title">{{ getNombreRonda(roundIndex) }}</p>
       </div>
@@ -55,7 +55,7 @@
 
           <!-- Si no hay equipos asignados -->
            <!-- *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"-->
-          <div *ngIf="!match.team1 || !match.team2" class="asignar-equipos">
+          <ng-container *ngIf="!match.team1 || !match.team2" class="asignar-equipos">
             <div style="display: flex; width: 100%; justify-content: space-between;">
               <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover" style="margin-left: 20px;">
               <ion-select-option
@@ -74,12 +74,14 @@
               </ion-select-option>
             </ion-select>
             </div>
-           
 
-            <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
+            <div style="width: 100%; display: flex; justify-content: center;">
+              <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
               Asignar
             </ion-button>
-          </div>
+            </div>
+            
+          </ng-container>
 
           <!-- Si ya hay equipos asignados -->
 
