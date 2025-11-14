@@ -17,6 +17,19 @@
   <ng-container *ngIf="tournament.fixture.length > 0">
     <ng-container *ngFor="let jornada of tournament.fixture">
       <ion-list [inset]="true">
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <ion-item lines="none">
+            <ion-label>Día:</ion-label>
+
+            <!-- Texto mostrando la fecha -->
+            <ion-text>{{ jornada.fechaJornada | date: 'shortDate' }}</ion-text>
+
+            <!-- Botón para abrir el selector -->
+            <ion-button fill="clear" (click)="abrirCalendario(jornada)">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
         <div style="background-color: black;">
           <p class="jornada-title" style="font-weight: bold; color: white;">Fecha {{ jornada.jornada }}</p>
         </div>
@@ -31,7 +44,7 @@
                   {{ match?.team1?.nameList || 'Equipo 1' }}
                 </ion-col>
 
-                <ion-col size="4" class="score"
+                <ion-col size="6" class="score"
                   style="display: flex; align-items: center; justify-content: center; font-size: 1.2em; font-weight: bold;">
                   {{ match.resultado.team1 || 0 }} - {{ match.resultado.team2 || 0 }}
                 </ion-col>
@@ -84,6 +97,33 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
+
+      <div style="margin: 15px 0; display: flex; justify-content: center; flex-direction: column;">
+        <ion-item lines="none">
+          <ion-label>Fecha del partido:</ion-label>
+
+          <ion-text>{{ partidoSeleccionado.fechaPartido | date:'shortDate' }}</ion-text>
+
+          <!-- Abrir modal/calendario para ESTE partido -->
+          <ion-button fill="clear" (click)="abrirCalendarioPartido(partidoSeleccionado)">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+          <ion-item lines="none">
+          <ion-label>Estado:</ion-label>
+
+          <ion-select 
+    [(ngModel)]="partidoSeleccionado.estado"
+    interface="popover"
+    (ionChange)="actualizarEstadoPartido()"
+  >
+    <ion-select-option value="Sin jugar">Sin jugar</ion-select-option>
+    <ion-select-option value="Finalizado">Finalizado</ion-select-option>
+    <ion-select-option value="Aplazado">Aplazado</ion-select-option>
+    <ion-select-option value="Suspendido">Suspendido</ion-select-option>
+  </ion-select>
+        </ion-item>
+      </div>
 
       <div
         style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -160,11 +200,9 @@
 
                   <div class="stat">
                     <div class="counter">
-                      <ion-button size="small" fill="outline" color="danger"
-                        (click)="actualizarRojas(item, -1)">-</ion-button>
+                      <ion-button size="small" fill="outline" color="danger" (click)="actualizarRojas(item, -1)">-</ion-button>
                       <span>{{ item.rojas || 0 }}</span>
-                      <ion-button size="small" fill="outline" color="danger" (click)="actualizarRojas(item, 1)"
-                        [disabled]="(item.rojas || 0) >= 1">+</ion-button>
+                      <ion-button size="small" fill="outline" color="danger" (click)="actualizarRojas(item, 1)" [disabled]="(item.rojas || 0) >= 1">+</ion-button>
                     </div>
                     <input type="hidden" name="rojas" [(ngModel)]="item.rojas">
                   </div>
@@ -183,6 +221,41 @@
           </div>
         </div>
       </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modalCalendario>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Seleccionar fecha</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-datetime [value]="fechaSeleccionada" (ionChange)="cambiarFecha($event)" presentation="date"></ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modalCalendarioPartido>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Seleccionar fecha del partido</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModalPartido()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-datetime [value]="fechaPartidoSeleccionada" (ionChange)="cambiarFechaPartido($event)"
+        presentation="date"></ion-datetime>
     </ion-content>
   </ng-template>
 </ion-modal>

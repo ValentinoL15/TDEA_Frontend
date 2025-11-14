@@ -17,6 +17,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FixturePage implements OnInit {
 @ViewChild(IonModal) modal!: IonModal;
+@ViewChild('modalCalendario') modalCalendario!: IonModal;
+@ViewChild('modalCalendarioPartido') modalCalendarioPartido!: IonModal;
+
+partidoActual: any = null;
+fechaPartidoSeleccionada: string | null = null;
+
+fechaSeleccionada: string | null = null;
+jornadaActual: any = null;
+
 id:any
 jornada: number = 0;
 local: string | null = null;
@@ -81,18 +90,17 @@ tournament: Tournament = {
   deposito:0,
   cupos: 0,
   fixture: [{
-    _id: "",
-    jornada: 0,
-    partidos: [{
-      team1: {
-        _id: '',
-        nameList: '', 
-    },
-    team2: {
-        _id: '',
-        nameList: '',
-    },
-    estadisticasJugadores: [
+      _id: "",
+      jornada: 0,
+      fechaJornada: new Date(),
+      partidos: [{
+        team1: {
+          _id: '',
+      },
+      team2: {
+          _id: '',
+      },
+      estadisticasJugadores: [
                 {
                     jugador: {
                       _id: "",
@@ -106,9 +114,9 @@ tournament: Tournament = {
                     goles: 0,
                     amarillas: 0,
                     rojas: 0,
-                    motivo: ""
                 }
             ],
+            fechaPartido: new Date(),
       local: {
           _id: '',
           nameList: ''
@@ -117,15 +125,13 @@ tournament: Tournament = {
           _id: '',
           nameList: ''
       },
-    resultado: {
-        
-            team1: 0,
-            team2: 0
-        
-    },
-    
-    }]
-  }],
+      resultado: {
+              team1: 0,
+              team2: 0
+          
+      },
+      }]
+    }],
   estadisticasJugadores: [
           {
               jugador: {
@@ -594,6 +600,97 @@ actualizarResultadosJornada(jornada: any) {
     }
   });
 }
+
+editFechaJornada(jornada: any, newDate: any) {
+  console.log('Editando fecha de jornada:', jornada.jornada, 'nueva fecha:', newDate);
+  this.tournamentService.editFechaJornada(this.id, jornada.jornada, newDate).subscribe({
+    next: (res: any) => {
+      this.notifyService.success(res.message || `Fecha de la jornada ${jornada.jornada} actualizada.`);
+      this.getTournament(); 
+    },
+    error: (err: any) => {
+      const errorMessage = err.error?.message || 'Error al actualizar la fecha de la jornada.';
+      this.notifyService.error(errorMessage);
+    }
+  })
+}
+
+ abrirCalendario(jornada: any) {
+    this.jornadaActual = jornada;
+    this.fechaSeleccionada = jornada.fechaJornada || null;
+    this.modalCalendario.present();
+  }
+
+  cerrarModal() {
+    this.modalCalendario.dismiss();
+  }
+
+  cambiarFecha(event: any) {
+    const nuevaFecha = event.detail.value;
+
+    this.jornadaActual.fechaJornada = nuevaFecha;
+    console.log("jornada actual", this.jornadaActual);
+
+
+    // 👉 Llamar al backend para actualizar la fecha
+    this.editFechaJornada(this.jornadaActual, nuevaFecha);
+
+    this.modalCalendario.dismiss();
+  }
+
+  abrirCalendarioPartido(partido: any) {
+  this.partidoActual = partido;
+  this.fechaPartidoSeleccionada = partido.fechaPartido || null;
+  this.modalCalendarioPartido.present();
+}
+
+cambiarFechaPartido(event: any) {
+  const nuevaFecha = event.detail.value;
+
+  // Actualizo en memoria
+  this.partidoActual.fechaPartido = nuevaFecha;
+  console.log("mi partidazxo",this.partidoActual._id)
+
+  // Llamada al backend
+  this.tournamentService.editFechaPartido(
+    this.id,
+    this.jornada,
+    this.partidoActual._id,
+    nuevaFecha
+  ).subscribe({
+    next: (res: any) => {
+      this.notifyService.success("Fecha del partido actualizada");
+      this.getTournament(); // refrescar fixture
+    },
+    error: () => {
+      this.notifyService.error("No se pudo actualizar la fecha del partido");
+    }
+  });
+
+  this.modalCalendarioPartido.dismiss();
+}
+
+
+cerrarModalPartido() {
+  this.modalCalendarioPartido.dismiss();
+}
+
+actualizarEstadoPartido() {
+  console.log("Partido seleccionado para actualizar estado:", this.partidoSeleccionado);
+  this.tournamentService.actualizarEstadoPartido(
+    this.id,
+    this.jornada,
+    this.partidoSeleccionado._id,
+    this.partidoSeleccionado.estado
+  ).subscribe({
+    next: () => {
+      this.notifyService.success("Estado actualizado correctamente");
+      this.getTournament(); // refrescar fixture
+    },
+    error: (err) => this.notifyService.error("No se pudo actualizar el estado del partido")
+  });
+}
+
 
 goEliminatoria(){
   this.router.navigate(['/admin/eliminatoria', this.id]);

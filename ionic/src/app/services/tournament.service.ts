@@ -348,6 +348,19 @@ deleteStadium(id : any){
     })
   );
 }
+
+editFechaJornada(torneoId: any, jornadaNumber: number, newDate: string) {
+  return this.http.put(`${this.API_URL}/editar-fecha-jornada/${torneoId}/${jornadaNumber}`, { newDate });
+}
+
+editFechaPartido(torneoId: any, jornadaId: any, partidoId: any, newDate: string) {
+  return this.http.put(`${this.API_URL}/editar-fecha-partido/${torneoId}/${jornadaId}/${partidoId}`, { newDate });
+}
+
+actualizarEstadoPartido(torneoId: string, jornada: number, partidoId: string, estado: string) {
+  return this.http.put(`${this.API_URL}/editar-estado-partido/${torneoId}/${jornada}/${partidoId}`,{ estado });
+}
+
 /***************************************************FIXTURE*****************************************************/ 
 
   generateFixture(id:any, form : any){

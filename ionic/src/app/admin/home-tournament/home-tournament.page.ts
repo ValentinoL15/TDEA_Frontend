@@ -83,9 +83,10 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
     tarifaInscripcion: 0,
     tarifaPartido: 0,
     cupos: 0,
-    fixture: [{
+   fixture: [{
       _id: "",
       jornada: 0,
+      fechaJornada: new Date(),
       partidos: [{
         team1: {
           _id: '',
@@ -109,7 +110,8 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
                     rojas: 0,
                 }
             ],
-        local: {
+            fechaPartido: new Date(),
+      local: {
           _id: '',
           nameList: ''
       },
@@ -120,6 +122,7 @@ export class HomeTournamentPage implements OnInit,OnDestroy   {
       resultado: {
               team1: 0,
               team2: 0
+          
       },
       }]
     }],

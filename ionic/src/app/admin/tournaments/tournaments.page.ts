@@ -62,6 +62,7 @@ export class TournamentsPage implements OnInit {
     fixture: [{
       _id: "",
       jornada: 0,
+      fechaJornada: new Date(),
       partidos: [{
         team1: {
           _id: '',
@@ -85,7 +86,8 @@ export class TournamentsPage implements OnInit {
                     rojas: 0,
                 }
             ],
-        local: {
+            fechaPartido: new Date(),
+      local: {
           _id: '',
           nameList: ''
       },
@@ -94,7 +96,6 @@ export class TournamentsPage implements OnInit {
           nameList: ''
       },
       resultado: {
-          
               team1: 0,
               team2: 0
           

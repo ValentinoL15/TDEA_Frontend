@@ -66,9 +66,10 @@ tournament: Tournament = {
     minPlayers: 0,
     maxPlayers: 0
     },
-    fixture: [{
+   fixture: [{
       _id: "",
       jornada: 0,
+      fechaJornada: new Date(),
       partidos: [{
         team1: {
           _id: '',
@@ -92,7 +93,8 @@ tournament: Tournament = {
                     rojas: 0,
                 }
             ],
-        local: {
+            fechaPartido: new Date(),
+      local: {
           _id: '',
           nameList: ''
       },
@@ -100,12 +102,11 @@ tournament: Tournament = {
           _id: '',
           nameList: ''
       },
-      
       resultado: {
               team1: 0,
               team2: 0
+          
       },
-      
       }]
     }],
      estadisticasJugadores: [

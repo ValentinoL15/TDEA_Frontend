@@ -81,16 +81,17 @@ tournamentId: Tournament = {
     time:[] // Aquí debes definir correctamente el array de strings según el tipo esperado
   }],
   fixture: [{
-    _id: "",
-    jornada: 0,
-    partidos: [{
-      team1: {
-        _id: '',
-    },
-    team2: {
-        _id: '',
-    },
-    estadisticasJugadores: [
+      _id: "",
+      jornada: 0,
+      fechaJornada: new Date(),
+      partidos: [{
+        team1: {
+          _id: '',
+      },
+      team2: {
+          _id: '',
+      },
+      estadisticasJugadores: [
                 {
                     jugador: {
                       _id: "",
@@ -106,6 +107,7 @@ tournamentId: Tournament = {
                     rojas: 0,
                 }
             ],
+            fechaPartido: new Date(),
       local: {
           _id: '',
           nameList: ''
@@ -114,15 +116,13 @@ tournamentId: Tournament = {
           _id: '',
           nameList: ''
       },
-    resultado: {
-        
-            team1: 0,
-            team2: 0
-        
-    },
-     
-    }]
-  }],
+      resultado: {
+              team1: 0,
+              team2: 0
+          
+      },
+      }]
+    }],
   estadisticasJugadores: [
           {
               jugador: {

@@ -73,19 +73,18 @@ export class TablasPage implements OnInit {
   tarifaPartido: 0,
   deposito:0,
   cupos: 0,
-  fixture: [{
-    _id: "",
-    jornada: 0,
-    partidos: [{
-      team1: {
-        _id: '',
-        nameList: '', 
-    },
-    team2: {
-        _id: '',
-        nameList: '',
-    },
-    estadisticasJugadores: [
+ fixture: [{
+      _id: "",
+      jornada: 0,
+      fechaJornada: new Date(),
+      partidos: [{
+        team1: {
+          _id: '',
+      },
+      team2: {
+          _id: '',
+      },
+      estadisticasJugadores: [
                 {
                     jugador: {
                       _id: "",
@@ -101,6 +100,7 @@ export class TablasPage implements OnInit {
                     rojas: 0,
                 }
             ],
+            fechaPartido: new Date(),
       local: {
           _id: '',
           nameList: ''
@@ -109,14 +109,13 @@ export class TablasPage implements OnInit {
           _id: '',
           nameList: ''
       },
-    resultado: {
-        
-            team1: 0,
-            team2: 0
-        
-    },
-    }]
-  }],
+      resultado: {
+              team1: 0,
+              team2: 0
+          
+      },
+      }]
+    }],
              estadisticasJugadores: [
           {
               jugador: {

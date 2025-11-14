@@ -69,6 +69,7 @@ export class InformesInfoPage implements OnInit {
     fixture: [{
       _id: "",
       jornada: 0,
+      fechaJornada: new Date(),
       partidos: [{
         team1: {
           _id: '',
@@ -92,7 +93,8 @@ export class InformesInfoPage implements OnInit {
                     rojas: 0,
                 }
             ],
-        local: {
+            fechaPartido: new Date(),
+      local: {
           _id: '',
           nameList: ''
       },
@@ -103,6 +105,7 @@ export class InformesInfoPage implements OnInit {
       resultado: {
               team1: 0,
               team2: 0
+          
       },
       }]
     }],

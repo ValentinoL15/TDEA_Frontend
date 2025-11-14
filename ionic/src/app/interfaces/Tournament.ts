@@ -109,6 +109,7 @@ export interface Tournament {
                     motivo?: string
                 }
             ],
+            fechaPartido: Date,
             local: {
                 _id?: string,
                 nameList?: string,
@@ -120,12 +121,14 @@ export interface Tournament {
             resultado: {
                     team1: number,
                     team2: number
-            }
+            },
             libre?: {
                 _id?: string,
                 nameList?: string
-            }
-        }]
+            },
+            estado?: string
+        }],
+        fechaJornada: Date
     }],
      estadisticasJugadores: [
                 {

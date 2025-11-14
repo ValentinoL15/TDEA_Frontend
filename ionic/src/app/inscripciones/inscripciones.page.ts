@@ -81,18 +81,17 @@ list: List = {
   deposito:0,
   cupos: 0,
   fixture: [{
-    _id: "",
-    jornada: 0,
-    partidos: [{
-      team1: {
-        _id: '',
-        nameList: '', 
-    },
-    team2: {
-        _id: '',
-        nameList: '',
-    },
-    estadisticasJugadores: [
+      _id: "",
+      jornada: 0,
+      fechaJornada: new Date(),
+      partidos: [{
+        team1: {
+          _id: '',
+      },
+      team2: {
+          _id: '',
+      },
+      estadisticasJugadores: [
                 {
                     jugador: {
                       _id: "",
@@ -108,6 +107,7 @@ list: List = {
                     rojas: 0,
                 }
             ],
+            fechaPartido: new Date(),
       local: {
           _id: '',
           nameList: ''
@@ -116,13 +116,13 @@ list: List = {
           _id: '',
           nameList: ''
       },
-    resultado: {
-            team1: 0,
-            team2: 0
-    },
-             
-    }]
-  }],
+      resultado: {
+              team1: 0,
+              team2: 0
+          
+      },
+      }]
+    }],
   estadisticasJugadores: [
           {
               jugador: {
@@ -219,18 +219,17 @@ tournament: Tournament = {
   deposito:0,
   cupos: 0,
   fixture: [{
-    _id: "",
-    jornada: 0,
-    partidos: [{
-      team1: {
-        _id: '',
-        nameList: '', 
-    },
-    team2: {
-        _id: '',
-        nameList: '',
-    },
-    estadisticasJugadores: [
+      _id: "",
+      jornada: 0,
+      fechaJornada: new Date(),
+      partidos: [{
+        team1: {
+          _id: '',
+      },
+      team2: {
+          _id: '',
+      },
+      estadisticasJugadores: [
                 {
                     jugador: {
                       _id: "",
@@ -246,6 +245,7 @@ tournament: Tournament = {
                     rojas: 0,
                 }
             ],
+            fechaPartido: new Date(),
       local: {
           _id: '',
           nameList: ''
@@ -254,14 +254,13 @@ tournament: Tournament = {
           _id: '',
           nameList: ''
       },
-    resultado: {
-        
-            team1: 0,
-            team2: 0
-        
-    },
-    }]
-  }],
+      resultado: {
+              team1: 0,
+              team2: 0
+          
+      },
+      }]
+    }],
    estadisticasJugadores: [
           {
               jugador: {

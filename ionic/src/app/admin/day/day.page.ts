@@ -87,6 +87,7 @@ export class DayPage implements OnInit {
     fixture: [{
       _id: "",
       jornada: 0,
+      fechaJornada: new Date(),
       partidos: [{
         team1: {
           _id: '',
@@ -110,6 +111,7 @@ export class DayPage implements OnInit {
                     rojas: 0,
                 }
             ],
+            fechaPartido: new Date(),
       local: {
           _id: '',
           nameList: ''
