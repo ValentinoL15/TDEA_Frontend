@@ -357,8 +357,30 @@ editFechaPartido(torneoId: any, jornadaId: any, partidoId: any, newDate: string)
   return this.http.put(`${this.API_URL}/editar-fecha-partido/${torneoId}/${jornadaId}/${partidoId}`, { newDate });
 }
 
+editFechaPartidoEliminatoria(tournamentId: string, matchId: string, newDate: string) {
+  return this.http.put(`${this.API_URL}/editar-fecha-partido-eliminatoria`, {
+    tournamentId,
+    matchId,
+    newDate
+  });
+}
+
+editFechaRondaEliminatoria(tournamentId: string, roundIndex: number, newDate: string) {
+  // CAMBIO: roundIndex ahora va en la URL
+  return this.http.put(`${this.API_URL}/editar-fecha-ronda-eliminatoria/${tournamentId}/${roundIndex}`, {
+    newDate // Solo enviamos la fecha en el body
+  });
+}
+
 actualizarEstadoPartido(torneoId: string, jornada: number, partidoId: string, estado: string) {
   return this.http.put(`${this.API_URL}/editar-estado-partido/${torneoId}/${jornada}/${partidoId}`,{ estado });
+}
+
+editEstadoPartidoEliminatoria(tournamentId: string, ronda: number, partidoId: string, estado: string) {
+  // Ahora pasamos los IDs en la URL
+  return this.http.put(`${this.API_URL}/editar-estado-partido-eliminatoria/${tournamentId}/${ronda}/${partidoId}`, {
+    estado // El cuerpo solo lleva el nuevo estado
+  });
 }
 
 /***************************************************FIXTURE*****************************************************/ 

@@ -11,6 +11,14 @@ import { TournamentService } from 'src/app/services/tournament.service';
   styleUrls: ['./eliminatoria.page.scss'],
 })
 export class EliminatoriaPage implements OnInit {
+  @ViewChild('modalCalendarioRonda') modalCalendarioRonda!: IonModal;
+  rondaSeleccionadaIndex: number = -1;
+  fechaRondaSeleccionada: any = null;
+  nombreRondaSeleccionada: string = '';
+
+  @ViewChild('modalCalendarioEliminatoria') modalCalendarioEliminatoria!: IonModal;
+  matchEliminatoriaSeleccionado: any = null;
+  fechaEliminatoriaSeleccionada: any = null;
 
   @ViewChild('modal') modal!: IonModal;
   initialGolesTeam1: number = 0;
@@ -670,14 +678,107 @@ establecerEstadoInicial() {
     this.cerrarModal(); // Ahora cerrará sin preguntar porque hayCambiosPendientes() retornará 'false'
   }
 
+  abrirCalendarioEliminatoria(match: any) {
+  this.matchEliminatoriaSeleccionado = match;
+  // Si ya tiene fecha, la usamos, si no, null (o fecha actual)
+  this.fechaEliminatoriaSeleccionada = match.fechaPartido || new Date().toISOString();
+  this.modalCalendarioEliminatoria.present();
+}
 
+// 2. Cerrar modal
+cerrarCalendarioEliminatoria() {
+  this.modalCalendarioEliminatoria.dismiss();
+  this.matchEliminatoriaSeleccionado = null;
+}
 
-  /*guardarCambiosJugadores() {
-    // Aquí haces PUT a tu backend para actualizar goles, amarillas, rojas e informe
-    this.tournamentServ.actualizarJugadoresPartido(this.modalMatch._id, this.jugadoresFiltrados)
-      .subscribe(() => {
-        this.notifyServ.success('Cambios guardados');
-        this.cerrarModal();
-      });
-  }*/
+cambiarFechaEliminatoria(event: any) {
+  const nuevaFecha = event.detail.value;
+  
+  // Actualización visual optimista (para que el usuario lo vea al instante)
+  this.matchEliminatoriaSeleccionado.fechaPartidoEliminatoria = nuevaFecha; 
+  // OJO: en tu modelo backend se llama 'fechaPartidoEliminatoria', 
+  // asegúrate de usar el mismo nombre en el front o mapearlo.
+
+  const matchId = this.matchEliminatoriaSeleccionado._id;
+
+  // Llamada al servicio
+  this.tournamentServ.editFechaPartidoEliminatoria(this.torneoId, matchId, nuevaFecha)
+    .subscribe({
+      next: (res) => {
+        this.notifyServ.success('Fecha actualizada correctamente');
+        // Opcional: this.getTournament(); si quieres refrescar todo
+      },
+      error: (err) => {
+        this.notifyServ.error('Error al guardar la fecha');
+        console.error(err);
+      }
+    });
+
+  // Cerrar modal (opcional, o dejar que el usuario lo cierre)
+  this.modalCalendarioEliminatoria.dismiss();
+}
+
+abrirCalendarioRonda(ronda: any, index: number) {
+  this.rondaSeleccionadaIndex = index;
+  this.fechaRondaSeleccionada = ronda.fechaJornadaEliminatoria || new Date().toISOString();
+  this.nombreRondaSeleccionada = this.getNombreRonda(index); // Tu función existente para obtener nombre
+  this.modalCalendarioRonda.present();
+}
+
+// 2. Cerrar modal
+cerrarCalendarioRonda() {
+  this.modalCalendarioRonda.dismiss();
+}
+
+// 3. Guardar cambio
+cambiarFechaRonda(event: any) {
+  const nuevaFecha = event.detail.value;
+  
+  console.log(`Cambiando fecha de ronda ${this.rondaSeleccionadaIndex} a ${nuevaFecha}`);
+
+  this.tournamentServ.editFechaRondaEliminatoria(this.torneoId, this.rondaSeleccionadaIndex, nuevaFecha)
+    .subscribe({
+      next: (res: any) => {
+        this.notifyServ.success(`Fecha de ${this.nombreRondaSeleccionada} actualizada`);
+        this.modalCalendarioRonda.dismiss();
+        this.cargarEliminatoria(); // Recargar para ver cambios en los partidos
+      },
+      error: (err) => {
+        this.notifyServ.error('Error al actualizar la fecha de la fase');
+        console.error(err);
+      }
+    });
+}
+
+// home.page.ts (o donde tengas el modal)
+
+actualizarEstadoEliminatoria() {
+  if (!this.modalMatch || !this.modalMatch._id) return;
+
+  const nuevoEstado = this.modalMatch.estadoEliminatoria;
+  
+  // Necesitamos saber en qué número de ronda estamos. 
+  // Opción A: Si tienes el índice de la ronda guardado en una variable (ej: this.rondaSeleccionadaIndex)
+  const nroRonda = this.rondaSeleccionadaIndex; 
+  console.log('Número de ronda para actualizar estado:', this.roundIndex);
+  
+  // Opción B: Si el objeto 'modalMatch' tiene guardada la ronda (depende de cómo lo traigas)
+  // const nroRonda = this.modalMatch.ronda;
+
+  this.tournamentServ.editEstadoPartidoEliminatoria(
+      this.torneoId, 
+      this.roundIndex, 
+      this.modalMatch._id, 
+      nuevoEstado
+  ).subscribe({
+      next: (res) => {
+        this.notifyServ.success('Estado actualizado');
+      },
+      error: (err) => {
+        this.notifyServ.error('Error al actualizar');
+        console.error(err);
+      }
+    });
+}
+
 }

@@ -13,26 +13,26 @@
   <div class="fase-inicial">
     <div>
       <ion-item>
-      <ion-label>Fase Inicial</ion-label>
-      <ion-select [(ngModel)]="faseInicial">
-        <ion-select-option value="32avos">32avos de final</ion-select-option>
-        <ion-select-option value="16avos">16avos de final</ion-select-option>
-        <ion-select-option value="octavos">Octavos de final</ion-select-option>
-        <ion-select-option value="cuartos">Cuartos de final</ion-select-option>
-        <ion-select-option value="semifinal">Semifinal</ion-select-option>
-        <ion-select-option value="final">Final</ion-select-option>
-      </ion-select>
-    </ion-item>
+        <ion-label>Fase Inicial</ion-label>
+        <ion-select [(ngModel)]="faseInicial">
+          <ion-select-option value="32avos">32avos de final</ion-select-option>
+          <ion-select-option value="16avos">16avos de final</ion-select-option>
+          <ion-select-option value="octavos">Octavos de final</ion-select-option>
+          <ion-select-option value="cuartos">Cuartos de final</ion-select-option>
+          <ion-select-option value="semifinal">Semifinal</ion-select-option>
+          <ion-select-option value="final">Final</ion-select-option>
+        </ion-select>
+      </ion-item>
     </div>
     <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
       <ion-button (click)="restaurarEliminatoria()">
         Restaurar
       </ion-button>
-      
+
       <ion-button (click)="generarEliminatoria()" *ngIf="!eliminatoria?.length">
-      Generar
-    </ion-button>
-  
+        Generar
+      </ion-button>
+
     </div>
   </div>
 
@@ -41,6 +41,16 @@
     <ion-list [inset]="true">
       <div>
         <p class="jornada-title">{{ getNombreRonda(roundIndex) }}</p>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+        <span style="color: #ddd; font-size: 0.9rem; margin-right: 8px;">
+          {{ ronda.fechaJornadaEliminatoria ? (ronda.fechaJornadaEliminatoria | date: 'shortDate') : 'Sin fecha' }}
+        </span>
+
+        <ion-button fill="clear" size="small" color="light" (click)="abrirCalendarioRonda(ronda, roundIndex)">
+          <ion-icon slot="icon-only" name="calendar-outline"></ion-icon>
+        </ion-button>
       </div>
 
       <div *ngFor="let match of ronda.partidos; let matchIndex = index">
@@ -54,33 +64,30 @@
         <ng-container *ngIf="ronda.fase !== 'campeon'">
 
           <!-- Si no hay equipos asignados -->
-           <!-- *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"-->
+          <!-- *ngFor="let team of (roundIndex === 0 ? equiposDelTorneo : equiposDisponiblesPorRonda[roundIndex])"-->
           <ng-container *ngIf="!match.team1 || !match.team2" class="asignar-equipos">
             <div style="display: flex; width: 100%; justify-content: space-between;">
-              <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover" style="margin-left: 20px;">
-              <ion-select-option
-              
-                *ngFor="let team of equiposDelTorneo"
-                [value]="team._id">
-                {{ team.nameList }}
-              </ion-select-option>
-            </ion-select>
+              <ion-select placeholder="Equipo 1" [(ngModel)]="match.team1Id" interface="popover"
+                style="margin-left: 20px;">
+                <ion-select-option *ngFor="let team of equiposDelTorneo" [value]="team._id">
+                  {{ team.nameList }}
+                </ion-select-option>
+              </ion-select>
 
-            <ion-select placeholder="Equipo 2" [(ngModel)]="match.team2Id" interface="popover" style="margin-left: 20px;">
-              <ion-select-option
-                *ngFor="let team of equiposDelTorneo"
-                [value]="team._id">
-                {{ team.nameList }}
-              </ion-select-option>
-            </ion-select>
+              <ion-select placeholder="Equipo 2" [(ngModel)]="match.team2Id" interface="popover"
+                style="margin-left: 20px;">
+                <ion-select-option *ngFor="let team of equiposDelTorneo" [value]="team._id">
+                  {{ team.nameList }}
+                </ion-select-option>
+              </ion-select>
             </div>
 
             <div style="width: 100%; display: flex; justify-content: center;">
               <ion-button (click)="asignarEquipos(roundIndex, matchIndex, match.team1Id, match.team2Id)">
-              Asignar
-            </ion-button>
+                Asignar
+              </ion-button>
             </div>
-            
+
           </ng-container>
 
           <!-- Si ya hay equipos asignados -->
@@ -194,6 +201,29 @@
         </ion-segment>
       </div>
 
+      <div style="margin: 15px 0; display: flex; justify-content: center; flex-direction: column;">
+
+        <ion-item lines="none">
+          <ion-label>Fecha:</ion-label>
+          <ion-text>{{ modalMatch.fechaPartidoEliminatoria | date:'shortDate' }}</ion-text>
+
+          <ion-button fill="clear" (click)="abrirCalendarioEliminatoria(modalMatch)">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Estado:</ion-label>
+          <ion-select [(ngModel)]="modalMatch.estadoEliminatoria" (ionChange)="actualizarEstadoEliminatoria()"
+            interface="popover" placeholder="Seleccionar estado">
+
+            <ion-select-option value="Sin jugar">Sin jugar</ion-select-option>
+            <ion-select-option value="Finalizado">Finalizado</ion-select-option>
+            <ion-select-option value="Aplazado">Aplazado</ion-select-option>
+            <ion-select-option value="Suspendido">Suspendido</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
       <div
         style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 15px; margin-top: 10px;">
         <span style="font-weight: bold;">{{ modalMatch?.team1?.nameList }}</span>
@@ -272,6 +302,56 @@
         </div>
       </div>
 
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modalCalendarioEliminatoria>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Fecha del Partido</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarCalendarioEliminatoria()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+        <p style="margin-bottom: 20px;">
+          Selecciona la fecha para el cruce entre <br>
+          <b>{{ matchEliminatoriaSeleccionado?.team1?.nameList }}</b> y
+          <b>{{ matchEliminatoriaSeleccionado?.team2?.nameList }}</b>
+        </p>
+
+        <ion-datetime [value]="fechaEliminatoriaSeleccionada" (ionChange)="cambiarFechaEliminatoria($event)"
+          presentation="date">
+        </ion-datetime>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modalCalendarioRonda>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Fecha de {{ nombreRondaSeleccionada }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarCalendarioRonda()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <p>Selecciona la fecha general para <b>{{ nombreRondaSeleccionada }}</b>.</p>
+        <p style="font-size: 0.8rem; color: gray;">Esto actualizará la fecha de los partidos de esta fase.</p>
+      </div>
+
+      <ion-datetime [value]="fechaRondaSeleccionada" (ionChange)="cambiarFechaRonda($event)" presentation="date">
+      </ion-datetime>
     </ion-content>
   </ng-template>
 </ion-modal>

@@ -130,7 +130,7 @@ export interface Tournament {
         }],
         fechaJornada: Date
     }],
-     estadisticasJugadores: [
+    estadisticasJugadores: [
                 {
                     jugador: Player,
                     equipo: List,
