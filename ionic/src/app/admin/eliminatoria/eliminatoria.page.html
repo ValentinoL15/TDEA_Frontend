@@ -95,18 +95,18 @@
           <div *ngIf="match.team1 && match.team2">
             <ion-grid class="match-grid">
               <ion-row class="match-row">
-                <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center;"
+                <ion-col size="3" class="team" style="display: flex; justify-content: center; align-items: center;"
                   (click)="abrirModal(roundIndex, matchIndex)">
                   {{ match.team1?.nameList || 'BYE' }}
                 </ion-col>
 
-                <ion-col size="2" class="score" style="display: flex; align-items: center; justify-content: center;">
+                <ion-col size="6" class="score" style="display: flex; align-items: center; justify-content: center;">
                   <span style="width: 50%; text-align: center; ">{{ match.resultado.team1 || 0 }}</span>
                   <span> - </span>
                   <span style="width: 50%; text-align: center;">{{ match.resultado.team2 || 0 }}</span>
                 </ion-col>
 
-                <ion-col size="5" class="team" style="display: flex; justify-content: center; align-items: center;"
+                <ion-col size="3" class="team" style="display: flex; justify-content: center; align-items: center;"
                   (click)="abrirModal(roundIndex, matchIndex)">
                   {{ match.team2?.nameList || 'BYE' }}
                 </ion-col>
