@@ -91,12 +91,26 @@
       <ion-toolbar>
         <ion-title style="font-size: 0.8rem;">{{ "Fecha " + jornada + ": " + local + " vs " +
           visitante }}</ion-title>
-        <ion-buttons slot="end">
+        <ion-buttons slot="start">
           <ion-button (click)="setOpen(false, null,null, 0, null,null,null)">Cerrar</ion-button>
+        </ion-buttons>
+        <ion-buttons size="small" slot="end">
+          <ion-button (click)="guardarCambiosTodosDeUna()">Guardar</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
+
+         <div style="margin: 0 10px;">
+        <ion-segment value="default" [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">
+          <ion-segment-button [value]="team_id?._id">
+            <ion-label>{{local}}</ion-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="vsTeam_id?._id">
+            <ion-label>{{visitante}}</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
 
       <div style="margin: 15px 0; display: flex; justify-content: center; flex-direction: column;">
         <ion-item lines="none">
@@ -139,22 +153,6 @@
           style="width: 50px; text-align: center; border: 1px solid #ccc; margin: 0 5px;"></ion-input>
 
         <span style="font-weight: bold;">{{ visitante }}</span>
-      </div>
-
-      <div style="margin: 0 10px;">
-        <ion-segment value="default" [value]="selectedTeamSegment" (ionChange)="onSegmentChanged($event)">
-          <ion-segment-button [value]="team_id?._id">
-            <ion-label>{{local}}</ion-label>
-          </ion-segment-button>
-          <ion-segment-button [value]="vsTeam_id?._id">
-            <ion-label>{{visitante}}</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-      </div>
-      <div style="display: flex; width: 100%; justify-content: end; align-items: center; padding: 10px;">
-        <ion-button size="small" (click)="guardarCambiosTodosDeUna()">
-          Guardar cambios
-        </ion-button>
       </div>
 
       <div *ngFor="let item of jugadoresFiltrados" class="player-card" [class.error-card]="item.errorMotivo">
