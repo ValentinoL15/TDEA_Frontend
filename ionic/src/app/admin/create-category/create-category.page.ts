@@ -40,6 +40,7 @@ export class CreateCategoryPage implements OnInit {
 
   cancel() {
     this.modal.dismiss(null, 'cancel');
+    this.form.reset();
   }
 
   volver(){
