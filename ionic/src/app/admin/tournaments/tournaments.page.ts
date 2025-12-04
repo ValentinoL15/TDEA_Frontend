@@ -392,7 +392,7 @@ export class TournamentsPage implements OnInit {
       next: (res: any) => {
         this.notifyService.success(res.message)
         this.getTournament(id)
-        this.router.navigate(['/admin/home-tournament'])
+        //this.router.navigate(['/admin/home-tournament'])
       },
       error: (err: any) => {
         this.notifyService.error(err.error.message)

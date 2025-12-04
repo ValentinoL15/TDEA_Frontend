@@ -8,6 +8,7 @@
 
   <div *ngIf="list?.listActive === true" >
     <ion-card *ngFor="let torneo of torneos" mode="md">
+      <ng-container *ngIf="torneo.isTournamentActive">
       <ion-card-header>
         <ion-card-title> 
           <ng-container *ngFor="let day of torneo.daysTournament; let i = index">
@@ -52,6 +53,7 @@
       <div class="contenedor-button">
         <ion-button fill="clear" (click)="goTournament(torneo._id)">Ver Más</ion-button>
       </div>
+      </ng-container>
     </ion-card>
   </div>
 
