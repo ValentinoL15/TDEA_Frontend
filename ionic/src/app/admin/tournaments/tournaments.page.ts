@@ -311,16 +311,17 @@ export class TournamentsPage implements OnInit {
     })
   }
 
-  getEdades(){
-    this.tournamentServ.getEdades().subscribe({
-      next: (res : any) => {
-        this.edades = res.edades
-      },
-      error: (err : any) => {
-        this.notifyService.error(err.error.message)
-      }
-    })
-  }
+ getEdades() {
+  this.tournamentServ.getEdades().subscribe({
+    next: (res: any) => {
+      this.edades = res.edades.sort((a: any, b: any) => a.order - b.order);
+    },
+    error: (err: any) => {
+      this.notifyService.error(err.error.message);
+    }
+  });
+}
+
 
   /*getCategories(){
     this.tournamentServ.getCategories().subscribe({
