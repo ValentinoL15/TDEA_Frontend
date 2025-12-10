@@ -166,6 +166,7 @@
     </div>
   </ng-container>
 
+  <ng-container *ngIf="list.tournamentRegistration !== null">
   <div *ngIf="tournament.fixture.length > 0">
     <div *ngFor="let jornada of tournament.fixture">
 
@@ -220,5 +221,6 @@
       </ion-list>
     </div>
   </div>
+  </ng-container>
 
 </ion-content>
