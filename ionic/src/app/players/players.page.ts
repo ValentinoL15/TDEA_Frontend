@@ -686,7 +686,8 @@ cancel2(){
   }
 
   restartPlayers() {
-    window.location.href = '/user/players'
+    //window.location.href = '/user/players'
+    this.isModalOpen = false;
   }
 
   onFileSelected2(event: any) {
