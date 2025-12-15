@@ -560,7 +560,7 @@ export class PlayersPage implements OnInit {
         //this.getPlayers()
         this.form.reset()
         this.selectedFile = null;
-
+        this.getPlayersList()
         // Resetear manualmente el campo de archivo
         const fileInput = document.getElementById('fileInput') as HTMLInputElement;
         if (fileInput) {
