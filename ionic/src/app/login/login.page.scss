@@ -22,6 +22,31 @@
 
 }
 
+/* Estilo para el input de fecha nativo dentro de un ion-item */
+.item .native-date-input {
+    /* Restablece el fondo a transparente para que herede el fondo de ion-item */
+    background-color: transparent; 
+
+    /* Elimina el borde */
+    border: none;
+
+    /* Asegúrate de que ocupe todo el ancho para llenar el espacio */
+    width: 100%; 
+
+    /* Ajusta el padding si es necesario para que coincida con otros inputs */
+    padding: 8px 0; /* Ajusta este valor */
+
+    /* Asegúrate de que el color del texto sea correcto */
+    color: var(--ion-color-dark); 
+}
+
+/* Si aún ves un borde o un fondo gris, puede ser que necesites más selectores */
+/* Este apunta al input real dentro del elemento */
+.item ion-input[type="date"] {
+    background-color: transparent !important;
+    border: none !important;
+}
+
 .inicio{
     border: none;
     border-bottom: 1px solid white;

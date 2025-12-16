@@ -63,15 +63,13 @@
       Nacimiento
     </label>
     <input
-    ba
       id="birthday"
       name="birthday"
       type="date"
       placeholder="dd/mm/aaaa"
       formControlName="birthday"
       inputmode="numeric"
-      style="padding: 2px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; background-color: black;"
-    />
+      class="native-date-input" />
   </div>
 </ion-item>
 
@@ -99,13 +97,15 @@
         </ion-item>-->
 
         <ion-item class="item">
-          <ion-input type="password" fill="outline" formControlName="password" label="Password" labelPlacement="floating" placeholder="Password"></ion-input>
+          <ion-input type="password" fill="outline" formControlName="password" label="Password" labelPlacement="floating" placeholder="Password">
           <ion-input-password-toggle *ngIf="register.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
+          </ion-input>
         </ion-item>
 
         <ion-item class="item">
-          <ion-input type="password" fill="outline" formControlName="confirmPassword" label="Confirm Password" labelPlacement="floating" placeholder="Confirm Password"></ion-input>
+          <ion-input type="password" fill="outline" formControlName="confirmPassword" label="Confirm Password" labelPlacement="floating" placeholder="Confirm Password">
           <ion-input-password-toggle *ngIf="register.get('password')?.value !== ''" slot="end"></ion-input-password-toggle>
+          </ion-input>
         </ion-item>
 
         <div class="register">
