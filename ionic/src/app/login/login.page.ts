@@ -48,6 +48,15 @@ export class LoginPage implements OnInit {
     })
   }
 
+  countries = [
+  { name: 'Argentina', code: 'AR', dial: '+54' },
+  { name: 'Uruguay', code: 'UY', dial: '+598' },
+  { name: 'Brasil', code: 'BR', dial: '+55' },
+  { name: 'Chile', code: 'CL', dial: '+56' },
+  { name: 'España', code: 'ES', dial: '+34' },
+];
+
+
   validateEmailAsync: AsyncValidatorFn = (control: AbstractControl): Promise<ValidationErrors | null> => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const valid = emailRegex.test(control.value);
@@ -97,22 +106,32 @@ export class LoginPage implements OnInit {
     modal?.dismiss(null, 'cancel');
   }
 
-  onPhoneInputChange(event: any) {
-    let inputValue = event.detail.value;
+  selectedCountryCode = 'AR';
 
-    // Filtra solo los números después del prefijo +54
-    const numericValue = inputValue.replace(/^\+54\s*/, '').replace(/\D/g, '');
+get selectedCountry() {
+  return this.countries.find(c => c.code === this.selectedCountryCode)!;
+}
 
-    // Mantén el formato deseado, como +54 2477
-    let formattedValue = '+54';
-    if (numericValue.length > 0) {
-      formattedValue += '' + numericValue;
-    }
+onCountryChange(code: string) {
+  this.selectedCountryCode = code;
 
-    // Actualiza el valor del campo de teléfono
-    const phoneControl = this.register.get('phone');
-    phoneControl?.setValue(formattedValue, { emitEvent: false });
-  }
+  this.register.get('phone')?.setValue(
+    this.selectedCountry.dial + ' ',
+    { emitEvent: false }
+  );
+}
+
+onPhoneInputChange(event: any) {
+  const value = event.detail.value || '';
+  const dial = this.selectedCountry.dial;
+
+  const numbersOnly = value.replace(dial, '').replace(/\D/g, '');
+
+  this.register.get('phone')?.setValue(
+    dial + ' ' + numbersOnly,
+    { emitEvent: false }
+  );
+}
 
 
   registerFormSubmit(){

@@ -16,17 +16,16 @@ constructor(private authService: AuthService, private router: Router, private no
 
 ngOnInit(): void {
 }
+//this.router.navigate(['/login'])
 
 submitEmail(){
   this.authService.forgotPassword(this.email).subscribe({
     next: (res:any) => {
-      setTimeout(() => {
-        this.notifyService.success(res.message)
-      }, 1000)
+      this.notifyService.success(res.message),
       this.router.navigate(['/login'])
-    }, 
-    error: (error) => {
-      console.log(error)
+    },
+    error: (err : any) => {
+      this.notifyService.error(err.error.message)
     }
   })
 }
@@ -43,3 +42,4 @@ volver() {
 
 
 }
+

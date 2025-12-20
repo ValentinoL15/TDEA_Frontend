@@ -1,85 +1,3 @@
-<!--<ion-content [fullscreen]="true" color="light">
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <div class="navbar">
-      <img src="../../assets/icon/logo.png" width="30px" height="30px" alt="">
-      <ion-title>Mi Perfil</ion-title>
-      <img src="../../assets/icon/logo.png" width="30px" height="30px" alt="">
-    </div>
-  </ion-toolbar>
-</ion-header>
-
-    <div class="form">
-      <ion-list [inset]="true">
-        <ion-item>
-          <ion-input label="Nombre" readonly="true" [value]="usuario.firstName"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="DNI" readonly="true" [value]="usuario.docNumber"></ion-input>
-        </ion-item>
-      </ion-list>
-
-      <ion-list [inset]="true">
-        <ion-item id="email-alert" >
-          <ion-label>
-            <label>Email</label>
-            <p> {{usuario.email}} </p>
-          </ion-label>
-        </ion-item>
-
-        <ion-item id="email-alert" >
-          <ion-label>
-            <label>Contraseña</label>
-            <p>*************</p>
-          </ion-label>
-        </ion-item>
-
-        <ion-item id="phone-alert" >
-          <ion-label>
-            <label>Telefono</label>
-            <p>{{usuario.phone}}</p>
-          </ion-label>
-        </ion-item>
-
-        <ion-item id="fecha-alert" >
-          <ion-label>
-            <label>Nacimiento</label>
-            <p>{{usuario.birthday}}</p>
-          </ion-label>
-        </ion-item>
-
-        <ion-item id="email-alert" >
-          <ion-label>
-            <label>Foto de Perfil</label>
-          </ion-label>
-          <img [src]="usuario.profileImg" alt="" width="40px" height="40px" id="imagen-alert" name="image"/>
-        </ion-item>
-        
-      </ion-list>
-
-      <ion-list [inset]="true">
-
-        <ion-item detail="true" (click)="goUser()">
-          <ion-label>
-            <label>Editar</label>
-          </ion-label>
-        </ion-item>
-        
-      </ion-list>
-
-      <ion-list [inset]="true">  
-
-        <ion-item detail="true" (click)="logOut()">
-          <ion-label color="danger">
-            <label>Cerrar Sesión</label>
-          </ion-label>
-        </ion-item>    
-      </ion-list>
-
-    </div>
-
-</ion-content>-->
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Editar profile</ion-title>
@@ -140,12 +58,12 @@
       <ion-input label="Email" labelPlacement="stacked" name="email" [value]="usuario.email">
       </ion-input>
     </ion-item>
-    <ion-item>
+    <!--<ion-item>
       <ion-label (click)="goReset()">
         <label>Contraseña</label>
         <p>*************</p>
       </ion-label>
-    </ion-item>
+    </ion-item>-->
     <ion-item>
       <ion-input label="Nacimiento" type="date" labelPlacement="stacked" name="birthday" [value]="usuario.birthday"></ion-input>
     </ion-item>
