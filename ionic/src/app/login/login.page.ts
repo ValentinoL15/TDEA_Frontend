@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup , FormBuilder , Validators, AsyncValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup , FormBuilder , Validators, AsyncValidatorFn, AbstractControl, ValidationErrors , ValidatorFn} from '@angular/forms';
 import { Login } from '../interfaces/Login';
 import { Sesion } from '../interfaces/Sesion';
 import { NotifyService } from '../services/notify.service';
@@ -40,12 +40,16 @@ export class LoginPage implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       gender:['', [Validators.required]],
       email: ['', [Validators.required], [this.validateEmailAsync] ],
+      confirmEmail: ['', Validators.required],
       password: ['', [Validators.required]],
       confirmPassword: ['', Validators.required],
       birthday: ['', Validators.required],
       phone: ['+54', [Validators.required]],
       isPlayer: ['', [Validators.required]]
-    })
+    },{
+      validators: this.passwordsMatchValidator
+    }
+  )
   }
 
 countries = [
@@ -242,6 +246,16 @@ countries = [
   { name: 'Zimbabue', code: 'ZW', dial: '+263' }
 ];
 
+passwordsMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const email = control.get('email')?.value;
+  const confirmEmail = control.get('confirmEmail')?.value;
+
+  // Solo comparamos si ambos tienen valor
+  if (!email || !confirmEmail) return null;
+
+  return email === confirmEmail ? null : { mismatch: true };
+};
+
 
   validateEmailAsync: AsyncValidatorFn = (control: AbstractControl): Promise<ValidationErrors | null> => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -340,6 +354,19 @@ onPhoneInputChange(event: any) {
         this.notifyService.error('Error al validar el número de teléfono');
         return; // Salir de la función si ocurre un error
       }*/
+
+    // ERROR: Emails no coinciden (Validador de Grupo)
+    if (this.register.hasError('mismatch')) {
+      this.notifyService.error('Los correos electrónicos no coinciden.');
+      return;
+    }
+
+    // ERROR: Email con formato incorrecto (Validador Asíncrono)
+    if (this.register.get('email')?.hasError('invalidEmail')) {
+      this.notifyService.error('El formato del correo electrónico es inválido.');
+      return;
+    }
+
   
       const formData = new FormData();
       formData.append('firstName', this.register.get('firstName')?.value)

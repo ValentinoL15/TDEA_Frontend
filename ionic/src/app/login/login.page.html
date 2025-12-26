@@ -24,7 +24,10 @@
     </div>
   </div>
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+
+</ion-content>
+
+<ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
         <ion-toolbar class="toolbar">
@@ -58,32 +61,22 @@
             </ion-item>
           </ion-list>
 
-        <ion-item>
-  <ion-select
-    label="País"
-    labelPlacement="floating"
-    interface="popover"
-    [value]="selectedCountryCode"
-    (ionChange)="onCountryChange($event.detail.value)">
+          <ion-item>
+            <ion-select label="País" labelPlacement="floating" interface="popover" [value]="selectedCountryCode"
+              (ionChange)="onCountryChange($event.detail.value)">
 
-    <ion-select-option
-      *ngFor="let c of countries"
-      [value]="c.code">
-      {{ c.name }} ({{ c.dial }})
-    </ion-select-option>
+              <ion-select-option *ngFor="let c of countries" [value]="c.code">
+                {{ c.name }} ({{ c.dial }})
+              </ion-select-option>
 
-  </ion-select>
-</ion-item>
+            </ion-select>
+          </ion-item>
 
-<ion-item>
-  <ion-input
-    type="tel"
-    label="Teléfono"
-    labelPlacement="floating"
-    formControlName="phone"
-    (ionInput)="onPhoneInputChange($event)">
-  </ion-input>
-</ion-item>
+          <ion-item>
+            <ion-input type="tel" label="Teléfono" labelPlacement="floating" formControlName="phone"
+              (ionInput)="onPhoneInputChange($event)">
+            </ion-input>
+          </ion-item>
 
 
           <ion-item class="item">
@@ -107,6 +100,16 @@
             <ion-input formControlName="email" label="Email" labelPlacement="floating"
               placeholder="Example123@hotmail.com"></ion-input>
           </ion-item>
+
+          <ion-item class="item">
+            <ion-input formControlName="confirmEmail" label="Confirmar Email" labelPlacement="floating"
+              placeholder="Example123@hotmail.com">
+            </ion-input>
+          </ion-item>
+
+          <ion-note slot="error" *ngIf="register.errors?.['mismatch'] && register.get('confirmEmail')?.touched">
+            Los correos electrónicos no coinciden.
+          </ion-note>
 
           <!--<ion-item class="item">
           <ion-select label="¿Sos jugador o creador de Equipo?" interface="popover" labelPlacement="floating" formControlName="isPlayer">
@@ -144,5 +147,3 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
-</ion-content>
