@@ -308,7 +308,8 @@ getTournamentList() {
   this.userService.getTournamentsList().subscribe({
     next: (res: any) => {
       this.list.tournamentRegistration = res.tournament;
-      console.log(this.list.tournamentRegistration);
+      this.list = res.list
+      console.log("Mi lista", this.list)
 
       // Validamos que haya un torneo y que tenga ID
       const tournamentId = this.list.tournamentRegistration?._id;

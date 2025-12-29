@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
+  <ng-container *ngIf="list && (list.tournamentRegistration !== null || list.ownerTeam === null); else noName">
+
+  
   <ng-container *ngIf="list.tournamentRegistration !== null">
 
     <div style="display: flex; justify-content: center; width: 100%; padding-bottom: 25px; font-weight: bold; text-decoration: underline;">
@@ -222,5 +225,11 @@
     </div>
   </div>
   </ng-container>
+    </ng-container>
 
+    <ng-template #noName>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100%; padding: 20px; text-align: center; font-weight: bold;">
+      Elige una lista y únete a un torneo para ver la información.
+    </div>
+  </ng-template>
 </ion-content>
