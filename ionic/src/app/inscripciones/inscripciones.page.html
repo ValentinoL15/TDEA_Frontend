@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <ng-container *ngIf="list && (list.tournamentRegistration !== null || list.ownerTeam === null); else noName">
+  <ng-container *ngIf="list && list.listActive && (list.tournamentRegistration !== null || list.ownerTeam !== null); else noName">
 
   
   <ng-container *ngIf="list.tournamentRegistration !== null">
