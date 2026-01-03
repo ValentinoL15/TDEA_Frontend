@@ -241,6 +241,7 @@ export class CreateListPage implements OnInit {
         this.notifyService.success(res.message)
         this.getMyListActive()
         this.getMyLists()
+        window.location.href = "/user/create-list"
     },
       error: (err) => {
         this.notifyService.error(err.error.message)
