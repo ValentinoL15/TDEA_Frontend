@@ -26,7 +26,7 @@
           <img class="imagen" [src]="player.picturePlayer">
         </div>
         <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'" (click)="goPlayer(player._id)">
-          <img class="imagen" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp">
+          <img class="imagen" [src]="player.picturePlayer">
           <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
           <p style="color: red; font-weight: bold;" class="overlay-text">Imagen no aprobada</p>
         </div>

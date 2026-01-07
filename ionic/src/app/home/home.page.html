@@ -61,7 +61,8 @@
             </div>
             <div class="noAccept" *ngIf="team.pictureAccept === false && team.status === 'rejected'">
               <div style="width: 150px; height: 150px; position: relative;">
-                <ion-icon class="icon" name="shield-outline"></ion-icon>
+                <img [src]="team.teamImage" width="150px" height="150px"/>
+                <!--<ion-icon class="icon" name="shield-outline"></ion-icon>-->
                 <ion-icon class="icon-timer" name="close-outline" size="large" color="danger"></ion-icon>
                 <p style="display: flex; justify-content: center; width: 100%; color: red; font-size: 15px;">Imagen no aprobada</p>
               </div>
