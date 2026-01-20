@@ -15,41 +15,39 @@
 
   <div *ngIf="players">
     <div *ngFor="let player of playersList" class="contenedor" (click)="goPlayer(player._id)">
-
-      <!--<div class="image" (click)="goPlayer(player._id)">-->
-        <img class="imagen" *ngIf="player.pictureAccept === true " [src]="player.picturePlayer" alt="" (click)="goPlayer(player._id)"/>
-        <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" (click)="goPlayer(player._id)">
-          <img class="imagen" [src]="player.picturePlayer">
-          <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
-        </div>
-        <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending' && player.picturePlayer === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'" (click)="goPlayer(player._id)">
-          <img class="imagen" [src]="player.picturePlayer">
-        </div>
-        <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'" (click)="goPlayer(player._id)">
-          <img class="imagen" [src]="player.picturePlayer">
-          <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
-          <p style="color: red; font-weight: bold;" class="overlay-text">Imagen no aprobada</p>
-        </div>
-      <!--</div>-->
   
-      <div class="element-1">
-        <ion-item>
-          <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
-        </ion-item>
-      </div>
-  
-      <div class="element-2">
-        <ion-item>
-          <ion-input readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento| date: 'dd-MM-yy'"></ion-input>
-        </ion-item>
-      </div>
+  <img class="imagen" *ngIf="player.pictureAccept === true" [src]="player.picturePlayer" alt="" />
 
-      <div class="element-3">
-        <ion-item>
-          <ion-input readonly="true" labelPlacement="stacked" label="DNI" [value]="player.dni"></ion-input>
-        </ion-item>
-      </div>
-    </div>
+  <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
+    <img class="imagen" [src]="player.picturePlayer">
+    <ion-icon *ngIf="player.picturePlayer !== '...profile-empty_fizwea.webp'" 
+              class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+  </div>
+
+  <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
+    <img class="imagen" [src]="player.picturePlayer">
+    <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
+    <p class="overlay-text">No aprobada</p>
+  </div>
+
+  <div class="element-1">
+    <ion-item lines="none">
+      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="element-2">
+    <ion-item lines="none">
+      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.nacimiento"></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="element-3">
+    <ion-item lines="none">
+      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.dni"></ion-input>
+    </ion-item>
+  </div>
+  </div>
   
     <div class="container-button">
       <div class="button" *ngIf="list?.listActive">
@@ -120,45 +118,45 @@
 
   <div *ngIf="myPlayer" class="main-contain">
     <div class="contenedor2" (click)="setOpen2(true)">
-      <ng-container *ngIf="user.status === 'approved' && user.pictureAccept === true">
-        <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-      </ng-container>
-      <ng-container style="position: relative;" *ngIf="user.status === 'pending' && user.pictureAccept === false && user.profileImg !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
-        <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-        <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
-      </ng-container>
-      <ng-container style="position: relative;" *ngIf="user.status === 'pending' && user.pictureAccept === false && user.profileImg === 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
-        <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-      </ng-container>
-      <ng-container style="position: relative;" *ngIf="user.status === 'rejected'">
-        <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-        <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
-      </ng-container>
-      
-      <div class="element-1" >
-        <ion-item>
-          <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="myPlayer.nombre + ' ' + myPlayer.apellido"></ion-input>
-        </ion-item>
-      </div>
   
-      <div class="element-2">
-        <ion-item>
-          <ion-input readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="myPlayer.nacimiento | date: 'dd-MM-yy'"></ion-input>
-        </ion-item>
-      </div>
+  <ng-container *ngIf="user.status === 'approved' && user.pictureAccept === true">
+    <img class="image2 imagen" [src]="myPlayer.playerImage"/>
+  </ng-container>
 
-      <div class="element-3">
-        <ion-item>
-          <ion-input readonly="true" labelPlacement="stacked" label="Posicion" [value]="myPlayer.position"></ion-input>
-        </ion-item>
-      </div>
+  <ng-container *ngIf="user.status === 'pending' && user.pictureAccept === false">
+    <img class="image2 imagen" [src]="myPlayer.playerImage"/>
+    <ion-icon *ngIf="user.profileImg !== '...profile-empty...'" class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
+  </ng-container>
 
-      <div class="element-4">
-        <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Pie habil" [value]="myPlayer.pieHabil"></ion-input>
-        </ion-item>
-      </div>
-    </div>
+  <ng-container *ngIf="user.status === 'rejected'">
+    <img class="image2 imagen" [src]="myPlayer.playerImage"/>
+    <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
+  </ng-container>
+  
+  <div class="element-1">
+    <ion-item lines="full">
+      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="myPlayer.nombre + ' ' + myPlayer.apellido"></ion-input>
+    </ion-item>
+  </div>
+  
+  <div class="element-2">
+    <ion-item lines="full">
+      <ion-input readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="myPlayer.nacimiento | date: 'dd-MM-yy'"></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="element-3">
+    <ion-item lines="full">
+      <ion-input readonly="true" labelPlacement="stacked" label="Posicion" [value]="myPlayer.position"></ion-input>
+    </ion-item>
+  </div>
+
+  <!--<div class="element-4">
+    <ion-item lines="full">
+      <ion-input readonly="true" labelPlacement="stacked" label="Pie habil" [value]="myPlayer.pieHabil"></ion-input>
+    </ion-item>
+  </div>-->
+</div>
     <hr>
   </div>
 

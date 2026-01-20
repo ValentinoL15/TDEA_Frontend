@@ -247,27 +247,14 @@ getPhotoActualizada(){
     return this.http.get(`${this.API_URL}/obtener-lista-activa`)
   }
 
-// En tu service
-private myListActiveSource = new BehaviorSubject<any>(null); // Guarda el estado actual
-myListActive$ = this.myListActiveSource.asObservable(); // Lo exponemos como Observable
-
-cambiarListActive(listId: any) {
-  return this.http.put(`${this.API_URL}/cambiar-lista-activa`, { listActive: listId }).pipe(
-    tap((res: any) => {
-      // Si el backend te devuelve la lista actualizada, la emitimos aquí directamente
-      if (res.listActive) {
-        this.myListActiveSource.next(res.listActive);
-      }
-    })
-  );
-}
-
-// Método para actualizar manualmente desde el componente si es necesario
-updateListState(list: any) {
-  this.myListActiveSource.next(list);
-}
-
 private myListUpdated = new Subject<void>();
+
+  cambiarListActive(listId : any){
+    return this.http.put(`${this.API_URL}/cambiar-lista-activa`, { listActive: listId }).pipe(
+      tap(() => this.myListUpdated.next())
+    )
+  }
+
   getMyListUpdatedListener() {
     return this.myListUpdated.asObservable();
   }

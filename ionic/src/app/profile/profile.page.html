@@ -35,7 +35,7 @@
       <div class="image" *ngIf="usuario.pictureAccept === false && usuario.status === 'rejected'">
         <div style="position: relative;">
           <img [src]="usuario.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
-          <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <!--<ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>-->
           <ion-icon class="icon-delete" color="danger" size="large" name="close-outline"></ion-icon>
           <p style="display: flex; justify-content: center; width: 100%; color: red; font-size: 15px;">Imagen no aprobada</p>
         <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />

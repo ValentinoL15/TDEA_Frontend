@@ -24,7 +24,7 @@
         </div>
         <img *ngIf="list.pictureAccept === true && list.status === 'approved'" class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
         <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'rejected'">
-          <img class="img-alumno" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="" width="200px" height="200px" name="image"/>
+          <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
           <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
         </div>
         <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>

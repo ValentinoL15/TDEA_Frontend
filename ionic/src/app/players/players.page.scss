@@ -27,34 +27,130 @@
   }
 
   .contenedor {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr); /* Cada fila tiene el mismo tamaño */
-    margin: 10px 0;
-    height: 100%;
-  }
+  display: grid;
+  width: 100%;
+  // Definimos la columna 1 fija (p.ej 120px) y la columna 2 flexible
+  grid-template-columns: 120px 1fr; 
+  grid-template-rows: repeat(3, auto); // Cambiamos 1fr por auto para que se ajuste al texto
+  margin: 10px 0;
+  border: 1px solid #ddd; // Opcional: para ver el borde de la tarjeta
+  overflow: hidden;
+  align-items: center; 
+}
 
-  .contenedor2 {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr); /* Cada fila tiene el mismo tamaño */
-    padding: 5px;
-    height: 100%;
-    background-color: orange;
-    position: relative;
-  }
+// Clase unificada para las imágenes y sus estados
+.imagen, .noAccept img { 
+  width: 100%;       // Ocupa todo el ancho de los 120px definidos arriba
+  height: 180px;     // Altura fija para que todas las tarjetas sean iguales
+  object-fit: cover; // ESTO ES CLAVE: Recorta la imagen para que no se estire
+  display: block;
+}
 
-  .contenedor3 {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr); /* Cada fila tiene el mismo tamaño */
-    margin: 10px 0;
-    height: 100%;
-  }
+.noAccept { 
+  position: relative;
+  grid-column: 1;
+  grid-row: 1 / span 3; // Ocupa las 3 filas de la info
+  width: 100%;
+  height: 100%;
+}
 
+// Ajuste para la imagen directa (la que está aceptada)
+img.imagen:not(.noAccept img) {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+}
+
+// Ajuste de los elementos de texto
+.element-1, .element-2, .element-3 {
+  grid-column: 2;
+  padding-left: 10px; // Espacio entre imagen y texto
+}
+
+ion-item {
+  --padding-start: 5px;
+  --inner-padding-end: 5px;
+  height: auto; // Deja que el contenido respire
+}
+
+.contenedor2 {
+  display: grid;
+  width: 100%;
+  // Definimos la columna de la imagen (ej. 120px) y el resto para texto
+  grid-template-columns: 120px 1fr; 
+  // Forzamos a que las 4 filas tengan el mismo tamaño o se ajusten al contenido
+  grid-template-rows: repeat(4, minmax(min-content, 1fr)); 
+  background-color: orange;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  align-items: stretch; /* Estira los hijos para llenar las filas */
+}
+
+.image2.imagen {
+  grid-column: 1;
+  grid-row: 1 / span 4; /* Ocupa las 4 filas */
+  
+  width: 100%;
+  height: 100%;        /* Obligatorio para que crezca */
+  object-fit: cover;   /* Corta la foto para que encaje sin deformarse */
+  align-self: stretch; /* Fuerza el estiramiento vertical */
+  display: block;
+}
+
+/* Estilo para los elementos de texto para que no haya espacios extra */
+.element-1, .element-2, .element-3, .element-4 {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+ion-item {
+  --background: transparent;
+  --min-height: 50px; /* Ajusta este valor según prefieras el grosor de la fila */
+  margin: 0;
+}
+
+ .contenedor3 {
+  display: grid;
+  width: 100%;
+  /* Definimos columna fija para la foto (puedes bajar a 100px si la quieres más finita) */
+  grid-template-columns: 120px 1fr; 
+  /* Creamos 4 filas que se reparten el espacio equitativamente */
+  grid-template-rows: repeat(4, 1fr); 
+  margin: 10px 0;
+  background-color: #fff; /* O el color que prefieras */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+/* La imagen es el secreto: debe ocupar 4 filas */
+.contenedor3 .image2.imagen {
+  grid-column: 1;
+  grid-row: 1 / span 4; /* Fuerza a ocupar las 4 filas de los inputs */
+  width: 100%;
+  height: 100%;        /* Obligatorio para rellenar el alto total */
+  object-fit: cover;   /* Corta la foto para que no se estire feo */
+  display: block;
+}
+
+/* Estilo para los contenedores de los inputs */
+.element-1, .element-2, .element-3, .element-4 {
+  grid-column: 2; /* Todos van a la derecha de la foto */
+  width: 100%;
+}
+
+/* Ajuste de los items de Ionic para que no ocupen espacio de más */
+.contenedor3 ion-item {
+  --min-height: 45px; /* Altura controlada para cada fila */
+  --padding-start: 10px;
+  height: 100%;
+}
+
+.contenedor3 ion-input {
+  font-size: 0.9rem; /* Un poco más pequeño para que entre bien todo */
+}
   ion-item {
     --min-height: 100%; /* Asegura que el ion-item ocupe toda la altura */
     height: 100%; /* Fija la altura de cada ion-item */
