@@ -43,12 +43,14 @@ goTournament(id : any){
 getTournaments(){
   this.tournamentServ.getMyTournaments().subscribe({
     next: (res : any) => {
+      console.log("HOAKSDLAS")
       this.torneos = res.tournaments
       console.log("mis torneos:", this.torneos)
-      //this.torneos = res.tournaments.sort((a:any, b:any) => a.order - b.order);
+      this.torneos = res.tournaments.sort((a:any, b:any) => a.order - b.order);
     },
     error: (err: any) => {
       this.notifyService.error(err.error.message)
+      console.log(err)
     }
   })
 }

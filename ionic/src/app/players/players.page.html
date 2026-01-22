@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-segment [value]="selectedSegment" (ionChange)="onSegmentChange($event)">
-      <ion-segment-button value="players" *ngIf="list?.listActive === true" >
+      <ion-segment-button value="players" *ngIf="list?.listActive === true">
         <ion-label>Jugadores</ion-label>
       </ion-segment-button>
       <ion-segment-button value="market">
@@ -15,40 +15,41 @@
 
   <div *ngIf="players">
     <div *ngFor="let player of playersList" class="contenedor" (click)="goPlayer(player._id)">
-  
-  <img class="imagen" *ngIf="player.pictureAccept === true" [src]="player.picturePlayer" alt="" />
 
-  <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
-    <img class="imagen" [src]="player.picturePlayer">
-    <ion-icon *ngIf="player.picturePlayer !== '...profile-empty_fizwea.webp'" 
-              class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
-  </div>
+      <img class="imagen" *ngIf="player.pictureAccept === true" [src]="player.picturePlayer" alt="" />
 
-  <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
-    <img class="imagen" [src]="player.picturePlayer">
-    <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
-    <p class="overlay-text">No aprobada</p>
-  </div>
+      <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'pending'">
+        <img class="imagen" [src]="player.picturePlayer">
+        <ion-icon *ngIf="player.picturePlayer !== '...profile-empty_fizwea.webp'" class="icon-timer" color="warning"
+          size="large" name="hourglass-outline"></ion-icon>
+      </div>
 
-  <div class="element-1">
-    <ion-item lines="none">
-      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.firstName + ' ' + player.lastName"></ion-input>
-    </ion-item>
-  </div>
+      <div class="noAccept" *ngIf="player.pictureAccept === false && player.status === 'rejected'">
+        <img class="imagen" [src]="player.picturePlayer">
+        <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
+        <p class="overlay-text">No aprobada</p>
+      </div>
 
-  <div class="element-2">
-    <ion-item lines="none">
-      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.nacimiento"></ion-input>
-    </ion-item>
-  </div>
+      <div class="element-1">
+        <ion-item lines="none">
+          <ion-input readonly="true" labelPlacement="stacked" label="Nombre"
+            [value]="player.firstName + ' ' + player.lastName"></ion-input>
+        </ion-item>
+      </div>
 
-  <div class="element-3">
-    <ion-item lines="none">
-      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.dni"></ion-input>
-    </ion-item>
-  </div>
-  </div>
-  
+      <div class="element-2">
+        <ion-item lines="none">
+          <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.nacimiento"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="element-3">
+        <ion-item lines="none">
+          <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.dni"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+
     <div class="container-button">
       <div class="button" *ngIf="list?.listActive">
         <ion-button shape="round" (click)="setOpen(true)">
@@ -65,7 +66,7 @@
   <div class="players" *ngIf="!players">
     <p>Agrega jugadores a tu equipo</p>
   </div>
-  
+
 
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
@@ -84,30 +85,35 @@
         <form [formGroup]="form">
           <ion-list [inset]="true">
             <ion-item>
-              <ion-input label="Nombre" labelPlacement="stacked" type="text" placeholder="Ingrese un nombre" formControlName="firstName"></ion-input>
+              <ion-input label="Nombre" labelPlacement="stacked" type="text" placeholder="Ingrese un nombre"
+                formControlName="firstName"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="Apellido" labelPlacement="stacked" type="text" placeholder="Ingrese un apellido" formControlName="lastName"></ion-input>
+              <ion-input label="Apellido" labelPlacement="stacked" type="text" placeholder="Ingrese un apellido"
+                formControlName="lastName"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="Fecha de Nacimiento" labelPlacement="stacked" type="date" placeholder="Ingrese una edad" formControlName="nacimiento"></ion-input>
+              <ion-input label="Fecha de Nacimiento" labelPlacement="stacked" type="date" placeholder="Ingrese una edad"
+                formControlName="nacimiento"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="DNI" labelPlacement="stacked" type="number" placeholder="Ingrese DNI" formControlName="dni"></ion-input>
+              <ion-input label="DNI" labelPlacement="stacked" type="number" placeholder="Ingrese DNI"
+                formControlName="dni"></ion-input>
             </ion-item>
 
             <ion-item>
               <div class="foto">
                 <label>Foto del Jugador</label>
               </div>
-              <ion-input id="fileInput" style="padding: 10px 0;" type="file" (change)="onFileSelected($event)"></ion-input>
+              <ion-input id="fileInput" style="padding: 10px 0;" type="file"
+                (change)="onFileSelected($event)"></ion-input>
             </ion-item>
           </ion-list>
         </form>
-      
+
       </ion-content>
     </ng-template>
   </ion-modal>
@@ -118,45 +124,36 @@
 
   <div *ngIf="myPlayer" class="main-contain">
     <div class="contenedor2" (click)="setOpen2(true)">
-  
-  <ng-container *ngIf="user.status === 'approved' && user.pictureAccept === true">
-    <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-  </ng-container>
 
-  <ng-container *ngIf="user.status === 'pending' && user.pictureAccept === false">
-    <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-    <ion-icon *ngIf="user.profileImg !== '...profile-empty...'" class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
-  </ng-container>
+      <div class="image-wrapper">
+        <img class="image2" [src]="myPlayer.playerImage" />
 
-  <ng-container *ngIf="user.status === 'rejected'">
-    <img class="image2 imagen" [src]="myPlayer.playerImage"/>
-    <ion-icon class="icon-timer" color="danger" size="large" name="close-outline"></ion-icon>
-  </ng-container>
-  
-  <div class="element-1">
-    <ion-item lines="full">
-      <ion-input readonly="true" labelPlacement="stacked" label="Nombre" [value]="myPlayer.nombre + ' ' + myPlayer.apellido"></ion-input>
-    </ion-item>
-  </div>
-  
-  <div class="element-2">
-    <ion-item lines="full">
-      <ion-input readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="myPlayer.nacimiento | date: 'dd-MM-yy'"></ion-input>
-    </ion-item>
-  </div>
+        <ion-icon *ngIf="user.status === 'pending'" class="icon-status" color="warning" size="large"
+          name="hourglass-outline"></ion-icon>
+        <ion-icon *ngIf="user.status === 'rejected'" class="icon-status" color="danger" size="large"
+          name="close-outline"></ion-icon>
+      </div>
 
-  <div class="element-3">
-    <ion-item lines="full">
-      <ion-input readonly="true" labelPlacement="stacked" label="Posicion" [value]="myPlayer.position"></ion-input>
-    </ion-item>
-  </div>
+      <ion-item lines="full">
+        <ion-input readonly="true" labelPlacement="stacked" label="Nombre"
+          [value]="myPlayer.nombre + ' ' + myPlayer.apellido"></ion-input>
+      </ion-item>
 
-  <!--<div class="element-4">
-    <ion-item lines="full">
-      <ion-input readonly="true" labelPlacement="stacked" label="Pie habil" [value]="myPlayer.pieHabil"></ion-input>
-    </ion-item>
-  </div>-->
-</div>
+      <ion-item lines="full">
+        <ion-input readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento"
+          [value]="myPlayer.nacimiento | date: 'dd-MM-yy'"></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-input readonly="true" labelPlacement="stacked" label="Posicion" [value]="myPlayer.position"></ion-input>
+      </ion-item>
+
+      <div class="element-4">
+        <ion-item lines="full">
+          <ion-input readonly="true" labelPlacement="stacked" label="Pie habil" [value]="myPlayer.pieHabil"></ion-input>
+        </ion-item>
+      </div>
+    </div>
     <hr>
   </div>
 
@@ -168,84 +165,71 @@
             <ion-select-option *ngFor="let zona of zonas" [value]="zona">{{ zona }}</ion-select-option>
           </ion-select>
         </ion-item>
-      
+
         <ion-item>
-          
-          <ion-select label="Posición" labelPlacement="floating" interface="popover" [(ngModel)]="filtros.position" name="position">
+
+          <ion-select label="Posición" labelPlacement="floating" interface="popover" [(ngModel)]="filtros.position"
+            name="position">
             <ion-select-option *ngFor="let posicion of posiciones" [value]="posicion">{{ posicion }}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-input 
-            label="Edad Desde"
-            labelPlacement="floating"
-            [(ngModel)]="filtros.edadDesde" 
-            name="edadDesde" 
-            [min]="15" 
-            [max]="40" 
-            type="number">
+          <ion-input label="Edad Desde" labelPlacement="floating" [(ngModel)]="filtros.edadDesde" name="edadDesde"
+            [min]="15" [max]="40" type="number">
           </ion-input>
         </ion-item>
         <ion-item>
-          <ion-input 
-            label="Edad Hasta"
-            labelPlacement="floating"
-            [(ngModel)]="filtros.edadHasta" 
-            name="edadHasta" 
-            [min]="15" 
-            [max]="40" 
-            type="number">
+          <ion-input label="Edad Hasta" labelPlacement="floating" [(ngModel)]="filtros.edadHasta" name="edadHasta"
+            [min]="15" [max]="40" type="number">
           </ion-input>
         </ion-item>
-        
-      <div style="width: 100%; display: flex;">
-        <ion-button style="width: 100%;" expand="block" type="submit" (click)="aplicarFiltros()">Aplicar Filtros</ion-button>
-        <ion-button style="width: 100%;" expand="block" type="submit" color="danger" (click)="desaplicarFiltros()">Resetear</ion-button>
-      </div>
+
+        <div style="width: 100%; display: flex;">
+          <ion-button style="width: 100%;" expand="block" type="submit" (click)="aplicarFiltros()">Aplicar
+            Filtros</ion-button>
+          <ion-button style="width: 100%;" expand="block" type="submit" color="danger"
+            (click)="desaplicarFiltros()">Resetear</ion-button>
+        </div>
       </form>
-      
+
     </ion-card-content>
   </ion-card>
-  
+
   <div>
     <div *ngFor="let player of playersFiltered" class="contenedor3">
-        <img class="image2 imagen" [src]="player.playerImage"/>
-      <div class="element-1">
-        <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Nombre" [value]="player.nombre + ' ' + player.apellido"></ion-input>
-        </ion-item>
-      </div>
-  
-      <div class="element-2">
-        <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento" [value]="player.nacimiento | date: 'dd-MM-yy'"></ion-input>
-        </ion-item>
-      </div>
+      <img class="image2 imagen" [src]="player.playerImage" />
 
-      <div class="element-3">
-        <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Posicion" [value]="player?.position"></ion-input>
-        </ion-item>
-      </div>
+      <ion-item>
+        <ion-input readonly="true" labelPlacement="stacked" label="Nombre"
+          [value]="player.nombre + ' ' + player.apellido"></ion-input>
+      </ion-item>
 
-      <div class="element-4">
-        <ion-item>
-          <ion-input  readonly="true" labelPlacement="stacked" label="Pie habil" [value]="player.pieHabil"></ion-input>
-        </ion-item>
-      </div>
+      <ion-item>
+        <ion-input readonly="true" labelPlacement="stacked" label="Fecha de Nacimiento"
+          [value]="player.nacimiento | date: 'dd-MM-yy'"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input readonly="true" labelPlacement="stacked" label="Posicion" [value]="player?.position"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input readonly="true" labelPlacement="stacked" label="Pie habil" [value]="player.pieHabil"></ion-input>
+      </ion-item>
+
     </div>
   </div>
 
   <div class="container-button" *ngIf="user.completedFormMarket === false">
-    <div class="button" >
+    <div class="button">
       <ion-button shape="round" id="open-modal-passMarket">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </div>
   </div>
 
-  <ion-modal trigger="open-modal-passMarket" >
+  <ion-modal trigger="open-modal-passMarket">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -264,59 +248,51 @@
 
           <div class="image5" *ngIf="user.pictureAccept === true && user.status === 'approved'">
             <div style="position: relative;">
-              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2"/>
-              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2" />
+              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon
+                  name="pencil-outline"></ion-icon></ion-button>
+              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end"
+                size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
             </div>
           </div>
           <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'pending'">
             <div style="position: relative;">
-              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2"/>
-              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ng-container *ngIf="user.profileImg !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2" />
+              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon
+                  name="pencil-outline"></ion-icon></ion-button>
+              <ng-container
+                *ngIf="user.profileImg !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
                 <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
-                <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end"
+                  size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               </ng-container>
-            <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
+              <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
             </div>
           </div>
           <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'rejected'">
             <div style="position: relative;">
-              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2"/>
-              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2" />
+              <ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon
+                  name="pencil-outline"></ion-icon></ion-button>
               <ion-icon class="icon-delete" color="danger" size="large" name="close-outline"></ion-icon>
-            <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
+              <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />
             </div>
           </div>
 
           <ion-item>
-            <ion-input
-              label="Nombre"
-              labelPlacement="stacked"
-              type="text"
-              [placeholder]="user.firstName"
-              readonly="true" 
-            ></ion-input>
+            <ion-input label="Nombre" labelPlacement="stacked" type="text" [placeholder]="user.firstName"
+              readonly="true"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Apellido"
-              labelPlacement="stacked"
-              type="text"
-              [placeholder]="user.lastName"
-              readonly="true"
-            ></ion-input>
+            <ion-input label="Apellido" labelPlacement="stacked" type="text" [placeholder]="user.lastName"
+              readonly="true"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Fecha de Nacimiento"
-              labelPlacement="stacked"
-              [placeholder]="user.birthday"
-              readonly="true"
-            ></ion-input>
+            <ion-input label="Fecha de Nacimiento" labelPlacement="stacked" [placeholder]="user.birthday"
+              readonly="true"></ion-input>
           </ion-item>
 
           <ion-item>
@@ -327,7 +303,7 @@
               <ion-select-option value="Delantero">Delantero</ion-select-option>
             </ion-select>
           </ion-item>
-  
+
           <ion-item>
             <ion-select label="Pie Hábil" labelPlacement="floating" formControlName="pieHabil" interface="popover">
               <ion-select-option value="Derecho">Derecho</ion-select-option>
@@ -337,36 +313,22 @@
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Peso"
-              labelPlacement="floating"
-              type="number"
-              formControlName="peso"
-              (keypress)="validateInput($event)"
-            ></ion-input>
+            <ion-input label="Peso" labelPlacement="floating" type="number" formControlName="peso"
+              (keypress)="validateInput($event)"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Altura"
-              labelPlacement="floating"
-              type="text"
-              placeholder="1.80"
-              formControlName="altura"
-              (ionInput)="validateInputAltura($event)" 
-            ></ion-input>
+            <ion-input label="Altura" labelPlacement="floating" type="text" placeholder="1.80" formControlName="altura"
+              (ionInput)="validateInputAltura($event)"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-textarea
-              label="Trayectoria Futbolísitica"
-              labelPlacement="floating"
-              placeholder="Describe tu trayectoria como futbolista..."
-              type="text"
-              formControlName="trayectoria"
-            ></ion-textarea>
+            <ion-textarea label="Trayectoria Futbolísitica" labelPlacement="floating"
+              placeholder="Describe tu trayectoria como futbolista..." type="text"
+              formControlName="trayectoria"></ion-textarea>
           </ion-item>
           <ion-item>
-            <ion-select label="Zona de preferencia para jugar" labelPlacement="floating" formControlName="zona" interface="popover">
+            <ion-select label="Zona de preferencia para jugar" labelPlacement="floating" formControlName="zona"
+              interface="popover">
               <ion-select-option value="CABA">CABA</ion-select-option>
               <ion-select-option value="GBANorte">GBA Norte</ion-select-option>
               <ion-select-option value="GBAOeste">GBA Oeste</ion-select-option>
@@ -375,15 +337,11 @@
           </ion-item>
 
           <ion-item>
-            <ion-select
-            label="Horarios"
-            labelPlacement="floating"
-            formControlName="horarios"
-            multiple="true"
-            placeholder="Selecciona horarios">
-            <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
-              {{ horario.label }}
-            </ion-select-option>
+            <ion-select label="Horarios" labelPlacement="floating" formControlName="horarios" multiple="true"
+              placeholder="Selecciona horarios">
+              <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
+                {{ horario.label }}
+              </ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -410,57 +368,49 @@
         <form [formGroup]="form3">
           <div class="image5" *ngIf="user.pictureAccept === true && user.status === 'approved'">
             <div style="position: relative;">
-              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="5n-alert" name="image"/>
-              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="5n-alert" name="image" />
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon
+                  name="pencil-outline"></ion-icon></ion-button>
+              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end"
+                size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-myPlayer" />
             </div>
           </div>
           <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'pending'">
             <div style="position: relative;">
-              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
-              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ng-container *ngIf="user.profileImg !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image" />
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon
+                  name="pencil-outline"></ion-icon></ion-button>
+              <ng-container
+                *ngIf="user.profileImg !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp'">
                 <ion-icon class="icon-timer2" color="warning" size="large" name="hourglass-outline"></ion-icon>
-                <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end"
+                  size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
               </ng-container>
-            <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-myPlayer" />
+              <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-myPlayer" />
             </div>
           </div>
           <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'rejected'">
             <div style="position: relative;">
-              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
-              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+              <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image" />
+              <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon
+                  name="pencil-outline"></ion-icon></ion-button>
               <ion-icon class="icon-delete" color="danger" size="large" name="close-outline"></ion-icon>
-            <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-myPlayer" />
+              <input type="file" (change)="onFileSelected2($event)" hidden id="file-input-myPlayer" />
             </div>
           </div>
-          
+
           <ion-item>
-            <ion-input
-              label="Nombre"
-              labelPlacement="floating"
-              type="text"
-              formControlName="nombre"
-            ></ion-input>
+            <ion-input label="Nombre" labelPlacement="floating" type="text" formControlName="nombre"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Apellido"
-              labelPlacement="floating"
-              type="text"
-              formControlName="apellido"
-            ></ion-input>
+            <ion-input label="Apellido" labelPlacement="floating" type="text" formControlName="apellido"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Nacimiento"
-              labelPlacement="floating"
-              type="date"
-              formControlName="nacimiento"
-            ></ion-input>
+            <ion-input label="Nacimiento" labelPlacement="floating" type="date"
+              formControlName="nacimiento"></ion-input>
           </ion-item>
 
           <ion-item>
@@ -480,36 +430,22 @@
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Peso"
-              labelPlacement="floating"
-              type="number"
-              formControlName="peso"
-              (keypress)="validateInput($event)"
-            ></ion-input>
+            <ion-input label="Peso" labelPlacement="floating" type="number" formControlName="peso"
+              (keypress)="validateInput($event)"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input
-              label="Altura"
-              labelPlacement="floating"
-              type="text"
-              placeholder="1.80"
-              formControlName="altura"
-              (ionInput)="validateInputAltura($event)" 
-            ></ion-input>
+            <ion-input label="Altura" labelPlacement="floating" type="text" placeholder="1.80" formControlName="altura"
+              (ionInput)="validateInputAltura($event)"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-textarea
-              label="Trayectoria Futbolísitica"
-              labelPlacement="floating"
-              placeholder="Describe tu trayectoria como futbolista..."
-              type="text"
-              formControlName="trayectoria"
-            ></ion-textarea>
+            <ion-textarea label="Trayectoria Futbolísitica" labelPlacement="floating"
+              placeholder="Describe tu trayectoria como futbolista..." type="text"
+              formControlName="trayectoria"></ion-textarea>
           </ion-item>
           <ion-item>
-            <ion-select label="Zona de preferencia para jugar" labelPlacement="floating" formControlName="zona" interface="popover">
+            <ion-select label="Zona de preferencia para jugar" labelPlacement="floating" formControlName="zona"
+              interface="popover">
               <ion-select-option value="CABA">CABA</ion-select-option>
               <ion-select-option value="GBANorte">GBA Norte</ion-select-option>
               <ion-select-option value="GBAOeste">GBA Oeste</ion-select-option>
@@ -517,15 +453,11 @@
             </ion-select>
           </ion-item>
           <ion-item>
-            <ion-select
-            label="Horarios"
-            labelPlacement="floating"
-            formControlName="horarios"
-            multiple="true"
-            placeholder="Selecciona horarios">
-            <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
-              {{ horario.label }}
-            </ion-select-option>
+            <ion-select label="Horarios" labelPlacement="floating" formControlName="horarios" multiple="true"
+              placeholder="Selecciona horarios">
+              <ion-select-option *ngFor="let horario of horarioOptions" [value]="horario.value">
+                {{ horario.label }}
+              </ion-select-option>
             </ion-select>
           </ion-item>
         </form>
@@ -533,28 +465,12 @@
     </ng-template>
   </ion-modal>
 </ion-content>
-<ion-alert
-  trigger="imagen-alert"
-  header="Editar Imagen"
-  [buttons]="alertImagen"
-  [inputs]="alertInputImage"
-  (change)="onFileSelected($event)"
-  (didDismiss)="setResults($event)"
-></ion-alert>
+<ion-alert trigger="imagen-alert" header="Editar Imagen" [buttons]="alertImagen" [inputs]="alertInputImage"
+  (change)="onFileSelected($event)" (didDismiss)="setResults($event)"></ion-alert>
 
-<ion-alert
-  trigger="imagen-alert2"
-  header="Editar Imagen Mercado"
-  [buttons]="alertImagen2"
-  [inputs]="alertInputImage2"
-  (change)="onFileSelected3($event)"
-  (didDismiss)="setResults2($event)"
-></ion-alert>
+<ion-alert trigger="imagen-alert2" header="Editar Imagen Mercado" [buttons]="alertImagen2" [inputs]="alertInputImage2"
+  (change)="onFileSelected3($event)" (didDismiss)="setResults2($event)"></ion-alert>
 
 
-<ion-alert
-  trigger="present-alert"
-  header="Alert!"
-  [buttons]="alertButtons"
-  (didDismiss)="setResult($event)"
-></ion-alert>
+<ion-alert trigger="present-alert" header="Alert!" [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"></ion-alert>

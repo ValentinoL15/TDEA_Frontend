@@ -6,7 +6,7 @@
 
 <ion-content [fullscreen]="true" color="light">
 
-  <div *ngIf="list?.listActive; else stepsTemplate">
+  <div *ngIf="list.listActive; else stepsTemplate">
     
     <ng-container *ngIf="torneos && torneos.length > 0; else noTournaments">
       

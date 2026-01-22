@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 export class TournamentService {
 
   API_URL = 'https://tdeabackend-production.up.railway.app/api/futbol'
-  //API_URL= 'http://loclhost:3000/api/futbol'
+  //API_URL= 'http://localhost:3000/api/futbol'
 
   constructor(private http : HttpClient) { }
 
@@ -314,7 +314,7 @@ deleteStadium(id : any){
   }
 
   getMyTournaments(){
-    return this.http.get(`${this.API_URL}/obtener-mis-torneos/`)
+    return this.http.get(`${this.API_URL}/obtenerTorneos`)
   }
 
   editFormatImage(id:any, form:any){
