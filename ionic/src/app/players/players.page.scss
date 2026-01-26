@@ -95,6 +95,11 @@ img.imagen:not(.noAccept img) {
   display: block;
 }
 
+.icon-delete {
+  position: absolute;
+  left: 0;
+}
+
 /* Estilo para los iconos de estado (opcional para que se vean bien) */
 .icon-status {
   position: absolute;
