@@ -21,7 +21,7 @@
           <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
         </div>
       </div>
-      <div class="image" *ngIf="usuario.pictureAccept === false && usuario.status === 'pending'">
+      <div class="image" *ngIf="usuario.pictureAccept === false && usuario.status === 'pending'" >
         <div style="position: relative;">
           <img [src]="usuario.profileImg" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
           <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
@@ -29,6 +29,13 @@
             <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
             <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto()" slot="end" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
           </ng-container>
+        <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
+        </div>
+      </div>
+       <div class="image" *ngIf="usuario.pictureAccept === false && usuario.status === 'without'" >
+        <div style="position: relative;">
+          <img src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="" width="200px" height="200px" id="imagen-alert" name="image"/>
+          <ion-button class="edit-button" (click)="onSelectImage()" slot="end" size="small"><ion-icon name="pencil-outline"></ion-icon></ion-button>
         <input type="file" (change)="onFileSelected($event)" hidden id="file-inputs" />
         </div>
       </div>

@@ -256,6 +256,16 @@
               <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />-->
             </div>
           </div>
+          <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'without'">
+            <div style="position: relative;">
+              <img src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="" width="200px" height="200px" id="imagen-alert2" name="image2" />
+              <!--<ion-button class="edit-button" (click)="onSelectImage2()" slot="end" size="small"><ion-icon
+                  name="pencil-outline"></ion-icon></ion-button>
+              <ion-button class="edit-button-trash" color="danger" (click)="deletePhoto2()" slot="end"
+                size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <input type="file" (change)="onFileSelected3($event)" hidden id="file-input-edit" />-->
+            </div>
+          </div>
          <div class="image5" *ngIf="user.pictureAccept === false && user.status === 'pending'">
             <div style="position: relative;">
               <img [src]="user.profileImg" alt="" width="200px" height="200px" id="imagen-alert2" name="image2" />
