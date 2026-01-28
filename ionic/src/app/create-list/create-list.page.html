@@ -28,6 +28,10 @@
             <ion-icon class="icon-timer2" color="warning" size="small" name="hourglass-outline"></ion-icon>
           </div>
 
+          <div *ngIf="myListActive && myListActive.pictureAccept === false && myListActive.status === 'without'">
+            <img src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp"  width="35px" height="30px" style="border-radius: 50%;" alt="imagen" >
+          </div>
+
           <div *ngIf="myListActive && myListActive.pictureAccept === false && myListActive.teamPicture !== 'https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp' && myListActive.status === 'rejected'">
           <ion-icon name="close-outline" size="small" color="danger"></ion-icon>
           </div>
@@ -67,6 +71,11 @@
         <ng-container *ngIf="myListActive.status === 'approved'">
           <div style="width: 150px; height: 150px; position: relative;">
             <img [src]="myListActive.teamPicture" width="150px" height="150px" />
+          </div>
+        </ng-container>
+         <ng-container *ngIf="myListActive.status === 'without'">
+          <div style="width: 150px; height: 150px; position: relative;">
+            <img src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" width="150px" height="150px" />
           </div>
         </ng-container>
         <ng-container *ngIf="myListActive.status === 'rejected'">

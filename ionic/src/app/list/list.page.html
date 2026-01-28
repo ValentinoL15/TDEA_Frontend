@@ -22,6 +22,9 @@
           <img class="img-alumno" width="200px" height="200px" [src]="list.teamPicture" alt="">
           <ion-icon class="icon-timer" color="warning" size="large" name="hourglass-outline"></ion-icon>
         </div>
+         <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'without'">
+          <img class="img-alumno" width="200px" height="200px" src="https://res.cloudinary.com/dnv71e5q8/image/upload/v1715194213/profile-empty_fizwea.webp" alt="">
+        </div>
         <img *ngIf="list.pictureAccept === true && list.status === 'approved'" class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
         <div class="noAccept" *ngIf="list.pictureAccept === false && list.status === 'rejected'">
           <img class="img-alumno" [src]="list.teamPicture" alt="" width="200px" height="200px" name="image"/>
