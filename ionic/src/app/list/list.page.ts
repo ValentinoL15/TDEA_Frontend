@@ -314,7 +314,7 @@ export class ListPage implements OnInit {
   }
 
   onSelectImage() {
-    const fileInput = document.getElementById('file-inputs') as HTMLInputElement;
+    const fileInput = document.getElementById('file-input-pic') as HTMLInputElement;
     fileInput.click(); // Simula el clic en el input de archivo oculto
   }
 
